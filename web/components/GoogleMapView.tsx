@@ -7,7 +7,7 @@
 import { useEffect, useRef } from "react";
 import type { MapViewProps } from "@/components/MapView";
 import { gmwChangeTileTemplate, gmwExtentTiles, gmwTileTemplate, mangroveOpacityAt } from "@/lib/api";
-import { createFixedTileOverlay, type FixedTileOverlay } from "@/lib/fixed-tile-overlay";
+import { createFixedTileOverlay, type FixedTileOverlay, type Level } from "@/lib/fixed-tile-overlay";
 import { DEFAULT_BASEMAP, type BasemapId } from "@/lib/basemaps";
 import { GOOGLE_IMAGERY_NOTE, GOOGLE_MAP_ID, loadMaps, loadMarker, onGoogleAuthFailure, outerRings } from "@/lib/google";
 import type { Padding } from "@/lib/map-handle";
@@ -49,7 +49,7 @@ export default function GoogleMapView({
   const markers = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
   const markerLib = useRef<google.maps.MarkerLibrary | null>(null);
   const gmwOverlay = useRef<FixedTileOverlay | null>(null);
-  const gmwCoverage = useRef<{ z: number; tiles: [number, number][] } | null>(null);
+  const gmwCoverage = useRef<Level[] | null>(null);
   const gmwOpacity = useRef(1);
   const zoomListener = useRef<google.maps.MapsEventListener | null>(null);
   const router = useRouter();
@@ -202,7 +202,7 @@ export default function GoogleMapView({
     [highlightSiteIds, showSites, sites, basemap],
   );
 
-  // GMW mangrove layers (API-024 extent, API-025 gain and loss) as one fixed set of zoom-10 tiles, scaled with the
+  // GMW mangrove layers (API-024 extent, API-025 gain and loss) as fixed zoom-7 and zoom-10 tile sets, scaled with the
   // map instead of reloaded per zoom (ADR-054). Opacity follows the zoom (lib/api.ts mangroveOpacityAt).
   const mangroveKey = mangrove ? JSON.stringify({ ...mangrove, opacity: undefined }) : "";
   useEffect(() => {
@@ -210,7 +210,7 @@ export default function GoogleMapView({
     const apply = (map: google.maps.Map) => {
       const cov = gmwCoverage.current;
       if (!cov) return;
-      gmwOverlay.current ??= createFixedTileOverlay(map, cov.z, cov.tiles);
+      gmwOverlay.current ??= createFixedTileOverlay(map, cov);
       const m = latest.current.mangrove;
       gmwOverlay.current.setLayers(
         [
@@ -226,7 +226,7 @@ export default function GoogleMapView({
     else
       gmwExtentTiles()
         .then((info) => {
-          if (!alive || !info.coverage) return;
+          if (!alive || !info.coverage?.length) return;
           gmwCoverage.current = info.coverage;
           off = whenReady(apply);
         })
