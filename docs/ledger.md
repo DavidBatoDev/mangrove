@@ -28,7 +28,7 @@ owns: which decision is current · names and immutable IDs · rejected approache
 | `18-140-211-157.sslip.io` | public domain (sslip.io wildcard DNS) | `DOMAIN`, `PUBLIC_BASE_URL`; MCP URL `https://18-140-211-157.sslip.io/mcp` (no trailing slash) | Changing it means re-registering the Quick MCP connector. |
 | `bon-mangrove-evidence-baf5cf` | S3 bucket (private, SSE-S3) | `S3_BUCKET`; photos under `assets/<sha256>` (ADR-037) | Accessed only through instance role `bon-mangrove-ec2-role`. |
 | `bon-mangrove-ec2-role` / `bon-mangrove-ec2-profile` | IAM role / instance profile | EC2 → S3 (Get/Put/List, no Delete) + SSM | — |
-| `bon-mangrove-gha-deploy` | IAM role for GitHub Actions (OIDC) | `.github/workflows/deploy.yml` via repo variable `AWS_DEPLOY_ROLE_ARN` | Trusts only `repo:DavidBatoDev/mangrove:ref:refs/heads/master`; may only `ssm:SendCommand` on the demo instance (ADR-047). |
+| `bon-mangrove-gha-deploy` | IAM role for GitHub Actions (OIDC) | `.github/workflows/deploy.yml` via repo variable `AWS_DEPLOY_ROLE_ARN` | Trusts only `repo:DavidBatoDev@149306718/mangrove@1403260294:ref:refs/heads/master`; may only `ssm:SendCommand` on the demo instance (ADR-047). |
 | (pending) | Neon project id | `DATABASE_URL`, `DATABASE_URL_DIRECT` (ADR-036) | Add the project id here when it is created. |
 
 ## 2. Decision assumptions & evidence (confidence, not a product spec)

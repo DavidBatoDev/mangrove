@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     # No `environment:` here on purpose: it would change the OIDC subject the IAM role trusts
-    # (repo:DavidBatoDev/mangrove:ref:refs/heads/master).
+    # (repo:DavidBatoDev@149306718/mangrove@1403260294:ref:refs/heads/master; this repo uses GitHub's immutable subject format).
     env:
       INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
       DOMAIN: ${{ vars.DEPLOY_DOMAIN }}
