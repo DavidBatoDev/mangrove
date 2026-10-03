@@ -1,0 +1,49 @@
+# ADR index — Mangrove
+
+`docs/adr/` is the only why. The ledger cites an ADR; it does not restate it.
+
+ADR-001 to ADR-030 were decided in the team Google Doc before this repo existed (Doc ID
+`1-be18BqqkKIr4C2g5qmQkwt7s8t-RK8CNFcs2NXMoJg`, adrs tab). They are **not copied here** — copying them
+would make a second copy that drifts. ADR-031 adopts them as prior decisions and says how to read them.
+New decisions start at ADR-031. Never reuse a number.
+
+| ADR | Status in the Google Doc | Decision, in one line |
+|-----|--------------------------|------------------------|
+| ADR-001 | retained | Keep mangrove restoration accountability as the domain. |
+| ADR-002 | locked | Do not claim an 80–90% Philippine failure rate. |
+| ADR-003 | locked | Describe outcomes as heterogeneous, not generally failing. |
+| ADR-004 | locked | Do not reduce the problem to monitoring. |
+| ADR-005 | locked | Do not build another mangrove map or monitoring dashboard. |
+| ADR-006 | locked | Satellite data is evidence, not truth. |
+| ADR-007 | viable, not final | Keep the claim → evidence → contradiction → check loop. |
+| ADR-008 | mechanism, not the product | Community ground evidence is usable with a protocol. |
+| ADR-009 | locked | Do not claim survival is never monitored. |
+| ADR-010 | preference | Do not depend on government procurement as the business. |
+| ADR-011 | direction | Sell to companies, NGOs, foundations and donors. |
+| ADR-012 | candidate | An outcome-funded network is explored, not chosen. |
+| ADR-013 | locked | Communities and consumers are not assumed to be the buyer. |
+| ADR-014 | locked | Never reward a "successful" observation. |
+| ADR-015 | locked | Optimize for a real problem, a 12-hour build, and the rubric. |
+| ADR-016 | historical | Do not treat an early concept as the final product. |
+| ADR-017 | working | One core mechanism, one reinforcing layer. |
+| ADR-018 | working guardrail | Screening, not certification; abstain when evidence is thin. |
+| ADR-019 | locked framing | Accountability covers the decision, not only the finished asset. |
+| ADR-020 | superseded by ADR-021 | Pre-implementation accountability, replaced as the build direction. |
+| ADR-021 | locked | Help funders compare sites, then publish a record that can be checked. |
+| ADR-022 | locked | "Deserves money" means the environmental case, not investment readiness. |
+| ADR-023 | locked | GMW, Sentinel-2, field evidence stay separate layers. |
+| ADR-024 | locked | A public baseline plus a later comparison; the software does not punish. |
+| ADR-025 | hypothesis | Funders and campaign operators are the commercial surface. Not validated. |
+| ADR-026 | locked | Public data and AI are not the moat. |
+| ADR-027 | locked | Integrated evidence is a decision mechanism, not a dashboard. |
+| ADR-028 | locked | Provenance on every item; explicit statuses; no success score. |
+| ADR-029 | hypothesis | Start with B2B software. Willingness to pay is unvalidated. |
+| ADR-030 | locked | Three working sources beat seven integrations. |
+
+| ADR | Status here | Decision |
+|-----|-------------|----------|
+| [ADR-031](ADR-031-adopt-prior-decisions.md) | Accepted | Adopt ADR-001..030 as prior decisions; do not renumber them. |
+| [ADR-032](ADR-032-three-questions-public-promise.md) | Accepted | The build contract is three questions, a locked promise, and a public map. |
+| [ADR-033](ADR-033-work-check-uses-mapped-area.md) | Accepted | "Did the work happen?" is checked against a mapped area, not against satellite pixels. |
+| [ADR-034](ADR-034-append-only-hash-chain.md) | Accepted | Immutability is database-enforced and hash-chained. It is tamper-evident, not tamper-proof. |
+| [ADR-035](ADR-035-kiro-coauthor-only.md) | Accepted | The only assistant co-author trailer on a commit is Kiro's. |
