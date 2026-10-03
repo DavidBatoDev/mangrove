@@ -12,14 +12,19 @@ alwaysApply: false
 
 Do not write framework code from memory. If you cannot verify a call against current docs, say so and mark the line to confirm.
 
-Nothing is version-pinned yet. Pin versions when the project is scaffolded, and add a row here when a stale API is caught.
+API pins (2026-10-04, `api/requirements.txt`): Python 3.12, fastapi 0.142.2, uvicorn 0.54.0, psycopg 3.3.6, psycopg-pool 3.3.3, mcp 2.3.0, argon2-cffi 25.1.0, rfc8785 0.1.4, python-dotenv 1.2.4; tests: pytest 9.1.1, httpx 0.28.1. Add a row here when a stale API is caught.
 
 | Stale or guessed | Current for this project | Why |
 |------------------|--------------------------|-----|
-| Sentinel Hub on `services.sentinel-hub.com` | `https://sh.dataspace.copernicus.eu/statistics/v1` and the CDSE identity token URL | Copernicus Data Space is the account this product uses |
+| Copernicus Statistical API for Sentinel-2 | Earth Search STAC `https://earth-search.aws.element84.com/v1`, `sentinel-2-c1-l2a`, `scl`/`red`/`nir` COGs (ADR-042) | No CDSE account could be registered; COGs need none |
+| Sentinel Hub on `services.sentinel-hub.com` | `https://sh.dataspace.copernicus.eu/statistics/v1` and the CDSE identity token URL (only if ADR-042 is reversed) | Copernicus Data Space is the account this product uses |
 | MCP over stdio, or SSE as the default | Remote streamable HTTP at `/mcp` | Amazon Quick connects to remote servers only and prefers streamable HTTP |
 | `"required": true` inside a property | `"required": ["name"]` at the schema root | Quick rejects JSON Schema draft 3 |
 | `ST_Area(geom)` in degrees | `ST_Area(geom::geography) / 10000` | Geodesic hectares, EQ-001 |
+| `from mcp.server.fastmcp import FastMCP` | `from mcp.server.mcpserver import MCPServer` (mcp 2.x); transport options go to `streamable_http_app(...)`, not the constructor | `fastmcp` raises `ModuleNotFoundError` in mcp 2.x |
+| `Mount("/mcp", app=...)` and no `transport_security` | `Mount("/", app=mcp.streamable_http_app(stateless_http=True, transport_security=...))` with `DOMAIN` in `allowed_hosts`; lifespan runs `mcp.session_manager.run()` | `/mcp` → 307 to `/mcp/`; the default host list is localhost only, so the public host gets 421 |
+| App DB role created with the Neon console, API or `neonctl roles create` | `CREATE ROLE ... LOGIN PASSWORD` in SQL as the owner (`db/apply.py` does it) | Neon-API roles are members of `neon_superuser` and inherit UPDATE/DELETE on every table, which defeats the BR-002 grant layer (TC-008) |
+| Prepared statements over Neon's `-pooler` host | `prepare_threshold=None` on every psycopg connection | The pooler is PgBouncer in transaction mode |
 | `export const runtime = 'edge'` | Node.js runtime | Edge runtime is deprecated on Vercel; this project is not on the edge |
 
 When a computed number is involved, cite its `EQ-###` from `docs/methods.md` and carry a confidence. Do not invent a bare number.

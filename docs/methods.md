@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: methods
 owns: every computed number and derived finding the product emits — its equation (EQ-###), its input datasets (DS-###), and its computed confidence · the decision thresholds · the glass-box contract
 ---
@@ -53,7 +53,7 @@ own. The UI shows the confidence of the items behind them.
 | EQ-002 | GMW mangrove area within the site, per year y = 1985…2025 (ha) | `A_y = Σ over GMW pixels with DN=1 in band y whose centre lies inside the site polygon of a_px(φ)`, with `a_px(φ) = (R · Δ · π/180)² · cos φ / 10000`, `Δ = 0.000269469°` (GMW pixel spacing), `R = 6,371,008.8 m` (IUGG mean Earth radius), `φ` = pixel-centre latitude | DS-001, DS-003 | Medium | JAXA GMW v4.1 dataset description [R31]; internal rule for pixel-centre inclusion |
 | EQ-003 | Maximum historical mangrove extent and the "Was this mangrove before?" finding | `A_max = max_y A_y`, `y_max = argmax_y A_y`, `f_hist = A_max / EQ-001`. Finding = `mangrove_recorded` if `f_hist ≥ HISTORY_MIN_FRACTION`, else `no_mangrove_recorded` | DS-001, DS-003 | Medium | Internal rule |
 | EQ-004 | Mangrove change since peak (ha) | `ΔA = A_2025 − A_max` (≤ 0 means loss since the peak year) — context only, no status | DS-001, DS-003 | Medium | Internal rule |
-| EQ-005 | Sentinel-2 valid-pixel fraction and usability | Over the site polygon and window `[t − S2_WINDOW_DAYS, t]`, mosaic `leastCC`: `n_poly = sampleCount − noDataCount`; `n_valid = count(SCL ∈ {4, 5, 6})`; `f_valid = n_valid / n_poly`. Item is usable iff `f_valid ≥ MIN_VALID_FRACTION`; otherwise `usable = false`, reason "too few cloud-free pixels" | DS-002, DS-003 | Low | Copernicus Statistical API (`dataMask`, histograms) and S2L2A SCL codelist [R32] |
+| EQ-005 | Sentinel-2 valid-pixel fraction and usability | For each L2A scene in the window `[t − S2_WINDOW_DAYS, t]`, over the SCL pixels (20 m) whose centre lies inside the site polygon: `n_poly = count(SCL ≠ 0)` (0 = no data); `n_valid = count(SCL ∈ {4, 5, 6})`; `f_valid = n_valid / n_poly`. The scene with the highest `f_valid` is used (ADR-042). Item is usable iff `f_valid ≥ MIN_VALID_FRACTION`; otherwise `usable = false`, reason "too few cloud-free pixels" | DS-002, DS-003 | Low | Sen2Cor SCL codelist; pixel counts computed by us from the COG (ADR-042) |
 | EQ-006 | Sentinel-2 class fractions and the "What's there now?" finding | `f_veg = n(SCL=4)/n_valid`, `f_bare = n(SCL=5)/n_valid`, `f_water = n(SCL=6)/n_valid`. Finding = the class with the largest fraction → `mostly_vegetation` / `mostly_bare_soil` / `mostly_water`; an exact tie makes the item unusable ("no dominant class") | DS-002 | Low | Sen2Cor scene classification via S2L2A `SCL` band [R32] |
 | EQ-007 | Mean NDVI over non-water valid pixels — context only, no status | `mean((B08 − B04)/(B08 + B04))` over pixels with `SCL ∈ {4, 5}` and `B08 + B04 ≠ 0` | DS-002 | Low | Copernicus Statistical API NDVI example [R32] |
 | EQ-008 | Vegetated area detected by Sentinel-2 (ha) — outcome check only | `A_veg = f_veg × EQ-001` (assumes valid pixels represent the polygon) | DS-002, DS-003 | Low | Internal rule |
@@ -102,7 +102,7 @@ has inputs:
 | `DS-###` | Input | Source | Access & licence | Confidence tier |
 |----------|-------|--------|------------------|-----------------|
 | DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once and clipped to Manila Bay by `data/ingest/`. CC BY 4.0, confirmed on the Zenodo record (10.5281/zenodo.21346457) — credit the authors and "© Global Mangrove Watch" | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
-| DS-002 | Sentinel-2 L2A bands B04, B08, SCL, dataMask | Copernicus Data Space Ecosystem, Sentinel Hub Statistical API `https://sh.dataspace.copernicus.eu/statistics/v1` [R32] | OAuth client credentials; free tier 10,000 requests/month and 300/minute. Copernicus Sentinel data are free and open; credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]` | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
+| DS-002 | Sentinel-2 L2A Collection 1: SCL (20 m), B04 `red` and B08 `nir` (10 m) | Cloud-Optimized GeoTIFFs on public AWS S3, found with Element 84 Earth Search STAC `https://earth-search.aws.element84.com/v1`, collection `sentinel-2-c1-l2a` (ADR-042) [R39] | No account, no quota; HTTP range reads. Copernicus Sentinel data are free and open (Sentinel data legal notice); credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]`, distributed by Element 84 | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
 | DS-003 | Site polygons | Demo: drawn by the team on Manila Bay coastal areas `[assumption]`; later: proposer-supplied | Team-authored; public | High as the definition of the site (the polygon *is* the site) |
 | DS-004 | Partner field submissions: photo, GPS point, mapped boundary, finding | Field partners via the Submit evidence screen; demo items authored by the team and labelled demo (BR-006) | Submitted under the partner's account; public | Medium (observed, but self-reported; device GPS accuracy unknown) |
 | DS-005 | Project reports: claimed worked area, work date | Funder or implementing NGO via the Submit evidence screen | Submitted under the funder's account; public | Low (self-reported claim) |
@@ -129,8 +129,8 @@ has inputs:
 
 ## References
 
-- [`context.md`](../context.md) §7 — R31 (GMW v4.1), R32 (Statistical API).
+- [`context.md`](../context.md) §7 — R31 (GMW v4.1), R39 (Earth Search / AWS Open Data Sentinel-2); R32 (Statistical API) is no longer used (ADR-042).
 - Sentinel-2 L2A band and SCL codelist: <https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/S2L2A.html>
-- Statistical API examples: <https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Statistical/Examples.html>
+- Earth Search STAC (Sentinel-2 L2A Collection 1 COGs): <https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a>
 - GMW v4.1.12 timeseries: <https://zenodo.org/records/21346457>
 - RFC 8785 JSON Canonicalization Scheme: <https://www.rfc-editor.org/rfc/rfc8785>

@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: system-design
 owns: component boundaries and responsibilities · system context · data flow · technology choices and their trade-offs · integration failure behaviour · deployment topology · scaling strategy
 ---
@@ -23,7 +23,7 @@ flowchart LR
   subgraph boundary [Mangrove system boundary]
     mangrove[Mangrove<br/>web app, API + MCP server]
   end
-  cdse[Copernicus Data Space<br/>Sentinel-2 L2A statistics]
+  cdse[Earth Search on AWS<br/>Sentinel-2 L2A COGs]
   tiles[Basemap tiles<br/>EOxCloudless 2016]
   neon[(Neon<br/>Postgres + PostGIS)]
   s3[(Amazon S3<br/>evidence photos)]
@@ -68,7 +68,7 @@ is the same status the web page shows, because both call the engine. That is how
 ```mermaid
 flowchart LR
   GMWF[GMW v4.1.12 GeoTIFF] -->|offline ingest script| ADP[Adapters]
-  CDSE[Copernicus Statistical API] -->|polygon stats JSON| ADP
+  CDSE[Earth Search STAC + S2 L2A COGs] -->|SCL pixels over the polygon| ADP
   Partner[Partner browser] -->|photo, GPS, finding| API[Evidence API]
   Funder[Funder browser] -->|lock form, report| API
   ADP --> API
@@ -114,7 +114,7 @@ sequenceDiagram
 | **FastAPI (Python)** for the API, engine and adapters | Geospatial ecosystem (raster ingest, geometry), auto-generated OpenAPI, official MCP Python SDK | A second deployable and language | Next.js-only: Sentinel-2 and MCP are plain HTTP, and only the offline GMW ingest truly needs Python. **Open challenge: collapsing to Next.js + one offline Python script would be simpler — revisit if the team has no Python-fluent builder.** | Team product doc §8 |
 | **PostgreSQL + PostGIS on Neon** | Geodesic areas (`ST_Area` on geography), spatial joins, triggers and role grants for append-only rules, one store for everything; Neon gives the team one shared database and test branches | Outside network dependency at demo time; free plan suspends after 5 min idle (keep-warm ping); not superuser | PostGIS container in Compose (ADR-036); SQLite/SpatiaLite — weaker role grants for immutability | Team product doc §8; ADR-036 |
 | **Append-only tables + SHA-256 hash chain** for immutability | Enforced by database triggers and grants, checkable by anyone via EQ-011 | Tamper-evident, **not** tamper-proof: a database superuser could rewrite rows and hashes; residual risk stated in `security.md` | Blockchain anchoring — cost, wallet setup and explanation time with no demo payoff | Our judgment |
-| **Sentinel-2 via Copernicus Statistical API** | Polygon statistics without downloading scenes [R32]; free tier 10,000 requests and 300 requests/min [CDSE quotas] | Needs OAuth credentials and network at demo time | Downloading and processing scenes locally — hours of work | Team ADR-030 |
+| **Sentinel-2 L2A COGs via Earth Search** | No account or quota; windowed reads of only the polygon's pixels from the public bucket; same ESA L2A product and SCL classes; served from the AWS Registry of Open Data [R39] | We count pixels ourselves (more code, a raster reader); cross-region reads (us-west-2) at refresh time | Copernicus Statistical API — needs a CDSE account the team could not register (ADR-042) | ADR-042 |
 | **SCL classes (vegetation / bare soil / water) for "what's there now"** | ESA's own Sen2Cor scene classification, so no NDVI thresholds are invented | 20 m classes; cannot tell mangrove from other vegetation; tide state changes the water fraction | NDVI/NDWI thresholds — numbers we would have to make up | Our judgment ([`methods.md`](methods.md)) |
 | **GMW pre-ingested once** into evidence rows | No runtime dependency; GMW v4.1.12 is a static 41-band GeoTIFF [R31] | Snapshot ages; refresh = rerun the script | Live GMW API — none relied on | Team ADR-030 |
 | **MCP server in the API, streamable HTTP, no auth** | Quick connects only to remote servers, prefers streamable HTTP, and supports unauthenticated servers [R35]; every exposed tool reads public data | Public endpoint must be rate-limited | OAuth for MCP — Quick supports it, but DCR or manual OAuth setup costs time for no data-protection gain | Amazon Quick MCP docs [R35] |
@@ -126,7 +126,7 @@ Kiro is the build environment and spec tool (`.kiro/specs/`), not a runtime comp
 
 | Service | Protocol | Failure mode | Our behaviour on failure |
 |---------|----------|--------------|--------------------------|
-| Copernicus identity + Statistical API | HTTPS, OAuth2 client credentials; `POST https://sh.dataspace.copernicus.eu/statistics/v1` | Timeout, 401 (expired token; tokens last minutes), 429 (quota), `status != OK`, all pixels cloudy (silent-poor) | Refresh token once on 401; on any other failure create no item and keep the stored snapshot (US-005); an all-cloud result becomes a "not usable" item (EQ-005), never a status |
+| Earth Search STAC + Sentinel-2 COGs (public S3, us-west-2) | HTTPS; STAC `POST /v1/search`, then HTTP range reads of the `scl` (and `red`/`nir`) COGs | Timeout, 5xx, no scene in the window, all pixels cloudy (silent-poor) | On any failure create no item and keep the stored snapshot (US-005); no scene or an all-cloud result becomes a "not usable" item (EQ-005), never a status |
 | Amazon Quick → MCP | MCP over streamable HTTP | Quick times out after 5 minutes; rejects tool schemas that aren't JSON Schema Draft 7+; tools don't auto-resync after changes [R35] | Tools return in seconds from the database only (no live satellite calls); schemas emitted as Draft 7 with root-level `required`; after a tool change, press **Sync** in Quick |
 | Neon (Postgres) | TLS, pooled connection string | Compute suspended after 5 min idle (cold start); network or service outage | Keep-warm `SELECT 1` every 4 min from the host during the demo window; connect timeout with one retry; on outage the API returns `503` and nothing is written |
 | Amazon S3 (photos) | HTTPS via SDK, EC2 instance role | Upload or read fails; presigned URL expired | Upload fails → the evidence item is not created (photo and item are one unit); API-014 presigns per request, so a stale link is never stored |

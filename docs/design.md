@@ -9,7 +9,7 @@ owns: routes and URLs · component inventory · visual states · pin colors · a
 # Design — Mangrove
 
 > **Purpose:** how each screen in [`prd.md`](prd.md) §5.1 looks and where it lives.
-> Written from [`design-brief.md`](design-brief.md). Why there is a brand at all: ADR-042.
+> Written from [`design-brief.md`](design-brief.md). Why there is a brand at all: ADR-043.
 > Tokens, type, components and voice live in [`brand/`](../brand/BRAND.md); this file points to them and does not copy them.
 
 ## 1. Sources

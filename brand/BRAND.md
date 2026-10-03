@@ -2,7 +2,7 @@
 
 > Single source of truth for how the product looks, sounds and names things.
 > If you are an AI agent and someone said **"use our branding"**, read this whole file, then `brand/tokens.css`, then `brand/IMAGERY.md` if you are making images. Building screens? Then `brand/WEB.md`.
-> **Mangrove** is the public product name (`docs/ledger.md` §1). Product behaviour lives in `docs/prd.md`; when this file and the PRD disagree about what the product does, the PRD wins and this file gets fixed. Why the product has a brand at all: ADR-042.
+> **Mangrove** is the public product name (`docs/ledger.md` §1). Product behaviour lives in `docs/prd.md`; when this file and the PRD disagree about what the product does, the PRD wins and this file gets fixed. Why the product has a brand at all: ADR-043.
 
 ---
 

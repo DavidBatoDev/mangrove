@@ -217,6 +217,7 @@ listed in [`docs/ledger.md`](docs/ledger.md).
 - [R36] Kiro — Specs (requirements, design, and tasks) — <https://kiro.dev/docs/specs/> · Steering / AGENTS.md — <https://kiro.dev/docs/steering/>
 - [R37] Build Over Nights 2026 — Participants Handbook (Canva) — <https://www.canva.com/design/DAHWNuv17CE/2IGnmuXmkYAXtTs5hdcxOQ/edit>
 - [R38] Build Over Nights 2026 — Participants Handbook, PDF export (25 pages, distributed to participants; read 2026-10-03). Same handbook as R37 with the schedule, rubric weights and submission fields readable.
+- [R39] Element 84 Earth Search — free STAC API over the AWS Registry of Open Data; Sentinel-2 L2A Collection 1 COGs (`sentinel-2-c1-l2a`), no account (ADR-042) — <https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a> · AWS Open Data registry entry — <https://registry.opendata.aws/sentinel-2-l2a-cogs/> (read 2026-10-04)
 
 **Internal research pointers (Google Docs, team access only)**
 

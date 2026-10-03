@@ -1,9 +1,9 @@
-# ADR-042 — Adopt the Mangrove brand kit as the design system
+# ADR-043 — Adopt the Mangrove brand kit as the design system
 
 - **Date:** 2026-10-04
 - **Status:** Accepted
 - **Owners:** the team
-- **Related:** DEC-012, `docs/design-brief.md`, `docs/design.md`, BR-004, BR-006
+- **Related:** DEC-013, `docs/design-brief.md`, `docs/design.md`, BR-004, BR-006
 
 ### Context
 
