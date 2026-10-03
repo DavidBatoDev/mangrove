@@ -1,0 +1,121 @@
+"""Integration cases on the P0 read path (docs/tests.md §6): TC-001, TC-002 shape, TC-007, TC-008, TC-010 shape."""
+
+from __future__ import annotations
+
+import psycopg
+import pytest
+
+from conftest import RECORD_A, SITE
+
+
+def test_health(client):
+    r = client.get("/api/v1/health")
+    assert r.status_code == 200 and r.json() == {"status": "ok"}
+
+
+def test_sites(client):
+    """TC-001: five sites with their fixed ids, area by EQ-001, and is_demo."""
+    body = client.get("/api/v1/sites").json()
+    assert body["type"] == "FeatureCollection"
+    props = [f["properties"] for f in body["features"]]
+    assert {p["id"] for p in props} == set(SITE.values())
+    assert all(p["is_demo"] is True for p in props)
+    assert [p["name"] for p in props] == sorted(p["name"] for p in props)
+    assert all(f["geometry"]["type"] == "MultiPolygon" for f in body["features"])
+    assert client.get("/api/v1/sites", params={"region": "Nowhere"}).json()["features"] == []
+
+
+def test_dossier_provenance(client):
+    body = client.get(f"/api/v1/sites/{SITE['E']}").json()
+    assert body["site"]["is_demo"] is True
+    assert [a["status"] for a in body["answers"]] == ["missing", "missing", "conflicting"]
+    assert len(body["evidence"]) == 2
+    for e in body["evidence"]:
+        for key in ("source_name", "observed_from", "retrieved_at", "method", "limitation", "content_hash"):
+            assert e[key]
+        assert e["is_demo"] is True and len(e["content_hash"]) == 64
+        assert "raw" not in e and "submitted_by_user_id" not in e  # internal fields stay internal
+
+
+def test_compare_b_d_e(client):
+    ids = ",".join([SITE["B"], SITE["D"], SITE["E"]])
+    body = client.get("/api/v1/compare", params={"site_ids": ids}).json()
+    assert [s["site"]["id"] for s in body["sites"]] == [SITE["B"], SITE["D"], SITE["E"]]
+    ground = [s["answers"][2] for s in body["sites"]]
+    assert [g["status"] for g in ground] == ["supported", "missing", "conflicting"]
+    assert "evidence" not in body["sites"][0]
+
+
+@pytest.mark.parametrize("ids", [[SITE["A"]], list(SITE.values()) + [SITE["A"]], []])
+def test_compare_range(client, ids):
+    """TC-007: fewer than 2 or more than 5 ids is COMPARE_RANGE."""
+    r = client.get("/api/v1/compare", params={"site_ids": ",".join(ids)})
+    assert r.status_code == 422 and r.json()["error"]["code"] == "COMPARE_RANGE"
+
+
+def test_unknown_ids_use_the_error_envelope(client):
+    for path in ("/api/v1/sites/00000000-0000-4000-8000-000000000999", "/api/v1/sites/not-a-uuid",
+                 "/api/v1/records/00000000-0000-4000-8000-000000000999"):
+        r = client.get(path)
+        assert r.status_code == 404 and r.json()["error"]["code"] == "NOT_FOUND"
+    r = client.get("/api/v1/compare", params={"site_ids": f"{SITE['A']},00000000-0000-4000-8000-000000000999"})
+    assert r.status_code == 404
+
+
+def test_records_and_record(client):
+    pins = client.get("/api/v1/records").json()
+    assert [f["properties"]["id"] for f in pins["features"]] == [RECORD_A]
+    p = pins["features"][0]
+    assert p["geometry"]["type"] == "Point" and p["properties"]["pin_state"] == "awaiting"
+    assert p["properties"]["is_demo"] is True and p["properties"]["funder"] == "Demo Coastal Fund"
+
+    rec = client.get(f"/api/v1/records/{RECORD_A}").json()
+    assert [c["check"] for c in rec["checks"]] == ["work", "outcome"]
+    assert rec["checks"][0]["status"] == "missing" and rec["checks"][1]["status"] == "too_early"
+    assert rec["checks"][1]["checkable_from"] == "2029-10-01"
+    assert rec["record"]["planned_area_ha"] == {"value": 10.0, "unit": "ha", "eq_id": None, "confidence": "high"}
+    assert [a["question"] for a in rec["site_answers"]] == ["history", "current", "ground"]
+    assert rec["disclaimer"].startswith("This record is not a certification")
+    assert len(rec["record"]["snapshot"]["evidence"]) == 2
+
+    v = client.get(f"/api/v1/records/{RECORD_A}/verify").json()
+    assert v["intact"] is True and v["first_mismatch_seq"] is None
+
+
+# --- TC-008 ------------------------------------------------------------------------------------------
+
+@pytest.mark.parametrize("method", ["put", "patch", "delete"])
+@pytest.mark.parametrize("path", [f"/api/v1/records/{RECORD_A}", f"/api/v1/records/{RECORD_A}/timeline/1",
+                                  "/api/v1/evidence/00000000-0000-4000-8000-0000000e0a01", "/api/v1/records"])
+def test_http_update_or_delete_is_405(client, method, path):
+    r = client.request(method.upper(), path, json={"rationale": "changed"})
+    assert r.status_code == 405 and r.json()["error"]["code"] == "RECORD_IMMUTABLE"
+
+
+@pytest.mark.parametrize("statement", [
+    "UPDATE evidence_item SET note = 'x' WHERE site_id = '00000000-0000-4000-8000-0000000000a0'",
+    "DELETE FROM evidence_item WHERE site_id = '00000000-0000-4000-8000-0000000000a0'",
+    f"UPDATE promise_record SET rationale = 'x' WHERE id = '{RECORD_A}'",
+    f"DELETE FROM promise_record WHERE id = '{RECORD_A}'",
+    "UPDATE record_event SET seq = seq",
+    "DELETE FROM record_event",
+])
+def test_app_role_cannot_update_or_delete(rollback, statement):
+    """Second layer (grant): the app role has no UPDATE or DELETE privilege at all."""
+    with pytest.raises(psycopg.errors.InsufficientPrivilege, match="permission denied for table"):
+        rollback.execute(statement)
+
+
+@pytest.mark.parametrize("statement", [
+    "UPDATE evidence_item SET note = 'x' WHERE site_id = '00000000-0000-4000-8000-0000000000a0'",
+    f"DELETE FROM promise_record WHERE id = '{RECORD_A}'",
+    "TRUNCATE record_event",
+])
+def test_trigger_blocks_even_the_owner(owner_conn, statement):
+    """First layer (trigger): even the owner role cannot update or delete published rows."""
+    owner_conn.rollback()
+    try:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege, match="RECORD_IMMUTABLE"):
+            owner_conn.execute(statement)
+    finally:
+        owner_conn.rollback()
