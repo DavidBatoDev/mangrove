@@ -9,7 +9,7 @@ owns: the spoken pitch — narrative, canvas, timed script, question ownership, 
 # Pitch — Mangrove
 
 > **What this is.** The pitch for Build Over Nights 2026. The rubric names and the timing live in
-> [`context.md`](../context.md); this file does not restate weights, because the handbook has not published any.
+> [`context.md`](../context.md) §1 (semifinal and finals weights from the handbook PDF, R38); this file does not restate them.
 > Semifinals are 2 minutes plus 2 minutes of questions. Finals, if reached, are 5 plus 5. The script below is the 2-minute version.
 > Traces back to: [`idea.md`](../idea.md), [`prd.md`](prd.md), [`context.md`](../context.md).
 
@@ -89,6 +89,6 @@ Riskiest assumption under test: **they will publish a promise they cannot later 
 
 ## References
 
-- Rubric and format: [`context.md`](../context.md) §1. Weights are unconfirmed; do not invent them.
+- Rubric, weights and format: [`context.md`](../context.md) §1 (handbook PDF, R38).
 - Claim boundaries: [`context.md`](../context.md) §5.
 - Demo honesty: ADR-033, ADR-034.

@@ -20,7 +20,7 @@ A case is `planned` until its file exists and the command has been run.
 Risk order, cheapest layer that proves the behaviour:
 
 1. **Unit** — the evidence engine and the hash (pure functions). A wrong status or a wrong area is the failure that makes the demo a lie. Owner: whoever builds `api/engine/`.
-2. **Integration** — API + PostGIS: lock a record, reject an update, append evidence, recompute the pin. Owner: whoever builds the API.
+2. **Integration** — API + Neon PostGIS (a test branch, ADR-036): lock a record, reject an update, append evidence, recompute the pin. Owner: whoever builds the API.
 3. **Contract** — MCP `tools/list` is read-only and matches [`api.md`](api.md) API-015. Owner: whoever builds `/mcp`.
 4. **E2E** — one browser path: compare → lock → pin appears → conflict turns it red. Owner: whoever builds the web app.
 
@@ -54,7 +54,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 
 ## 4. Environments
 
-- **Where tests run:** local, against Docker Compose (`web`, `api`, PostGIS).
+- **Where tests run:** local, against the API and a dedicated Neon test branch (never the demo branch, ADR-036). S3 is stubbed in automated tests (ADR-037).
 - **Deterministic data:** `db/seed.sql` loads the demo orgs, users, 3–5 Manila Bay sites, GMW-derived evidence and one stored Sentinel-2 snapshot. Tests that write use a transaction rolled back at the end, except TC-008 which asserts the rollback itself fails.
 - **Secrets:** Copernicus credentials and the session key come from the environment. No secret in a fixture or in this doc.
 - **External services:** Copernicus and any LLM are stubbed in automated tests. One manual refresh against the live API is done before the demo and is not part of the gate.

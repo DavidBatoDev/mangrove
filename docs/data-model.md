@@ -14,7 +14,7 @@ owns: entities and their relationships · per-field types, nullability and defau
 > Traces back to: [`system-design.md`](system-design.md). Traces forward to: [`api.md`](api.md),
 > [`tests.md`](tests.md).
 
-Engine: PostgreSQL with PostGIS. Geometries are stored as `geometry(…, 4326)` (WGS 84 lon/lat); areas are
+Engine: PostgreSQL with PostGIS, hosted on Neon (ADR-036). Geometries are stored as `geometry(…, 4326)` (WGS 84 lon/lat); areas are
 always computed on `geography` casts (EQ-001). No code exists yet — once `db/init/*.sql` is written, that
 file is authoritative and this doc follows it.
 
@@ -103,7 +103,7 @@ geometry and name are copied into the record snapshot at lock time.
 | `spatial_resolution_m` | `numeric` | yes | `null` | public | Pixel size for raster sources; null otherwise |
 | `limitation` | `text` | no | — | public | What this source cannot tell you |
 | `provenance_url` | `text` | yes | `null` | public | Link to the dataset, document or request record |
-| `asset_sha256` | `char(64)` | yes | `null` | public | Uploaded photo or document, addressed in the asset store |
+| `asset_sha256` | `char(64)` | yes | `null` | public | Uploaded photo or document; S3 key `assets/<sha256>` (ADR-037) |
 | `asset_mime` | `text` | yes | `null` | public | `image/jpeg` or `image/png` |
 | `raw` | `jsonb` | yes | `null` | internal | Source response as received (e.g. Statistical API JSON), kept for audit |
 | `usable` | `boolean` | no | — | public | False excludes it from statuses (BR-001) |

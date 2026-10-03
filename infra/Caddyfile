@@ -1,15 +1,16 @@
 # Public entrypoint. DOMAIN comes from the environment (e.g. 18-140-211-157.sslip.io).
+# One origin for browser, REST and MCP (docs/system-design.md §2, §6).
 {$DOMAIN} {
 	encode gzip
 
-	# Read-only MCP server for Amazon Quick (Streamable HTTP; path kept as /mcp, no prefix stripping)
+	# MCP server mounted inside the API at /mcp (API-015). Register the URL without a trailing slash.
 	handle /mcp* {
-		reverse_proxy mcp:8000 {
+		reverse_proxy api:8000 {
 			flush_interval -1
 		}
 	}
 
-	# Evidence API (routes are served under /api by the API itself, no prefix stripping)
+	# REST API under /api/v1 (no prefix stripping)
 	handle /api/* {
 		reverse_proxy api:8000
 	}

@@ -47,3 +47,5 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-033](ADR-033-work-check-uses-mapped-area.md) | Accepted | "Did the work happen?" is checked against a mapped area, not against satellite pixels. |
 | [ADR-034](ADR-034-append-only-hash-chain.md) | Accepted | Immutability is database-enforced and hash-chained. It is tamper-evident, not tamper-proof. |
 | [ADR-035](ADR-035-kiro-coauthor-only.md) | Accepted | The only assistant co-author trailer on a commit is Kiro's. |
+| [ADR-036](ADR-036-neon-managed-postgis.md) | Accepted | The database is Neon Postgres + PostGIS, not a Compose container. Append-only triggers and grants stand. |
+| [ADR-037](ADR-037-s3-asset-store.md) | Accepted | Evidence photos live in a private S3 bucket through the instance role, not on a filesystem volume. |

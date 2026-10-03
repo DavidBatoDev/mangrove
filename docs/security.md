@@ -26,7 +26,7 @@ Security concerns that are still guesses go in [`prd.md` §7](prd.md).
 
 | Category | Examples in this product | Where it lives | Retention & deletion |
 |----------|--------------------------|----------------|----------------------|
-| public | Sites, evidence items, records, timeline, photos (metadata stripped), organization names, hashes | PostgreSQL; asset volume; API responses; MCP tool output | Kept indefinitely; append-only by design (BR-002) — never deleted through the product |
+| public | Sites, evidence items, records, timeline, photos (metadata stripped), organization names, hashes | Neon PostgreSQL; private S3 bucket (photos, ADR-037); API responses; MCP tool output | Kept indefinitely; append-only by design (BR-002) — never deleted through the product |
 | internal | User ids, roles, raw source responses (`evidence_item.raw`), idempotency keys, server logs | PostgreSQL; host logs | Database: for the life of the demo deployment. Logs: deleted with the demo host `[assumption]` |
 | PII | Demo users' email and display name; any personal data that slips into a photo or note | `app_user`; potentially evidence photos/notes | Demo accounts only, deleted with the deployment. Personal data found in published evidence cannot be deleted through the product (§6 explains the guard and the residual risk) |
 | secret | Copernicus OAuth client secret, session signing key, demo account passwords, database password | Host environment variables; password hashes in `app_user` | Never in the repo, docs, logs or client bundle; rotate after the event |
@@ -69,7 +69,7 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 | T-005 | Information disclosure | Photo EXIF (device serial, exact capture metadata) or faces/names in photos and notes | Exposes partners or community members | EXIF stripped on upload; partners attest no identifiable people or personal data; notes guidance in the form | BR-005 |
 | T-006 | Information disclosure | Error bodies leak stack traces, SQL or hosts | Recon for further attacks | Uniform error envelope ([`api.md` §4](api.md)); debug off in the demo deployment | — |
 | T-007 | Information disclosure | Copernicus secret reaches the browser bundle or logs | Quota theft, account abuse | Secret only in the API's environment; never sent to the web app; never logged | — |
-| T-008 | Tampering | Malicious upload (polyglot file, oversized image) | Code execution or storage exhaustion | Type checked by content (JPEG/PNG only), size cap, re-encode on EXIF strip, stored by hash outside any executable path | — |
+| T-008 | Tampering | Malicious upload (polyglot file, oversized image) | Code execution or storage exhaustion | Type checked by content (JPEG/PNG only), size cap, re-encode on EXIF strip, stored by hash in the private S3 bucket (ADR-037), never on an executable path | — |
 | T-009 | Tampering | SQL injection through query or form fields | Data corruption/disclosure | Parameterized queries only; typed request models | — |
 | T-010 | Denial of service | Flooding public GETs, `/mcp`, or Sentinel-2 refresh | Demo unavailable; Copernicus quota exhausted | Rate limits in [`api.md` §5](api.md); refresh is funder-only and per-site throttled | — |
 | T-011 | Elevation of privilege | Partner calling funder-only operations, or funder correcting another org's record | Unauthorized promises/corrections | Role and org checks in shared dependencies; tests TC-021, TC-022 | BR-002 |
@@ -88,10 +88,10 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 
 ## 7. Secrets, Audit & Compliance
 
-**Secrets.** Copernicus client id/secret, session signing key, database password and demo account passwords
-live in environment variables on the host (and a local, git-ignored `.env` for development). An `.env.example`
+**Secrets.** Copernicus client id/secret, session signing key (`SESSION_SECRET`), Neon connection strings
+(they carry the database password) and demo account passwords live in environment variables on the host (and a local, git-ignored `.env` for development). An `.env.example`
 with names only is committed. Never inline a secret value in any doc, commit, log line or MCP output —
-anything that lands in git history stays compromised even after a revert. Rotate all of them after the event.
+anything that lands in git history stays compromised even after a revert. Rotate all of them after the event. There are no AWS access keys: the EC2 instance role grants S3 read/write on the one bucket and no delete.
 
 **Audit & logging.** The append-only tables are the audit trail (who, what, when, hash). Request logs record
 method, path, status and user id. **Never logged:** passwords, session cookies, the Copernicus secret or
@@ -99,7 +99,7 @@ tokens, full request bodies of uploads.
 
 **Compliance obligations.**
 - Philippine Data Privacy Act of 2012 (RA 10173) applies to personal information of demo users and anything personal in evidence `[assumption — confirm with counsel before real use]`. Guard: minimal PII (demo accounts only), §6 measures.
-- Data licences: GMW attribution (CC BY 4.0, `[assumption]` for v4.1.12) and Copernicus Sentinel data attribution — both credited on the site and in [`methods.md` §4](methods.md).
+- Data licences: GMW attribution (CC BY 4.0, confirmed for v4.1.12) and Copernicus Sentinel data attribution — both credited on the site and in [`methods.md` §4](methods.md).
 - No carbon-credit, land-title or certification claims are made ([`idea.md` §10](../idea.md)).
 
 ## 8. Pre-Milestone Hard Gate

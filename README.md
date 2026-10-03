@@ -7,30 +7,32 @@ Build Over Nights 2026 (Kiro x Amazon Quick), Climate Change track.
 
 ## What we are building
 
-A decision tool for mangrove restoration funders. It gathers fragmented evidence (Global Mangrove Watch history,
-recent Sentinel-2 satellite signals, and project or field reports) around a few candidate restoration sites
-in the Philippines. Deterministic rules, not an AI score, show where that evidence supports a site, conflicts, or is missing.
-The funder chooses a site. The system then publishes a versioned, hashed public decision record of what was promised and why.
-Later evidence is attached to the same record to answer two separate questions: did the restoration work happen,
-and did the environmental recovery appear?
+A public map of mangrove funding promises in the Philippines (`idea.md`). For funders, it puts Global Mangrove Watch history, current Sentinel-2 condition and field-partner evidence side by side
+for a few candidate Manila Bay sites, answering three questions, each marked supported, conflicting or missing,
+by deterministic rules and with no score. When a funder picks a site, Mangrove publishes a locked, hash-chained
+promise as a pin on a public map. Later evidence lands on the same record and answers two separate checks:
+did the work happen, and did the mangroves come back. When sources disagree, the pin turns red.
 
 ## Repository layout
 
+Follows `docs/system-design.md` §2 and `docs/tests.md` §6.
+
 | Path | Purpose |
 |---|---|
-| `apps/web/` | Next.js web app: site comparison, evidence inspector, public decision record page |
-| `services/api/` | FastAPI evidence API and deterministic rules engine |
-| `services/mcp/` | Read-only MCP server for the Amazon Quick analyst agent (calls the API's read endpoints only) |
-| `services/ingest/` | Evidence source adapters: `gmw/`, `sentinel2/`, `field/` |
-| `data/snapshots/` | Traceable data snapshots plus `manifest.csv` (source, version, retrieval time, sha256) |
-| `infra/` | `docker-compose.yml` and `Caddyfile` (`/` → web, `/api` → api, `/mcp` → mcp) |
+| `web/` | Next.js + MapLibre web app; Playwright spec in `web/e2e/` |
+| `api/` | FastAPI evidence API: `engine/` (rules, every `EQ-###`), `ledger/` (append-only records, hash chain), `adapters/` (Sentinel-2, field uploads), `tests/`; MCP server mounted at `/mcp` |
+| `data/ingest/` | Offline Global Mangrove Watch ingest |
+| `data/snapshots/` | Traceable data snapshots plus `manifest.csv` |
+| `db/` | `init/*.sql` (schema, triggers, grants) and `seed.sql` (demo data) for Neon Postgres + PostGIS |
+| `infra/` | `docker-compose.yml` (`web`, `api`, `caddy`) and `Caddyfile` (`/mcp*`, `/api/*` → api; rest → web) |
+| `docs/`, `idea.md`, `context.md`, `AGENTS.md` | The build contract; start at `docs/index.md` |
 | `.kiro/specs/`, `.kiro/steering/` | Kiro specs and steering (created in Kiro during the build) |
 
 ## Build provenance (disclosure)
 
 - **Before the build window (Oct 3, about 7:00 PM UTC+8):** this empty folder skeleton was created by the team's pre-event setup agent.
   It contains placeholder READMEs, `.gitignore`/`.gitattributes`, `.env.example` (variable names only), and infra routing config
-  (`infra/Caddyfile`, `infra/docker-compose.yml`). No application code, database schema, UI, rules, adapters, MCP tools, or Kiro specs
+  (`infra/Caddyfile`, `infra/docker-compose.yml`). After 10:00 PM it was restructured to match the team's `docs/` layout. No application code, database schema, UI, rules, adapters, MCP tools, or Kiro specs
   existed before 10:00 PM.
 - **Outside this repository, before the window:** cloud provisioning (EC2, S3, IAM, DNS), API credential smoke tests, public-data
   provenance records, and planning notes. None of that was copied into this repo as code.
@@ -42,7 +44,7 @@ _[TEAM: complete honestly before submission.]_
 - **Kiro** (IDE + CLI): primary development environment (specs, steering, agents, MCP testing)
 - **Amazon Quick**: analyst chat agent over our read-only MCP tools
 - **AWS**: EC2 (Docker Compose + Caddy), S3, IAM
-- **Neon** (Postgres + PostGIS), **Copernicus Data Space** (Sentinel-2 Statistical and Catalog APIs), **OpenAI** (in-app explanations only; explanations never set decision flags)
+- **Neon** (Postgres + PostGIS), **Copernicus Data Space** (Sentinel-2 Statistical API); an LLM only if F-013 is built (it narrates, never sets a status)
 - **Claude Code**: pre-event setup agent (cloud provisioning, smoke tests, planning drafts, this skeleton)
 
 ## Data sources and licenses

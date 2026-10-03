@@ -1,6 +1,6 @@
 ---
 # FMD context block — schema 1.1.0
-team_size: 4                # [assumption] — earlier participant material noted a four-person cap; the current handbook does not restate it
+team_size: 4                # handbook PDF: maximum of 4 members per team [R38]
 mode: team
 build_type: hackathon
 time_budget: 12h
@@ -14,18 +14,24 @@ competition:
   name: Build Over Nights 2026 (October 3–4, 2026; AWS Office, Arthaland Century Pacific Tower, Taguig)
   theme: Climate Change track — "Smarter Ecosystems" — bring transparency to disaster mitigation; make public infrastructure and environmental tracking visible and accountable
   format: "Semifinals: 2-min pitch + 2-min Q&A, projects submitted in advance, judges review submissions for 1h30 before pitches. Grand Finals (top 3 per track): 5-min pitch + 5-min Q&A, four judges, emphasis on live demo and technical defense."
-  rubric:                   # weights NOT confirmed by the current handbook — do not treat any weight as current
-    - Functionality & Platform Compliance: unconfirmed
-    - Pain Point & Contextual Utility: unconfirmed
-    - Solution Implementation Judgement: unconfirmed
-    - Originality & Method: unconfirmed
-    - Hook & Q&A Handling: unconfirmed
+  rubric:                   # semifinal weights from the handbook PDF [R38]
+    - MVP & Technical Implementation (Functionality & Platform Compliance): 30
+    - Problem Statement & Domain Fit (Pain Point & Contextual Utility): 25
+    - Technology & Automation Judgment (Solution Implementation Judgement): 25
+    - Innovation & Approach (Originality & Method): 15
+    - Live Pitch & Defensive Engagement (Hook & Q&A Handling): 5
+  finals_rubric:            # Grand Finals weights from the handbook PDF [R38]
+    - Real-World Impact & Problem Significance: 30
+    - Practical Deployment & Feasibility: 25
+    - Scalability & Long-Term Viability: 20
+    - Innovation & Solution Design: 15
+    - Presentation & Professional Defense: 10
   hard_requirements:
     - Kiro used as the primary development environment (missing platform = immediate 5-point deduction)
     - Amazon Quick used properly (missing platform = immediate 5-point deduction)
     - Functional MVP inside the 12-hour build window, ready for a live demo
     - GitHub repository accurate — judges may verify claimed features exist in source
-    - Submission form completed in advance (field names not yet known — verify the live form)
+    - Submission form completed in advance (fields in §1.6; the handbook says they may change during the event)
 ---
 
 # Context — hackathon, research, sources
@@ -45,7 +51,7 @@ ledger and ADRs ([`docs/ledger.md`](docs/ledger.md), [`docs/adr/`](docs/adr/)) w
 
 - **Event:** Build Over Nights 2026, October 3–4, 2026, at the AWS Office (15th and 21st floors), Arthaland Century Pacific Tower, 4th Ave and 30th St, Taguig, Metro Manila [R37].
 - **Build period:** 12 hours. Kiro and Amazon Quick are required for every team [R37].
-- **Not restated by the current handbook (treat as unconfirmed until organizers confirm):** the four-person team cap, the exact 10 PM–10 AM window, and the prohibition on pre-built products. These come from earlier participant material [R37].
+- **Confirmed by the handbook PDF [R38]:** maximum of 4 members per team; development starts **10:00 PM, October 3** and ends **10:00 AM, October 4**. Semifinal pitching runs 1:10–2:10 PM on October 4; Grand Finals pitching 3:30–5:42 PM. The prohibition on pre-built products comes from earlier participant material and is not restated in the handbook [R37][R38].
 - When the handbook and the public site disagree, the current handbook and on-site organizer instructions win; the public site has shown an older event context [R29][R37].
 
 ### 1.2 Climate Change track — "Smarter Ecosystems"
@@ -56,18 +62,18 @@ ledger and ADRs ([`docs/ledger.md`](docs/ledger.md), [`docs/adr/`](docs/adr/)) w
 ### 1.3 Semifinals — format and judging
 
 - After the build, ten teams per track present. All tracks pitch simultaneously. **2 minutes to pitch, 2 minutes of Q&A.** Projects are submitted in advance; judges get **1 hour 30 minutes** to review submissions before the live pitches [R37].
-- **Criteria:** Functionality & Platform Compliance · Pain Point & Contextual Utility · Solution Implementation Judgement · Originality & Method · Hook & Q&A Handling [R37].
+- **Criteria and weights [R38]:** MVP & Technical Implementation **30%** (Functionality & Platform Compliance) · Problem Statement & Domain Fit **25%** (Pain Point & Contextual Utility) · Technology & Automation Judgment **25%** (Solution Implementation Judgement) · Innovation & Approach **15%** (Originality & Method) · Live Pitch & Defensive Engagement **5%** (Hook & Q&A Handling) [R37][R38].
   - *Functionality & Platform Compliance:* stability, utility, execution speed, effective Kiro integration, proper Quick use. **Each missing required platform = immediate 5-point deduction.**
   - *Pain Point & Contextual Utility:* is the problem real, urgent, domain-specific and tied to actual workflows rather than a theoretical need.
   - *Solution Implementation Judgement:* rewards choosing the appropriate approach, and recognizing when a simpler, deterministic or established solution beats a more complex technology.
   - *Originality & Method:* why the approach is meaningfully different from existing tools or standard alternatives.
   - *Hook & Q&A Handling:* the 2-minute live pitch, judge interest, and the team's ability to defend functional choices. Platform minipitch submissions are background context for judges.
-- **Rubric weights:** the current handbook's accessible text states **no percentage weights**. A weighted rubric captured earlier is not reconfirmed and must not be treated as current [R37].
+- **Rubric weights:** stated above, from the handbook PDF [R38]. The Canva copy's accessible text did not expose them [R37].
 
 ### 1.4 Grand Finals — format
 
 - Top three teams per track advance to a dedicated panel of four judges; placements are Champion, 1st Runner-Up and 2nd Runner-Up per track. **5 minutes to pitch, 5 minutes of Q&A**, emphasis on live demonstration, technical execution and defending the solution [R37].
-- The handbook has a Grand Finals Judging Criteria page, but its criteria and weights are not exposed in the accessible text. Do not infer them from the semifinal rubric; reconfirm before the final round [R37].
+- **Grand Finals criteria and weights [R38]:** Real-World Impact & Problem Significance **30%** · Practical Deployment & Feasibility **25%** (operational, regulatory and systemic constraints) · Scalability & Long-Term Viability **20%** (market viability, cost-efficiency, path to adoption) · Innovation & Solution Design **15%** · Presentation & Professional Defense **10%**.
 
 ### 1.5 Required technology
 
@@ -79,7 +85,7 @@ ledger and ADRs ([`docs/ledger.md`](docs/ledger.md), [`docs/adr/`](docs/adr/)) w
 
 - Avoid purely conceptual or "toy" projects. Prioritize high-impact features and deliver a functional MVP within the window, ready for a live demo [R37].
 - Keep the GitHub repository accurate: judges may verify that claimed features are actually implemented in the source. Be ready to defend technical decisions; judges consider technical implementation, feasibility, scalability, security, overall quality and real-world applicability [R37].
-- The handbook references required submission-form fields and warns that requirements and submission structure may change during the event. The field names are not in the accessible text — check the live form or organizer instructions; do not invent fields [R37].
+- **Submission form fields [R38]** ("may be subject to change as the event progresses"): Project Name · Project Overview · Target Market · The "Pain Point" (Evidence) · The "How" (Solution) · Strategic Integration (how Kiro, Quick and AWS infrastructure were used) · Sustainability & Growth · Video Demonstration (YouTube, Loom or Google Drive link) · GitHub Repository Link · Google Play Store Share Link / Website URL.
 
 ### 1.7 Logistics that can affect execution
 
@@ -89,7 +95,7 @@ ledger and ADRs ([`docs/ledger.md`](docs/ledger.md), [`docs/adr/`](docs/adr/)) w
 ### 1.8 Source inconsistencies and unresolved details
 
 - The Focus Tracks page lists Climate Change, Educational Crisis, and Health & Well-Being, while the FAQ says "all four tracks" pitch simultaneously. No fourth track is identified — do not invent one [R37].
-- Day 1 and Day 2 schedule pages exist, but their entries are not exposed in the accessible text. The 12-hour period is confirmed; exact start and end times follow the on-site schedule [R37].
+- Day 1 and Day 2 schedules are in the handbook PDF [R38]: event start 8:15 PM Oct 3, development 10:00 PM–10:00 AM, semifinals 1:10 PM, finalists announced ~2:55 PM, Grand Finals 3:30 PM, awarding 6:45 PM Oct 4. On-site organizer instructions still win if they differ.
 
 ## 2. Research conclusions behind the product
 
@@ -210,6 +216,7 @@ listed in [`docs/ledger.md`](docs/ledger.md).
 - [R35] Amazon Quick — chat agents <https://docs.aws.amazon.com/quick/latest/userguide/working-with-agents.html> and MCP integration <https://docs.aws.amazon.com/quick/latest/userguide/mcp-integration.html>
 - [R36] Kiro — Specs (requirements, design, and tasks) — <https://kiro.dev/docs/specs/> · Steering / AGENTS.md — <https://kiro.dev/docs/steering/>
 - [R37] Build Over Nights 2026 — Participants Handbook (Canva) — <https://www.canva.com/design/DAHWNuv17CE/2IGnmuXmkYAXtTs5hdcxOQ/edit>
+- [R38] Build Over Nights 2026 — Participants Handbook, PDF export (25 pages, distributed to participants; read 2026-10-03). Same handbook as R37 with the schedule, rubric weights and submission fields readable.
 
 **Internal research pointers (Google Docs, team access only)**
 

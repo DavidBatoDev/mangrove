@@ -101,7 +101,7 @@ has inputs:
 
 | `DS-###` | Input | Source | Access & licence | Confidence tier |
 |----------|-------|--------|------------------|-----------------|
-| DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once and clipped to Manila Bay by `data/ingest/`. CC BY 4.0 for earlier GMW releases; `[assumption]` same for v4.1.12 — confirm on the Zenodo record and credit the authors | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
+| DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once and clipped to Manila Bay by `data/ingest/`. CC BY 4.0, confirmed on the Zenodo record (10.5281/zenodo.21346457) — credit the authors and "© Global Mangrove Watch" | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
 | DS-002 | Sentinel-2 L2A bands B04, B08, SCL, dataMask | Copernicus Data Space Ecosystem, Sentinel Hub Statistical API `https://sh.dataspace.copernicus.eu/statistics/v1` [R32] | OAuth client credentials; free tier 10,000 requests/month and 300/minute. Copernicus Sentinel data are free and open; credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]` | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
 | DS-003 | Site polygons | Demo: drawn by the team on Manila Bay coastal areas `[assumption]`; later: proposer-supplied | Team-authored; public | High as the definition of the site (the polygon *is* the site) |
 | DS-004 | Partner field submissions: photo, GPS point, mapped boundary, finding | Field partners via the Submit evidence screen; demo items authored by the team and labelled demo (BR-006) | Submitted under the partner's account; public | Medium (observed, but self-reported; device GPS accuracy unknown) |
@@ -123,7 +123,8 @@ has inputs:
 - [x] Every formula can be recomputed by hand from its inputs.
 - [x] Every constant is sourced or an `[assumption]` in §3.1.
 - [x] Every confidence follows §2's mapping rule.
-- [ ] Licences: DS-001 (v4.1.12 licence) and DS-002 (attribution wording) still to confirm.
+- [x] Licence: DS-001 (v4.1.12) is CC BY 4.0 on Zenodo.
+- [ ] Attribution: DS-002 wording still to confirm.
 - [ ] **Trusted because written down?** All four §3.1 constants. None is validated; each finding they gate must show the threshold used.
 
 ## References

@@ -298,7 +298,7 @@ See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Wo
 - Global Mangrove Watch v4.1.12 extent stack, downloaded before ingest [R31].
 - Amazon Quick access with MCP integration enabled (requires an Enterprise subscription per AWS docs) [R35].
 - A public HTTPS URL for the MCP endpoint (Quick connects to remote servers only) [R35].
-- Basemap tiles for MapLibre — provider TBD.
+- Basemap tiles for MapLibre: EOxCloudless 2016 (`https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/{z}/{y}/{x}.jpg`, CC BY 4.0; attribution "EOxCloudless https://cloudless.eox.at by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016)"). Later vintages are CC BY-NC-SA and are not used.
 - 3–5 demo site polygons and their demo field evidence, authored by the team.
 
 **Open questions**
@@ -309,7 +309,7 @@ See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Wo
 - The demo conflict "8 ha versus 5 ha" is a reported area against a GPS-mapped area, not a satellite reading of seedlings. Closed by ADR-033.
 - Threshold values (`HISTORY_MIN_FRACTION`, `MIN_VALID_FRACTION`, `AREA_TOLERANCE`, Sentinel-2 window) — resolved by the data lead and recorded in [`methods.md`](methods.md); all are `[assumption]` until then.
 - Include the Global Mangrove Alliance restoration-potential layer [R04] as a fourth evidence source? — resolved by the data lead only if the three-source loop is done.
-- Hosting target and basemap provider — resolved by the tech lead at scaffold.
+- ~~Hosting target and basemap provider~~ — resolved: AWS EC2 + Caddy at `https://18-140-211-157.sslip.io` ([`system-design.md`](system-design.md) §6, ids in [`ledger.md`](ledger.md) §1); basemap EOxCloudless 2016 (above). Database Neon (ADR-036), photos S3 (ADR-037).
 - LLM provider for F-013 (Could) — resolved only if F-013 is started.
 
 ## 8. Doc Integrity Check

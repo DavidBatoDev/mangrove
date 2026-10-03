@@ -1,23 +1,17 @@
-# Deployment topology. Service Dockerfiles are written during the build window.
+# Deployment topology (docs/system-design.md §6). Service Dockerfiles are written during the build window.
+# Database: Neon Postgres + PostGIS, external (ADR-036). Photos: S3 via the EC2 instance role (ADR-037).
 # Run from infra/:  docker compose --env-file ../.env up -d --build
 services:
   web:
-    build: ../apps/web
+    build: ../web
     env_file: ../.env
     restart: unless-stopped
     depends_on: [api]
 
   api:
-    build: ../services/api
+    build: ../api
     env_file: ../.env
     restart: unless-stopped
-
-  mcp:
-    build: ../services/mcp
-    environment:
-      - API_BASE_URL=http://api:8000
-    restart: unless-stopped
-    depends_on: [api]
 
   caddy:
     image: caddy:2
@@ -32,7 +26,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     restart: unless-stopped
-    depends_on: [web, api, mcp]
+    depends_on: [web, api]
 
 volumes:
   caddy_data: {}
