@@ -2,8 +2,9 @@
 
 Runs inside the API container at low priority after a deploy (infra/prewarm-tiles.sh):
     nice -n 19 python -m app.gmw_prerender [--max-zoom 12]
-It renders, for zoom 4..max over the Philippines, every tile that touches a GMW file: the latest extent year, and gain
-and loss since the default baseline for that year. Tiles already on disk are skipped, so a rerun is cheap.
+It renders every tile over the Philippines that touches a GMW file into the static tile tree (ADR-053): first the
+default view (latest extent year, gain and loss since the default baseline) to zoom 12, then every other year and
+baseline to zoom 10. Tiles already on disk are skipped, so a rerun is cheap.
 """
 
 from __future__ import annotations
@@ -36,27 +37,41 @@ def tiles(entries: list[dict], zooms: range):
                     yield z, x, y
 
 
+def jobs(native: range, rest: range):
+    """(name, files, zooms, render) in order: the default view to zoom 12 first, then every other year and baseline."""
+    ix = g.index()
+    years = ix["years"]
+    latest = years[-1]
+    try:
+        cx = g.change_index()
+        bases = sorted(int(b) for b in cx["bases"])
+    except g.ApiError:
+        cx, bases = None, []  # change layer not installed
+
+    def extent(year, zooms):
+        return (f"extent {year}", ix["tiles"][str(year)], zooms, lambda z, x, y: g.tile_png(year, z, x, y))
+
+    def change(base, year, only, zooms):
+        return (f"{only} {base}-{year}", cx["bases"][str(base)][str(year)], zooms,
+                lambda z, x, y: g.change_tile_png(base, year, z, x, y, only))
+
+    out = [extent(latest, native)]
+    if bases and str(latest) in cx["bases"][str(bases[0])]:
+        out += [change(bases[0], latest, only, native) for only in ("gain", "loss")]
+    out += [extent(y, rest) for y in years if y != latest]
+    for b in bases:
+        for y in sorted(int(v) for v in cx["bases"][str(b)]):
+            if (b, y) != (bases[0], latest):
+                out += [change(b, y, only, rest) for only in ("gain", "loss")]
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--min-zoom", type=int, default=4)
-    ap.add_argument("--max-zoom", type=int, default=g.NATIVE_ZOOM)
+    ap.add_argument("--rest-max-zoom", type=int, default=10, help="max zoom for years and baselines other than the default")
     a = ap.parse_args()
-    zooms = range(a.min_zoom, min(a.max_zoom, g.NATIVE_ZOOM) + 1)
-    jobs = []
-    ix = g.index()
-    year = ix["years"][-1]
-    jobs.append((f"extent {year}", ix["tiles"][str(year)], lambda z, x, y: g.tile_png(year, z, x, y)))
-    try:
-        cx = g.change_index()
-        base = str(min(int(b) for b in cx["bases"]))
-        if str(year) in cx["bases"][base]:
-            entries = cx["bases"][base][str(year)]
-            for only in ("gain", "loss"):
-                jobs.append((f"{only} {base}-{year}", entries,
-                             lambda z, x, y, only=only: g.change_tile_png(int(base), year, z, x, y, only)))
-    except g.ApiError:
-        pass  # change layer not installed
-    for name, entries, fn in jobs:
+    for name, entries, zooms, fn in jobs(range(a.min_zoom, g.NATIVE_ZOOM + 1), range(a.min_zoom, a.rest_max_zoom + 1)):
         t0, n = time.time(), 0
         for z, x, y in tiles(entries, zooms):
             fn(z, x, y)

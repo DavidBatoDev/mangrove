@@ -38,6 +38,8 @@ services:
       - DOMAIN=${DOMAIN}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # Static GMW tile tree written by the API (ADR-053), served as files.
+      - ${GMW_TILE_CACHE_HOST:-/opt/bon/gmw-tile-cache}:/srv/tiles/gmw:ro
       - caddy_data:/data
       - caddy_config:/config
     restart: unless-stopped

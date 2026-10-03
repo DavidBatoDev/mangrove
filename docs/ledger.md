@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — GMW tiles served as static files
+- **ID:** DEC-023
+- **Type:** zoom-in
+- **Change:** tiles read from the API's disk cache → a static tile tree served by Caddy, the API only rendering missing tiles
+- **Why:** the team asked for GMW's tile speed.
+- **Invalidated:** ADR-052's cache key and API-only serving
+- **Recorded as:** ADR-053
+
 ### 2026-10-04 — GMW map tiles rendered once and kept on disk
 - **ID:** DEC-022
 - **Type:** zoom-in

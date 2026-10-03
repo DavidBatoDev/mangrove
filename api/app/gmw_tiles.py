@@ -13,7 +13,6 @@ Responses carry `Access-Control-Allow-Origin: *` (public data) so a local or fix
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
 import os
@@ -157,11 +156,6 @@ def cache_dir() -> Path | None:
     return Path(d) if d else None
 
 
-def _stamp(entries: list[dict]) -> str:
-    """Cache key part: changes when the layer's files or the look change, so a rebuilt layer is never served stale."""
-    return hashlib.sha1((json.dumps(entries, sort_keys=True) + STYLE).encode()).hexdigest()[:12]
-
-
 def _decode(png: bytes) -> np.ndarray:
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", NotGeoreferencedWarning)
@@ -178,10 +172,11 @@ def _enlarge(parent: bytes, d: int, sx: int, sy: int) -> bytes:
 
 
 def _serve(key: str, z: int, x: int, y: int, render: Callable[[int, int, int], bytes]) -> bytes:
-    if z > NATIVE_ZOOM:
-        d = z - NATIVE_ZOOM
-        parent = _serve(key, NATIVE_ZOOM, x >> d, y >> d, render)
-        return EMPTY_PNG if parent == EMPTY_PNG else _enlarge(parent, d, x & ((1 << d) - 1), y & ((1 << d) - 1))
+    """A tile from the static tile tree, made and stored there on first request.
+
+    The tree's layout is the public URL `/tiles/gmw/<key>/<z>/<x>/<y>.png`, so Caddy serves stored tiles as plain files
+    and only a missing one reaches the API (ADR-053). A rebuilt layer or new STYLE needs the tree cleared.
+    """
     root = cache_dir()
     path = root / key / str(z) / str(x) / f"{y}.png" if root else None
     if path is not None:
@@ -189,7 +184,12 @@ def _serve(key: str, z: int, x: int, y: int, render: Callable[[int, int, int], b
             return path.read_bytes()
         except OSError:
             pass
-    png = render(z, x, y)
+    if z > NATIVE_ZOOM:
+        d = z - NATIVE_ZOOM
+        parent = _serve(key, NATIVE_ZOOM, x >> d, y >> d, render)
+        png = EMPTY_PNG if parent == EMPTY_PNG else _enlarge(parent, d, x & ((1 << d) - 1), y & ((1 << d) - 1))
+    else:
+        png = render(z, x, y)
     if path is not None:
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -208,7 +208,7 @@ def tile_png(year: int, z: int, x: int, y: int) -> bytes:
     if not (0 <= z <= MAX_ZOOM and 0 <= x < (1 << z) and 0 <= y < (1 << z)):
         raise ApiError(422, "VALIDATION_FAILED", f"tile {z}/{x}/{y} is outside zoom 0-{MAX_ZOOM}")
     root, built = str(tile_dir()), ix.get("built_at", "") + STYLE
-    key = f"extent/{year}-{_stamp(ix['tiles'].get(str(year), []))}"
+    key = f"{STYLE}/extent/{year}"
     return _serve(key, z, x, y, lambda z, x, y: _render(root, year, z, x, y, built))
 
 
@@ -273,5 +273,5 @@ def change_tile_png(base: int, year: int, z: int, x: int, y: int, only: str | No
     if not (0 <= z <= MAX_ZOOM and 0 <= x < (1 << z) and 0 <= y < (1 << z)):
         raise ApiError(422, "VALIDATION_FAILED", f"tile {z}/{x}/{y} is outside zoom 0-{MAX_ZOOM}")
     root, built = str(tile_dir()), cx.get("built_at", "") + STYLE
-    key = f"change/{base}-{year}-{only or 'all'}-{_stamp(years[str(year)])}"
+    key = f"{STYLE}/change/{base}/{year}/{only or 'all'}"
     return _serve(key, z, x, y, lambda z, x, y: _render_change(root, base, year, z, x, y, only, built))
