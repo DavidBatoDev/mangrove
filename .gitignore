@@ -1,0 +1,8 @@
+# FMD factory — owner-local; do not commit
+fmd/
+.fmd-work/
+
+# Secrets — names live in .env.example, values never in git
+.env
+.env.*
+!.env.example
