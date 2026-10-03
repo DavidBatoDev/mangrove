@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { CountryCard } from "@/components/GmwContext";
 import MapShell from "@/components/MapShell";
 import { DemoLabel, Empty, ErrorBox, Loading, MeasureText } from "@/components/ui";
 import { useApi } from "@/hooks/useApi";
@@ -12,6 +13,7 @@ import { siteLetter } from "@/lib/ids";
 // Candidate sites (US-001): polygons + list, pick 2–5 to compare.
 export default function SitesPage() {
   const sites = useApi(() => api.listSites(), []);
+  const country = useApi(() => api.countryContext("PHL"), []);
   const router = useRouter();
   const [picked, setPicked] = useState<string[]>([]);
 
@@ -82,6 +84,8 @@ export default function SitesPage() {
           })}
         </ul>
       )}
+      {country.error && <p className="mg-alert">Global Mangrove Watch statistics did not load. Try again later.</p>}
+      {country.data && <CountryCard c={country.data} />}
     </MapShell>
   );
 }

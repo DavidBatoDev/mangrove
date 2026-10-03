@@ -55,6 +55,22 @@ def verify_record(record_id: str) -> dict[str, Any]:
         return reads.verify_record(conn, record_id)
 
 
+@router.get("/sites/{site_id}/gmw-timeline", summary="API-021 GMW mangrove area inside and near a site")
+def gmw_timeline(site_id: str) -> dict[str, Any]:
+    with connection() as conn:
+        return reads.gmw_timeline(conn, site_id)
+
+
+@router.get("/context/countries/{iso3}", summary="API-022 national mangrove extent and change")
+def country_context(iso3: str) -> dict[str, Any]:
+    return reads.country_context(iso3)
+
+
+@router.get("/layers/gmw-extent", summary="API-023 Manila Bay mangrove extent for one year")
+def gmw_extent(year: int | None = Query(default=None)) -> dict[str, Any]:
+    return reads.gmw_extent_layer(year)
+
+
 # BR-002: there is no PUT, PATCH or DELETE on evidence, records or timeline entries (docs/api.md §2).
 _IMMUTABLE = ["PUT", "PATCH", "DELETE"]
 

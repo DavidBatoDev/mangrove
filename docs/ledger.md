@@ -49,6 +49,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 - **Invalidated:** `docs/prd.md` §7 basemap line becomes the fallback
 - **Recorded as:** ADR-046
 
+### 2026-10-04 — Mangrove context from GMW; honest history
+- **ID:** DEC-015
+- **Type:** scope-add
+- **Change:** + F-025 (Should): per-site GMW mangrove area inside and near each site 1985–2025, a Manila Bay extent layer, and a Philippines extent and change card; the history answer keeps EQ-003's result (`no_mangrove_recorded` for the demo sites) with the 1985 limit shown
+- **Why:** real GMW v4.1.12 data shows no mangrove inside the demo polygons since 1985 but clear change right beside them.
+- **Invalidated:** nothing; adds EQ-014…EQ-016, DS-007, `NEARBY_BUFFER_M`, API-021…API-023, US-017, TC-025
+- **Recorded as:** ADR-045
+
 ### 2026-10-04 — A partner proposes and a funder commits
 - **ID:** DEC-014
 - **Type:** use-case

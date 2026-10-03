@@ -38,6 +38,8 @@ export interface MapViewProps {
   onPinClick?: (recordId: string) => void;
   selectedPinId?: string | null;
   highlightSiteIds?: string[];
+  /** GMW mangrove extent polygons for one year (API-023, F-025); drawn under the sites. */
+  extent?: GeoJSON.FeatureCollection | null;
   basemap?: BasemapId;
   showSites?: boolean;
   showPins?: boolean;
@@ -74,6 +76,7 @@ export default function MapView({
   onPinClick,
   selectedPinId,
   highlightSiteIds,
+  extent,
   basemap = DEFAULT_BASEMAP,
   showSites = true,
   showPins = true,
@@ -89,9 +92,9 @@ export default function MapView({
   const router = useRouter();
 
   // Latest props, read when the style (re)loads and overlays are re-added.
-  const latest = useRef({ sites, highlightSiteIds, showSites, basemap, onSiteClick, onPinClick, fitPadding });
+  const latest = useRef({ sites, highlightSiteIds, extent, showSites, basemap, onSiteClick, onPinClick, fitPadding });
   useEffect(() => {
-    latest.current = { sites, highlightSiteIds, showSites, basemap, onSiteClick, onPinClick, fitPadding };
+    latest.current = { sites, highlightSiteIds, extent, showSites, basemap, onSiteClick, onPinClick, fitPadding };
   });
   const onMapReadyRef = useRef(onMapReady);
   useEffect(() => {
@@ -126,6 +129,15 @@ export default function MapView({
       const dark = basemapById(bm).ground === "dark";
       const outline = token(dark ? "--mg-tidal-lift" : "--mg-tidal");
       const selected = token(dark ? "--mg-mist" : "--mg-canopy");
+      // GMW mangrove extent (F-025): Prop Root, the evidence color, so it never reads as a status or a pin.
+      if (!map.getSource("gmw-extent")) map.addSource("gmw-extent", { type: "geojson", data: latest.current.extent ?? EMPTY });
+      if (!map.getLayer("gmw-extent-fill"))
+        map.addLayer({
+          id: "gmw-extent-fill",
+          type: "fill",
+          source: "gmw-extent",
+          paint: { "fill-color": token("--mg-root"), "fill-opacity": dark ? 0.75 : 0.55 },
+        });
       if (!map.getSource("sites")) map.addSource("sites", { type: "geojson", data: s ?? EMPTY, promoteId: "id" });
       const visibility = visible ? "visible" : "none";
       if (!map.getLayer("sites-fill"))
@@ -229,6 +241,14 @@ export default function MapView({
     });
      
   }, [sites, fitToSites]);
+
+  // GMW extent layer.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    whenReady(() => (map.getSource("gmw-extent") as { setData?: (d: GeoJSON.GeoJSON) => void } | undefined)?.setData?.(extent ?? EMPTY));
+     
+  }, [extent]);
 
   // Highlight.
   useEffect(() => {

@@ -6,7 +6,9 @@ nothing derived is stored.
 
 from __future__ import annotations
 
+import json
 from datetime import date, datetime, timezone
+from pathlib import Path
 from typing import Any, Iterable
 from uuid import UUID
 
@@ -345,3 +347,68 @@ def verify_record(conn: Connection, record_id: str) -> dict[str, Any]:
     events = _events(conn, [rid])[str(rid)]
     evidence = _evidence_by_ids(conn, [e["evidence_item_id"] for e in events if e["evidence_item_id"]])
     return verify_chain(rows[0], events, evidence)
+
+
+# --- GMW context (F-025, ADR-045) --------------------------------------------------------------------
+
+CONTEXT_DIR = Path(__file__).resolve().parent / "context_data"
+GMW_LIMITATION = "GMW starts in 1985; ponds converted earlier are not visible. 30 m pixels."
+
+
+def gmw_timeline(conn: Connection, site_id: str) -> dict[str, Any]:
+    """API-021: GMW mangrove area inside (EQ-002) and near (EQ-014) a site, per year."""
+    sid = parse_uuid(site_id, "Site not found")
+    site = conn.execute("SELECT id, is_demo FROM site WHERE id = %s", (sid,)).fetchone()
+    if site is None:
+        raise not_found("Site not found")
+    item = conn.execute(
+        """SELECT id, source_name, source_version, provenance_url, metrics FROM evidence_item
+           WHERE site_id = %s AND source_type = 'gmw' AND usable
+           ORDER BY created_at DESC LIMIT 1""",
+        (sid,),
+    ).fetchone()
+    out: dict[str, Any] = {"site_id": str(sid), "is_demo": site["is_demo"], "source": None,
+                           "nearby_buffer": None, "limitation": GMW_LIMITATION, "years": []}
+    if item is None:
+        return out
+    by_name = {m["name"]: m for m in item["metrics"] if m.get("name")}
+    out["source"] = {"name": item["source_name"], "version": item["source_version"],
+                     "provenance_url": item["provenance_url"], "evidence_id": str(item["id"])}
+    buf = by_name.get("nearby_buffer")
+    out["nearby_buffer"] = {k: buf[k] for k in ("value", "unit", "eq_id", "confidence")} if buf else None
+    strip = lambda m: {k: m[k] for k in ("value", "unit", "eq_id", "confidence")} if m else None
+    years = sorted({int(n.rsplit("_", 1)[1]) for n in by_name if n.startswith("inside_mangrove_area_")})
+    out["years"] = [{"year": y, "inside": strip(by_name.get(f"inside_mangrove_area_{y}")),
+                     "nearby": strip(by_name.get(f"nearby_mangrove_area_{y}"))} for y in years]
+    return out
+
+
+def _context_file(name: str) -> dict[str, Any] | None:
+    path = CONTEXT_DIR / name
+    return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+
+
+def country_context(iso3: str) -> dict[str, Any]:
+    """API-022: national extent (EQ-015) and gain/loss/net (EQ-016), as published by GMW."""
+    code = (iso3 or "").upper()
+    data = _context_file(f"gmw_country_{code}.json") if code.isalpha() and len(code) == 3 else None
+    if data is None:
+        raise not_found("No statistics for that country")
+    return data
+
+
+def layer_years() -> list[int]:
+    return sorted(int(p.stem.rsplit("_", 1)[1]) for p in CONTEXT_DIR.glob("gmw_extent_*.geojson"))
+
+
+def gmw_extent_layer(year: int | None) -> dict[str, Any]:
+    """API-023: GMW extent polygons for the Manila Bay demo area, one year."""
+    years = layer_years()
+    if not years:
+        raise not_found("No extent layer shipped")
+    y = years[-1] if year is None else year
+    if y not in years:
+        raise ApiError(422, "VALIDATION_FAILED", f"year must be one of {years}")
+    data = _context_file(f"gmw_extent_{y}.geojson")
+    data["available_years"] = years
+    return data

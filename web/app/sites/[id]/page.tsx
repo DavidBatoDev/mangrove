@@ -5,8 +5,10 @@
 import { Lock, Plus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import AnswerBlock from "@/components/AnswerBlock";
 import EvidenceCard from "@/components/EvidenceCard";
+import { SiteTrendCard } from "@/components/GmwContext";
 import Map from "@/components/Map";
 import Site3DView, { toneFromAnswers } from "@/components/Site3DView";
 import { useSession } from "@/components/session";
@@ -23,6 +25,10 @@ export default function SiteDossierPage() {
   const siteId = resolveSiteId(decodeURIComponent(id));
   const { user } = useSession();
   const d = useApi(() => api.getSite(siteId), [siteId]);
+  const trend = useApi(() => api.gmwTimeline(siteId), [siteId]);
+  const [layerYear, setLayerYear] = useState<number | null>(null);
+  const extent = useApi(() => (layerYear === null ? Promise.resolve(null) : api.gmwExtent(layerYear)), [layerYear]);
+  const years = useApi(() => api.gmwExtent().then((l) => l.available_years).catch(() => [] as number[]), []);
 
   if (d.loading) return <Loading what="Loading site" />;
   if (d.error) return <ErrorBox error={d.error} onRetry={d.reload} />;
@@ -85,6 +91,10 @@ export default function SiteDossierPage() {
               ))}
             </div>
           </section>
+          {trend.error && <p className="mg-alert">Global Mangrove Watch did not respond. Try again later.</p>}
+          {trend.data && (
+            <SiteTrendCard t={trend.data} layerYears={years.data ?? []} layerYear={layerYear} onLayerYear={setLayerYear} />
+          )}
         </div>
         <Site3DView
           className="dossier-map"
@@ -92,7 +102,7 @@ export default function SiteDossierPage() {
           tone={toneFromAnswers(answers.map((a) => a.status))}
           motion="flyin"
           label={`3D view of ${site.name}`}
-          fallback={<Map sites={fc} fitToSites basemap="light" className="map dossier-map" />}
+          fallback={<Map sites={fc} fitToSites basemap="light" extent={extent.data} className="map dossier-map" />}
         />
       </div>
 

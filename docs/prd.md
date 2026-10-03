@@ -39,7 +39,7 @@ commits, then shows whether those terms and the later check agree.
 
 | Persona | Role & context | Problem frequency | Today's workaround | Stories |
 |---------|----------------|-------------------|--------------------|---------|
-| **Funder** | CSR/sustainability manager at a Philippine company, or a foundation/NGO program officer, who commits money to a partner's proposal and is answerable to leadership and the public for the spend | Each funding cycle; defended for years after | Reads a partner's proposal, maybe a GMW map, then publishes a press release ("10,000 trees planted") | US-001, US-002, US-003, US-004, US-005, US-007, US-008, US-012, US-013, US-015 |
+| **Funder** | CSR/sustainability manager at a Philippine company, or a foundation/NGO program officer, who commits money to a partner's proposal and is answerable to leadership and the public for the spend | Each funding cycle; defended for years after | Reads a partner's proposal, maybe a GMW map, then publishes a press release ("10,000 trees planted") | US-001, US-002, US-003, US-004, US-005, US-007, US-008, US-012, US-013, US-015, US-017 |
 | **Field partner** | Field officer at a local NGO or people's organization who proposes a site, states the benefit, timeline and milestones, then visits, takes photos and maps planted areas | Per proposal and per site visit | Photos and spreadsheets sent to the funder privately; nothing public | US-006, US-010, US-016 |
 | **Public reader** | Journalist, local government officer, auditor, community member or another funder checking a site or a commitment | Whenever a project is announced or questioned | Takes the press release at face value or files a request | US-001, US-009, US-011, US-012, US-014 |
 
@@ -65,6 +65,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 | F-012 | Record integrity check | Should | "Can't be edited" must be checkable | |
 | F-013 | In-app plain-language evidence summary | Could | Dense dossiers | BR-003; LLM provider TBD |
 | F-014 | Upload a new candidate polygon | Could | Limited to pre-loaded sites | Waits on the core loop |
+| F-025 | Mangrove context (GMW): inside and nearby extent 1985–2025, bay extent layer, national card | Should | No sense of the trend around a site | BR-001, BR-003 (ADR-045) |
 | F-015 | Success score / probability | Won't | — | Reason: fake precision [ADR-023, ADR-028]. Reconsider if: a validated outcome model exists. |
 | F-016 | AlphaEarth embeddings | Won't | — | Reason: not interpretable; costs time. Reconsider if: core loop done early. |
 | F-017 | Live ODK Central integration | Won't | — | Reason: later integration. Reconsider if: a partner already uses ODK. |
@@ -200,6 +201,15 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 > As a **Funder**, I want a short plain-language summary of a dossier so that I can brief my leadership.
 
 - Given a site dossier, when I request a summary, then it is generated only from the dossier's items and statuses, is labelled as AI-generated, and states no status or number that the dossier does not contain (BR-003).
+
+**US-017 — See the mangrove trend around a site** *(F-025)* — Priority: Should
+> As a **Funder**, I want to see how much mangrove Global Mangrove Watch records inside and near a site each year
+> since 1985, and the national trend, so that I can judge the site against what is happening around it.
+
+- Given a site, when its dossier renders, then it shows the GMW mangrove area inside the site (EQ-002) and within the nearby buffer (EQ-014) for each year 1985–2025, each with its `eq_id` and confidence, and states that GMW starts in 1985 so ponds converted earlier are not visible.
+- Given the map, when I turn on the mangrove extent layer and pick a year, then GMW's mangrove extent for that year is drawn over the Manila Bay demo area.
+- Given the Philippines card, when it renders, then it shows the national mangrove extent for a chosen year with its 95% bounds (EQ-015) and the year-on-year gain, loss and net change (EQ-016), sourced to GMW v4.1.12.
+- Given any of these numbers, when it renders, then no status, finding, pin state or score is derived from it (BR-001, F-015).
 
 ### 4.1 Cross-cutting rules (`BR-###`)
 

@@ -239,3 +239,53 @@ form.form--wide { max-width: 760px; }
 .site-hero--empty { background: var(--mg-surface-sunk); }
 .site-hero--2d.maplibregl-map, .site-hero--2d.gmap { height: clamp(260px, 38vh, 420px); }
 .place-3d { height: 200px; border-radius: 0; }
+
+/* --- GMW context (F-025): charts per BRAND.md §8 — series Tidal then Root, Waterline baseline, Tideline grid, mono axes. */
+.gmw-card { display: flex; flex-direction: column; gap: var(--mg-space-3); }
+.gmw-card .card-head { margin-bottom: 0; }
+.gmw-duel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--mg-space-4); }
+.gmw-duel > div { display: flex; flex-direction: column; gap: var(--mg-space-1); }
+.gmw-duel-pair { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--mg-space-1) var(--mg-space-2); color: var(--mg-text-muted); }
+.gmw-duel-pair strong { font: 700 var(--mg-text-h3)/1.1 var(--mg-font-display); color: var(--mg-heading); }
+.gmw-cite { display: inline-flex; align-items: center; gap: var(--mg-space-2); font-size: var(--mg-text-label); color: var(--mg-text-muted); }
+.gmw-chart { margin: 0; }
+.gmw-chart svg { display: block; width: 100%; height: auto; }
+.gmw-grid { stroke: var(--mg-border); stroke-width: 1; opacity: .6; }
+.gmw-waterline { stroke: var(--mg-tidal); stroke-width: 1.5; }
+.gmw-axis { font: 500 12px var(--mg-font-mono); fill: var(--mg-text-muted); }
+.gmw-area { fill: color-mix(in srgb, var(--mg-tidal) 14%, transparent); }
+.gmw-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.gmw-line--nearby { stroke: var(--mg-tidal); }
+.gmw-line--inside { stroke: var(--mg-root); }
+.gmw-line--net { stroke: var(--mg-heading); stroke-width: 1.5; }
+.gmw-cursor { stroke: var(--mg-text-muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.gmw-bar--gain { fill: var(--mg-tidal); opacity: .75; }
+.gmw-bar--loss { fill: var(--mg-root); opacity: .75; }
+.gmw-bar-on .gmw-bar { opacity: 1; }
+.gmw-legend { display: flex; flex-wrap: wrap; gap: var(--mg-space-2) var(--mg-space-4); font-size: var(--mg-text-small); color: var(--mg-text-muted); margin-top: var(--mg-space-2); }
+.gmw-legend > span { display: inline-flex; align-items: center; gap: var(--mg-space-1); }
+.gmw-key { display: inline-block; width: 16px; height: 3px; }
+.gmw-key--nearby, .gmw-key--gain { background: var(--mg-tidal); }
+.gmw-key--inside, .gmw-key--loss { background: var(--mg-root); }
+.gmw-key--gain, .gmw-key--loss { height: 10px; width: 10px; }
+.gmw-key--net { background: var(--mg-heading); }
+.gmw-key--extent { width: 12px; height: 12px; background: color-mix(in srgb, var(--mg-root) 55%, transparent); }
+.gmw-maplegend { margin: 0; display: flex; align-items: center; gap: var(--mg-space-2); font-size: var(--mg-text-small); color: var(--mg-text-muted); }
+.gmw-years { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mg-space-1); }
+.gmw-years .stat-label { margin-right: var(--mg-space-2); }
+.gmw-year { font: 500 var(--mg-text-small)/1 var(--mg-font-mono); padding: 6px 8px; border: 1px solid var(--mg-border); border-radius: var(--mg-radius-sm); background: transparent; color: var(--mg-text); cursor: pointer; }
+.gmw-year[aria-pressed="true"] { border-color: var(--mg-tidal); background: color-mix(in srgb, var(--mg-tidal) 14%, transparent); color: var(--mg-heading); }
+.gmw-year:focus-visible { outline: 2px solid var(--mg-tidal); outline-offset: 2px; }
+.gmw-limit { margin: 0; font-size: var(--mg-text-small); color: var(--mg-text-muted); }
+.gmw-source { margin: 0; font-size: var(--mg-text-label); color: var(--mg-text-muted); }
+.gmw-specimen { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--mg-space-2) var(--mg-space-3); }
+.gmw-specimen strong { font: 700 clamp(1.75rem, 3vw, 2.25rem)/1.1 var(--mg-font-display); color: var(--mg-heading); }
+.gmw-specimen .mg-mono { font-size: var(--mg-text-small); color: var(--mg-text-muted); }
+.gmw-since { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--mg-space-2); }
+.gmw-since strong { font: 700 var(--mg-text-h4)/1.2 var(--mg-font-display); color: var(--mg-heading); }
+.gmw-slider { display: flex; align-items: center; gap: var(--mg-space-3); }
+.gmw-slider input { flex: 1; accent-color: var(--mg-tidal); }
+.gmw-table summary { cursor: pointer; font-size: var(--mg-text-small); color: var(--mg-tidal-ink); }
+.gmw-table .mg-table { margin-top: var(--mg-space-2); }
+.gmw-table .mg-table td { padding: var(--mg-space-1) var(--mg-space-3) var(--mg-space-1) 0; }
+@media (max-width: 480px) { .gmw-duel { grid-template-columns: 1fr; } }
