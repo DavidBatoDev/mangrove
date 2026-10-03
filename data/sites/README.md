@@ -38,26 +38,34 @@ Organizations and users need no fixed ids. Use these names (fictional, BR-006):
 
 ## The demo cast
 
+Same five polygons, same two fictional organizations. Demo Bayside Partners proposes. Demo Coastal Fund
+commits. The public can open a site with no commitment. Nothing here is an Amazon site, and the demo stays
+on Manila Bay.
+
 | Site | Role in the demo | Ground evidence to seed (demo, `question = ground`) | Expected ground status |
 |------|------------------|------------------------------------------------------|------------------------|
-| A | Already has a published promise (the seeded record) → pin "awaiting" on the public map | proposal `open_for_restoration`; partner field item `open_for_restoration` | supported |
-| B | The funder locks it live in the demo; later evidence (project report 8 ha vs mapped 5 ha) turns its pin red | proposal `open_for_restoration`; partner field item `open_for_restoration` | supported |
-| C | Background candidate | proposal `open_for_restoration` only | supported (one source) |
-| D | Shows what "no evidence yet" looks like | none | missing |
-| E | The "aha": the proposal says open, the partner reports an active fishpond | proposal `open_for_restoration`; partner field item `active_fishpond` | **conflicting** |
+| A | The public can open it without signing in. The seeded promise is the example of a commitment already on the site → pin "awaiting" | partner proposal `open_for_restoration`; partner field item `open_for_restoration` | supported |
+| B | A partner proposal with no commitment at the start. Demo Coastal Fund commits live. Later evidence (project report 8 ha vs mapped 5 ha) turns its pin red. The satellite line on that early check stays "not yet observable" and is not the reason for the red pin | partner proposal `open_for_restoration`; partner field item `open_for_restoration` | supported |
+| C | A proposal the public can open, and no commitment. This is the toggle's "without a commitment" example | partner proposal `open_for_restoration` only | supported (one source) |
+| D | Shows what "no evidence yet" looks like. No proposal yet, so a funder cannot commit | none | missing |
+| E | The "aha": the proposal says open, the partner's field item reports an active fishpond | partner proposal `open_for_restoration`; partner field item `active_fishpond` | **conflicting** |
 
-**Seeded record on A** (published by Demo Coastal Fund): planned action `natural_regeneration`, planned
-area 10 ha, expected vegetated 7 ha, `work_check_after` 2027-04-01, `outcome_check_after` 2029-10-01,
-with rationale, expected outcome and known unknowns written as demo text. No later evidence yet, so its
-checks read work = missing and outcome = too early → pin "awaiting".
+**Seeded commitment on A** (Demo Coastal Fund committed to Demo Bayside Partners' proposal): planned action
+`natural_regeneration`, planned area 10 ha, expected vegetated 7 ha, `work_check_after` 2027-04-01,
+`outcome_check_after` 2029-10-01. The benefit text is the partner's demo sentence, labelled demo. No later
+evidence yet, so the work check is missing and the satellite line is "not yet observable" → pin "awaiting".
+That line is not a fail.
 
-**Live lock on B** (typed during the demo): planned action `hydrological_repair`, planned area 8 ha, expected
-vegetated 6 ha, `work_check_after` 2027-04-01, `outcome_check_after` 2029-10-01. Later in the demo: the
-funder adds a project report (`question = work`, `work_done`, reported 8 ha) and the partner adds a field item
-(`question = work`, `work_done`) with `demo/B-mapped-boundary-5ha.geojson` as its boundary → work check
-conflicting (|8 − 5| / 8 = 0.375 > `AREA_TOLERANCE` 0.20) → pin red.
+**Live commit on B** (Demo Coastal Fund confirms the partner's proposal during the demo): planned action
+`hydrological_repair`, planned area 8 ha, expected vegetated 6 ha, `work_check_after` 2027-04-01,
+`outcome_check_after` 2029-10-01. Later in the demo: the funder adds a project report (`question = work`,
+`work_done`, reported 8 ha) and the partner adds a field item (`question = work`, `work_done`) with
+`demo/B-mapped-boundary-5ha.geojson` as its boundary → work check conflicting (|8 − 5| / 8 = 0.375 >
+`AREA_TOLERANCE` 0.20) → pin red, and the funder account is notified. The 8 ha and the 5 ha are a report
+and a mapped area (ADR-033, EQ-009, EQ-010). They are not a satellite count of seedlings.
 
-**Compare in the demo:** B, D, E → the ground question reads supported / missing / conflicting.
+**Compare in the demo:** B, D, E → the ground question reads supported / missing / conflicting. Site E's
+fishpond is unchanged.
 
 ## Honesty rules for this data
 

@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: data-model
 owns: entities and their relationships · per-field types, nullability and defaults · keys, constraints and indexes
 ---
@@ -73,8 +73,8 @@ informs the site's three answers, which is intended.
 | `name` | `text` | no | — | public | Site display name |
 | `region` | `text` | no | — | public | e.g. `Manila Bay` — groups the candidate set |
 | `geom` | `geometry(MultiPolygon, 4326)` | no | — | public | Candidate boundary; area derived by EQ-001, never stored |
-| `proposal_summary` | `text` | yes | `null` | public | The proposer's claim about the site, in their words; null if none submitted |
-| `proposed_by_org_id` | `uuid` | yes | `null` | public | Proposing organization; null for team-drawn demo polygons |
+| `proposal_summary` | `text` | yes | `null` | public | The partner's benefit text, in their words; null until a partner proposes. Not a computed benefit |
+| `proposed_by_org_id` | `uuid` | yes | `null` | public | Partner organization that proposed; null for team-drawn demo polygons that have no proposal yet |
 | `is_demo` | `boolean` | no | `true` | public | BR-006 |
 | `created_at` | `timestamptz` | no | `now()` | public | When the site entered Mangrove |
 
@@ -123,16 +123,16 @@ geometry and name are copied into the record snapshot at lock time.
 |-------|------|-------|---------|-------|-------------|
 | `id` | `uuid` | no | `gen_random_uuid()` | public | Stable identifier; part of the public URL |
 | `site_id` | `uuid` | no | — | public | The chosen site |
-| `funder_org_id` | `uuid` | no | — | public | Who made the promise |
+| `funder_org_id` | `uuid` | no | — | public | Who committed. The public terms are copied from the partner proposal at commit time |
 | `created_by_user_id` | `uuid` | no | — | internal | Who pressed confirm |
 | `rationale` | `text` | no | — | public | Why this site |
 | `planned_action` | `planned_action` (`planting` \| `natural_regeneration` \| `hydrological_repair` \| `protection` \| `other`) | no | — | public | Intervention type [ADR-025] |
 | `planned_action_detail` | `text` | no | — | public | What will be done |
 | `planned_area_ha` | `numeric(10,2)` | no | — | public | Area the funder commits to work on |
-| `expected_outcome` | `text` | no | — | public | What should happen, in words |
+| `expected_outcome` | `text` | no | — | public | The partner's benefit text, copied at commit. Displayed as written. Not computed |
 | `expected_vegetated_ha` | `numeric(10,2)` | yes | `null` | public | Optional measurable outcome for EQ-012; null means the outcome check relies on field evidence only |
 | `work_check_after` | `date` | no | — | public | When "did the work happen?" becomes checkable |
-| `outcome_check_after` | `date` | no | — | public | Before this date the outcome check reads "too early to tell" |
+| `outcome_check_after` | `date` | no | — | public | Before this date the satellite line reads "not yet observable" and EQ-012 is not evaluated |
 | `known_unknowns` | `text` | no | — | public | What the funder did not know yet |
 | `snapshot` | `jsonb` | no | — | public | Site name + GeoJSON geometry + area (EQ-001) + every evidence item `{id, content_hash, question, finding, usable}` + the three answers at lock time |
 | `idempotency_key` | `text` | no | — | internal | Client-supplied key; one record per key |
@@ -159,6 +159,16 @@ geometry and name are copied into the record snapshot at lock time.
 
 Statuses, findings per question, pin state and areas are **not stored**: the engine derives them on every read
 from the append-only rows (BR-001, BR-004). A stored status would be a mutable copy of a derived fact.
+
+### Confidential contract, prose only
+
+ADR-044. This subsection describes a stored object. It is not a migration. No table is added in this change, and no `db/` file is edited. The tables above stay the public shape until a later build.
+
+The public projection is what a signed-out reader, the public API and Amazon Quick can see: the partner's benefit text, timeline and milestones, photos, the checks, and the flag. Timeline and milestones are part of that projection. Their columns are not defined here.
+
+Separate from that projection, the funder and the partner have a confidential contract: the agreement or MOA text, and the consequence clauses. It is not a column on `promise_record`. Classification is confidential ([`security.md` §3](security.md)). It is not returned by a public read and it is not an MCP field.
+
+A flag on the public record produces a notice. The recipient is the funder account on that record. The notice is not part of the public projection and not part of the MCP output. It does not contain the contract text.
 
 ## 3. Constraints & Indexes
 

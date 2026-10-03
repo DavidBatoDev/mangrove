@@ -12,7 +12,7 @@ owns: which decision is current · names and immutable IDs · rejected approache
 > decisions. It does not override the PRD, the system design, or the test plan. If it disagrees with one of
 > them, stop and reconcile.
 >
-> **Last reconciled:** 2026-10-03
+> **Last reconciled:** 2026-10-04
 
 ## 1. Names & immutable identifiers (read first)
 
@@ -40,6 +40,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 | GMW v4.1.12 (CC BY 4.0, Zenodo 10.5281/zenodo.21346457) and the Copernicus Statistical API are obtainable on the terms in `docs/methods.md` §4. | Amazon Quick at the venue can reach a public MCP server (needs an Enterprise subscription). | Rubric weights apply as published in the handbook PDF (`context.md` §1, R38); organizers may still change them on site. |
 
 ## 3. Pivots & decisions (newest first, append at top)
+
+### 2026-10-04 — A partner proposes and a funder commits
+- **ID:** DEC-014
+- **Type:** use-case
+- **Change:** the funder writes the promise, and the map shows only promises (ADR-032) → the partner proposes the site, benefit text, timeline and milestones; the funder commits; the public map toggles sites with and without a commitment; early milestones are field-only; after the outcome date the partner report and EQ-012 are both required; disagreement flags the record and notifies the funder
+- **Why:** the partner states the public terms before a funder commits, and an early satellite reading would invent a measurement.
+- **Invalidated:** ADR-032 on who writes the proposal, and the reading that the map shows only committed promises. The three questions and the no-score rule stand. ADR-041's P0 screen list is behind the PRD until a later build; that ADR is not edited.
+- **Recorded as:** ADR-044
 
 ### 2026-10-04 — The brand kit is the design system
 - **ID:** DEC-013
