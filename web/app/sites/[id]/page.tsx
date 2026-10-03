@@ -12,7 +12,7 @@ import { SiteTrendCard } from "@/components/GmwContext";
 import Map from "@/components/Map";
 import Site3DView, { toneFromAnswers } from "@/components/Site3DView";
 import { useSession } from "@/components/session";
-import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
+import { DemoLabel, ErrorBox, Loading, RealCaseLabel } from "@/components/ui";
 import { BrandIcon, EmptyArt, ICON_PROPS, QuestionIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
 import { useGmwLayers } from "@/hooks/useGmwLayers";
@@ -69,7 +69,7 @@ export default function SiteDossierPage() {
         <Link href="/sites">← Candidate sites</Link>
       </p>
       <span className="mg-eyebrow">
-        Site{letter ? ` ${letter}` : ""} · {site.region} <DemoLabel show={site.is_demo} />
+        Site{letter ? ` ${letter}` : ""} · {site.region} <DemoLabel show={site.is_demo} /> <RealCaseLabel show={!site.is_demo} />
       </span>
       <div className="page-head">
         <h1>{site.name}</h1>

@@ -20,7 +20,7 @@ export default function AnswerBlock({ a, evidence, siteId }: { a: Answer; eviden
             {items.map((e) => (
               <li key={e.id}>
                 <a href={`/sites/${siteId}#ev-${e.id}`}>{e.source_name}</a>
-                {e.submitted_by_org ? ` · ${e.submitted_by_org}` : ""}
+                {e.submitted_by_org ? ` · ${e.submitted_by_org.name}` : ""}
                 <strong>{findingLabel(e.finding)}</strong>
               </li>
             ))}

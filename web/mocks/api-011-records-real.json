@@ -1,0 +1,952 @@
+[
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f1",
+      "funder": {
+        "name": "Department of Environment and Natural Resources (DENR)",
+        "is_demo": false
+      },
+      "published_at": "2026-10-04T00:00:00Z",
+      "rationale": "Reconstructed from public reports on the post-Yolanda Mangrove and Beach Forest Development Project. Paraiso planting: about 30,000 seedlings on roughly 4 ha, 2015-2018 [31]; community-led from 2014 [29]. The planted boundary is not published.",
+      "planned_action": "planting",
+      "planned_action_detail": "Paraiso planting: about 30,000 seedlings on roughly 4 ha, 2015-2018 [31]; community-led from 2014 [29]. The planted boundary is not published.",
+      "planned_area_ha": {
+        "value": 4.0,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "DENR's stated goal: a \"coastal greenbelt\" that would also support fishing and ecotourism [4].",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2019-01-01",
+      "outcome_check_after": "2022-01-01",
+      "known_unknowns": "Not published: the MBFDP agreement text, the partner list, per-site survival, and the planted boundary.",
+      "snapshot": {
+        "site_id": "00000000-0000-4000-8000-0000000000f1",
+        "site_name": "Paraiso mangrove stand, Tacloban",
+        "site_answers": [
+          {
+            "question": "history",
+            "label": "Was this mangrove before?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "current",
+            "label": "What's there now?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "ground",
+            "label": "What do people on the ground say?",
+            "status": "supported",
+            "finding": "open_for_restoration",
+            "source_count": {
+              "value": 1,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [
+              "00000000-0000-4000-8000-0000000ef101"
+            ],
+            "disagreeing_evidence_ids": []
+          }
+        ],
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef101"
+        ]
+      },
+      "is_demo": false,
+      "content_hash": "059769e0549fcc7d058e4c42ed4c96336a366e373d3e2a0d3186da635595c210"
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef102",
+          "00000000-0000-4000-8000-0000000ef103"
+        ],
+        "reported_area": null,
+        "measured_area": null,
+        "area_conflict": null
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "status": "supported",
+        "finding": "recovery_seen",
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef104"
+        ],
+        "checkable_from": "2022-01-01"
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "supported",
+        "finding": "open_for_restoration",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef101"
+        ],
+        "disagreeing_evidence_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef103",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "Mongabay, Dec 2025",
+          "source_version": "Case study source 31",
+          "observed_from": "2025-12-01T00:00:00Z",
+          "observed_to": "2025-12-01T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_area",
+              "value": 4,
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 31). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "About 30,000 seedlings on roughly 4 ha, 2015-2018.",
+          "provenance_url": "https://news.mongabay.com/2025/12/philippine-mangroves-survived-a-typhoon-but-now-confront-a-human-made-challenge/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "a6285653c29e349d0b0beb2b87938aab1eec4b38a67098fa2aa3d207ea33f014"
+        },
+        "event_hash": "786bcbcb063e05a60385b67e657e5017d2420b1fbaf2c8519ef87d99672fe7e7"
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef104",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Mongabay, Dec 2025",
+          "source_version": "Case study source 31",
+          "observed_from": "2025-12-01T00:00:00Z",
+          "observed_to": "2025-12-01T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_cover_2023",
+              "value": 3.6,
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 31). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "Published study: cover reached 3.6 ha by 2023, above 1.9 ha before the typhoon.",
+          "provenance_url": "https://news.mongabay.com/2025/12/philippine-mangroves-survived-a-typhoon-but-now-confront-a-human-made-challenge/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "b5c9bc6dc2acb308345f4b5b0b5139050ee8441613bc7d3f7fa81a81e960234a"
+        },
+        "event_hash": "7ef3fd1d895b9b85d442e635be062ddbe604aa7577de1ce71314764612212add"
+      },
+      {
+        "seq": 3,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef102",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "VERA Files, 24 Sep 2026",
+          "source_version": "Case study source 29",
+          "observed_from": "2026-09-24T00:00:00Z",
+          "observed_to": "2026-09-24T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Quoted from a public report (case study source 29). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "Barangay-led planting from 2014; replanted after Typhoons Ruby and Seniang.",
+          "provenance_url": "https://verafiles.org/articles/the-last-guardians-of-paraiso",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "92aaf17d67568d5f7880d18ae8ed2fd8ca712169144f3656a3c7e738d5948b69"
+        },
+        "event_hash": "04e360f5f8c7d8758b0a5233aebefc5537681aba5591d72e8a4c803c1a5d4242"
+      }
+    ],
+    "pin_state": "on_track",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  },
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f2",
+      "funder": {
+        "name": "Department of Environment and Natural Resources (DENR)",
+        "is_demo": false
+      },
+      "published_at": "2026-10-04T00:00:00Z",
+      "rationale": "Reconstructed from public reports on the post-Yolanda Mangrove and Beach Forest Development Project. Cancabato Bay: 70 ha over 14 months, Sep 2017-Nov 2018 [21]. The 70 ha boundary is not published.",
+      "planned_action": "planting",
+      "planned_action_detail": "Cancabato Bay: 70 ha over 14 months, Sep 2017-Nov 2018 [21]. The 70 ha boundary is not published.",
+      "planned_area_ha": {
+        "value": 70.0,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "DENR's stated goal: a \"coastal greenbelt\" that would also support fishing and ecotourism [4].",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2018-12-01",
+      "outcome_check_after": "2021-12-01",
+      "known_unknowns": "Not published: the MBFDP agreement text, the partner list, per-site survival, and the planted boundary.",
+      "snapshot": {
+        "site_id": "00000000-0000-4000-8000-0000000000f2",
+        "site_name": "Cancabato Bay shore, Tacloban",
+        "site_answers": [
+          {
+            "question": "history",
+            "label": "Was this mangrove before?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "current",
+            "label": "What's there now?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "ground",
+            "label": "What do people on the ground say?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          }
+        ],
+        "evidence_ids": []
+      },
+      "is_demo": false,
+      "content_hash": "d8b98dcee5ceba8da1bf083ad2c916c36971b292f7bd6037686b5c93e00f3187"
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef201"
+        ],
+        "reported_area": null,
+        "measured_area": null,
+        "area_conflict": null
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "status": "missing",
+        "finding": null,
+        "evidence_ids": [],
+        "checkable_from": "2021-12-01"
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef201",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove in Leyte, 2019",
+          "source_version": "Case study source 21",
+          "observed_from": "2019-03-01T00:00:00Z",
+          "observed_to": "2019-03-01T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_area",
+              "value": 70,
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 21). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "Leyte report: 70 ha over 14 months, Sep 2017-Nov 2018.",
+          "provenance_url": "https://www.academia.edu/87539308/State_of_the_Mangrove_in_Leyte",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "13402e84eaabec613a733a221021f57bd915c4bf10e9ac0a75f5c6c62d4a2b4c"
+        },
+        "event_hash": "34fc9175c57d40253a2dcab93602c6d2a9466b8b1d4bc6dc07904f2d19af7cb7"
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef202",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove Summit synthesis, 2019",
+          "source_version": "Case study source 23",
+          "observed_from": "2019-03-01T00:00:00Z",
+          "observed_to": "2019-03-01T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "Province-wide range that spans both findings; the source says the figures need field validation.",
+          "metrics": [],
+          "method": "Quoted from a public report (case study source 23). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "Leyte survival reported as 0-100%.",
+          "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/6.-synthesis.pdf",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "4b7832830e252177080fb15444237a7757e5e8663f624ca96e9f70855a7ed1e4"
+        },
+        "event_hash": "316c85c97ac4e392db052cc66dfa8bc934caa334dd1c909febbede757bd3f31d"
+      }
+    ],
+    "pin_state": "awaiting",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  },
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f3",
+      "funder": {
+        "name": "Department of Environment and Natural Resources (DENR)",
+        "is_demo": false
+      },
+      "published_at": "2026-10-04T00:00:00Z",
+      "rationale": "Reconstructed from public reports on the post-Yolanda Mangrove and Beach Forest Development Project. Ormoc MBFDP site: 105 ha in 8 parcels, 2015-2017 [20]. Parcel locations are not published; Naungan is shown because the same report names the Naungan-San Juan Mangrove Planters Association.",
+      "planned_action": "planting",
+      "planned_action_detail": "Ormoc MBFDP site: 105 ha in 8 parcels, 2015-2017 [20]. Parcel locations are not published; Naungan is shown because the same report names the Naungan-San Juan Mangrove Planters Association.",
+      "planned_area_ha": {
+        "value": 105.0,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "DENR's stated goal: a \"coastal greenbelt\" that would also support fishing and ecotourism [4].",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2018-01-01",
+      "outcome_check_after": "2021-01-01",
+      "known_unknowns": "Not published: the MBFDP agreement text, the partner list, per-site survival, and the planted boundary.",
+      "snapshot": {
+        "site_id": "00000000-0000-4000-8000-0000000000f3",
+        "site_name": "Naungan coast, Ormoc",
+        "site_answers": [
+          {
+            "question": "history",
+            "label": "Was this mangrove before?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "current",
+            "label": "What's there now?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "ground",
+            "label": "What do people on the ground say?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          }
+        ],
+        "evidence_ids": []
+      },
+      "is_demo": false,
+      "content_hash": "5c5a8c71cd75ab946ac8d6b5e0fefb8764cfa1cf927bed4f6c40d2be828a4268"
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef301"
+        ],
+        "reported_area": null,
+        "measured_area": null,
+        "area_conflict": null
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "status": "missing",
+        "finding": null,
+        "evidence_ids": [],
+        "checkable_from": "2021-01-01"
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef302",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "3rd National Mangrove Conference proceedings, Apr 2018",
+          "source_version": "Case study source 18",
+          "observed_from": "2018-04-19T00:00:00Z",
+          "observed_to": "2018-04-19T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "Program-wide figure with no published method; not measured at this site.",
+          "metrics": [
+            {
+              "name": "reported_survival",
+              "value": 78.3,
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 18). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "DENR survival check Feb-May 2016: 78.3% mangrove.",
+          "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "16b59eeb3ff6109bfc15a71791956009181e029bf5a40931ec39298d695d9d4b"
+        },
+        "event_hash": "1213edc217fafdb318d8630d5655371db0ac92b4cd4de1147e2154db370d85e9"
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef301",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove Summit, Central and Eastern Visayas, 2019",
+          "source_version": "Case study source 20",
+          "observed_from": "2019-03-01T00:00:00Z",
+          "observed_to": "2019-03-01T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_area",
+              "value": 105,
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 20). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "Ormoc report: MBFDP site of 105 ha in 8 parcels, 2015-2017.",
+          "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/3.-state-of-the-mangrove.pdf",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "fafe01b49b7a97369166da413bd254524949f05c5a7cd86c34ca25b22c712c26"
+        },
+        "event_hash": "32e2a35951c88fbfd61f5d7d774f9c9997ca56f441069364b5a7899503922cc0"
+      }
+    ],
+    "pin_state": "awaiting",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  },
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f4",
+      "funder": {
+        "name": "Department of Environment and Natural Resources (DENR)",
+        "is_demo": false
+      },
+      "published_at": "2026-10-04T00:00:00Z",
+      "rationale": "Reconstructed from public reports on the post-Yolanda Mangrove and Beach Forest Development Project. Eastern Samar: about 2,553 ha planted by local people's organization members [22]; in Bungtod, 104.39 ha were recovering as of 2020 [32]. This patch stands in for the province-level program; it is not a published site boundary.",
+      "planned_action": "planting",
+      "planned_action_detail": "Eastern Samar: about 2,553 ha planted by local people's organization members [22]; in Bungtod, 104.39 ha were recovering as of 2020 [32]. This patch stands in for the province-level program; it is not a published site boundary.",
+      "planned_area_ha": {
+        "value": 104.39,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "DENR's stated goal: a \"coastal greenbelt\" that would also support fishing and ecotourism [4].",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2016-02-01",
+      "outcome_check_after": "2019-02-01",
+      "known_unknowns": "Not published: the MBFDP agreement text, the partner list, per-site survival, and the planted boundary.",
+      "snapshot": {
+        "site_id": "00000000-0000-4000-8000-0000000000f4",
+        "site_name": "Bungtod mangrove, Guiuan",
+        "site_answers": [
+          {
+            "question": "history",
+            "label": "Was this mangrove before?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "current",
+            "label": "What's there now?",
+            "status": "missing",
+            "finding": null,
+            "source_count": {
+              "value": 0,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [],
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "question": "ground",
+            "label": "What do people on the ground say?",
+            "status": "conflicting",
+            "finding": null,
+            "source_count": {
+              "value": 2,
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "confidence": "high"
+            },
+            "evidence_ids": [
+              "00000000-0000-4000-8000-0000000ef401",
+              "00000000-0000-4000-8000-0000000ef402"
+            ],
+            "disagreeing_evidence_ids": [
+              "00000000-0000-4000-8000-0000000ef401",
+              "00000000-0000-4000-8000-0000000ef402"
+            ]
+          }
+        ],
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef401",
+          "00000000-0000-4000-8000-0000000ef402"
+        ]
+      },
+      "is_demo": false,
+      "content_hash": "7d4d32175a6520ec28db0971f3b12e478024b903b19b5eabb0b408e70f573179"
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef403"
+        ],
+        "reported_area": null,
+        "measured_area": null,
+        "area_conflict": null
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "status": "supported",
+        "finding": "recovery_seen",
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef405"
+        ],
+        "checkable_from": "2019-02-01"
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "conflicting",
+        "finding": null,
+        "source_count": {
+          "value": 2,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef401",
+          "00000000-0000-4000-8000-0000000ef402"
+        ],
+        "disagreeing_evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef401",
+          "00000000-0000-4000-8000-0000000ef402"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef403",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove in Eastern Samar, 2019",
+          "source_version": "Case study source 22",
+          "observed_from": "2019-03-01T00:00:00Z",
+          "observed_to": "2019-03-01T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "program_reported_area",
+              "value": 2553,
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 22). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "About 2,553 ha planted by local people's organization members, Eastern Samar.",
+          "provenance_url": "https://www.academia.edu/87539309/State_of_the_Mangrove_in_Eastern_Samar",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "8816e6f664037b9c0c87273315a7996aaa1e5505ec2cc8c1d6532c07450a0fa9"
+        },
+        "event_hash": "6711afc86c90e108ea9b5d6aabdfb4133b444628e9f6634070d0e594d909a04d"
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef404",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove Summit synthesis, 2019",
+          "source_version": "Case study source 23",
+          "observed_from": "2019-03-01T00:00:00Z",
+          "observed_to": "2019-03-01T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "Province-wide average; the source says the figures need field validation.",
+          "metrics": [
+            {
+              "name": "reported_survival",
+              "value": 25,
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 23). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "Samar average survival reported as 25%.",
+          "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/6.-synthesis.pdf",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "5fcfe7a4fc75b972ab49b0ed76df2d213b10476fd3d4c01c335b5c1bce95bfb5"
+        },
+        "event_hash": "271c15a94d1c837af6ac5a86ef4b57ec19d17e8a53bd3540f5915ec0d49f0500"
+      },
+      {
+        "seq": 3,
+        "kind": "evidence_added",
+        "created_at": "2026-10-04T00:00:00Z",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef405",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Climate Tracker Asia, 10 Nov 2022",
+          "source_version": "Case study source 32",
+          "observed_from": "2022-11-10T00:00:00Z",
+          "observed_to": "2022-11-10T00:00:00Z",
+          "retrieved_at": "2026-10-04T00:00:00Z",
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_recovering_area",
+              "value": 104.39,
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report (case study source 32). Not measured by Mangrove.",
+          "spatial_resolution_m": null,
+          "limitation": "In Bungtod, 104.39 ha were recovering as of 2020.",
+          "provenance_url": "https://climatetracker.asia/guiuan-coastal-folks-turn-to-mangroves-seawall-for-protection/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "content_hash": "7f9571ce1c5bfbf93e18c8a0a4308893e1c6a8e89c79226477f5830a05aee16e"
+        },
+        "event_hash": "f27086f420d4276df0dc285694615aaab7d02df2d052580544029ea0365a8b1c"
+      }
+    ],
+    "pin_state": "conflict",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  }
+]

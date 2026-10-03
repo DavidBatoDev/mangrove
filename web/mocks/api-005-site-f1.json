@@ -1,0 +1,362 @@
+{
+  "site": {
+    "id": "00000000-0000-4000-8000-0000000000f1",
+    "name": "Paraiso mangrove stand, Tacloban",
+    "region": "Eastern Visayas",
+    "is_demo": false,
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [
+              125.015745,
+              11.212015
+            ],
+            [
+              125.015698,
+              11.212082
+            ],
+            [
+              125.015742,
+              11.212138
+            ],
+            [
+              125.015775,
+              11.212196
+            ],
+            [
+              125.015768,
+              11.212376
+            ],
+            [
+              125.01567,
+              11.212521
+            ],
+            [
+              125.015657,
+              11.212577
+            ],
+            [
+              125.015689,
+              11.212597
+            ],
+            [
+              125.015672,
+              11.212675
+            ],
+            [
+              125.015631,
+              11.212684
+            ],
+            [
+              125.015629,
+              11.212806
+            ],
+            [
+              125.015589,
+              11.212967
+            ],
+            [
+              125.015634,
+              11.213072
+            ],
+            [
+              125.015655,
+              11.213256
+            ],
+            [
+              125.01573,
+              11.213448
+            ],
+            [
+              125.015828,
+              11.213437
+            ],
+            [
+              125.015973,
+              11.213344
+            ],
+            [
+              125.015929,
+              11.213199
+            ],
+            [
+              125.016074,
+              11.213174
+            ],
+            [
+              125.016068,
+              11.213129
+            ],
+            [
+              125.016155,
+              11.213129
+            ],
+            [
+              125.016219,
+              11.213042
+            ],
+            [
+              125.016398,
+              11.212757
+            ],
+            [
+              125.016486,
+              11.212687
+            ],
+            [
+              125.016547,
+              11.212573
+            ],
+            [
+              125.01658,
+              11.212459
+            ],
+            [
+              125.016537,
+              11.21234
+            ],
+            [
+              125.016515,
+              11.212248
+            ],
+            [
+              125.016611,
+              11.212221
+            ],
+            [
+              125.016674,
+              11.212121
+            ],
+            [
+              125.016664,
+              11.212022
+            ],
+            [
+              125.016618,
+              11.211929
+            ],
+            [
+              125.016633,
+              11.211888
+            ],
+            [
+              125.016733,
+              11.211797
+            ],
+            [
+              125.01643,
+              11.211683
+            ],
+            [
+              125.016297,
+              11.21164
+            ],
+            [
+              125.01606,
+              11.211501
+            ],
+            [
+              125.016018,
+              11.211476
+            ],
+            [
+              125.015947,
+              11.211416
+            ],
+            [
+              125.015461,
+              11.211001
+            ],
+            [
+              125.015319,
+              11.210814
+            ],
+            [
+              125.015143,
+              11.210648
+            ],
+            [
+              125.014903,
+              11.210614
+            ],
+            [
+              125.014753,
+              11.210609
+            ],
+            [
+              125.014733,
+              11.210692
+            ],
+            [
+              125.014701,
+              11.210753
+            ],
+            [
+              125.014666,
+              11.210836
+            ],
+            [
+              125.014661,
+              11.211001
+            ],
+            [
+              125.014693,
+              11.211133
+            ],
+            [
+              125.014753,
+              11.211177
+            ],
+            [
+              125.014876,
+              11.211208
+            ],
+            [
+              125.014918,
+              11.211267
+            ],
+            [
+              125.01512,
+              11.211355
+            ],
+            [
+              125.015235,
+              11.211429
+            ],
+            [
+              125.015324,
+              11.211481
+            ],
+            [
+              125.015351,
+              11.211542
+            ],
+            [
+              125.015398,
+              11.21155
+            ],
+            [
+              125.015412,
+              11.211592
+            ],
+            [
+              125.015472,
+              11.211633
+            ],
+            [
+              125.015514,
+              11.211591
+            ],
+            [
+              125.01554,
+              11.211681
+            ],
+            [
+              125.015553,
+              11.211794
+            ],
+            [
+              125.01552,
+              11.211833
+            ],
+            [
+              125.015607,
+              11.211947
+            ],
+            [
+              125.015654,
+              11.211952
+            ],
+            [
+              125.015686,
+              11.212005
+            ],
+            [
+              125.015745,
+              11.212015
+            ]
+          ]
+        ]
+      ]
+    },
+    "area": {
+      "value": 2.55,
+      "unit": "ha",
+      "eq_id": "EQ-001",
+      "confidence": "high"
+    },
+    "proposal_summary": "Paraiso planting: about 30,000 seedlings on roughly 4 ha, 2015-2018 [31]; community-led from 2014 [29]. The planted boundary is not published. Outline: OpenStreetMap way 892162587 (wetland=mangrove) inside Barangay 83 (Paraiso). Sketched, not field-verified."
+  },
+  "answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "missing",
+      "finding": null,
+      "source_count": {
+        "value": 0,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "current",
+      "label": "What's there now?",
+      "status": "missing",
+      "finding": null,
+      "source_count": {
+        "value": 0,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "ground",
+      "label": "What do people on the ground say?",
+      "status": "supported",
+      "finding": "open_for_restoration",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-0000000ef101"
+      ],
+      "disagreeing_evidence_ids": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-0000000ef101",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "Primavera et al., Inquirer, 15 Jun 2014",
+      "source_version": "Case study source 11",
+      "observed_from": "2014-06-15T00:00:00Z",
+      "observed_to": "2014-06-15T00:00:00Z",
+      "retrieved_at": "2026-10-04T00:00:00Z",
+      "finding": "open_for_restoration",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report (case study source 11). Not measured by Mangrove.",
+      "spatial_resolution_m": null,
+      "limitation": "Jan-Mar 2014 survey: total mortality at Barangay 83a, Tacloban. Site-level.",
+      "provenance_url": "https://opinion.inquirer.net/75597/mangroves-of-e-visayas-need-protection",
+      "asset_url": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "content_hash": "839104bf9d2cae503476be3987b1e35e823ea5a33711b934548bd31667ef23b0"
+    }
+  ]
+}

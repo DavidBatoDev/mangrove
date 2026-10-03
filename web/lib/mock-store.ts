@@ -8,6 +8,12 @@ import siteB from "@/mocks/api-005-site-b.json";
 import siteC from "@/mocks/api-005-site-c.json";
 import siteD from "@/mocks/api-005-site-d.json";
 import siteE from "@/mocks/api-005-site-e.json";
+// Real sourced cases, Eastern Visayas (ADR-051). is_demo = false; every item cites a public report.
+import siteF1 from "@/mocks/api-005-site-f1.json";
+import siteF2 from "@/mocks/api-005-site-f2.json";
+import siteF3 from "@/mocks/api-005-site-f3.json";
+import siteF4 from "@/mocks/api-005-site-f4.json";
+import realRecords from "@/mocks/api-011-records-real.json";
 import recordsFixture from "@/mocks/api-010-records.json";
 import recordAFixture from "@/mocks/api-011-record-a.json";
 import centroids from "@/mocks/site-centroids.json";
@@ -37,10 +43,10 @@ import type {
 
 const DISCLAIMER = "This record is not a certification of restoration success or approval of funding.";
 const AREA_TOLERANCE = 0.2; // docs/methods.md §3.1, EQ-009
-const STORE_KEY = "mangrove-mock-v2"; // bumped when the seeded fixtures change
+const STORE_KEY = "mangrove-mock-v3"; // bumped when the seeded fixtures change
 
 const PREVIEW = uiPreview as unknown as { dossiers: Dossier[]; records: RecordDetail[]; pins: PinsFC["features"] };
-const DOSSIERS: Dossier[] = [...([siteA, siteB, siteC, siteD, siteE] as unknown as Dossier[]), ...PREVIEW.dossiers];
+const DOSSIERS: Dossier[] = [...([siteA, siteB, siteC, siteD, siteE, siteF1, siteF2, siteF3, siteF4] as unknown as Dossier[]), ...PREVIEW.dossiers];
 const USERS: Record<string, User> = {
   "funder@demo.mangrove.test": {
     id: "00000000-0000-4000-8000-000000000f01",
@@ -66,7 +72,11 @@ interface MockState {
 }
 
 function initialState(): MockState {
-  const seeded = [structuredClone(recordAFixture) as unknown as RecordDetail, ...structuredClone(PREVIEW.records)];
+  const seeded = [
+    structuredClone(recordAFixture) as unknown as RecordDetail,
+    ...(structuredClone(realRecords) as unknown as RecordDetail[]),
+    ...structuredClone(PREVIEW.records),
+  ];
   const pins = [...structuredClone((recordsFixture as unknown as PinsFC).features), ...structuredClone(PREVIEW.pins)];
   pins.sort((a, b) => b.properties.published_at.localeCompare(a.properties.published_at)); // newest first (API-010)
   return {
@@ -282,6 +292,7 @@ export async function lockRecord(body: LockBody, idempotencyKey: string): Promis
       outcome_check_after: body.outcome_check_after,
       known_unknowns: body.known_unknowns,
       snapshot,
+      is_demo: true,
       content_hash,
     },
     checks: [
@@ -352,7 +363,7 @@ export async function submitEvidence(input: EvidenceInput): Promise<EvidenceResp
     limitation: isField ? "One visit; device GPS accuracy unknown." : "Self-reported by the funder; not independently checked.",
     provenance_url: null,
     asset_url: null,
-    submitted_by_org: user.org.name,
+    submitted_by_org: { name: user.org.name, is_demo: user.org.is_demo },
     is_demo: true,
     reported_area_ha: input.reported_area_ha ?? null,
     boundary: input.boundary ?? null,

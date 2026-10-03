@@ -39,7 +39,7 @@ export interface Answer {
 export interface Evidence {
   id: string;
   question: EvidenceQuestion;
-  source_type: string;
+  source_type: "gmw" | "sentinel2" | "field" | "project_report" | "proposal" | "public_report" | (string & {});
   source_name: string;
   source_version: string | null;
   observed_from: string;
@@ -54,7 +54,7 @@ export interface Evidence {
   limitation: string | null;
   provenance_url: string | null;
   asset_url: string | null;
-  submitted_by_org: string | null;
+  submitted_by_org: { name: string; is_demo: boolean } | null;
   is_demo: boolean;
   content_hash: string;
   // Present on mock items that carry the reported or mapped area (DS-004, DS-005).
@@ -117,6 +117,7 @@ export interface PromiseRecord {
   outcome_check_after: string;
   known_unknowns: string;
   snapshot: Record<string, unknown>;
+  is_demo: boolean;
   content_hash: string;
 }
 

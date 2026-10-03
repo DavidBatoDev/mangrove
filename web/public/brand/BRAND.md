@@ -98,7 +98,7 @@ These are our vocabulary. Use these exact words in UI, copy and decks. Each one 
 
 | Use | Not | Why |
 |---|---|---|
-| candidate site, site | opportunity, project, listing, deal | The 3–5 Manila Bay sites a funder compares (US-001). |
+| candidate site, site | opportunity, project, listing, deal | The Manila Bay demo sites a funder compares (US-001), and the real Eastern Visayas case sites (ADR-051). |
 | record | decision record, report, dossier, case file | The locked, public promise and its timeline (`/records/{id}`). |
 | evidence dossier | data room, profile | Everything known about one site (US-002). |
 | evidence item | dataset, input, evidence source | One piece of evidence with its provenance. |
@@ -112,6 +112,7 @@ These are our vocabulary. Use these exact words in UI, copy and decks. Each one 
 | rationale | reason, notes | Why the funder picked this site. |
 | the funder decides | we recommend, approved, decides | Humans decide. Mangrove never approves funding. |
 | Demo data | sample, example, test | Mandatory label on every seeded site, record, organization and pin (BR-006). |
+| Real case · sourced | verified, certified, real data | Tag on a real record rebuilt from cited public reports (`is_demo = false`, ADR-051). Mono, solid neutral outline; never red. |
 
 **Banned outright:** guarantee, certified, verified (unless a named third party verified it), verified restoration, approved, investment-ready, will succeed, qualified (for a remotely screened site), offset, carbon-neutral, impact (as a vague noun), any score / rank / percent chance / "impact score", "the satellite shows N hectares" for a recent planting, tamper-proof, impossible to alter, "80–90% of projects fail", "nobody monitors survival", good site / bad site / best site, revolutionary, AI-powered (as a headline), "save the planet", "game-changer", "seamless", "unlock". Source: `docs/design-brief.md` §4 and `idea.md` §9.
 

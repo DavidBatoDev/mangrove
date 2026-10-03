@@ -80,6 +80,10 @@ code, .mono { font-family: var(--mg-font-mono); font-size: 0.85em; word-break: b
 .measure { font-size: var(--mg-text-small); }
 .measure-meta { display: inline-flex; align-items: center; gap: var(--mg-space-2); margin-left: var(--mg-space-2); color: var(--mg-text-muted); font-size: var(--mg-text-label); }
 .measure-meta .mg-conf { font-size: 10px; }
+.real-case { display: inline-block; padding: 3px 8px; border: 1px solid var(--mg-brackish); border-radius: var(--mg-radius-sm); font: 500 var(--mg-text-label)/1.2 var(--mg-font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mg-text-muted); white-space: nowrap; }
+.map-pin-real { position: absolute; left: 50%; top: -11px; transform: translateX(-50%); font: 500 9px/13px var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-mudflat); background: var(--mg-mist); border: 1px solid var(--mg-brackish); border-radius: var(--mg-radius-sm); padding: 0 3px; white-space: nowrap; pointer-events: none; }
+.evidence-source { margin: var(--mg-space-2) 0 0; font-size: var(--mg-text-small); }
+.evidence-source a { font-weight: 600; }
 .placeholder-label { display: inline-block; font: 500 var(--mg-text-label)/1.2 var(--mg-font-mono); color: var(--mg-text-muted); border: 1px dashed var(--mg-brackish); border-radius: var(--mg-radius-sm); padding: 2px 6px; }
 
 /* Compare */
@@ -131,7 +135,7 @@ textarea { min-height: 5rem; }
 html.mg-fonts h1, html.mg-fonts h2, html.mg-fonts .mg-headline, html.mg-fonts .mg-display { font-weight: 700; letter-spacing: -0.02em; }
 html.mg-fonts .mg-headline em, html.mg-fonts .mg-display em, html.mg-fonts h1 em { font-style: normal; font-weight: 700; }
 html.mg-fonts .mg-mono, html.mg-fonts .mg-chip, html.mg-fonts .mg-cite, html.mg-fonts .mg-demo, html.mg-fonts .mg-conf, html.mg-fonts .hash { font-variant-numeric: tabular-nums; }
-html.mg-fonts .mg-eyebrow, html.mg-fonts .mg-demo, html.mg-fonts .mg-conf, html.mg-fonts .mg-table th, html.mg-fonts .mg-table thead th small, html.mg-fonts .kv dt, html.mg-fonts .field label, html.mg-fonts .mock-flag, html.mg-fonts .map-pin-demo,
+html.mg-fonts .mg-eyebrow, html.mg-fonts .mg-demo, html.mg-fonts .mg-conf, html.mg-fonts .mg-table th, html.mg-fonts .mg-table thead th small, html.mg-fonts .kv dt, html.mg-fonts .field label, html.mg-fonts .mock-flag, html.mg-fonts .map-pin-demo, html.mg-fonts .map-pin-real, html.mg-fonts .real-case,
 html.mg-fonts .stat-label, html.mg-fonts .panel-label, html.mg-fonts .settings-label, html.mg-fonts .map-legend-head, html.mg-fonts .metric-name, html.mg-fonts .provenance summary, html.mg-fonts .ctl-today span, html.mg-fonts .tag {
   letter-spacing: 0.03em; font-weight: 600;
 }
