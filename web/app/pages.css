@@ -177,3 +177,56 @@ form.form--wide { max-width: 760px; }
 .record-item { grid-template-columns: auto 1fr; display: grid; gap: var(--mg-space-3) !important; align-items: start; }
 .record-item-pin svg { display: block; }
 .mg-btn svg { flex: none; }
+
+/* ---------- Place card (selected pin, components/PlaceCard.tsx) ---------- */
+.map-panel-body:has(.place) { padding: 0; }
+.place-top { position: relative; }
+.place-imagery { position: relative; height: 200px; overflow: hidden; background: var(--mg-night); }
+.place-tiles { position: absolute; left: 0; top: 0; width: 768px; height: 768px; }
+.place-tiles img { position: absolute; width: 256px; height: 256px; display: block; }
+.place-target { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; transform: translate(-50%, -50%); border-radius: 50%;
+  border: 2px solid var(--mg-mist); box-shadow: 0 0 0 2px color-mix(in srgb, var(--mg-night) 50%, transparent); }
+.place-credit { position: absolute; right: var(--mg-space-2); bottom: var(--mg-space-2); font-size: 10px; color: var(--mg-mist);
+  background: color-mix(in srgb, var(--mg-night) 60%, transparent); padding: 2px 6px; border-radius: var(--mg-radius-sm); }
+.place-back { position: absolute; left: var(--mg-space-3); top: var(--mg-space-3); z-index: 1; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--mg-border); background: var(--mg-surface); color: var(--mg-heading); display: grid; place-items: center; cursor: pointer; box-shadow: var(--mg-shadow); }
+.place-back:hover { border-color: var(--mg-tidal); }
+.place-body { padding: var(--mg-space-4) var(--mg-space-5) var(--mg-space-6); display: grid; gap: var(--mg-space-4); }
+.place-head h2 { margin: 0 0 var(--mg-space-1); font-size: var(--mg-text-h3); }
+.place-head .meta { margin: 0 0 var(--mg-space-2); }
+.place-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--mg-space-2); padding: var(--mg-space-3) 0; border-block: 1px solid var(--mg-border); }
+.place-action { display: grid; justify-items: center; gap: var(--mg-space-1); border: 0; background: none; padding: 0; cursor: pointer; font: 600 var(--mg-text-label)/1.2 var(--mg-font-body);
+  color: var(--mg-tidal-ink); text-decoration: none; text-align: center; }
+.place-action > span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: color-mix(in srgb, var(--mg-tidal) 14%, transparent); }
+.place-action > span .mg-icon { background: currentColor; }
+.place-action.is-primary > span { background: var(--mg-btn-primary-bg); color: var(--mg-btn-primary-fg); }
+.place-action:hover > span { outline: 2px solid var(--mg-tidal); outline-offset: 1px; }
+.place-section { display: grid; gap: var(--mg-space-2); }
+.place-section .mg-eyebrow { margin: 0; }
+.place-promise { margin: 0; font: 700 var(--mg-text-h3)/1.2 var(--mg-font-display); color: var(--mg-heading); }
+.place-check { display: grid; grid-template-columns: auto 1fr; gap: var(--mg-space-3); align-items: start; padding: var(--mg-space-3); border: 1px solid var(--mg-border); border-radius: var(--app-radius-sm); }
+.place-check > svg, .place-check > .mg-icon { color: var(--mg-tidal-ink); margin-top: 2px; }
+.place-check strong { display: block; margin-bottom: var(--mg-space-2); color: var(--mg-text); }
+.place-evidence { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--mg-space-2); }
+.place-evidence li { display: grid; grid-template-columns: auto 1fr; gap: var(--mg-space-3); align-items: start; }
+.place-evidence li > span:last-child { display: grid; gap: 2px; }
+.place-evidence strong { color: var(--mg-text); }
+.place-evidence-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--mg-root) 14%, transparent); color: var(--mg-root); }
+.place-disclaimer { margin: 0; font-size: var(--mg-text-label); color: var(--mg-text-muted); border-top: 1px solid var(--mg-border); padding-top: var(--mg-space-3); }
+
+/* Record list rows are buttons that select the pin */
+.record-item { padding: 0 !important; }
+.record-item-btn { width: 100%; display: grid; grid-template-columns: auto 1fr; gap: var(--mg-space-3); align-items: start; text-align: left;
+  border: 0; background: none; padding: var(--mg-space-3) var(--mg-space-4); cursor: pointer; font: inherit; color: inherit; border-radius: var(--app-radius); }
+.record-item-btn > span:last-child { display: grid; gap: 2px; justify-items: start; }
+.record-item-btn:hover { background: var(--mg-surface-sunk); }
+.record-item-name { font: 700 var(--mg-text-h4)/1.25 var(--mg-font-display); color: var(--mg-link); }
+
+/* Selected pin on the map */
+.map-pin.is-selected svg { transform: scale(1.35); filter: drop-shadow(0 0 0 var(--mg-mist)) drop-shadow(0 0 4px var(--mg-tidal)); }
+.map-pin.is-selected { z-index: 4; }
+.place-questions { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--mg-space-2); }
+.place-questions li { display: grid; grid-template-columns: auto 1fr auto; gap: var(--mg-space-2); align-items: center; font-size: var(--mg-text-small); }
+.place-questions li > svg, .place-questions li > .mg-icon { color: var(--mg-tidal-ink); }
+.place-questions li .mg-chip { padding: 4px 8px; font-size: var(--mg-text-label); }
+.place-questions li.is-conflict { padding: var(--mg-space-2); border-left: 3px solid var(--mg-conflict); background: var(--mg-surface-sunk); border-radius: 0 var(--app-radius-sm) var(--app-radius-sm) 0; }

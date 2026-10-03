@@ -34,6 +34,9 @@ export interface MapViewProps {
   /** Fit to the site polygons instead of the whole country. */
   fitToSites?: boolean;
   onSiteClick?: (siteId: string) => void;
+  /** When set, clicking a pin selects it (e.g. opens a place card) instead of navigating to its record. */
+  onPinClick?: (recordId: string) => void;
+  selectedPinId?: string | null;
   highlightSiteIds?: string[];
   basemap?: BasemapId;
   showSites?: boolean;
@@ -71,6 +74,8 @@ export default function MapView({
   pins,
   fitToSites,
   onSiteClick,
+  onPinClick,
+  selectedPinId,
   highlightSiteIds,
   basemap = DEFAULT_BASEMAP,
   showSites = true,
@@ -87,9 +92,9 @@ export default function MapView({
   const router = useRouter();
 
   // Latest props, read when the style (re)loads and overlays are re-added.
-  const latest = useRef({ sites, highlightSiteIds, showSites, basemap, onSiteClick, fitPadding });
+  const latest = useRef({ sites, highlightSiteIds, showSites, basemap, onSiteClick, onPinClick, fitPadding });
   useEffect(() => {
-    latest.current = { sites, highlightSiteIds, showSites, basemap, onSiteClick, fitPadding };
+    latest.current = { sites, highlightSiteIds, showSites, basemap, onSiteClick, onPinClick, fitPadding };
   });
   const onMapReadyRef = useRef(onMapReady);
   useEffect(() => {
@@ -260,13 +265,25 @@ export default function MapView({
         pinSvg(p.pin_state) +
         (p.is_demo ? '<span class="map-pin-demo">Demo</span>' : "") +
         `<span class="map-pin-label"><strong>${escapeHtml(p.site_name)}</strong>${PIN_WORDS[p.pin_state]}${p.is_demo ? " · Demo data" : ""}</span>`;
+      el.dataset.recordId = p.id;
       el.addEventListener("click", (ev) => {
         ev.preventDefault();
-        router.push(`/records/${p.id}`);
+        if (latest.current.onPinClick) latest.current.onPinClick(p.id);
+        else router.push(`/records/${p.id}`);
       });
       return new Marker({ element: el, anchor: "bottom" }).setLngLat(f.geometry.coordinates as [number, number]).addTo(map);
     });
   }, [pins, router]);
+
+  // Selected pin.
+  useEffect(() => {
+    markers.current.forEach((m) => {
+      const el = m.getElement();
+      const on = el.dataset.recordId === selectedPinId;
+      el.classList.toggle("is-selected", on);
+      el.setAttribute("aria-pressed", String(on));
+    });
+  }, [selectedPinId, pins]);
 
   // Pin visibility.
   useEffect(() => {
