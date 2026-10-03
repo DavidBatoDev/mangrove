@@ -1,13 +1,13 @@
-"""P0 REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, plus the BR-002 405s."""
+"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-025, plus the BR-002 405s."""
 
 from __future__ import annotations
 
 from typing import Any
 
 from fastapi import APIRouter, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
-from . import reads
+from . import gmw_tiles, reads
 from .db import connection
 from .errors import envelope
 
@@ -69,6 +69,32 @@ def country_context(iso3: str) -> dict[str, Any]:
 @router.get("/layers/gmw-extent", summary="API-023 Manila Bay mangrove extent for one year")
 def gmw_extent(year: int | None = Query(default=None)) -> dict[str, Any]:
     return reads.gmw_extent_layer(year)
+
+
+# API-024 responses are public map data; any origin may read them (ADR-049), e.g. a local fixtures-mode web app.
+_TILE_CORS = {"Access-Control-Allow-Origin": "*"}
+
+
+@router.get("/layers/gmw-extent/tiles", summary="API-024 Philippines mangrove extent tiles: years and URL template")
+def gmw_extent_tiles_info() -> JSONResponse:
+    return JSONResponse(gmw_tiles.layer_info(), headers=_TILE_CORS)
+
+
+@router.get("/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", summary="API-024 one 256 px mangrove extent tile")
+def gmw_extent_tile(year: int, z: int, x: int, y: int) -> Response:
+    png = gmw_tiles.tile_png(year, z, x, y)
+    return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800", **_TILE_CORS})
+
+
+@router.get("/layers/gmw-change/tiles", summary="API-025 Philippines mangrove change tiles: baselines, years, URL template")
+def gmw_change_tiles_info() -> JSONResponse:
+    return JSONResponse(gmw_tiles.change_info(), headers=_TILE_CORS)
+
+
+@router.get("/layers/gmw-change/tiles/{base}/{year}/{z}/{x}/{y}.png", summary="API-025 one 256 px mangrove gain/loss tile")
+def gmw_change_tile(base: int, year: int, z: int, x: int, y: int, only: str | None = Query(default=None)) -> Response:
+    png = gmw_tiles.change_tile_png(base, year, z, x, y, only)
+    return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800", **_TILE_CORS})
 
 
 # BR-002: there is no PUT, PATCH or DELETE on evidence, records or timeline entries (docs/api.md §2).

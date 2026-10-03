@@ -4,17 +4,18 @@
 // dialog and a legend card. The basemap choice is a per-viewer preference kept in localStorage.
 
 import "./map-shell.css";
-import { Box, Check, ChevronDown, Compass, Layers, Link2, Maximize2, Minus, Plus, X } from "lucide-react";
+import { Box, Check, ChevronDown, Compass, Eye, EyeOff, Layers, Link2, Maximize2, Minus, Plus, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Globe3D from "@/components/Globe3D";
 import Map, { type MapEngine } from "@/components/Map";
+import { useGmwLayers } from "@/hooks/useGmwLayers";
 import { GOOGLE_IMAGERY_NOTE } from "@/lib/google";
 import type { MapViewProps } from "@/components/MapView";
 import type { MapHandle } from "@/lib/map-handle";
 import { BASEMAPS, DEFAULT_BASEMAP, type BasemapId } from "@/lib/basemaps";
 import { PIN_WORDS } from "@/lib/format";
 import { pinSvg, siteAreaSvg } from "@/lib/pin-icons";
-import type { PinState } from "@/lib/types";
+import type { MangroveLayers, PinState } from "@/lib/types";
 
 // BR-004 pin states, in reading order, with what each means.
 const LEGEND_PINS: { state: PinState; hint: string }[] = [
@@ -29,10 +30,42 @@ interface Prefs {
   basemap: BasemapId;
   showSites: boolean;
   showPins: boolean;
+  /** Pin states hidden by the legend filter. */
+  hiddenPins: PinState[];
+  /** GMW mangrove extent layer (API-024, ADR-048). */
+  showMangroves: boolean;
+  /** null = the latest year the layer has. */
+  mangroveYear: number | null;
+  /** GMW mangrove change (API-025, ADR-050). */
+  showGain: boolean;
+  showLoss: boolean;
+  /** null = the layer's default baseline (1985). */
+  changeBase: number | null;
+  /** 0.1-1 for the mangrove layers; they fade further when zoomed far in. */
+  mangroveOpacity: number;
+}
+
+const DEFAULT_PREFS: Prefs = {
+  basemap: DEFAULT_BASEMAP,
+  showSites: true,
+  showPins: true,
+  hiddenPins: [],
+  showMangroves: true,
+  mangroveYear: null,
+  showGain: true,
+  showLoss: true,
+  changeBase: null,
+  mangroveOpacity: 1,
+};
+
+/** Eye icon for a legend row: open = shown on the map. */
+function Eyes({ on }: { on: boolean }) {
+  const Ico = on ? Eye : EyeOff;
+  return <Ico size={15} strokeWidth={1.75} aria-hidden className="legend-eye" />;
 }
 
 function readPrefs(): Prefs {
-  const fallback: Prefs = { basemap: DEFAULT_BASEMAP, showSites: true, showPins: true };
+  const fallback = DEFAULT_PREFS;
   try {
     const raw = window.localStorage.getItem(PREF_KEY);
     return raw ? { ...fallback, ...(JSON.parse(raw) as Partial<Prefs>) } : fallback;
@@ -72,7 +105,33 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
   const [globeView, setGlobeView] = useState<{ center: [number, number]; zoom: number } | null>(null);
   const [globeFailed, setGlobeFailed] = useState(false);
   const useGlobe = engine === "google" && !globeFailed;
-  const [prefs, setPrefs] = useState<Prefs>({ basemap: DEFAULT_BASEMAP, showSites: true, showPins: true });
+  const [prefs, setPrefs] = useState<Prefs>(DEFAULT_PREFS);
+  // GMW layers: their legend rows hide when a layer is not installed on the server.
+  const gmw = useGmwLayers();
+  const mangroveYears = gmw.years;
+  const mangroveYear =
+    prefs.mangroveYear !== null && mangroveYears.includes(prefs.mangroveYear) ? prefs.mangroveYear : (mangroveYears.at(-1) ?? null);
+  const bases = Object.keys(gmw.changeBases).map(Number).sort((a, b) => a - b);
+  const changeBase =
+    prefs.changeBase !== null && bases.includes(prefs.changeBase) ? prefs.changeBase : (gmw.defaultBase ?? bases[0] ?? null);
+  // Change exists only for map years after the baseline.
+  const changeOk =
+    changeBase !== null && mangroveYear !== null && (gmw.changeBases[String(changeBase)] ?? []).includes(mangroveYear);
+  const mangrove: MangroveLayers | null =
+    mangroveYear === null
+      ? null
+      : {
+          extentYear: prefs.showMangroves ? mangroveYear : null,
+          change:
+            changeOk && changeBase !== null && (prefs.showGain || prefs.showLoss)
+              ? { base: changeBase, year: mangroveYear, gain: prefs.showGain, loss: prefs.showLoss }
+              : null,
+          opacity: prefs.mangroveOpacity,
+        };
+  const hidden = prefs.hiddenPins ?? [];
+  const pins = mapProps.pins
+    ? { ...mapProps.pins, features: mapProps.pins.features.filter((f) => !hidden.includes(f.properties.pin_state)) }
+    : mapProps.pins;
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(true);
   const [panelOpen, setPanelOpen] = useState(true);
@@ -147,6 +206,8 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
         basemap={prefs.basemap}
         showSites={prefs.showSites}
         showPins={prefs.showPins}
+        pins={pins}
+        mangrove={mangrove}
         onMapReady={setMap}
         onEngine={setEngine}
         fitPadding={wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20}
@@ -235,7 +296,7 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
         </div>
       </div>
 
-      <section className={`map-legend${legendOpen ? "" : " is-collapsed"}`} aria-label="Legend">
+      <section className={`map-legend map-legend--compact${legendOpen ? "" : " is-collapsed"}`} aria-label="Legend and layers">
         <button type="button" className="map-legend-head" aria-expanded={legendOpen} onClick={() => setLegendOpen((o) => !o)}>
           <span>Legend</span>
           {Icon.chevron}
@@ -243,23 +304,120 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
         {legendOpen && (
           <ul>
             {layers.pins &&
-              LEGEND_PINS.map(({ state, hint }) => (
-                <li key={state} className={prefs.showPins ? "" : "is-off"}>
-                  <span className="legend-art" dangerouslySetInnerHTML={{ __html: pinSvg(state, 24) }} />
-                  <span>
-                    <strong>{PIN_WORDS[state]}</strong>
-                    <span className="legend-hint">{hint}</span>
-                  </span>
-                </li>
-              ))}
+              LEGEND_PINS.map(({ state, hint }) => {
+                const on = prefs.showPins && !hidden.includes(state);
+                return (
+                  <li key={state}>
+                    <button
+                      type="button"
+                      className="legend-row"
+                      aria-pressed={on}
+                      title={hint}
+                      onClick={() =>
+                        update({ showPins: true, hiddenPins: on ? [...hidden, state] : hidden.filter((p) => p !== state) })
+                      }
+                    >
+                      <span className="legend-art" dangerouslySetInnerHTML={{ __html: pinSvg(state, 18) }} />
+                      <span className="legend-label">{PIN_WORDS[state]}</span>
+                      <Eyes on={on} />
+                    </button>
+                  </li>
+                );
+              })}
             {layers.sites && (
-              <li className={prefs.showSites ? "" : "is-off"}>
-                <span className="legend-art" dangerouslySetInnerHTML={{ __html: siteAreaSvg(28) }} />
-                <span>
-                  <strong>Candidate site</strong>
-                  <span className="legend-hint">Sketched for the demo, not field-verified</span>
-                </span>
+              <li>
+                <button
+                  type="button"
+                  className="legend-row"
+                  aria-pressed={prefs.showSites}
+                  title="Sketched for the demo, not field-verified"
+                  onClick={() => update({ showSites: !prefs.showSites })}
+                >
+                  <span className="legend-art" dangerouslySetInnerHTML={{ __html: siteAreaSvg(18) }} />
+                  <span className="legend-label">Candidate site</span>
+                  <Eyes on={prefs.showSites} />
+                </button>
               </li>
+            )}
+            {mangroveYear !== null && (
+              <>
+                <li className="legend-group">
+                  <span>Mangroves</span>
+                  <select aria-label="Mangrove year" value={mangroveYear} onChange={(e) => update({ mangroveYear: Number(e.target.value) })}>
+                    {mangroveYears.map((y) => (
+                      <option key={y} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="legend-row"
+                    aria-pressed={prefs.showMangroves}
+                    title="Global Mangrove Watch v4.1.12 mangrove extent, 30 m. Context only, not a status."
+                    onClick={() => update({ showMangroves: !prefs.showMangroves })}
+                  >
+                    <span className="legend-art">
+                      <span className="legend-swatch legend-swatch--mangrove" />
+                    </span>
+                    <span className="legend-label">Extent</span>
+                    <Eyes on={prefs.showMangroves} />
+                  </button>
+                </li>
+                {bases.length > 0 && (
+                  <>
+                    <li className="legend-group legend-group--sub">
+                      <span>Change since</span>
+                      <select aria-label="Change since" value={changeBase ?? ""} onChange={(e) => update({ changeBase: Number(e.target.value) })}>
+                        {bases.map((y) => (
+                          <option key={y} value={y}>
+                            {y}
+                          </option>
+                        ))}
+                      </select>
+                    </li>
+                    {(["gain", "loss"] as const).map((k) => {
+                      const on = k === "gain" ? prefs.showGain : prefs.showLoss;
+                      return (
+                        <li key={k}>
+                          <button
+                            type="button"
+                            className={`legend-row${changeOk ? "" : " is-unavailable"}`}
+                            aria-pressed={on}
+                            title={
+                              changeOk
+                                ? `Global Mangrove Watch v4.1.12 mangrove ${k}, ${changeBase} to ${mangroveYear}. Context only, not a status.`
+                                : `Pick a year after ${changeBase} to see change.`
+                            }
+                            onClick={() => update(k === "gain" ? { showGain: !on } : { showLoss: !on })}
+                          >
+                            <span className="legend-art">
+                              <span className={`legend-swatch legend-swatch--${k}`} />
+                            </span>
+                            <span className="legend-label">{k === "gain" ? "Gain" : "Loss"}</span>
+                            <Eyes on={on} />
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </>
+                )}
+                <li className="legend-opacity">
+                  <label>
+                    <span>Opacity</span>
+                    <input
+                      type="range"
+                      min={0.1}
+                      max={1}
+                      step={0.05}
+                      value={prefs.mangroveOpacity}
+                      onChange={(e) => update({ mangroveOpacity: Number(e.target.value) })}
+                    />
+                  </label>
+                </li>
+              </>
             )}
           </ul>
         )}
@@ -310,29 +468,7 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
                 : "Satellite: EOxCloudless 2016 (Sentinel-2). Light and Dark: OpenFreeMap, © OpenStreetMap contributors."}
             </p>
 
-            {layers.sites && (
-              <fieldset className="settings-group">
-                <legend className="settings-label">Candidate sites</legend>
-                <label className="radio">
-                  <input type="radio" name="sites" checked={!prefs.showSites} onChange={() => update({ showSites: false })} /> No layer
-                </label>
-                <label className="radio">
-                  <input type="radio" name="sites" checked={prefs.showSites} onChange={() => update({ showSites: true })} /> Site outlines
-                </label>
-              </fieldset>
-            )}
-
-            {layers.pins && (
-              <fieldset className="settings-group">
-                <legend className="settings-label">Published promises</legend>
-                <label className="radio">
-                  <input type="radio" name="pins" checked={!prefs.showPins} onChange={() => update({ showPins: false })} /> No layer
-                </label>
-                <label className="radio">
-                  <input type="radio" name="pins" checked={prefs.showPins} onChange={() => update({ showPins: true })} /> Record pins
-                </label>
-              </fieldset>
-            )}
+            <p className="settings-note">Show, hide and filter layers in the legend.</p>
           </div>
         </div>
       )}

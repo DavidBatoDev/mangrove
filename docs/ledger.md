@@ -42,6 +42,30 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Mangrove gain and loss on the map; compact legend filters
+- **ID:** DEC-020
+- **Type:** scope-add
+- **Change:** extent-only mangrove layer with controls in map settings → GMW gain (green) and loss (red) layers since a chosen baseline (API-025), toggled from a compact legend that also filters pins by state; tiles to zoom 22, fading when zoomed far in
+- **Why:** the team asked for GMW's change view and a smaller legend that switches layers.
+- **Invalidated:** ADR-043's red-only-for-conflict rule for the map loss color; ADR-048's zoom-16 limit and settings controls
+- **Recorded as:** ADR-050
+
+### 2026-10-04 — Mangrove layer in GMW-style cyan; tiles readable from any origin
+- **ID:** DEC-019
+- **Type:** zoom-in
+- **Change:** brand Tidal lift at partial opacity, hidden in fixtures mode → data cyan `--mg-data-mangrove` near-opaque with zoomed-out fringes grown, read from the live API in fixtures mode (CORS on API-024)
+- **Why:** the team found the layer too faint next to GMW's viewer and saw no layer in local fixtures mode.
+- **Invalidated:** ADR-048's color and its fixtures-mode hiding
+- **Recorded as:** ADR-049
+
+### 2026-10-04 — Mangrove extent for the whole Philippines, as map tiles
+- **ID:** DEC-018
+- **Type:** scope-add
+- **Change:** a Manila Bay GeoJSON extent layer (API-023), Root brown, MapLibre only → Philippines-wide GMW extent served as map tiles (API-024) in brand Tidal, on by default on every map, on Google and MapLibre
+- **Why:** the team uses Google Maps now and asked for mangrove areas to be visible everywhere, like GMW's viewer.
+- **Invalidated:** ADR-045's map-layer scope and color (the rest of ADR-045 stands)
+- **Recorded as:** ADR-048
+
 ### 2026-10-04 — Every push to master redeploys the demo host
 - **ID:** DEC-017
 - **Type:** platform

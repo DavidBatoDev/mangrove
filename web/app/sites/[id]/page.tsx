@@ -15,6 +15,7 @@ import { useSession } from "@/components/session";
 import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
 import { BrandIcon, EmptyArt, ICON_PROPS, QuestionIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
+import { useGmwLayers } from "@/hooks/useGmwLayers";
 import * as api from "@/lib/api";
 import { QUESTION_LABELS } from "@/lib/format";
 import { resolveSiteId, siteLetter } from "@/lib/ids";
@@ -26,9 +27,26 @@ export default function SiteDossierPage() {
   const { user } = useSession();
   const d = useApi(() => api.getSite(siteId), [siteId]);
   const trend = useApi(() => api.gmwTimeline(siteId), [siteId]);
-  const [layerYear, setLayerYear] = useState<number | null>(null);
-  const extent = useApi(() => (layerYear === null ? Promise.resolve(null) : api.gmwExtent(layerYear)), [layerYear]);
-  const years = useApi(() => api.gmwExtent().then((l) => l.available_years).catch(() => [] as number[]), []);
+  // GMW mangrove extent on the map (API-024 tiles, ADR-048): on by default at the latest year; the trend
+  // card's year buttons pick another year or turn it off. undefined = not chosen yet.
+  const gmw = useGmwLayers();
+  const tileYears = gmw.years;
+  const [chosenYear, setChosenYear] = useState<number | null | undefined>(undefined);
+  const layerYear = chosenYear === undefined ? (tileYears.at(-1) ?? null) : chosenYear;
+  // Extent plus gain/loss since the default baseline (ADR-050), when that year has change.
+  const base = gmw.defaultBase;
+  const mangrove =
+    layerYear === null
+      ? null
+      : {
+          extentYear: layerYear,
+          change:
+            base !== null && (gmw.changeBases[String(base)] ?? []).includes(layerYear)
+              ? { base, year: layerYear, gain: true, loss: true }
+              : null,
+          opacity: 1,
+        };
+  const [view3d, setView3d] = useState(false);
 
   if (d.loading) return <Loading what="Loading site" />;
   if (d.error) return <ErrorBox error={d.error} onRetry={d.reload} />;
@@ -93,17 +111,31 @@ export default function SiteDossierPage() {
           </section>
           {trend.error && <p className="mg-alert">Global Mangrove Watch did not respond. Try again later.</p>}
           {trend.data && (
-            <SiteTrendCard t={trend.data} layerYears={years.data ?? []} layerYear={layerYear} onLayerYear={setLayerYear} />
+            <SiteTrendCard t={trend.data} layerYears={tileYears} layerYear={layerYear} onLayerYear={setChosenYear} />
           )}
         </div>
-        <Site3DView
-          className="dossier-map"
-          geometry={site.geometry}
-          tone={toneFromAnswers(answers.map((a) => a.status))}
-          motion="flyin"
-          label={`3D view of ${site.name}`}
-          fallback={<Map sites={fc} fitToSites basemap="light" extent={extent.data} className="map dossier-map" />}
-        />
+        <div className="dossier-mapbox">
+          {view3d ? (
+            <Site3DView
+              className="dossier-map"
+              geometry={site.geometry}
+              tone={toneFromAnswers(answers.map((a) => a.status))}
+              motion="flyin"
+              label={`3D view of ${site.name}`}
+              fallback={<Map sites={fc} fitToSites basemap="satellite" mangrove={mangrove} className="map dossier-map" />}
+            />
+          ) : (
+            <Map sites={fc} fitToSites basemap="satellite" mangrove={mangrove} className="map dossier-map" />
+          )}
+          <div className="dossier-map-toggle" role="group" aria-label="Map view">
+            <button type="button" className="gmw-year" aria-pressed={!view3d} onClick={() => setView3d(false)}>
+              Map
+            </button>
+            <button type="button" className="gmw-year" aria-pressed={view3d} onClick={() => setView3d(true)}>
+              3D
+            </button>
+          </div>
+        </div>
       </div>
 
       <h2 className="section-title">

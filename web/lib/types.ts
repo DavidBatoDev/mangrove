@@ -230,6 +230,37 @@ export interface CountryContext {
 }
 
 /** API-023: GMW extent polygons for the Manila Bay demo area, one year. */
+/** API-025: GMW mangrove change (gain / loss) against a baseline year, as map tiles (ADR-050). */
+export interface GmwChangeTiles {
+  /** Baseline year → map years that have change tiles. */
+  bases: Record<string, number[]>;
+  default_base: number;
+  style?: string;
+  tiles: string;
+  source: GmwSource;
+}
+
+/** What the map draws from GMW (API-024 / API-025). */
+export interface MangroveLayers {
+  extentYear: number | null;
+  change: { base: number; year: number; gain: boolean; loss: boolean } | null;
+  /** 0-1, before the automatic fade when zoomed far in. */
+  opacity: number;
+}
+
+/** API-024: the Philippines mangrove extent layer as map tiles (ADR-048). */
+export interface GmwExtentTiles {
+  years: number[];
+  version: string;
+  bbox: [number, number, number, number];
+  max_zoom: number;
+  /** Look version; part of the tile URL so a new look is not served from browser cache. */
+  style?: string;
+  /** Relative URL template with {year}, {z}, {x}, {y}. */
+  tiles: string;
+  source: GmwSource;
+}
+
 export interface GmwExtentLayer extends GeoJSON.FeatureCollection {
   year: number;
   available_years: number[];

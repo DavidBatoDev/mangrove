@@ -4,13 +4,14 @@
 // Pins are HTML markers so each one is a keyboard-reachable link to its record.
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import { LngLatBounds, Map as MlMap, Marker, setWorkerUrl } from "maplibre-gl";
+import { LngLatBounds, Map as MlMap, Marker, setWorkerUrl, type ExpressionSpecification } from "maplibre-gl";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { gmwChangeTileTemplate, gmwTileTemplate } from "@/lib/api";
 import { basemapById, DEFAULT_BASEMAP, LABEL_FONT_BOLD, type BasemapId } from "@/lib/basemaps";
 import type { MapHandle } from "@/lib/map-handle";
 import { buildPinElement } from "@/lib/pin-dom";
-import type { PinsFC, SitesFC } from "@/lib/types";
+import type { MangroveLayers, PinsFC, SitesFC } from "@/lib/types";
 
 // Served from public/ (scripts/copy-maplibre-worker.mjs); the bundler does not emit the worker file.
 setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
@@ -38,8 +39,8 @@ export interface MapViewProps {
   onPinClick?: (recordId: string) => void;
   selectedPinId?: string | null;
   highlightSiteIds?: string[];
-  /** GMW mangrove extent polygons for one year (API-023, F-025); drawn under the sites. */
-  extent?: GeoJSON.FeatureCollection | null;
+  /** GMW mangrove extent and change layers (API-024, API-025; F-025, ADR-048 to ADR-050), drawn under the sites. */
+  mangrove?: MangroveLayers | null;
   basemap?: BasemapId;
   showSites?: boolean;
   showPins?: boolean;
@@ -53,6 +54,34 @@ export interface MapViewProps {
 /** A brand token's resolved value (MapLibre paint cannot read CSS variables). */
 function token(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || "gray";
+}
+
+const GMW_LAYERS = ["gmw-extent", "gmw-gain", "gmw-loss"] as const;
+const GMW_ATTRIBUTION = "Mangroves: © Global Mangrove Watch v4.1.12 (CC BY 4.0)";
+
+/** Raster opacity by zoom: as set until z13, fading to 30% by z16 so imagery shows through (lib/api.ts). */
+function opacityByZoom(opacity: number): ExpressionSpecification {
+  return ["interpolate", ["linear"], ["zoom"], 13, opacity, 16, opacity * 0.3];
+}
+
+/** GMW mangrove layers (API-024 extent, API-025 gain and loss), colors baked into the PNGs, under the sites. */
+function applyMangrove(map: MlMap, m: MangroveLayers | null | undefined): void {
+  for (const id of GMW_LAYERS) {
+    if (map.getLayer(id)) map.removeLayer(id);
+    if (map.getSource(id)) map.removeSource(id);
+  }
+  if (!m) return;
+  const tiles: [string, string | null][] = [
+    ["gmw-extent", m.extentYear != null ? gmwTileTemplate(m.extentYear) : null],
+    ["gmw-gain", m.change?.gain ? gmwChangeTileTemplate(m.change.base, m.change.year, "gain") : null],
+    ["gmw-loss", m.change?.loss ? gmwChangeTileTemplate(m.change.base, m.change.year, "loss") : null],
+  ];
+  const before = map.getLayer("sites-fill") ? "sites-fill" : undefined;
+  for (const [id, url] of tiles) {
+    if (!url) continue;
+    map.addSource(id, { type: "raster", tiles: [url], tileSize: 256, maxzoom: 18, attribution: GMW_ATTRIBUTION });
+    map.addLayer({ id, type: "raster", source: id, paint: { "raster-opacity": opacityByZoom(m.opacity) } }, before);
+  }
 }
 
 function boundsOf(fc: GeoJSON.FeatureCollection): LngLatBounds | null {
@@ -76,7 +105,7 @@ export default function MapView({
   onPinClick,
   selectedPinId,
   highlightSiteIds,
-  extent,
+  mangrove = null,
   basemap = DEFAULT_BASEMAP,
   showSites = true,
   showPins = true,
@@ -92,9 +121,9 @@ export default function MapView({
   const router = useRouter();
 
   // Latest props, read when the style (re)loads and overlays are re-added.
-  const latest = useRef({ sites, highlightSiteIds, extent, showSites, basemap, onSiteClick, onPinClick, fitPadding });
+  const latest = useRef({ sites, highlightSiteIds, mangrove, showSites, basemap, onSiteClick, onPinClick, fitPadding });
   useEffect(() => {
-    latest.current = { sites, highlightSiteIds, extent, showSites, basemap, onSiteClick, onPinClick, fitPadding };
+    latest.current = { sites, highlightSiteIds, mangrove, showSites, basemap, onSiteClick, onPinClick, fitPadding };
   });
   const onMapReadyRef = useRef(onMapReady);
   useEffect(() => {
@@ -129,15 +158,6 @@ export default function MapView({
       const dark = basemapById(bm).ground === "dark";
       const outline = token(dark ? "--mg-tidal-lift" : "--mg-tidal");
       const selected = token(dark ? "--mg-mist" : "--mg-canopy");
-      // GMW mangrove extent (F-025): Prop Root, the evidence color, so it never reads as a status or a pin.
-      if (!map.getSource("gmw-extent")) map.addSource("gmw-extent", { type: "geojson", data: latest.current.extent ?? EMPTY });
-      if (!map.getLayer("gmw-extent-fill"))
-        map.addLayer({
-          id: "gmw-extent-fill",
-          type: "fill",
-          source: "gmw-extent",
-          paint: { "fill-color": token("--mg-root"), "fill-opacity": dark ? 0.75 : 0.55 },
-        });
       if (!map.getSource("sites")) map.addSource("sites", { type: "geojson", data: s ?? EMPTY, promoteId: "id" });
       const visibility = visible ? "visible" : "none";
       if (!map.getLayer("sites-fill"))
@@ -183,6 +203,7 @@ export default function MapView({
             "text-halo-width": 1.6,
           },
         });
+      applyMangrove(map, latest.current.mangrove);
       applyHighlight();
       loaded.current = true;
       pending.current.splice(0).forEach((fn) => fn());
@@ -242,13 +263,22 @@ export default function MapView({
      
   }, [sites, fitToSites]);
 
-  // GMW extent layer.
+  // GMW mangrove layers: re-added when what they show changes; opacity alone is a paint change.
+  const mangroveKey = mangrove ? JSON.stringify({ ...mangrove, opacity: undefined }) : "";
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    whenReady(() => (map.getSource("gmw-extent") as { setData?: (d: GeoJSON.GeoJSON) => void } | undefined)?.setData?.(extent ?? EMPTY));
+    whenReady(() => applyMangrove(map, latest.current.mangrove));
      
-  }, [extent]);
+  }, [mangroveKey]);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mangrove) return;
+    whenReady(() => {
+      for (const id of GMW_LAYERS) if (map.getLayer(id)) map.setPaintProperty(id, "raster-opacity", opacityByZoom(mangrove.opacity));
+    });
+     
+  }, [mangrove?.opacity]);
 
   // Highlight.
   useEffect(() => {

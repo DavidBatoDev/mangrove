@@ -9,6 +9,8 @@ import type {
   EvidenceInput,
   EvidenceResponse,
   GmwExtentLayer,
+  GmwChangeTiles,
+  GmwExtentTiles,
   GmwTimeline,
   LockBody,
   LockResponse,
@@ -114,6 +116,41 @@ export const countryContext = (iso3: string): Promise<CountryContext> =>
 // API-023
 export const gmwExtent = (year?: number): Promise<GmwExtentLayer> =>
   USE_MOCKS ? mock().then((m) => m.gmwExtent(year)) : http(`/layers/gmw-extent${year ? `?year=${year}` : ""}`);
+
+// API-024: the Philippines mangrove extent as map tiles (ADR-048, ADR-049). The tiles are real public GMW data,
+// not fixtures, so fixtures mode and local dev read them from the live API (it allows any origin); a deployed
+// build reads them from its own origin. NEXT_PUBLIC_GMW_TILES_ORIGIN overrides both.
+const LIVE_API_ORIGIN = "https://18-140-211-157.sslip.io";
+const TILE_ORIGIN = process.env.NEXT_PUBLIC_GMW_TILES_ORIGIN || (USE_MOCKS ? LIVE_API_ORIGIN : "");
+/** Bump with the API's STYLE (api/app/gmw_tiles.py) so browsers drop tiles cached in an older look. */
+const TILE_STYLE = "cyan-2";
+
+async function tileInfo<T>(path: string): Promise<T> {
+  if (!TILE_ORIGIN) return http(path);
+  const res = await fetch(`${TILE_ORIGIN}/api/v1${path}`, { cache: "no-store" }).catch(() => null);
+  if (!res?.ok) throw new ApiError(res?.status ?? 0, "UPSTREAM_UNAVAILABLE", "The mangrove layer is not reachable.");
+  return res.json();
+}
+
+const tileBase = () => `${TILE_ORIGIN || (typeof window !== "undefined" ? window.location.origin : "")}/api/v1/layers`;
+
+export const gmwExtentTiles = (): Promise<GmwExtentTiles> => tileInfo("/layers/gmw-extent/tiles");
+
+// API-025: mangrove change (gain / loss) against a baseline year.
+export const gmwChangeTiles = (): Promise<GmwChangeTiles> => tileInfo("/layers/gmw-change/tiles");
+
+/** Absolute XYZ template for one year (map engines fetch tiles outside fetch(), so the origin is spelled out). */
+export const gmwTileTemplate = (year: number): string => `${tileBase()}/gmw-extent/tiles/${year}/{z}/{x}/{y}.png?s=${TILE_STYLE}`;
+
+/** Absolute XYZ template for gain or loss against a baseline year. */
+export const gmwChangeTileTemplate = (base: number, year: number, only: "gain" | "loss"): string =>
+  `${tileBase()}/gmw-change/tiles/${base}/${year}/{z}/{x}/{y}.png?only=${only}&s=${TILE_STYLE}`;
+
+/** Layer opacity at a zoom: full until z13, fading to 30% by z16 so the imagery shows through when zoomed in. */
+export function mangroveOpacityAt(zoom: number, opacity: number): number {
+  const f = zoom <= 13 ? 1 : zoom >= 16 ? 0.3 : 1 - ((zoom - 13) / 3) * 0.7;
+  return Math.max(0, Math.min(1, opacity * f));
+}
 
 /** Demo boundary for site B; fixtures mode only. */
 export const demoBoundary = (): Promise<unknown> => mock().then((m) => m.demoBoundary());
