@@ -15,6 +15,7 @@ import type {
   LockBody,
   LockResponse,
   PinsFC,
+  ProgramContext,
   RecordDetail,
   SitesFC,
   User,
@@ -112,6 +113,10 @@ export const gmwTimeline = (siteId: string): Promise<GmwTimeline> =>
 // API-022
 export const countryContext = (iso3: string): Promise<CountryContext> =>
   USE_MOCKS ? mock().then((m) => m.countryContext(iso3)) : http(`/context/countries/${encodeURIComponent(iso3)}`);
+
+// API-026: a public funding program (the real Post-Yolanda case), figures quoted as published.
+export const programContext = (programId: string): Promise<ProgramContext> =>
+  USE_MOCKS ? mock().then((m) => m.programContext(programId)) : http(`/context/programs/${encodeURIComponent(programId)}`);
 
 // API-023
 export const gmwExtent = (year?: number): Promise<GmwExtentLayer> =>

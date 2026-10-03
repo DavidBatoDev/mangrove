@@ -294,3 +294,52 @@ form.form--wide { max-width: 760px; }
 .gmw-table .mg-table { margin-top: var(--mg-space-2); }
 .gmw-table .mg-table td { padding: var(--mg-space-1) var(--mg-space-3) var(--mg-space-1) 0; }
 @media (max-width: 480px) { .gmw-duel { grid-template-columns: 1fr; } }
+
+/* ---------- Program card (API-026): a public program's figures, quoted as published (EQ-017) ---------- */
+.program-card { display: grid; gap: var(--mg-space-4); margin: var(--mg-space-5) 0; }
+.program-head { display: grid; gap: var(--mg-space-2); }
+.program-head .mg-eyebrow { margin: 0; }
+.program-title { font: 700 clamp(1.75rem, 3.6vw, 2.75rem)/1.1 var(--mg-font-display); letter-spacing: -0.02em; color: var(--mg-heading); margin: 0; }
+.program-stats { margin: 0; }
+.program-stat { grid-template-areas: "icon label" "value value" "meta meta" "src src" "note note"; }
+.program-stat .program-stat-src { grid-area: src; }
+.program-stat-note { grid-area: note; font-size: var(--mg-text-label); color: var(--mg-text-muted); }
+.program-source { display: inline-flex; align-items: center; gap: 4px; white-space: normal; }
+.program-source:hover { text-decoration: underline; }
+.program-sub { font: 500 var(--mg-text-label)/1.3 var(--mg-font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--mg-text-muted); margin: var(--mg-space-3) 0 0; }
+.program-table th[scope="row"] { display: grid; gap: 2px; font: inherit; letter-spacing: 0; text-transform: none; border-bottom: 1px solid var(--mg-border); padding: var(--mg-space-2) var(--mg-space-4) var(--mg-space-2) 0; }
+.program-table td { border-bottom: 1px solid var(--mg-border); padding: var(--mg-space-2) var(--mg-space-4) var(--mg-space-2) 0; vertical-align: middle; }
+.program-row-label { font-size: var(--mg-text-label); color: var(--mg-text-muted); }
+.program-row-value { font: 700 var(--mg-text-h4)/1.2 var(--mg-font-display); color: var(--mg-heading); white-space: nowrap; }
+.program-bar-col { width: 40%; }
+.program-bar { display: block; height: 10px; border-radius: 2px; background: var(--mg-tidal); }
+.program-bar--need { background: var(--mg-root); }
+.program-bar--planted { background: var(--mg-heading); }
+.record .program-card .mg-waterline { margin: var(--mg-space-3) 0; }
+.program-framing { font: 700 clamp(1.25rem, 2.4vw, 1.75rem)/1.2 var(--mg-font-display); color: var(--mg-heading); margin: 0; }
+.program-framing--sm { font-size: var(--mg-text-h4); }
+.program-proof, .program-missing, .program-records { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--mg-space-2); font-size: var(--mg-text-small); }
+.program-missing li { display: flex; align-items: flex-start; gap: var(--mg-space-2); color: var(--mg-text-muted); }
+.program-missing svg { flex: none; margin-top: 3px; color: var(--mg-status-missing, var(--mg-brackish)); }
+.program-foot { margin: 0; font-size: var(--mg-text-label); }
+.program-callout { display: grid; gap: var(--mg-space-2); margin: var(--mg-space-4) 0; }
+.program-callout .mg-eyebrow { margin: 0; display: flex; align-items: center; gap: var(--mg-space-2); flex-wrap: wrap; }
+.program-callout-title { font: 700 var(--mg-text-h4)/1.2 var(--mg-font-display); color: var(--mg-heading); }
+.program-callout-figure { font: 700 var(--mg-text-h4)/1 var(--mg-font-display); color: var(--mg-heading); }
+@media (max-width: 640px) {
+  .program-bar-col { display: none; }
+}
+
+/* Evidence pictures (Sentinel-2 chips, API-014): now, or then / now side by side; outline drawn in the PNG */
+.ev-pictures { margin: 0; display: grid; gap: var(--mg-space-2); }
+.ev-pictures img { display: block; width: 100%; height: auto; aspect-ratio: 1; border: 1px solid var(--mg-border); background: var(--mg-tideline); }
+.ev-pictures-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--mg-space-2); }
+.ev-pictures .mg-eyebrow { margin: var(--mg-space-1) 0 0; }
+.ev-pictures figcaption { font-size: var(--mg-text-small); color: var(--mg-text-muted); }
+.ev-now { display: grid; gap: var(--mg-space-2); margin-top: var(--mg-space-4); max-width: 640px; }
+
+/* Published photos linked from a public report (ADR-059): the publisher's image, credited. */
+.evidence-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--mg-space-3); margin: var(--mg-space-3) 0; }
+.evidence-photos figure { margin: 0; }
+.evidence-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--mg-radius-sm); border: 1px solid var(--mg-brackish); display: block; }
+.evidence-photos figcaption { font-size: var(--mg-text-label); color: var(--mg-text-muted); margin-top: var(--mg-space-1); }

@@ -39,6 +39,7 @@ import type {
   CountryContext,
   GmwExtentLayer,
   GmwTimeline,
+  ProgramContext,
 } from "@/lib/types";
 
 const DISCLAIMER = "This record is not a certification of restoration success or approval of funding.";
@@ -419,6 +420,12 @@ export async function gmwTimeline(siteId: string): Promise<GmwTimeline> {
 export async function countryContext(iso3: string): Promise<CountryContext> {
   if (iso3.toUpperCase() !== "PHL") throw new ApiError(404, "NOT_FOUND", "No statistics for that country");
   return (await import("@/mocks/api-022-country-phl.json")).default as unknown as CountryContext;
+}
+
+// API-026: a copy of api/app/context_data/program_mbfdp.json.
+export async function programContext(programId: string): Promise<ProgramContext> {
+  if (programId.toLowerCase() !== "mbfdp") throw new ApiError(404, "NOT_FOUND", "No program with that id");
+  return (await import("@/mocks/api-026-program-mbfdp.json")).default as unknown as ProgramContext;
 }
 
 export async function gmwExtent(year?: number): Promise<GmwExtentLayer> {

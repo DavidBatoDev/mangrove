@@ -153,7 +153,7 @@ export default function SiteDossierPage() {
             </h3>
             <div className="evidence-grid">
               {g.items.map((e) => (
-                <EvidenceCard key={e.id} e={e} />
+                <EvidenceCard key={e.id} e={e} siteName={site.name} />
               ))}
             </div>
           </section>
