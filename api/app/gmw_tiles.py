@@ -15,6 +15,7 @@ import json
 import math
 import os
 import warnings
+import threading
 from functools import lru_cache
 from pathlib import Path
 
@@ -38,6 +39,8 @@ ALPHA_MIN, ALPHA_MAX = 215, 250
 DATA_GAIN = (0x9E, 0xD3, 0x3A)  # brand --mg-data-gain (ADR-050)
 DATA_LOSS = (0xE4, 0x47, 0x3A)  # brand --mg-data-loss: GMW-style red for loss, map data only (ADR-050)
 DILATE_MAX_ZOOM = 10
+# The demo host has 2 CPUs: more parallel GDAL renders only thrash it and starve every other request.
+_RENDER_SLOTS = threading.BoundedSemaphore(2)
 STYLE = "cyan-2"  # bump when the look changes; clients put it in the tile URL to bust browser caches
 
 
@@ -102,12 +105,13 @@ def _warp_max(root: str, files: list[str], z: int, x: int, y: int, band: int | l
     """Band(s) of every file, reprojected to the web tile with max resampling, combined by max."""
     dst_transform = from_bounds(*_mercator_bounds(z, x, y), TILE, TILE)
     acc = np.zeros((TILE, TILE) if isinstance(band, int) else (len(band), TILE, TILE), dtype="uint8")
-    for f in files:
-        with rasterio.open(Path(root) / f) as src, WarpedVRT(
-            src, crs=WEB_MERCATOR, transform=dst_transform, width=TILE, height=TILE,
-            resampling=Resampling.max, src_nodata=None, nodata=None,
-        ) as vrt:
-            np.maximum(acc, vrt.read(band), out=acc)
+    with _RENDER_SLOTS:
+        for f in files:
+            with rasterio.open(Path(root) / f) as src, WarpedVRT(
+                src, crs=WEB_MERCATOR, transform=dst_transform, width=TILE, height=TILE,
+                resampling=Resampling.max, src_nodata=None, nodata=None,
+            ) as vrt:
+                np.maximum(acc, vrt.read(band), out=acc)
     return acc
 
 
