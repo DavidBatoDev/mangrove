@@ -19,7 +19,7 @@ import { AreaBar, BrandIcon, CheckTimeline, EmptyArt, ICON_PROPS, IconBadge, Que
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
 import type { ApiError } from "@/lib/api-error";
-import { ACTION_LABELS, findingLabel, formatDate, formatMeasure, shortHash } from "@/lib/format";
+import { ACTION_LABELS, findingLabel, formatDate, formatMeasure, shortHash, snapshotSite } from "@/lib/format";
 import type { Check, Evidence, Measure, VerifyResponse } from "@/lib/types";
 
 function WorkCheck({ c, from, evidence }: { c: Check; from: string; evidence: Evidence[] }) {
@@ -113,7 +113,8 @@ export default function RecordPage() {
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
   if (!r.data) return null;
   const { record, checks, site_answers, timeline, pin_state, disclaimer } = r.data;
-  const snap = record.snapshot as { site_id?: string; site_name?: string; evidence_ids?: string[] };
+  const lockedSite = snapshotSite(record);
+  const snap = { site_id: lockedSite.id, site_name: lockedSite.name };
   const work = checks.find((c) => c.check === "work");
   const outcome = checks.find((c) => c.check === "outcome");
   // Usable sources behind the three site answers when the promise was locked (sum of EQ-013 counts).
