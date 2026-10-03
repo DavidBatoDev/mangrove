@@ -5,7 +5,7 @@ origin: Team Google Doc "mangrove" (Product, context and adrs tabs; ADR-001 to A
 payer_status: assumed
 ---
 
-# Idea: Mangrove — a public map of mangrove funding promises in the Philippines
+# Idea: AIDE-M — a public map of mangrove funding promises in the Philippines
 
 ## 1. Problem statement
 
@@ -98,7 +98,7 @@ whether the later report and the observable check agree**, unlike **mangrove map
 because **the partner's words are locked in public when the funder commits, and a disagreement is flagged**.
 
 One sentence: a partner proposes the site and the public terms, a funder commits, the public watches the
-milestones, and Mangrove flags when the report and the observable check disagree.
+milestones, and AIDE-M flags when the report and the observable check disagree.
 
 ## 7. Feature set
 
@@ -173,7 +173,7 @@ checkable record is something they want rather than something they avoid.
 - Carbon-credit verification — a separate regulated domain.
 - Selling or brokering projects (marketplace, transaction fees) — needs deal flow, trust and legal
   structure the MVP lacks [ADR-029]. Listing a partner's proposal is not that marketplace. Fees stay
-  rejected until Mangrove actually intermediates capital.
+  rejected until AIDE-M actually intermediates capital.
 - Dispatching an inspector, or any "send people" action, from inside the product (F-022).
 - Applying a penalty, enforcing an MOA, or referring a case to law enforcement from inside the product
   (F-023). The app stops at the flag and the funder notice.

@@ -6,7 +6,7 @@ doc: tests
 owns: test intent and the traceability sink — which feature is proven by which case · the automation contract (path, command, trigger) · regression and exit criteria
 ---
 
-# Tests — Mangrove
+# Tests — AIDE-M
 
 > **Purpose:** what proves each behaviour, and the trace from feature to case to command.
 > Traces back to: [`prd.md`](prd.md), [`system-design.md`](system-design.md), [`security.md`](security.md),
@@ -77,7 +77,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | F-012 | Record integrity check | Should | TC-015 | unit | planned | todo |
 | F-013 | Plain-language summary | Could | — | — | — | deferred — not in the demo; add TC when the story is started |
 | F-014 | Upload a candidate polygon | Could | — | — | — | deferred — no story yet; add US + TC when started |
-| F-025 | Mangrove context (GMW) | Should | TC-025, TC-027, TC-028 | integration | planned | todo |
+| F-025 | Mangrove context (GMW) | Should | TC-025, TC-027, TC-028, TC-029 | integration | planned | todo |
 | F-015 | Success score | Won't | — | — | — | n/a — Won't |
 | F-016 | AlphaEarth | Won't | — | — | — | n/a — Won't |
 | F-017 | Live ODK | Won't | — | — | — | n/a — Won't |
@@ -96,6 +96,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | TC-016 | unit / pytest | `api/tests/test_engine.py` | `pytest api/tests/test_engine.py` | local, before demo | pytest output |
 | TC-001–TC-013, TC-017, TC-025, TC-029, TC-030 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
 | TC-027 | integration / pytest | `api/tests/test_gmw_tiles.py` | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
+| TC-029 | integration / pytest | `api/tests/test_gmw_tiles.py` (disk cache, enlargement, prerender) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-028 | integration / pytest | `api/tests/test_gmw_tiles.py` (change tests) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-014 | contract / pytest | `api/tests/test_mcp.py` | `pytest api/tests/test_mcp.py` | local, before demo | pytest output |
 | TC-015 | unit / pytest | `api/tests/test_ledger.py` | `pytest api/tests/test_ledger.py` | local, before demo | pytest output |
@@ -323,7 +324,7 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 
 ### TC-029 — Public reports must cite their source, and stay append-only
 
-- **Covers:** F-001, F-002 · **Proves:** US-001 (ADR-051)
+- **Covers:** F-001, F-002 · **Proves:** US-001 (ADR-055)
 - **Level:** integration
 - **Preconditions / controlled data:** test database with `db/init/006`–`007` applied; app-role connection, rolled back
 - **Steps:** insert a `public_report` evidence item with a `provenance_url`; insert one without; try `UPDATE` and `DELETE` on a seeded real `public_report` row
@@ -332,7 +333,7 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 
 ### TC-030 — The four real Post-Yolanda records read as the sources say
 
-- **Covers:** F-001, F-008, F-009, F-010 · **Proves:** US-001, US-009 (ADR-051)
+- **Covers:** F-001, F-008, F-009, F-010 · **Proves:** US-001, US-009 (ADR-055)
 - **Level:** integration
 - **Preconditions / controlled data:** the real sites seeded (`data/sites/real/README.md`) and GMW ingested for them
 - **Steps:** `GET /api/v1/sites`; `GET /api/v1/records`; `GET /api/v1/records/{id}` and `/verify` for each real record

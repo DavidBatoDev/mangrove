@@ -237,7 +237,7 @@ export default function RecordPage() {
             <h2>Integrity</h2>
           </div>
           <p className="meta" style={{ marginTop: 0 }}>
-            The record cannot be edited through Mangrove. Any change to it would break this published hash.
+            The record cannot be edited through AIDE-M. Any change to it would break this published hash.
           </p>
           <div className="hash" title={record.content_hash}>
             <span className="mg-mono">{shortHash(record.content_hash)}</span>

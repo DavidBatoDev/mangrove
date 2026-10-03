@@ -10,6 +10,29 @@
 		}
 	}
 
+	# GMW map tiles as static files (ADR-053), like GMW's own tile host: a stored tile is served from disk and never
+	# touches the API; a missing one is rendered once by API-024/API-025, which stores it here for next time.
+	handle /tiles/gmw/* {
+		root * /srv
+		@stored file
+		handle @stored {
+			header Access-Control-Allow-Origin *
+			header Cache-Control "public, max-age=31536000, immutable"
+			file_server
+		}
+		@extent path_regexp ext ^/tiles/gmw/[^/]+/extent/(\d+)/(\d+)/(\d+)/(\d+)\.png$
+		handle @extent {
+			rewrite * /api/v1/layers/gmw-extent/tiles/{re.ext.1}/{re.ext.2}/{re.ext.3}/{re.ext.4}.png
+			reverse_proxy api:8000
+		}
+		@change path_regexp chg ^/tiles/gmw/[^/]+/change/(\d+)/(\d+)/(gain|loss)/(\d+)/(\d+)/(\d+)\.png$
+		handle @change {
+			rewrite * /api/v1/layers/gmw-change/tiles/{re.chg.1}/{re.chg.2}/{re.chg.4}/{re.chg.5}/{re.chg.6}.png?only={re.chg.3}
+			reverse_proxy api:8000
+		}
+		respond 404
+	}
+
 	# REST API under /api/v1 (no prefix stripping)
 	handle /api/* {
 		reverse_proxy api:8000

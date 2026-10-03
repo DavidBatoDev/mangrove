@@ -6,7 +6,7 @@ doc: prd
 owns: features (F-###) and their MoSCoW priority · personas · user stories (US-###) and their acceptance criteria · cross-cutting business rules (BR-###) · app flow, screen inventory & UX intent · instrumentation taxonomy
 ---
 
-# PRD — Mangrove
+# PRD — AIDE-M
 
 > **Purpose:** what we build, for whom, and how a user moves through it. The team's primary build
 > reference, and the doc to read first.
@@ -15,14 +15,14 @@ owns: features (F-###) and their MoSCoW priority · personas · user stories (US
 
 ## 1. Product Purpose & Value Proposition
 
-Mangrove is a public map of mangrove sites and funding commitments in the Philippines. A partner proposes
+AIDE-M (Accountability In Delivery & Evidence · Mangrove) is a public map of mangrove sites and funding commitments in the Philippines. A partner proposes
 a site, the benefit in their own words, a timeline and milestones. A funder commits to that proposal. Anyone
 can open a site before a commitment exists, and the map toggles between sites with a commitment and sites
 without one.
 
 Each site still shows three answers — was this mangrove before (Global Mangrove Watch), what's there now
 (Sentinel-2), what do people on the ground say — each marked supported, conflicting or missing, with no
-invented success score. The benefit on the proposal is the partner's sentence. Mangrove does not compute
+invented success score. The benefit on the proposal is the partner's sentence. AIDE-M does not compute
 an environmental benefit.
 
 After a funder commits, the public record keeps the partner's terms. An early milestone is checked with the
@@ -30,7 +30,7 @@ partner's photo, GPS and mapped area. The satellite line reads "not yet observab
 After the outcome date, both the partner's report and the Sentinel-2 vegetated area (EQ-012) are required.
 If they disagree, the record is flagged and the funder is notified. The product does not declare fraud, send
 an inspector, or apply a penalty, and it does not say the project was successful. The record footer says this
-is not a certification. Maps and trackers show data; Mangrove publishes the partner's terms when a funder
+is not a certification. Maps and trackers show data; AIDE-M publishes the partner's terms when a funder
 commits, then shows whether those terms and the later check agree.
 
 **Success is measured by** the targets in [`idea.md` §8](../idea.md) — not restated here.
@@ -51,7 +51,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 | `F-###` | Feature | Priority | Solves (problem) | Notes / why not |
 |---------|---------|----------|------------------|-----------------|
-| F-001 | Partner-proposed sites the public can open before a commitment. The demo set is 3–5 Manila Bay polygons, plus four real, sourced Post-Yolanda sites in Eastern Visayas (ADR-051) | Must | No common starting set | Demo sites are labelled demo; real sites are labelled sourced (BR-006) |
+| F-001 | Partner-proposed sites the public can open before a commitment. The demo set is 3–5 Manila Bay polygons, plus four real, sourced Post-Yolanda sites in Eastern Visayas (ADR-055) | Must | No common starting set | Demo sites are labelled demo; real sites are labelled sourced (BR-006) |
 | F-002 | Evidence dossier with full provenance per item | Must | Scattered evidence | BR-005 |
 | F-003 | Source adapters: GMW history (pre-ingested), Sentinel-2 now (live + snapshot fallback) | Must | Manual reconciliation | Equations in [`methods.md`](methods.md). GMW is history, not a completion check |
 | F-004 | Field evidence submission (photo, GPS, observation, mapped area) | Must | Map-only screening misses fishponds and land conflicts | Early milestones use these inputs only |
@@ -92,7 +92,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 - Given 3–5 seeded sites, some with a commitment and some without, when I open the sites screen without signing in, then each site appears as a polygon on the map and as a list row showing its name, its area in hectares (EQ-001), and whether it has a commitment.
 - Given a site is demo data, when it is displayed anywhere, then it carries a visible "Demo data" label (BR-006).
-- Given a real, sourced record (`is_demo = false`, ADR-051), when it is displayed, then it shows no "Demo data" label, it shows a "Real case · sourced" tag, and every evidence item links its source (`provenance_url`).
+- Given a real, sourced record (`is_demo = false`, ADR-055), when it is displayed, then it shows no "Demo data" label, it shows a "Real case · sourced" tag, and every evidence item links its source (`provenance_url`).
 
 **US-002 — Inspect a site's evidence dossier** *(F-002, F-003)* — Priority: Must
 > As a **Funder**, I want every piece of evidence about a site in one place with where it came from so
@@ -182,7 +182,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 > As a **Funder**, I want to ask a Quick agent "why does Site A differ from Site B?" so that I get a
 > source-grounded explanation without reading every item.
 
-- Given the Mangrove MCP server is connected to Amazon Quick, when I ask why two named sites differ, then the agent's answer cites findings, statuses and evidence sources returned by the tools, and every number it repeats matches the tool output.
+- Given the AIDE-M MCP server is connected to Amazon Quick, when I ask why two named sites differ, then the agent's answer cites findings, statuses and evidence sources returned by the tools, and every number it repeats matches the tool output.
 - Given a tool is asked to change data, when Quick calls the server, then no write tool exists to call (the server is read-only).
 
 **US-014 — Verify a record is intact** *(F-012)* — Priority: Should
@@ -221,7 +221,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 | BR-003 | **Deterministic decisions; the model only narrates.** Statuses, findings, pin states and numbers come from source data and the rules in [`methods.md`](methods.md). An LLM (Quick or in-app) may summarize them; it never sets a status or introduces a number. | US-003, US-013, US-015 |
 | BR-004 | **Pin state precedence.** Red (conflict) if any check or site question on the record is conflicting; otherwise "awaiting evidence" if a check is missing or the satellite line is not yet observable; otherwise "on track". A satellite line of "not yet observable" does not by itself turn the pin red. Colours other than red belong to the design doc. Sites with no commitment are polygons, not record pins. | US-001, US-009, US-012 |
 | BR-005 | **Provenance-first evidence.** Every evidence item carries source, source version, observed and retrieved time, geometry or location, question, finding, value and unit where applicable, method (with its `EQ-###` when computed), spatial resolution where applicable, limitation, link or asset, submitter, and a content hash. | US-002, US-005, US-006, US-010 |
-| BR-006 | **Demo data is labelled.** Every seeded site, organization, record and evidence item that is not real is flagged demo and shows a "Demo data" label wherever it appears, including in MCP tool output. Demo organizations use fictional names. Exception (ADR-051): real, sourced records (`is_demo = false`) may name a real organization only as a cited party in a public report, never an individual. | US-001, US-009, US-013 |
+| BR-006 | **Demo data is labelled.** Every seeded site, organization, record and evidence item that is not real is flagged demo and shows a "Demo data" label wherever it appears, including in MCP tool output. Demo organizations use fictional names. Exception (ADR-055): real, sourced records (`is_demo = false`) may name a real organization only as a cited party in a public report, never an individual. | US-001, US-009, US-013 |
 | BR-007 | **Flag and notice, then stop.** A disagreement sets *conflicting* and notifies the funder account on that record. The product does not declare fraud, dispatch an inspector, apply a penalty, or say the project was successful. Consequences stay in the private contract. The page does not certify. | US-011, US-012 |
 
 **Finding vocabularies (fixed lists, per question):**
@@ -334,7 +334,7 @@ See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Wo
 - No penalty in the product (F-023). Consequences stay in the private contract [ADR-024]. The product does not notify regulators. Revisit if a funder asks the product to apply a penalty.
 - No crowdsourced public evidence this cycle (F-024). Revisit after the demo.
 - No marketplace fee for listing a proposal. Brokering stays out of scope in [`idea.md` §10](../idea.md).
-- No regions beyond the Manila Bay demo area are seeded for the hackathon, except the four real, sourced Post-Yolanda records in Eastern Visayas (ADR-051). Revisit after the demo.
+- No regions beyond the Manila Bay demo area are seeded for the hackathon, except the four real, sourced Post-Yolanda records in Eastern Visayas (ADR-055). Revisit after the demo.
 
 ## 7. Dependencies & Open Questions
 

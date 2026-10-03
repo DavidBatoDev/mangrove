@@ -1,4 +1,4 @@
-# Mangrove Imagery: illustration and photo rules
+# AIDE-M Imagery: illustration and photo rules
 
 Read `BRAND.md` first. This file is for anyone generating images (Midjourney, DALL·E, Firefly, Ideogram, Canva, Gemini, etc.) or drawing assets by hand. **Always paste the Style Block below into every prompt.** That's what keeps images consistent across four people.
 

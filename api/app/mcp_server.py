@@ -20,7 +20,7 @@ from .db import connection
 from .errors import ApiError
 
 INSTRUCTIONS = (
-    "Mangrove makes mangrove-restoration funding promises public and shows whether they came true. "
+    "AIDE-M makes mangrove-restoration funding promises public and shows whether they came true. "
     "Statuses mean agreement among sources (BR-001): 'supported' = usable sources agree on the finding, "
     "'conflicting' = they disagree, 'missing' = no usable source. 'Supported' never means a good site, and "
     "there is no score. Always quote a number together with its eq_id and confidence, and never introduce a "

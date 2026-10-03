@@ -6,7 +6,7 @@ doc: api
 owns: the operation contracts (API-###) the web app, Amazon Quick and other clients depend on — request and response shapes, per-operation auth requirement, error codes, rate limits, versioning
 ---
 
-# API — Mangrove
+# API — AIDE-M
 
 > **Purpose:** what a caller must send, what it can rely on receiving, and what it must present. Two
 > surfaces: the REST API used by the web app, and the read-only MCP server used by Amazon Quick.
@@ -15,7 +15,7 @@ owns: the operation contracts (API-###) the web app, Amazon Quick and other clie
 
 ## 1. Overview & Machine-Readable Spec
 
-- **What this API serves:** the Mangrove web app (same origin, via the Next.js `/api/*` proxy) and Amazon Quick (MCP).
+- **What this API serves:** the AIDE-M web app (same origin, via the Next.js `/api/*` proxy) and Amazon Quick (MCP).
 - **Base URL / namespace:** REST at `/api/v1`; MCP at `/mcp`.
 - **Protocol style:** REST + JSON (multipart for uploads); MCP over streamable HTTP.
 - **Machine-readable spec:** `none` yet. Once the API is scaffolded, FastAPI's generated `/api/v1/openapi.json` becomes the source of truth for field shapes, and §3 below shrinks to semantics.
@@ -92,7 +92,7 @@ request using those methods gets `405` (BR-002).
 
 | Parameter | In | Type | Required | Notes |
 |-----------|----|------|----------|-------|
-| `region` | query | string | no | e.g. `Manila Bay` (demo) or `Eastern Visayas` (real, sourced; ADR-051); omitted = all |
+| `region` | query | string | no | e.g. `Manila Bay` (demo) or `Eastern Visayas` (real, sourced; ADR-055); omitted = all |
 | `commitment` | query | `with` \| `without` \| `all` | no | Default `all`. `with` = a funder has committed. `without` = a public site with no commitment |
 
 **Response — `200`** — a GeoJSON `FeatureCollection`:
@@ -166,7 +166,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW, public reports). `source_type` ∈ `gmw | sentinel2 | field | project_report | proposal | public_report`; a `public_report` item always has a `provenance_url` and its metrics cite EQ-017 (ADR-051). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
+- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW, public reports). `source_type` ∈ `gmw | sentinel2 | field | project_report | proposal | public_report`; a `public_report` item always has a `provenance_url` and its metrics cite EQ-017 (ADR-055). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
 
 ### API-006 — `GET /api/v1/compare` — side-by-side comparison
 
@@ -409,7 +409,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND` (no statistics shipped for that country; the demo ships `PHL`).
-- **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by Mangrove.
+- **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by AIDE-M.
 
 ### API-023 — `GET /api/v1/layers/gmw-extent` — Manila Bay mangrove extent for one year
 
@@ -430,7 +430,7 @@ request using those methods gets `405` (BR-002).
 - **Serves:** F-025 · **Implements:** US-017 · **Auth:** none · **Idempotent:** yes
 
 `GET /api/v1/layers/gmw-extent/tiles` → **`200`**
-`{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 16, "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
+`{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 22, "coverage": [{ "z": 7, "tiles": [[x, y], …] }, { "z": 10, "tiles": […] }], "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
 
 `GET /api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png` → **`200`** `image/png`, 256 × 256 Web Mercator
 (XYZ, Google/OSM tiling; zoom 0–22, ADR-050). Mangrove pixels are data cyan (`--mg-data-mangrove`, ADR-049), near-opaque, grown by one pixel at
@@ -454,6 +454,7 @@ Same caching, CORS and cache-busting `?s=` as API-024.
 
 - **Errors:** `422` `VALIDATION_FAILED` (unknown `base`, `year` not after it, `only` not `gain`/`loss`, tile outside zoom 0–22) · `503` `UPSTREAM_UNAVAILABLE` (layer not installed).
 - **Notes:** rendered from GeoTIFFs built by `data/ingest/gmw_change_tiles.py` (DS-008); context only, no number, no status.
+- **Caching (API-024 and API-025, ADR-052):** tiles at zoom ≤ 12 are rendered once and kept on disk; above zoom 12 a tile is its zoom-12 parent enlarged. Browsers load tiles as static files from `/tiles/gmw/<style>/extent/<year>/<z>/<x>/<y>.png` and `/tiles/gmw/<style>/change/<base>/<year>/<gain|loss>/<z>/<x>/<y>.png`, which Caddy serves from disk and passes to these routes only when missing (ADR-053).
 
 ## 4. Error Codes
 

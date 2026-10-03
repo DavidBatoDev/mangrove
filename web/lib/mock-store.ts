@@ -8,7 +8,7 @@ import siteB from "@/mocks/api-005-site-b.json";
 import siteC from "@/mocks/api-005-site-c.json";
 import siteD from "@/mocks/api-005-site-d.json";
 import siteE from "@/mocks/api-005-site-e.json";
-// Real sourced cases, Eastern Visayas (ADR-051). is_demo = false; every item cites a public report.
+// Real sourced cases, Eastern Visayas (ADR-055). is_demo = false; every item cites a public report.
 import siteF1 from "@/mocks/api-005-site-f1.json";
 import siteF2 from "@/mocks/api-005-site-f2.json";
 import siteF3 from "@/mocks/api-005-site-f3.json";

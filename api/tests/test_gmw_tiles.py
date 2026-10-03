@@ -176,3 +176,36 @@ def test_tc028_change_layer_missing_is_503(client, tile_dir):
     gmw_tiles._change_index_for.cache_clear()
     r = client.get("/api/v1/layers/gmw-change/tiles")
     assert r.status_code == 503 and r.json()["error"]["code"] == "UPSTREAM_UNAVAILABLE"
+
+
+# --- TC-029: tiles are kept on disk and enlarged past NATIVE_ZOOM (ADR-052) ---------------------------------------
+
+
+def test_tc029_tile_is_cached_on_disk_and_reused(client, tile_dir, tmp_path_factory, monkeypatch):
+    cache = tmp_path_factory.mktemp("cache")
+    monkeypatch.setenv("GMW_TILE_CACHE", str(cache))
+    x, y = _xy(120.8, 14.7, 9)
+    first = client.get(f"/api/v1/layers/gmw-extent/tiles/2025/9/{x}/{y}.png").content
+    assert list(cache.rglob(f"9/{x}/{y}.png"))
+    gmw_tiles._render.cache_clear()
+    def no_render(*a):
+        pytest.fail("rendered again instead of reading the disk cache")
+
+    no_render.cache_clear = lambda: None
+    monkeypatch.setattr(gmw_tiles, "_render", no_render)
+    assert client.get(f"/api/v1/layers/gmw-extent/tiles/2025/9/{x}/{y}.png").content == first
+
+
+def test_tc029_deep_zoom_is_enlarged_from_native_parent(client, tile_dir):
+    x, y = _xy(120.8, 14.7, 18)
+    r = client.get(f"/api/v1/layers/gmw-extent/tiles/2025/18/{x}/{y}.png")
+    assert r.status_code == 200 and _alpha(r.content).min() > 0  # inside the block: fully drawn, not blank
+    x, y = _xy(118.0, 10.0, 18)
+    assert _alpha(client.get(f"/api/v1/layers/gmw-extent/tiles/2025/18/{x}/{y}.png").content).max() == 0
+
+
+def test_tc029_prerender_lists_only_tiles_touching_files(tile_dir):
+    from app import gmw_prerender
+
+    got = list(gmw_prerender.tiles(gmw_tiles.index()["tiles"]["2025"], range(4, 9)))
+    assert got and all(gmw_tiles._files_for(gmw_tiles.index()["tiles"]["2025"], *t) for t in got)

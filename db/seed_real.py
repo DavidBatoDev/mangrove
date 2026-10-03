@@ -1,4 +1,4 @@
-"""Real, sourced Post-Yolanda (MBFDP) records in Eastern Visayas (ADR-051). Called by db/seed.py.
+"""Real, sourced Post-Yolanda (MBFDP) records in Eastern Visayas (ADR-055). Called by db/seed.py.
 
 Every value below comes from docs/case-study-yolanda.md and carries its source number [n]; nothing is invented.
 Items in that file's §11 "Not found" go in known_unknowns, never in a finding. Nobody is named: organizations

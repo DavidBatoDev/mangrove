@@ -6,9 +6,9 @@ doc: methods
 owns: every computed number and derived finding the product emits — its equation (EQ-###), its input datasets (DS-###), and its computed confidence · the decision thresholds · the glass-box contract
 ---
 
-# Methods — Glass-Box Ledger — Mangrove
+# Methods — Glass-Box Ledger — AIDE-M
 
-> **Purpose:** the one home for every number Mangrove computes and every finding it derives from a number:
+> **Purpose:** the one home for every number AIDE-M computes and every finding it derives from a number:
 > areas, satellite class fractions, discrepancy checks, hashes. Each carries its equation, its inputs, and a
 > computed confidence.
 > Traces back to: [`system-design.md`](system-design.md), [`data-model.md`](data-model.md). Traces forward to:
@@ -16,7 +16,7 @@ owns: every computed number and derived finding the product emits — its equati
 
 ## 1. The Glass-Box Contract
 
-Every number Mangrove shows — on a page, in an API response, or through an MCP tool to Amazon Quick — must
+Every number AIDE-M shows — on a page, in an API response, or through an MCP tool to Amazon Quick — must
 resolve to:
 
 1. an **`EQ-###`** (§3), and
@@ -66,7 +66,7 @@ own. The UI shows the confidence of the items behind them.
 | EQ-014 | Mangrove area near the site, per year y = 1985…2025 (ha) — context only, no status | EQ-002's sum over GMW pixels with DN=1 in band y whose centre lies inside `ST_Buffer(site::geography, NEARBY_BUFFER_M)` and outside the site polygon | DS-001, DS-003 | Medium | Internal rule (ADR-045) |
 | EQ-015 | National mangrove extent, per year (ha), with lower and upper 95% bounds — context only | Read as published: GMW v4.1.12 country statistics, "corrected" area (GMW applied an accuracy correction factor of 0.9775) | DS-007 | Medium | GMW v4.1.12 README [R31] |
 | EQ-016 | National mangrove gain, loss and net change between consecutive years (ha) — context only | `gain_y`, `loss_y` read as published from GMW's change matrix (base year y−1, target y); `net_y = gain_y − loss_y`. Net change between y1 and y2 is `EQ-015(y2) − EQ-015(y1)` | DS-007 | Medium | GMW v4.1.12 change statistics [R31] |
-| EQ-017 | Figure quoted from a public report (ha, %, count) — shown as quoted, never a finding by itself | Read as published: value and unit copied from the cited source, with its reference number; nothing is computed. A quoted rate is never turned into a finding: a finding on a `public_report` item is chosen from the PRD §4.1 list only where the source's own words state it for the place the record covers (the site, or for a record that stands in for a province program, that province). Rates (program-wide, province-wide or site) are stored `usable = false` with the reason (ADR-051) | DS-009 | Low | The cited source (`provenance_url` on the item) |
+| EQ-017 | Figure quoted from a public report (ha, %, count) — shown as quoted, never a finding by itself | Read as published: value and unit copied from the cited source, with its reference number; nothing is computed. A quoted rate is never turned into a finding: a finding on a `public_report` item is chosen from the PRD §4.1 list only where the source's own words state it for the place the record covers (the site, or for a record that stands in for a province program, that province). Rates (program-wide, province-wide or site) are stored `usable = false` with the reason (ADR-055) | DS-009 | Low | The cited source (`provenance_url` on the item) |
 
 *Every constant inside a formula is either sourced (Δ from JAXA; R is the IUGG mean radius) or listed in
 §3.1 as an `[assumption]`.*
@@ -119,7 +119,7 @@ The partner's benefit text is displayed as written. It is not an equation and it
 
 | `DS-###` | Input | Source | Access & licence | Confidence tier |
 |----------|-------|--------|------------------|-----------------|
-| DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once. The 93 tiles over the Philippines (116–127°E, 4–22°N) are also kept as per-year GeoTIFFs for the API-024 map layer (`data/ingest/gmw_tiles.py`, ADR-048), a picture that is never an input to an EQ. For the site figures `data/ingest/` reads tile N15E120 (Manila Bay demo sites) and tiles N12E124 and N12E125 (the real Eastern Visayas sites, ADR-051), mosaicking two tiles when a site and its buffer cross a tile edge. CC BY 4.0, confirmed on the Zenodo record (10.5281/zenodo.21346457) — credit the authors and "© Global Mangrove Watch" | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
+| DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once. The 93 tiles over the Philippines (116–127°E, 4–22°N) are also kept as per-year GeoTIFFs for the API-024 map layer (`data/ingest/gmw_tiles.py`, ADR-048), a picture that is never an input to an EQ. For the site figures `data/ingest/` reads tile N15E120 (Manila Bay demo sites) and tiles N12E124 and N12E125 (the real Eastern Visayas sites, ADR-055), mosaicking two tiles when a site and its buffer cross a tile edge. CC BY 4.0, confirmed on the Zenodo record (10.5281/zenodo.21346457) — credit the authors and "© Global Mangrove Watch" | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
 | DS-002 | Sentinel-2 L2A Collection 1: SCL (20 m), B04 `red` and B08 `nir` (10 m) | Cloud-Optimized GeoTIFFs on public AWS S3, found with Element 84 Earth Search STAC `https://earth-search.aws.element84.com/v1`, collection `sentinel-2-c1-l2a` (ADR-042) [R39] | No account, no quota; HTTP range reads. Copernicus Sentinel data are free and open (Sentinel data legal notice); credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]`, distributed by Element 84 | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
 | DS-003 | Site polygons | Demo: drawn by the team on Manila Bay coastal areas `[assumption]`; later: proposer-supplied | Team-authored; public | High as the definition of the site (the polygon *is* the site) |
 | DS-004 | Partner field submissions: photo, GPS point, mapped boundary, finding | Field partners via the Submit evidence screen; demo items authored by the team and labelled demo (BR-006) | Submitted under the partner's account; public | Medium (observed, but self-reported; device GPS accuracy unknown) |

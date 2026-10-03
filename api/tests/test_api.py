@@ -158,7 +158,7 @@ def test_gmw_context(client):
     assert bad.status_code == 422 and bad.json()["error"]["code"] == "VALIDATION_FAILED"
 
 
-# --- TC-029, TC-030 (ADR-051) ------------------------------------------------------------------------
+# --- TC-029, TC-030 (ADR-055) ------------------------------------------------------------------------
 
 def _public_report(**over):
     from datetime import datetime, timezone

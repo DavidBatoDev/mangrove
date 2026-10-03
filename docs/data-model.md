@@ -6,9 +6,9 @@ doc: data-model
 owns: entities and their relationships · per-field types, nullability and defaults · keys, constraints and indexes
 ---
 
-# Data Model — Mangrove
+# Data Model — AIDE-M
 
-> **Purpose:** the entities Mangrove stores, every field, and the constraints PostgreSQL itself enforces —
+> **Purpose:** the entities AIDE-M stores, every field, and the constraints PostgreSQL itself enforces —
 > including the append-only guarantee behind BR-002. Classification lives in
 > [`security.md` §3](security.md); each field here only names its category.
 > Traces back to: [`system-design.md`](system-design.md). Traces forward to: [`api.md`](api.md),
@@ -45,8 +45,8 @@ informs the site's three answers, which is intended.
 | Field | Type | Null? | Default | Class | Description |
 |-------|------|-------|---------|-------|-------------|
 | `id` | `uuid` | no | `gen_random_uuid()` | public | Stable identifier |
-| `name` | `text` | no | — | public | Organization name; fictional for demo orgs (BR-006); a real organization only as a cited party in `is_demo = false` sourced records (ADR-051) |
-| `kind` | `org_kind` (`funder` \| `partner`) | no | — | public | What the organization does in Mangrove |
+| `name` | `text` | no | — | public | Organization name; fictional for demo orgs (BR-006); a real organization only as a cited party in `is_demo = false` sourced records (ADR-055) |
+| `kind` | `org_kind` (`funder` \| `partner`) | no | — | public | What the organization does in AIDE-M |
 | `is_demo` | `boolean` | no | `true` | public | Shows the "Demo data" label (BR-006) |
 
 ### app_user
@@ -76,26 +76,26 @@ informs the site's three answers, which is intended.
 | `proposal_summary` | `text` | yes | `null` | public | The partner's benefit text, in their words; null until a partner proposes. Not a computed benefit |
 | `proposed_by_org_id` | `uuid` | yes | `null` | public | Partner organization that proposed; null for team-drawn demo polygons that have no proposal yet |
 | `is_demo` | `boolean` | no | `true` | public | BR-006 |
-| `created_at` | `timestamptz` | no | `now()` | public | When the site entered Mangrove |
+| `created_at` | `timestamptz` | no | `now()` | public | When the site entered AIDE-M |
 
 `site` is the one mutable table among the core entities. A record never depends on the live row: the
 geometry and name are copied into the record snapshot at lock time.
 
 ### evidence_item — append-only
 
-**Stored in:** table `evidence_item` · **Written by:** Source adapters (GMW ingest, Sentinel-2 refresh), the Evidence API (field submissions, project reports), and the seed for cited public reports (ADR-051)
+**Stored in:** table `evidence_item` · **Written by:** Source adapters (GMW ingest, Sentinel-2 refresh), the Evidence API (field submissions, project reports), and the seed for cited public reports (ADR-055)
 
 | Field | Type | Null? | Default | Class | Description |
 |-------|------|-------|---------|-------|-------------|
 | `id` | `uuid` | no | `gen_random_uuid()` | public | Stable identifier |
 | `site_id` | `uuid` | no | — | public | The site this evidence is about |
 | `question` | `question` (`history` \| `current` \| `ground` \| `work` \| `outcome`) | no | — | public | Which site question or record check it answers (PRD §4.1 vocabularies) |
-| `source_type` | `source_type` (`gmw` \| `sentinel2` \| `field` \| `project_report` \| `proposal` \| `public_report`) | no | — | public | Kind of source. `public_report` = a figure or statement quoted from a published source (DS-009, EQ-017, ADR-051) |
+| `source_type` | `source_type` (`gmw` \| `sentinel2` \| `field` \| `project_report` \| `proposal` \| `public_report`) | no | — | public | Kind of source. `public_report` = a figure or statement quoted from a published source (DS-009, EQ-017, ADR-055) |
 | `source_name` | `text` | no | — | public | e.g. `Global Mangrove Watch`, `Copernicus Sentinel-2 L2A`, partner org name; for `public_report`, `<Publisher>, “<Title>”` |
 | `source_version` | `text` | yes | `null` | public | e.g. `v4.1.12`; null for field submissions; for `public_report`, `Published <date> (case study source <n>)` |
 | `observed_from` | `timestamptz` | no | — | public | Start of the observation (equals `observed_to` for a single moment) |
 | `observed_to` | `timestamptz` | no | — | public | End of the observation window |
-| `retrieved_at` | `timestamptz` | no | `now()` | public | When Mangrove obtained it |
+| `retrieved_at` | `timestamptz` | no | `now()` | public | When AIDE-M obtained it |
 | `location` | `geometry(Geometry, 4326)` | yes | `null` | public | GPS point or mapped boundary; null when the item covers the whole site polygon |
 | `finding` | `text` | yes | `null` | public | One value from the question's vocabulary; null only when `usable = false` |
 | `metrics` | `jsonb` | no | `'[]'` | public | Array of `{name, value, unit, eq_id, confidence}` — every stored number names its `EQ-###` ([`methods.md`](methods.md)) |
@@ -182,7 +182,7 @@ A flag on the public record produces a notice. The recipient is the funder accou
 | evidence_item | `fk_evidence_site` → site | foreign key, `restrict` | Evidence cannot outlive its site |
 | evidence_item | `ck_evidence_finding` | check | `finding` is in the vocabulary for `question` (PRD §4.1) or null when unusable — BR-001 |
 | evidence_item | `ck_evidence_unusable_reason` | check | `usable = true OR unusable_reason IS NOT NULL` |
-| evidence_item | `ck_evidence_public_report_cited` | check | `source_type <> 'public_report' OR provenance_url IS NOT NULL`: a quoted report always links its source (ADR-051) |
+| evidence_item | `ck_evidence_public_report_cited` | check | `source_type <> 'public_report' OR provenance_url IS NOT NULL`: a quoted report always links its source (ADR-055) |
 | evidence_item | `ix_evidence_site_question` on `(site_id, question, created_at)` | index | Building a site's three answers — every dossier, compare and MCP read |
 | evidence_item | `ix_evidence_location` | GiST | Spatial checks on field points/boundaries |
 | promise_record | `fk_record_site` → site, `fk_record_funder` → organization | foreign key, `restrict` | A record's site and funder cannot be deleted |

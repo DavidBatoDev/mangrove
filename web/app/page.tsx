@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { CountryCard } from "@/components/GmwContext";
 import MapShell from "@/components/MapShell";
 import PlaceCard from "@/components/PlaceCard";
 import { DemoLabel, Empty, ErrorBox, Loading, PinLabel } from "@/components/ui";
@@ -16,6 +17,8 @@ import type { SitesFC } from "@/lib/types";
 // The selection lives in the URL (?record=) so a selected pin can be shared.
 function PublicMap() {
   const pins = useApi(() => api.listRecords(), []);
+  // National context (API-022) for the no-pin panel: Philippine extent and yearly gain/loss from GMW.
+  const country = useApi(() => api.countryContext("PHL"), []);
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -93,6 +96,8 @@ function PublicMap() {
               ))}
             </ul>
           )}
+
+          {country.data && <CountryCard c={country.data} />}
         </>
       )}
     </MapShell>

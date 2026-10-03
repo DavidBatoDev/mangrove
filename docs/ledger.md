@@ -6,7 +6,7 @@ doc: ledger
 owns: which decision is current · names and immutable IDs · rejected approaches · decision assumptions
 ---
 
-# Ledger — Mangrove
+# Ledger — AIDE-M
 
 > **What this is.** Append-only history of pivots, rejected approaches, names, and the assumptions behind
 > decisions. It does not override the PRD, the system design, or the test plan. If it disagrees with one of
@@ -18,7 +18,7 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 | Name / ID | Kind | Where it appears | Rule |
 |-----------|------|------------------|------|
-| Mangrove | public product name | UI, pitch, repo | Use this name wherever a person sees the product. |
+| AIDE-M | public product name (ADR-051) | UI, pitch, docs | Use this name wherever a person sees the product. Its meaning, "Accountability In Delivery & Evidence · Mangrove", goes only in small type under the wordmark and at a document's first mention. The name was "Mangrove" until 2026-10-04; repo, CSS, file and AWS identifiers keep `mangrove`. |
 | `prd.md` | doc filename | `docs/prd.md` | The PRD file is `prd.md`, not `product.md`. Do not rename it. |
 | F-001…F-021, US-001…US-015, BR-001…BR-006, API-001…API-018, EQ-001…EQ-013, DS-001…DS-006, TC-001…TC-020, T-001…T-013, DEC-001… | stable IDs | docs | Never renumber or reuse. Retire and add a new ID. |
 | ADR-001…ADR-030 | prior decision numbers | Google Doc; indexed in `docs/adr/README.md` | Not reused. New ADRs start at ADR-031. |
@@ -43,12 +43,43 @@ owns: which decision is current · names and immutable IDs · rejected approache
 ## 3. Pivots & decisions (newest first, append at top)
 
 ### 2026-10-04 — Real, sourced Post-Yolanda records beside the demo cast
-- **ID:** DEC-021
+- **ID:** DEC-025
 - **Type:** scope-add
 - **Change:** fictional Manila Bay records only → plus four real Eastern Visayas MBFDP records (`is_demo = false`), reconstructed from cited public reports (`public_report`, EQ-017, DS-009), naming real organizations only as cited parties
 - **Why:** the team wants the product shown on the real case it was built for, with every claim one click from its source.
 - **Invalidated:** BR-006's fictional-name rule, `docs/security.md` §8's all-fictional gate and PRD §6's Manila-only scope, for these sourced records only
-- **Recorded as:** ADR-051
+- **Recorded as:** ADR-055
+
+### 2026-10-04 — Map draws GMW layers from one fixed tile level
+- **ID:** DEC-024
+- **Type:** zoom-in
+- **Change:** a new tile set per zoom → one zoom-10 set, placed once and scaled with the map
+- **Why:** the team saw a wait and a blurry swap on every zoom.
+- **Invalidated:** per-zoom Google overlays (ADR-048, ADR-050)
+- **Recorded as:** ADR-054
+
+### 2026-10-04 — GMW tiles served as static files
+- **ID:** DEC-023
+- **Type:** zoom-in
+- **Change:** tiles read from the API's disk cache → a static tile tree served by Caddy, the API only rendering missing tiles
+- **Why:** the team asked for GMW's tile speed.
+- **Invalidated:** ADR-052's cache key and API-only serving
+- **Recorded as:** ADR-053
+
+### 2026-10-04 — GMW map tiles rendered once and kept on disk
+- **ID:** DEC-022
+- **Type:** zoom-in
+- **Change:** tiles rendered per request and kept in memory → rendered once into a disk cache, prerendered for the default view after each deploy, enlarged from zoom 12 above it
+- **Why:** cold renders queued for over 90 s on the 2-CPU host and the map blurred when zoomed in.
+- **Invalidated:** ADR-048's in-memory cache and zoom 4–8 prewarm
+- **Recorded as:** ADR-052
+### 2026-10-04 — The product is named AIDE-M
+- **ID:** DEC-021
+- **Type:** naming
+- **Change:** public product name "Mangrove" → **AIDE-M** (Accountability In Delivery & Evidence · Mangrove); the meaning appears only under the wordmark and at first mention
+- **Why:** "Mangrove" is also the ecosystem the product is about, so the name read as a topic.
+- **Invalidated:** ADR-043's product name only
+- **ADR:** ADR-051
 
 ### 2026-10-04 — Mangrove gain and loss on the map; compact legend filters
 - **ID:** DEC-020

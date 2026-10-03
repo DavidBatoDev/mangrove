@@ -6,7 +6,7 @@ doc: design
 owns: routes and URLs · component inventory · visual states · pin colors · accessibility target · pointers to the brand kit for tokens, type and voice
 ---
 
-# Design — Mangrove
+# Design — AIDE-M
 
 > **Purpose:** how each screen in [`prd.md`](prd.md) §5.1 looks and where it lives.
 > Written from [`design-brief.md`](design-brief.md). Why there is a brand at all: ADR-043.

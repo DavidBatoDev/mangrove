@@ -15,7 +15,10 @@ export default function Header() {
         {/* Dark-ground mark on the Canopy header (WEB.md §4). Plain <img>: the logo is a static brand file. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/brand/logo/mangrove-mark-dark.svg" alt="" width={28} height={28} />
-        Mangrove
+        <span className="brand-name">
+          AIDE-M
+          <small className="brand-meaning">Accountability In Delivery & Evidence · Mangrove</small>
+        </span>
       </Link>
       <nav className="nav">
         <Link href="/">Public map</Link>

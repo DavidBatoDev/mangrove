@@ -1,9 +1,9 @@
-# ADR-051 — Real, sourced Post-Yolanda records beside the fictional demo cast
+# ADR-055 — Real, sourced Post-Yolanda records beside the fictional demo cast
 
 - **Date:** 2026-10-04
 - **Status:** Accepted
 - **Owners:** the team (Ethan owned frontend and backend for this change)
-- **Related:** DEC-021, BR-006, F-001, US-001, EQ-017, DS-009, TC-029, TC-030, [`docs/case-study-yolanda.md`](../case-study-yolanda.md)
+- **Related:** DEC-025, BR-006, F-001, US-001, EQ-017, DS-009, TC-029, TC-030, [`docs/case-study-yolanda.md`](../case-study-yolanda.md)
 
 ### Context
 

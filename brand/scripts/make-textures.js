@@ -1,4 +1,4 @@
-// Generates the three Mangrove background textures into brand/textures/.
+// Generates the three AIDE-M background textures into brand/textures/.
 // Run: node brand/scripts/make-textures.js   (deterministic: same seed, same output)
 const fs = require('fs'), path = require('path');
 const W = 1920, H = 1080, OUT = path.join(__dirname, '..', 'textures');
