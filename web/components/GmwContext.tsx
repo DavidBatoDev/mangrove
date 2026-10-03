@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from "react";
 import { ConfidenceMark, DemoLabel } from "@/components/ui";
+import { useMangroveChange } from "@/components/MapShell";
 import { BrandIcon } from "@/components/visual";
 import type { CountryContext, GmwTimeline, Measure } from "@/lib/types";
 
@@ -238,6 +239,7 @@ function SiteTrend({
 // --- national card ----------------------------------------------------------------------------------
 
 export function CountryCard({ c }: { c: CountryContext }) {
+  const change = useMangroveChange();
   const [box, W] = useWidth();
   const years = c.years;
   const [year, setYear] = useState(years[years.length - 1].year);
@@ -278,6 +280,13 @@ export function CountryCard({ c }: { c: CountryContext }) {
         </strong>{" "}
         <Cite m={since} />
       </p>
+
+      {change && (
+        <label className="gmw-switch">
+          <input type="checkbox" role="switch" checked={change.on} onChange={(e) => change.set(e.target.checked)} />
+          <span>Show gain and loss since {change.base} on the map</span>
+        </label>
+      )}
 
       <label className="gmw-slider">
         <span className="stat-label">Year</span>

@@ -33,19 +33,8 @@ export default function SiteDossierPage() {
   const tileYears = gmw.years;
   const [chosenYear, setChosenYear] = useState<number | null | undefined>(undefined);
   const layerYear = chosenYear === undefined ? (tileYears.at(-1) ?? null) : chosenYear;
-  // Extent plus gain/loss since the default baseline (ADR-050), when that year has change.
-  const base = gmw.defaultBase;
-  const mangrove =
-    layerYear === null
-      ? null
-      : {
-          extentYear: layerYear,
-          change:
-            base !== null && (gmw.changeBases[String(base)] ?? []).includes(layerYear)
-              ? { base, year: layerYear, gain: true, loss: true }
-              : null,
-          opacity: 1,
-        };
+  // Extent only; gain and loss are switched on from the national card on the map pages (ADR-056).
+  const mangrove = layerYear === null ? null : { extentYear: layerYear, change: null, opacity: 1 };
   const [view3d, setView3d] = useState(false);
 
   if (d.loading) return <Loading what="Loading site" />;
