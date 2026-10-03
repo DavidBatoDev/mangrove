@@ -65,7 +65,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 | F-012 | Record integrity check | Should | "Can't be edited" must be checkable | |
 | F-013 | In-app plain-language evidence summary | Could | Dense dossiers | BR-003; LLM provider TBD |
 | F-014 | Upload a new candidate polygon | Could | Limited to pre-loaded sites | Waits on the core loop |
-| F-025 | Mangrove context (GMW): inside and nearby extent 1985–2025, bay extent layer, national card | Should | No sense of the trend around a site | BR-001, BR-003 (ADR-045) |
+| F-025 | Mangrove context (GMW): inside and nearby extent 1985–2025, Philippines extent map layer, national card | Should | No sense of the trend around a site | BR-001, BR-003 (ADR-045) |
 | F-015 | Success score / probability | Won't | — | Reason: fake precision [ADR-023, ADR-028]. Reconsider if: a validated outcome model exists. |
 | F-016 | AlphaEarth embeddings | Won't | — | Reason: not interpretable; costs time. Reconsider if: core loop done early. |
 | F-017 | Live ODK Central integration | Won't | — | Reason: later integration. Reconsider if: a partner already uses ODK. |
@@ -207,7 +207,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 > since 1985, and the national trend, so that I can judge the site against what is happening around it.
 
 - Given a site, when its dossier renders, then it shows the GMW mangrove area inside the site (EQ-002) and within the nearby buffer (EQ-014) for each year 1985–2025, each with its `eq_id` and confidence, and states that GMW starts in 1985 so ponds converted earlier are not visible.
-- Given the map, when I turn on the mangrove extent layer and pick a year, then GMW's mangrove extent for that year is drawn over the Manila Bay demo area.
+- Given any map (public map, candidate sites, a site page), when it opens, then GMW's mangrove extent for the latest layer year is drawn over the Philippines in brand Tidal, on the Google map and on the MapLibre fallback; when I turn the layer off or pick another year (1985–2025, every 5 years), then the map follows, and the legend names GMW v4.1.12 and says it is context only (ADR-048).
 - Given the Philippines card, when it renders, then it shows the national mangrove extent for a chosen year with its 95% bounds (EQ-015) and the year-on-year gain, loss and net change (EQ-016), sourced to GMW v4.1.12.
 - Given any of these numbers, when it renders, then no status, finding, pin state or score is derived from it (BR-001, F-015).
 

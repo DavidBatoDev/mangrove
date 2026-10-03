@@ -7,6 +7,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { LngLatBounds, Map as MlMap, Marker, setWorkerUrl } from "maplibre-gl";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { gmwTileTemplate } from "@/lib/api";
 import { basemapById, DEFAULT_BASEMAP, LABEL_FONT_BOLD, type BasemapId } from "@/lib/basemaps";
 import type { MapHandle } from "@/lib/map-handle";
 import { buildPinElement } from "@/lib/pin-dom";
@@ -38,8 +39,8 @@ export interface MapViewProps {
   onPinClick?: (recordId: string) => void;
   selectedPinId?: string | null;
   highlightSiteIds?: string[];
-  /** GMW mangrove extent polygons for one year (API-023, F-025); drawn under the sites. */
-  extent?: GeoJSON.FeatureCollection | null;
+  /** Draw the GMW mangrove extent for this year (API-024 tiles, F-025, ADR-048) under the sites; null = off. */
+  extentYear?: number | null;
   basemap?: BasemapId;
   showSites?: boolean;
   showPins?: boolean;
@@ -53,6 +54,21 @@ export interface MapViewProps {
 /** A brand token's resolved value (MapLibre paint cannot read CSS variables). */
 function token(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || "gray";
+}
+
+/** GMW mangrove extent (API-024 tiles, ADR-048): brand Tidal baked into the PNGs, under the site outlines. */
+function applyExtent(map: MlMap, year: number | null | undefined): void {
+  if (map.getLayer("gmw-extent")) map.removeLayer("gmw-extent");
+  if (map.getSource("gmw-extent")) map.removeSource("gmw-extent");
+  if (year == null) return;
+  map.addSource("gmw-extent", {
+    type: "raster",
+    tiles: [gmwTileTemplate(year)],
+    tileSize: 256,
+    maxzoom: 16,
+    attribution: "Mangrove extent: © Global Mangrove Watch v4.1.12 (CC BY 4.0)",
+  });
+  map.addLayer({ id: "gmw-extent", type: "raster", source: "gmw-extent" }, map.getLayer("sites-fill") ? "sites-fill" : undefined);
 }
 
 function boundsOf(fc: GeoJSON.FeatureCollection): LngLatBounds | null {
@@ -76,7 +92,7 @@ export default function MapView({
   onPinClick,
   selectedPinId,
   highlightSiteIds,
-  extent,
+  extentYear = null,
   basemap = DEFAULT_BASEMAP,
   showSites = true,
   showPins = true,
@@ -92,9 +108,9 @@ export default function MapView({
   const router = useRouter();
 
   // Latest props, read when the style (re)loads and overlays are re-added.
-  const latest = useRef({ sites, highlightSiteIds, extent, showSites, basemap, onSiteClick, onPinClick, fitPadding });
+  const latest = useRef({ sites, highlightSiteIds, extentYear, showSites, basemap, onSiteClick, onPinClick, fitPadding });
   useEffect(() => {
-    latest.current = { sites, highlightSiteIds, extent, showSites, basemap, onSiteClick, onPinClick, fitPadding };
+    latest.current = { sites, highlightSiteIds, extentYear, showSites, basemap, onSiteClick, onPinClick, fitPadding };
   });
   const onMapReadyRef = useRef(onMapReady);
   useEffect(() => {
@@ -129,15 +145,6 @@ export default function MapView({
       const dark = basemapById(bm).ground === "dark";
       const outline = token(dark ? "--mg-tidal-lift" : "--mg-tidal");
       const selected = token(dark ? "--mg-mist" : "--mg-canopy");
-      // GMW mangrove extent (F-025): Prop Root, the evidence color, so it never reads as a status or a pin.
-      if (!map.getSource("gmw-extent")) map.addSource("gmw-extent", { type: "geojson", data: latest.current.extent ?? EMPTY });
-      if (!map.getLayer("gmw-extent-fill"))
-        map.addLayer({
-          id: "gmw-extent-fill",
-          type: "fill",
-          source: "gmw-extent",
-          paint: { "fill-color": token("--mg-root"), "fill-opacity": dark ? 0.75 : 0.55 },
-        });
       if (!map.getSource("sites")) map.addSource("sites", { type: "geojson", data: s ?? EMPTY, promoteId: "id" });
       const visibility = visible ? "visible" : "none";
       if (!map.getLayer("sites-fill"))
@@ -183,6 +190,7 @@ export default function MapView({
             "text-halo-width": 1.6,
           },
         });
+      applyExtent(map, latest.current.extentYear);
       applyHighlight();
       loaded.current = true;
       pending.current.splice(0).forEach((fn) => fn());
@@ -242,13 +250,13 @@ export default function MapView({
      
   }, [sites, fitToSites]);
 
-  // GMW extent layer.
+  // GMW mangrove extent tiles.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    whenReady(() => (map.getSource("gmw-extent") as { setData?: (d: GeoJSON.GeoJSON) => void } | undefined)?.setData?.(extent ?? EMPTY));
+    whenReady(() => applyExtent(map, extentYear));
      
-  }, [extent]);
+  }, [extentYear]);
 
   // Highlight.
   useEffect(() => {

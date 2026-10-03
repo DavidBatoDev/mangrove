@@ -6,6 +6,7 @@
 
 import { useEffect, useRef } from "react";
 import type { MapViewProps } from "@/components/MapView";
+import { gmwTileTemplate } from "@/lib/api";
 import { DEFAULT_BASEMAP, type BasemapId } from "@/lib/basemaps";
 import { GOOGLE_IMAGERY_NOTE, GOOGLE_MAP_ID, loadMaps, loadMarker, onGoogleAuthFailure, outerRings } from "@/lib/google";
 import type { Padding } from "@/lib/map-handle";
@@ -32,6 +33,7 @@ export default function GoogleMapView({
   onPinClick,
   selectedPinId,
   highlightSiteIds,
+  extentYear = null,
   basemap = DEFAULT_BASEMAP,
   showSites = true,
   showPins = true,
@@ -45,6 +47,7 @@ export default function GoogleMapView({
   const polys = useRef<Map<string, google.maps.Polygon[]>>(new Map());
   const markers = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
   const markerLib = useRef<google.maps.MarkerLibrary | null>(null);
+  const extentLayer = useRef<google.maps.ImageMapType | null>(null);
   const router = useRouter();
   const latest = useRef({ onSiteClick, onPinClick, fitPadding, basemap });
   useEffect(() => {
@@ -193,6 +196,34 @@ export default function GoogleMapView({
       }),
      
     [highlightSiteIds, showSites, sites, basemap],
+  );
+
+  // GMW mangrove extent (API-024 tiles, F-025, ADR-048): an image overlay above the basemap, under polygons and pins.
+  useEffect(
+    () =>
+      whenReady((map) => {
+        if (extentLayer.current) {
+          const i = map.overlayMapTypes.getArray().indexOf(extentLayer.current);
+          if (i >= 0) map.overlayMapTypes.removeAt(i);
+          extentLayer.current = null;
+        }
+        if (extentYear == null) return;
+        const template = gmwTileTemplate(extentYear);
+        const layer = new google.maps.ImageMapType({
+          name: `GMW mangrove extent ${extentYear}`,
+          tileSize: new google.maps.Size(256, 256),
+          maxZoom: 16,
+          getTileUrl: (c, z) => {
+            const n = 1 << z;
+            if (c.y < 0 || c.y >= n) return null;
+            const x = ((c.x % n) + n) % n;
+            return template.replace("{z}", String(z)).replace("{x}", String(x)).replace("{y}", String(c.y));
+          },
+        });
+        map.overlayMapTypes.insertAt(0, layer);
+        extentLayer.current = layer;
+      }),
+    [extentYear],
   );
 
   // Record pins as advanced markers carrying the shared pin element.

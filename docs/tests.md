@@ -77,7 +77,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | F-012 | Record integrity check | Should | TC-015 | unit | planned | todo |
 | F-013 | Plain-language summary | Could | — | — | — | deferred — not in the demo; add TC when the story is started |
 | F-014 | Upload a candidate polygon | Could | — | — | — | deferred — no story yet; add US + TC when started |
-| F-025 | Mangrove context (GMW) | Should | TC-025 | integration | planned | todo |
+| F-025 | Mangrove context (GMW) | Should | TC-025, TC-027 | integration | planned | todo |
 | F-015 | Success score | Won't | — | — | — | n/a — Won't |
 | F-016 | AlphaEarth | Won't | — | — | — | n/a — Won't |
 | F-017 | Live ODK | Won't | — | — | — | n/a — Won't |
@@ -95,6 +95,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 |---------|------------|-----------|---------|---------|-------------------|
 | TC-016 | unit / pytest | `api/tests/test_engine.py` | `pytest api/tests/test_engine.py` | local, before demo | pytest output |
 | TC-001–TC-013, TC-017, TC-025 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
+| TC-027 | integration / pytest | `api/tests/test_gmw_tiles.py` | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-014 | contract / pytest | `api/tests/test_mcp.py` | `pytest api/tests/test_mcp.py` | local, before demo | pytest output |
 | TC-015 | unit / pytest | `api/tests/test_ledger.py` | `pytest api/tests/test_ledger.py` | local, before demo | pytest output |
 | TC-020 | e2e / Playwright | `web/e2e/demo.spec.ts` | `npm test` | local, before demo | HTML report on failure |
@@ -310,6 +311,15 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Expected:** Given a site with GMW ingested, when its series is requested, then 41 years are returned, each `inside` citing EQ-002 and each `nearby` citing EQ-014, with the 1985 limitation. Given the Philippines card, when it is requested, then each year's extent cites EQ-015 with lower ≤ value ≤ upper, and 1985 has no gain or loss. Given a layer year that is not offered, when it is requested, then `422` names the available years.
 - **Automation:** planned — `pytest api/tests/test_api.py::test_gmw_context`
 
+### TC-027 — Philippines mangrove extent tiles (API-024)
+
+- **Covers:** F-025 · **Proves:** US-017
+- **Level:** integration
+- **Preconditions / controlled data:** a synthetic 1° GMW-style tile over Manila Bay with a block of mangrove, written to a temp dir with its `index.json` (no real GMW download)
+- **Steps:** `GET /api/v1/layers/gmw-extent/tiles`; a z9 tile over the block; a z9 tile over open ocean; a year with no files; a bad year and a bad zoom; a server with no layer
+- **Expected:** Given the layer is installed, when its info is requested, then the years and the URL template are returned. Given a tile over mangrove, when it is requested, then a 256 px RGBA PNG has visible and transparent pixels and a cache header. Given a tile with no mangrove, when it is requested, then it is fully transparent. Given a year or zoom outside the layer, when it is requested, then `422`. Given no layer on the server, when its info is requested, then `503 UPSTREAM_UNAVAILABLE`.
+- **Automation:** `pytest api/tests/test_gmw_tiles.py`
+
 ## 8. Browser E2E with Playwright
 
 One Playwright spec, Chromium only, for TC-020: signed out, the map can show a site with a commitment and a site without one; sign in as the demo funder; open the comparison; the conflicting site shows the fishpond finding; commit is not clicked in the automated spec (committing is covered by TC-009, and the spec must not publish a new record on every run).
@@ -339,7 +349,7 @@ One Playwright spec, Chromium only, for TC-020: signed out, the map can show a s
 | US-014 | 1 | TC-015 | — |
 | US-015 | 1 | — | the summary criterion. F-013 is Could and deferred |
 | US-016 | 3 | TC-023 | — |
-| US-017 | 4 | TC-025 | the map-layer criterion is checked by eye in the demo rehearsal |
+| US-017 | 4 | TC-025, TC-027 | the map drawing itself (Google and MapLibre) is checked by eye in the demo rehearsal |
 
 ## 10. Regression Plan
 

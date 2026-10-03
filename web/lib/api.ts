@@ -9,6 +9,7 @@ import type {
   EvidenceInput,
   EvidenceResponse,
   GmwExtentLayer,
+  GmwExtentTiles,
   GmwTimeline,
   LockBody,
   LockResponse,
@@ -114,6 +115,14 @@ export const countryContext = (iso3: string): Promise<CountryContext> =>
 // API-023
 export const gmwExtent = (year?: number): Promise<GmwExtentLayer> =>
   USE_MOCKS ? mock().then((m) => m.gmwExtent(year)) : http(`/layers/gmw-extent${year ? `?year=${year}` : ""}`);
+
+// API-024: the Philippines mangrove extent as map tiles. Fixtures mode has no tiles, so the layer hides itself.
+export const gmwExtentTiles = (): Promise<GmwExtentTiles> =>
+  USE_MOCKS ? Promise.reject(new ApiError(503, "UPSTREAM_UNAVAILABLE", "No map tiles in fixtures mode.")) : http("/layers/gmw-extent/tiles");
+
+/** Absolute XYZ template for one year (map engines fetch tiles outside fetch(), so the origin is spelled out). */
+export const gmwTileTemplate = (year: number): string =>
+  `${typeof window !== "undefined" ? window.location.origin : ""}/api/v1/layers/gmw-extent/tiles/${year}/{z}/{x}/{y}.png`;
 
 /** Demo boundary for site B; fixtures mode only. */
 export const demoBoundary = (): Promise<unknown> => mock().then((m) => m.demoBoundary());

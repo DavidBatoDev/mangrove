@@ -134,6 +134,11 @@
 .dossier-top { display: grid; grid-template-columns: minmax(0, 3fr) minmax(300px, 2fr); gap: var(--mg-space-5); margin-top: var(--mg-space-5); align-items: start; }
 @media (max-width: 900px) { .dossier-top { grid-template-columns: 1fr; } }
 .dossier-map { height: 100%; min-height: 420px; border-radius: var(--app-radius); }
+/* Map / 3D switch over the site map (ADR-048: the 2D map carries the GMW mangrove extent; 3D does not). */
+.dossier-mapbox { position: relative; height: 100%; min-height: 420px; }
+.dossier-mapbox > .dossier-map, .dossier-mapbox > .map { height: 100%; }
+.dossier-map-toggle { position: absolute; top: var(--mg-space-3); left: var(--mg-space-3); z-index: 2; display: flex; gap: var(--mg-space-1);
+  padding: var(--mg-space-1); border-radius: var(--mg-radius-sm); background: color-mix(in srgb, var(--mg-surface) 92%, transparent); box-shadow: var(--mg-shadow); }
 
 /* ---------- Compare ---------- */
 .compare-card { padding: var(--mg-space-5) var(--mg-space-5) var(--mg-space-3); }
