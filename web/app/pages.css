@@ -354,3 +354,11 @@ form.form--wide { max-width: 760px; }
 .evidence-photos figure { margin: 0; }
 .evidence-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--mg-radius-sm); border: 1px solid var(--mg-brackish); display: block; }
 .evidence-photos figcaption { font-size: var(--mg-text-label); color: var(--mg-text-muted); margin-top: var(--mg-space-1); }
+
+/* API-007 satellite refresh on the site page (ADR-061) */
+.sat-refresh { display: grid; gap: var(--mg-space-2); justify-items: start; margin-bottom: var(--mg-space-4); }
+.sat-refresh .mg-btn { min-height: 36px; padding: 6px 14px; font-size: var(--mg-text-small); }
+.sat-refresh p { margin: 0; }
+@keyframes mg-spin { to { transform: rotate(360deg); } }
+.spin { animation: mg-spin 1s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
