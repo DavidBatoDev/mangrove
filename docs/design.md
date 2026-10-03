@@ -31,22 +31,23 @@ Auth per route follows [`security.md`](security.md) §4; this table states the e
 
 | Screen (PRD §5.1) | Route | Auth | Ground (WEB.md §2) |
 |-------------------|-------|------|--------------------|
-| Public map | `/` | public | full-bleed MapLibre map; Night Roots intro band above it |
-| Record | `/records/{id}` | public | plain; promise above the Waterline, the two checks below (T07) |
+| Public map | `/` | public | full-bleed MapLibre map; Night Roots intro band above it; a toggle for sites with a commitment, sites without one, or both |
+| Record | `/records/{id}` | public | plain; the partner's terms above the Waterline, the two checks below (T07). Early: field inputs and the line "not yet observable". After the outcome date: partner report and EQ-012 |
 | Sign in | `/sign-in` | public | plain, centered card is allowed here only |
-| Candidate sites | `/sites` | signed-in funder or partner | plain; map + list |
-| Site dossier | `/sites/{id}` | signed-in funder or partner | plain; the three questions first, then every evidence item |
+| Sites | `/sites` | public | plain; map + list. Each row shows whether a funder has committed |
+| Site dossier | `/sites/{id}` | public | plain; the three questions first, then the partner's benefit text, then every evidence item. GMW is the history row |
 | Compare | `/compare?sites=` | public | plain; root profile (BRAND.md §6), then the columns table |
-| Lock promise | `/sites/{id}/lock` | signed-in funder | plain; form, then the irreversible confirmation |
+| Propose | `/sites/{id}/propose` | signed-in partner | plain; benefit text, timeline, milestones |
+| Commit | `/sites/{id}/lock` | signed-in funder, and only when a proposal exists | plain; the partner's terms, then the irreversible confirmation. The funder does not type the benefit |
 | Submit evidence | `/evidence/new` | signed-in partner (funder for a project report) | plain; form |
 
 ## 3. Principles (from the brief, kept)
 
-- **Show, don't explain.** Each screen is built on one visual device from `brand/BRAND.md` §0 and passes the glance test. Compare is a table (`mg-table`) plus the root profile; the dossier is three rows of question · mark · finding · sources; the record is the Waterline split with the two checks as chips. Words are labels; the funder's rationale, limitations, the disclaimer and errors are the only prose.
+- **Show, don't explain.** Each screen is built on one visual device from `brand/BRAND.md` §0 and passes the glance test. Compare is a table (`mg-table`) plus the root profile; the dossier is three rows of question · mark · finding · sources, then the partner's benefit text; the record is the Waterline split with the two checks as chips. Words are labels. The partner's benefit text, limitations, the disclaimer and errors are the prose.
 - **The status is the interface.** Finding, status word and source count are visible without opening a detail view (`mg-chip--*` + text). Color is never the only carrier.
 - **A conflict is the loudest thing on the page.** `--mg-conflict` is used only for `pin_state = conflict` and a conflicting status (BR-004).
 - **Demo data cannot be mistaken for a real project.** `mg-demo` on every seeded site, record, organization and pin tooltip (BR-006).
-- **The record reads as a document, not a dashboard.** One promise, then the evidence, then the two checks. No chart that is not a number from [`methods.md`](methods.md).
+- **The record reads as a document, not a dashboard.** The partner's terms, then the evidence, then the two checks. No chart that is not a number from [`methods.md`](methods.md). Agreement is the word "supported" with the finding. The page does not say the project was successful.
 
 ## 4. Map (MapLibre GL JS)
 
@@ -56,7 +57,7 @@ Auth per route follows [`security.md`](security.md) §4; this table states the e
 | `awaiting` | Mist | `--mg-pin-awaiting`, 2px dashed | "Awaiting evidence" |
 | `on_track` | `--mg-pin-on-track` | Mist, 2px | "On track" |
 
-Candidate-site polygons: Tidal 2px outline, Tidal 12% fill; selected: Canopy 3px. Basemap muted (light, low saturation) so pins carry the color. Zoom runs from the Philippines to a site without a mode switch. A pin is keyboard-focusable and opens its record on Enter.
+Sites with no commitment are polygons, not record pins: Tidal 2px outline, Tidal 12% fill; selected: Canopy 3px. A pin exists only for a commitment, and it opens the record. Basemap muted (light, low saturation) so pins carry the color. Zoom runs from the Philippines to a site without a mode switch. A pin and a polygon are keyboard-focusable; Enter opens the record or the site. The toggle does not use red.
 
 ## 5. Components per screen
 
@@ -64,6 +65,7 @@ Candidate-site polygons: Tidal 2px outline, Tidal 12% fill; selected: Canopy 3px
 |---------|-----------------|---------|
 | Comparison (sites × questions) | `mg-table` with a `mg-chip--*` in every cell, words only in headers | compare |
 | Question or check status | `mg-chip--supported / --conflicting / --missing / --too-early` + finding + source count | dossier, compare, record |
+| Satellite line before the outcome date | `mg-chip--too-early` + the words "not yet observable". Not red. Not a fail | record |
 | Number with confidence | value rendered per methods §2 + `mg-conf--high / --medium / --low` + `EQ-###` | dossier, record |
 | Evidence item | `mg-evidence` (source · observed date meta, limitation in the body) | dossier, record |
 | Waterline | `mg-waterline` once per section | record, dossier |
@@ -82,9 +84,9 @@ Every screen in PRD §5.1 has loading, empty and error states. Copy follows the 
 | Empty | Short inviting line + one action ("No evidence yet. Field partners can add the first item.") |
 | Error | `mg-alert` with what failed and what still works |
 | Live source failed (Sentinel-2) | `mg-alert`: "Sentinel-2 didn't respond. Showing the stored snapshot from {date}." |
-| Too early (outcome check) | `mg-chip--too-early` + "Checkable from {date}" |
-| Conflict | `mg-chip--conflicting` with both values and their sources side by side |
-| Lock confirmation | Plain statement that the record can never be edited or deleted; primary button "Lock this promise" |
+| Not yet observable | `mg-chip--too-early` + "not yet observable". Shown on an early milestone and on the outcome check before its date. Does not turn the pin red |
+| Conflict | `mg-chip--conflicting` with both values and their sources side by side. The funder notice is a separate line for the signed-in funder, not a second red treatment |
+| Commit confirmation | The partner's benefit text, then a plain statement that the record can never be edited or deleted; primary button "Commit to this proposal" |
 
 ## 7. Accessibility
 

@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: api
 owns: the operation contracts (API-###) the web app, Amazon Quick and other clients depend on — request and response shapes, per-operation auth requirement, error codes, rate limits, versioning
 ---
@@ -39,6 +39,8 @@ carries `is_demo`. Errors use `{"error": {"code": "<CODE>", "message": "<human t
 | API-007 | `POST /api/v1/sites/{site_id}/sentinel-refresh` | F-003 | session, role `funder` | stable |
 | API-008 | `POST /api/v1/evidence` | F-004, F-009, F-010 | session, role `partner` (field) or `funder` (project report) | stable |
 | API-009 | `POST /api/v1/records` | F-007 | session, role `funder` | stable |
+| API-019 | `POST /api/v1/sites/{site_id}/proposal` | F-001, F-007 | session, role `partner` | stable |
+| API-020 | `GET /api/v1/records/{record_id}/notice` | F-010 | session, role `funder`, same org as the record | stable |
 | API-010 | `GET /api/v1/records` | F-008, F-010 | **none — public data** | stable |
 | API-011 | `GET /api/v1/records/{record_id}` | F-007, F-009, F-010 | **none — public data** | stable |
 | API-012 | `POST /api/v1/records/{record_id}/corrections` | F-007 | session, role `funder`, same org as the record | stable |
@@ -87,6 +89,7 @@ request using those methods gets `405` (BR-002).
 | Parameter | In | Type | Required | Notes |
 |-----------|----|------|----------|-------|
 | `region` | query | string | no | e.g. `Manila Bay`; omitted = all |
+| `commitment` | query | `with` \| `without` \| `all` | no | Default `all`. `with` = a funder has committed. `without` = a public site with no commitment |
 
 **Response — `200`** — a GeoJSON `FeatureCollection`:
 
@@ -99,6 +102,7 @@ request using those methods gets `405` (BR-002).
       "geometry": { "type": "MultiPolygon", "coordinates": ["<…>"] },
       "properties": {
         "id": "<uuid>", "name": "<site name>", "region": "Manila Bay", "is_demo": true,
+        "has_commitment": false,
         "area": { "value": "<ha>", "unit": "ha", "eq_id": "EQ-001", "confidence": "high" }
       }
     }
@@ -119,7 +123,14 @@ request using those methods gets `405` (BR-002).
   "site": { "id": "<uuid>", "name": "<name>", "region": "Manila Bay", "is_demo": true,
             "geometry": { "<GeoJSON>": "…" },
             "area": { "value": "<ha>", "unit": "ha", "eq_id": "EQ-001", "confidence": "high" },
-            "proposal_summary": "<text or null>" },
+            "proposal_summary": "<partner benefit text or null>",
+            "has_commitment": false,
+            "proposal": {
+              "benefit_text": "<partner's words or null>",
+              "timeline": "<text or null>",
+              "milestones": [ { "kind": "early", "label": "<text>", "due": "<date>" } ],
+              "proposed_by": { "name": "<org or null>", "is_demo": true }
+            } },
   "answers": [
     {
       "question": "history",
@@ -151,7 +162,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW). `mapped_area` is present only on an item with a mapped boundary.
+- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
 
 ### API-006 — `GET /api/v1/compare` — side-by-side comparison
 
@@ -201,27 +212,14 @@ request using those methods gets `405` (BR-002).
 - **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` · `413` `PAYLOAD_TOO_LARGE` · `415` `UNSUPPORTED_MEDIA` · `422` `VALIDATION_FAILED` · `429`.
 - **Notes:** the evidence item and its record event are written in one transaction — both or neither.
 
-### API-009 — `POST /api/v1/records` — lock a promise
+### API-009 — `POST /api/v1/records` — commit to a partner proposal
 
 - **Serves:** F-007 · **Implements:** US-007 · **Auth:** session, role `funder`
 - **Idempotent:** yes, via the required `Idempotency-Key` header (client-generated UUID).
 
 ```json
-{
-  "site_id": "<uuid>",
-  "rationale": "<why this site>",
-  "planned_action": "natural_regeneration",
-  "planned_action_detail": "<what will be done>",
-  "planned_area_ha": 8.0,
-  "expected_outcome": "<what should happen>",
-  "expected_vegetated_ha": 6.0,
-  "work_check_after": "2027-04-01",
-  "outcome_check_after": "2029-10-01",
-  "known_unknowns": "<what we did not know yet>"
-}
+{ "site_id": "<uuid>" }
 ```
-
-*(Example values are illustrative.)*
 
 **Response — `201`**
 
@@ -229,8 +227,8 @@ request using those methods gets `405` (BR-002).
 { "id": "<uuid>", "url": "/records/<uuid>", "published_at": "<ts>", "content_hash": "<64 hex>", "is_demo": true }
 ```
 
-- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` (site) · `409` `IDEMPOTENCY_CONFLICT` (same key, different body) · `422` `VALIDATION_FAILED` / `DATES_ORDER`.
-- **Notes:** a retry with the same key and body returns the original `201` body; no second record. The snapshot is computed server-side at lock time; the client cannot supply evidence or statuses.
+- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` (site) · `409` `IDEMPOTENCY_CONFLICT` (same key, different body) · `422` `VALIDATION_FAILED` (no partner proposal on the site, or the site already has a commitment).
+- **Notes:** the server copies the partner proposal (benefit text, timeline, milestones, and the planned action, area and dates the proposal carries) into the public record. The client does not send the benefit text. A retry with the same key and body returns the original `201` body; no second record. The snapshot is computed server-side at commit time; the client cannot supply evidence or statuses. The response and the stored public record contain no contract text.
 
 ### API-010 — `GET /api/v1/records` — map pins
 
@@ -264,13 +262,14 @@ request using those methods gets `405` (BR-002).
   "site": { "…": "same shape as API-005 site" },
   "checks": [
     { "check": "work", "label": "Did the work happen?", "status": "conflicting", "finding": null,
+      "satellite_line": "not_yet_observable",
       "source_count": { "value": 1, "unit": "items", "eq_id": "EQ-013", "confidence": "high" },
       "reported_area": { "value": 8.0, "unit": "ha", "eq_id": null, "confidence": "low" },
       "measured_area": { "value": 5.0, "unit": "ha", "eq_id": "EQ-010", "confidence": "medium" },
       "area_conflict": { "value": true, "unit": "flag", "eq_id": "EQ-009", "confidence": "low" },
       "evidence_ids": ["<uuid>"], "disagreeing_evidence_ids": ["<uuid>"] },
     { "check": "outcome", "label": "Did the mangroves come back?", "status": "too_early",
-      "checkable_from": "<date>", "finding": null,
+      "satellite_line": "not_yet_observable", "checkable_from": "<date>", "finding": null,
       "source_count": { "value": 0, "unit": "items", "eq_id": "EQ-013", "confidence": "high" },
       "evidence_ids": [], "disagreeing_evidence_ids": [], "vegetated_area": null }
   ],
@@ -285,7 +284,7 @@ request using those methods gets `405` (BR-002).
 *(Values above are illustrative of the shape; `planned_area_ha` and `reported_area` are inputs, not computed, hence `eq_id: null`.)*
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `checks[].status` ∈ `supported | conflicting | missing | too_early` (`too_early` only for `outcome`). `timeline` ordered by `seq`; an entry carries `evidence` when it adds an item, otherwise `body`. `vegetated_area` on the outcome check is `EQ-008` (confidence low) once a usable Sentinel-2 vegetation fraction exists, else `null`.
+- **Notes:** `checks[].status` ∈ `supported | conflicting | missing | too_early` (`too_early` only for `outcome`). There is no status `successful`. Before `outcome_check_after`, outcome `status` is `too_early` and `satellite_line` is `not_yet_observable`. That line is not a fail: it does not set `pin_state` to `conflict`. The work check may still be `conflicting` from EQ-009 (reported area against mapped area) while its own `satellite_line` is `not_yet_observable`. After the date, outcome `status` is `missing` unless both a partner outcome report and an EQ-012 result exist; `conflicting` if they disagree; `supported` if they agree. `supported` means the sources agree. Global Mangrove Watch numbers, if shown, stay on the history answer. They are not an outcome status. `timeline` is ordered by `seq`; an entry carries `evidence` when it adds an item, otherwise `body`. `vegetated_area` on the outcome check is `EQ-008` (confidence low) once a usable Sentinel-2 vegetation fraction exists, else `null`. The body never includes contract text. It never includes the funder notice. `pin_state` is the public flag.
 
 ### API-012 — `POST /api/v1/records/{record_id}/corrections` — append a correction
 
@@ -312,7 +311,7 @@ request using those methods gets `405` (BR-002).
 ### API-015 — `POST /mcp` — MCP server for Amazon Quick
 
 - **Serves:** F-011 · **Implements:** US-013
-- **Auth:** none — every tool is read-only and returns only data the public REST endpoints already return; rate-limited (§5).
+- **Auth:** none — every tool is read-only and returns only the public subset the unauthenticated REST endpoints already return. No contract text. No funder notice. Rate-limited (§5).
 - **Transport:** MCP streamable HTTP. Tool `inputSchema`s are JSON Schema Draft 7 with `required` as a root-level array (Quick rejects Draft 3 style) [R35].
 
 | Tool | Input (required in **bold**) | Returns | Same data as |
@@ -325,6 +324,39 @@ request using those methods gets `405` (BR-002).
 | `verify_record` | **`record_id`** | Integrity result | API-013 |
 
 - **Notes:** tool descriptions tell the agent that statuses mean source agreement (BR-001), that demo data is labelled, and that numbers must be quoted with their `eq_id`. Responses return in seconds from the database; no tool calls Copernicus (Quick's limit is 5 minutes). After changing tools, the connector owner presses **Sync** in Quick.
+
+### API-019 — `POST /api/v1/sites/{site_id}/proposal` — partner proposes
+
+- **Serves:** F-001, F-007 · **Implements:** US-016 · **Auth:** session, role `partner`
+- **Idempotent:** no — a second proposal for a site that already has one is rejected. This change does not define an edit.
+
+**Request — JSON**
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `benefit_text` | string, 1–2,000 chars | yes | The partner's words. Not a computed benefit |
+| `timeline` | string, 1–2,000 chars | yes | When the work and the outcome are expected |
+| `milestones` | array, length ≥ 1 | yes | Each item: `kind` ∈ `early` \| `outcome`, `label` string, `due` date. At most one `outcome` |
+| `planned_action` | enum, same as the record | yes | Copied onto the record at commit |
+| `planned_area_ha` | number > 0 | yes | The partner's stated area. Not a satellite measurement |
+| `expected_vegetated_ha` | number > 0 or null | no | Optional input to EQ-012 after the outcome date |
+| `work_check_after` | date | yes | |
+| `outcome_check_after` | date | yes | Must be on or after `work_check_after` |
+
+**Response — `201`** `{ "site_id": "<uuid>", "proposal": { "…": "as in API-005" }, "has_commitment": false }`
+
+- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` · `409` (a proposal already exists) · `422` `VALIDATION_FAILED` / `DATES_ORDER`.
+- **Notes:** the proposal is public as soon as it is stored. It is not a commitment. Contract text is not a field on this request.
+
+### API-020 — `GET /api/v1/records/{record_id}/notice` — funder notice
+
+- **Serves:** F-010 · **Implements:** US-012 · **Auth:** session, role `funder`, user's org = record's funder
+- **Idempotent:** yes
+
+**Response — `200`** `{ "check": "outcome", "created_at": "<ts>" }`
+
+- **Errors:** `401` · `403` `FORBIDDEN_OWNER` · `404` (unknown record, or no notice has been recorded).
+- **Notes:** returned only to the funder account on that record. The body is the flag (which check disagreed, and when). It does not contain contract text. A public `GET` of the record and every MCP tool omit this object. A notice is recorded when a check becomes `conflicting` under US-012. An early milestone with `satellite_line = not_yet_observable` does not record one.
 
 ### API-016 — `GET /api/v1/health` — liveness
 
@@ -345,7 +377,7 @@ Every error has the body `{ "error": { "code": "<CODE>", "message": "<text>" } }
 | Code | HTTP | Meaning | When it occurs |
 |------|------|---------|----------------|
 | `UNAUTHENTICATED` | 401 | No valid session, or wrong credentials | Any session-protected operation; API-001 |
-| `FORBIDDEN_ROLE` | 403 | Signed in, but the role may not do this | Partner locking a record; funder submitting `field` evidence |
+| `FORBIDDEN_ROLE` | 403 | Signed in, but the role may not do this | Partner committing a record; funder submitting `field` evidence or a proposal |
 | `FORBIDDEN_OWNER` | 403 | Record belongs to another funder org | API-012 |
 | `NOT_FOUND` | 404 | Unknown id | Any `{id}` path; unknown id in `site_ids` |
 | `RECORD_IMMUTABLE` | 405 | Update/delete is not supported | Any `PUT`/`PATCH`/`DELETE` on evidence, records, timeline |
@@ -354,7 +386,7 @@ Every error has the body `{ "error": { "code": "<CODE>", "message": "<text>" } }
 | `UNSUPPORTED_MEDIA` | 415 | Photo is not JPEG/PNG by content | API-008 |
 | `VALIDATION_FAILED` | 422 | Missing/invalid field, finding outside vocabulary, future date | API-008, API-009, API-012, API-017 |
 | `COMPARE_RANGE` | 422 | Not 2–5 site ids | API-006, `compare_sites` |
-| `DATES_ORDER` | 422 | `outcome_check_after` before `work_check_after` | API-009 |
+| `DATES_ORDER` | 422 | `outcome_check_after` before `work_check_after` | API-019 |
 | `RATE_LIMITED` | 429 | Limit in §5 exceeded; `Retry-After` set | Any limited operation |
 | `UPSTREAM_UNAVAILABLE` | 502 / 503 | Sentinel-2 source (Earth Search, ADR-042) (502) or LLM (503) failed | API-007, API-018 |
 

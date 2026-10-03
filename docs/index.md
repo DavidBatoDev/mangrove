@@ -1,7 +1,7 @@
 # Documentation Index — Mangrove
 
 **Maintained by:** the team
-**Last updated:** 2026-10-03
+**Last updated:** 2026-10-04
 **FMD version:** 6.1.0
 
 ## 0. Source-of-truth map (one fact, one home)
@@ -47,15 +47,15 @@ No active overlay. The decisions in the ledger are already written into the owni
 
 | Document | File | Status | Last updated |
 |----------|------|--------|--------------|
-| PRD | [prd.md](prd.md) | draft | 2026-10-03 |
+| PRD | [prd.md](prd.md) | draft | 2026-10-04 |
 | System Design | [system-design.md](system-design.md) | draft | 2026-10-04 |
-| Data Model | [data-model.md](data-model.md) | draft | 2026-10-03 |
+| Data Model | [data-model.md](data-model.md) | draft | 2026-10-04 |
 | Methods | [methods.md](methods.md) | draft | 2026-10-04 |
-| API | [api.md](api.md) | draft | 2026-10-03 |
-| Security | [security.md](security.md) | draft | 2026-10-03 |
-| Tests | [tests.md](tests.md) | draft | 2026-10-03 |
+| API | [api.md](api.md) | draft | 2026-10-04 |
+| Security | [security.md](security.md) | draft | 2026-10-04 |
+| Tests | [tests.md](tests.md) | draft | 2026-10-04 |
 | Ledger | [ledger.md](ledger.md) | draft | 2026-10-04 |
-| Pitch | [pitch.md](pitch.md) | draft | 2026-10-03 |
+| Pitch | [pitch.md](pitch.md) | draft | 2026-10-04 |
 | Design brief | [design-brief.md](design-brief.md) | draft | 2026-10-03 |
 | Design | [design.md](design.md) | draft | 2026-10-04 |
 

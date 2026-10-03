@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: tests
 owns: test intent and the traceability sink — which feature is proven by which case · the automation contract (path, command, trigger) · regression and exit criteria
 ---
@@ -47,7 +47,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 ### Out of scope
 
 - F-013 and F-014 — Could, and not in the demo script. Reason: the 12-hour window is spent on the lock-and-check loop.
-- F-015 through F-021 — Won't. They record decisions, not behaviour.
+- F-015 through F-024 — Won't. They record decisions, not behaviour. Dispatch, penalties and crowdsourcing are in that range (F-022, F-023, F-024).
 - Live Copernicus during automated tests — the refresh test stubs the HTTP call. A manual check hits the real API once before the demo.
 - Amazon Quick's own UI — we test our MCP server; Quick's rendering is AWS's.
 - Load, uptime, and multi-region — no `quality.md`, and the demo is one host.
@@ -84,6 +84,9 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | F-019 | Billing | Won't | — | — | — | n/a — Won't |
 | F-020 | Sentinel-1 | Won't | — | — | — | n/a — Won't |
 | F-021 | Private shortlists | Won't | — | — | — | n/a — Won't |
+| F-022 | Inspector dispatch | Won't | — | — | — | n/a — Won't |
+| F-023 | Penalties in the product | Won't | — | — | — | n/a — Won't |
+| F-024 | Crowdsourced evidence | Won't | — | — | — | n/a — Won't |
 
 ## 6. Automation Contract
 
@@ -99,13 +102,13 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 
 ## 7. Test Cases
 
-### TC-001 — Candidate sites list with area and demo label
+### TC-001 — Sites list with area, commitment flag and demo label
 
 - **Covers:** F-001 · **Proves:** US-001
 - **Level:** integration
-- **Preconditions / controlled data:** seed with 3–5 sites, `is_demo = true`
-- **Steps:** `GET /api/v1/sites?region=Manila%20Bay` with no session
-- **Expected:** Given 3–5 seeded candidate sites, when the candidate list is requested, then each site is returned with its name and its area in hectares (EQ-001). Given a site is demo data, when it is returned, then `is_demo` is true.
+- **Preconditions / controlled data:** seed with 3–5 sites, `is_demo = true`, at least one with a commitment and one without
+- **Steps:** `GET /api/v1/sites?region=Manila%20Bay` with no session; repeat with `commitment=without`
+- **Expected:** Given 3–5 seeded sites, some with a commitment and some without, when the list is requested without a session, then each site is returned with its name, its area in hectares (EQ-001), and `has_commitment`. Given `commitment=without`, when the list is requested, then every returned site has `has_commitment` false. Given a site is demo data, when it is returned, then `is_demo` is true.
 - **Automation:** planned — `pytest api/tests/test_api.py::test_sites`
 
 ### TC-002 — Dossier shows provenance and drops unusable items from the status
@@ -171,22 +174,22 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Expected:** Given a published record, when anyone tries to change or delete it through the product, then the attempt is refused (`405`) and the row is unchanged. Given the app role issues `UPDATE` or `DELETE` on `promise_record`, `evidence_item` or `record_event`, when the statement runs, then the database rejects it.
 - **Automation:** planned — `pytest api/tests/test_api.py::test_immutable`
 
-### TC-009 — Lock publishes one record and a retry does not duplicate it
+### TC-009 — Commit publishes one record and a retry does not duplicate it
 
 - **Covers:** F-007 · **Proves:** US-007
 - **Level:** integration
-- **Preconditions / controlled data:** funder session; a complete lock body; the same `Idempotency-Key` sent twice; a third call with the outcome date before the work date
-- **Steps:** `POST /api/v1/records`
-- **Expected:** Given a funder submits a complete lock, when it is confirmed, then one record is published with publication time, funder organization, a snapshot of geometry and evidence, and a content hash (EQ-011). Given the same key and body are retried, when the second call arrives, then the same record is returned and no second row exists. Given the outcome-check date is before the work-check date, when the form is submitted, then nothing is published (`422`).
+- **Preconditions / controlled data:** funder session; one site with a partner proposal and no commitment; the same `Idempotency-Key` sent twice; a third call on a site with no proposal
+- **Steps:** `POST /api/v1/records` with `{ "site_id" }`
+- **Expected:** Given a funder confirms a commit on a site that has a partner proposal and no commitment, when it is confirmed, then one record is published with publication time, funder organization, the partner's benefit text, timeline and milestones, a snapshot of geometry and evidence, and a content hash (EQ-011). The benefit text matches the proposal. Given the same key and body are retried, when the second call arrives, then the same record is returned and no second row exists. Given the site has no partner proposal, when the funder tries to commit, then nothing is published (`422`).
 - **Automation:** planned — `pytest api/tests/test_api.py::test_lock`
 
-### TC-010 — Public map returns a pin per record without a session
+### TC-010 — Public map toggles sites with and without a commitment
 
 - **Covers:** F-008 · **Proves:** US-009
 - **Level:** e2e
-- **Preconditions / controlled data:** two seeded records with different pin states
-- **Steps:** open `/` signed out; request `GET /api/v1/records`
-- **Expected:** Given published records, when the map is opened without signing in, then one pin is returned per record with a `pin_state`. Given a record id, when its page is requested, then the promise, snapshot, timeline and both checks are present.
+- **Preconditions / controlled data:** one site with a published record and one site with a proposal and no record
+- **Steps:** open `/` signed out; request `GET /api/v1/sites?commitment=with`, `commitment=without`, and `GET /api/v1/records`
+- **Expected:** Given sites exist, some with a published record and some without, when the map is opened without signing in, then `commitment=with` returns only sites with `has_commitment` true, `commitment=without` returns only the others, and `GET /api/v1/records` returns one pin per record with a `pin_state`. Given a site with no commitment, when its dossier is requested, then the partner proposal is present and there is no record id. Given a record id, when its page is requested, then the promise, snapshot, timeline and both checks are present.
 - **Automation:** planned — `npm test` (`web/e2e/demo.spec.ts`) plus `pytest api/tests/test_api.py::test_pins`
 
 ### TC-011 — Later evidence appends and the promise stays
@@ -198,22 +201,22 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Expected:** Given a published record, when a partner submits field evidence, then a timeline event is appended and the record's `content_hash` and promise fields are byte-for-byte unchanged.
 - **Automation:** planned — `pytest api/tests/test_api.py::test_later_evidence`
 
-### TC-012 — The two checks stay separate, and the outcome can be too early
+### TC-012 — Early satellite line is not a fail; outcome needs both inputs
 
 - **Covers:** F-009 · **Proves:** US-011
 - **Level:** integration
-- **Preconditions / controlled data:** a record whose `outcome_check_after` is in the future, with one work-evidence item
-- **Steps:** `GET /api/v1/records/{id}`
-- **Expected:** Given a record, when it is read, then `checks` contains `work` and `outcome` separately, each with its own status. Given today is before `outcome_check_after`, when it is read, then the outcome status is `too_early` and `checkable_from` is that date.
+- **Preconditions / controlled data:** a record whose `outcome_check_after` is in the future, with one field photo and a mapped boundary; a second fixture whose outcome date is past, missing the partner outcome report
+- **Steps:** `GET /api/v1/records/{id}` for each fixture
+- **Expected:** Given a record whose outcome date has not arrived, when an early milestone is read, then the work inputs are the partner's photo, GPS and mapped area, `satellite_line` is `not_yet_observable`, and `pin_state` is not `conflict` for that reason. Given the outcome date has passed and the partner report or EQ-012 is absent, when the outcome check is read, then its status is `missing` and it is not `supported`. Given both are present and agree, when it is read, then the status is `supported` and the body does not contain the word successful.
 - **Automation:** planned — `pytest api/tests/test_api.py::test_two_checks`
 
-### TC-013 — An area disagreement flags the check and turns the pin red
+### TC-013 — A disagreement flags the record and notifies the funder
 
 - **Covers:** F-010 · **Proves:** US-012
 - **Level:** integration
-- **Preconditions / controlled data:** a record with planned area 8 ha; a project report claiming 8 ha; a partner boundary of 5 ha
-- **Steps:** submit both evidence items; `GET` the record and the pin list
-- **Expected:** Given a reported area and a measured area differ by more than the tolerance (EQ-009), when the record is read, then the work check is `conflicting`, both values are present with their `eq_id`, and `pin_state` is `conflict`.
+- **Preconditions / controlled data:** a record with planned area 8 ha; a project report claiming 8 ha; a partner boundary of 5 ha. A second record past its outcome date whose partner finding and EQ-012 disagree. The funder session for that record.
+- **Steps:** submit the 8 ha report and the 5 ha boundary; `GET` the record, the pin list, and `GET /api/v1/records/{id}/notice` as the funder and as a signed-out caller
+- **Expected:** Given a reported area and a mapped area differ by more than the tolerance (EQ-009), when the record is read, then the work check is `conflicting`, both values are present with their sources, and `pin_state` is `conflict`. The comparison is EQ-009 against EQ-010, not a satellite count. Given the outcome date has passed and the partner report disagrees with EQ-012, when the funder requests the notice, then the response names that check. Given the same notice URL with no session, when it is requested, then the response is `401`. Given an early milestone whose only gap is `satellite_line = not_yet_observable`, when the record is read, then no notice exists for that gap. Given the flagged record is read, when the body is inspected, then it does not name an inspector, a penalty, or fraud.
 - **Automation:** planned — `pytest api/tests/test_api.py::test_conflict_pin`
 
 ### TC-013b — Quick quotes the tool, and cannot write
@@ -231,7 +234,7 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Level:** contract
 - **Preconditions / controlled data:** running API
 - **Steps:** initialize MCP and list tools
-- **Expected:** Given the server is up, when tools are listed, then the names are exactly `list_sites`, `get_site_dossier`, `compare_sites`, `list_records`, `get_record`, `verify_record`, and each `inputSchema` is an object whose `required` is an array.
+- **Expected:** Given the server is up, when tools are listed, then the names are exactly `list_sites`, `get_site_dossier`, `compare_sites`, `list_records`, `get_record`, `verify_record`, and each `inputSchema` is an object whose `required` is an array. Given `get_record` and `get_site_dossier` are called, when the results are read, then they contain no contract text and no funder notice.
 - **Automation:** planned — `pytest api/tests/test_mcp.py`
 
 ### TC-015 — Verify recomputes the hash chain
@@ -270,6 +273,24 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Expected:** Given seeded records, when the map is opened signed out, then pins are visible. Given the comparison is opened, when it renders, then the conflicting site shows the fishpond finding and a status word, and every demo site shows "Demo data". The lock confirmation screen is checked by eye once (US-007's confirmation sentence); the spec does not submit a lock.
 - **Automation:** planned — `npm test`
 
+### TC-023 — A partner proposal is public and is not a commitment
+
+- **Covers:** F-001, F-007 · **Proves:** US-016
+- **Level:** integration
+- **Preconditions / controlled data:** a site with no proposal; a partner session; a funder session
+- **Steps:** `POST /api/v1/sites/{id}/proposal` as the partner; `GET` the site with no session; repeat the POST as the funder
+- **Expected:** Given a partner submits benefit text, a timeline and at least one milestone, when the site is read without a session, then those fields are present, `has_commitment` is false, and the benefit text is the submitted string with no computed benefit beside it. Given a funder calls the proposal endpoint, when it is handled, then the response is `403` and no proposal is stored.
+- **Automation:** planned — `pytest api/tests/test_api.py::test_proposal`
+
+### TC-024 — The contract stays out of the public subset
+
+- **Covers:** F-007, F-011 · **Proves:** US-013
+- **Level:** contract
+- **Preconditions / controlled data:** a record whose confidential contract text is stored; MCP server up
+- **Steps:** `GET /api/v1/records/{id}` with no session; `get_record` over MCP
+- **Expected:** Given a record has a confidential contract, when the public record is read and when `get_record` is called, then neither body contains the contract text or the consequence clauses.
+- **Automation:** planned — `pytest api/tests/test_mcp.py::test_public_subset`
+
 ### TC-018 — Summary is not built
 
 - **Covers:** F-013 · **Proves:** US-015
@@ -281,7 +302,7 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 
 ## 8. Browser E2E with Playwright
 
-One Playwright spec, Chromium only, for TC-020: signed out, the map shows pins; sign in as the demo funder; open the comparison; the conflicting site shows the fishpond finding; lock is not clicked in the automated spec (locking is covered by TC-009, and the spec must not publish a new record on every run).
+One Playwright spec, Chromium only, for TC-020: signed out, the map can show a site with a commitment and a site without one; sign in as the demo funder; open the comparison; the conflicting site shows the fishpond finding; commit is not clicked in the automated spec (committing is covered by TC-009, and the spec must not publish a new record on every run).
 
 - Assert user-visible text: site name, a status word (`supported`, `conflicting` or `missing`), and `Demo data`. Locate by role and text, not by CSS.
 - `workers: 1`, `forbidOnly` in CI if CI is ever added, `trace: 'on-first-retry'`.
@@ -300,13 +321,14 @@ One Playwright spec, Chromium only, for TC-020: signed out, the map shows pins; 
 | US-006 | 3 | TC-006, TC-017 | — |
 | US-007 | 3 | TC-009 | the on-screen confirmation sentence is covered by TC-020's manual pass, not by the API test |
 | US-008 | 2 | TC-008 | — |
-| US-009 | 2 | TC-010 | — |
+| US-009 | 3 | TC-010 | — |
 | US-010 | 1 | TC-011 | — |
-| US-011 | 2 | TC-012 | — |
-| US-012 | 2 | TC-013 | the second criterion (a conflicting *site question*, as opposed to an area check) is asserted in TC-004 |
-| US-013 | 2 | TC-013b, TC-014 | — |
+| US-011 | 3 | TC-012 | — |
+| US-012 | 5 | TC-013 | the site-question criterion (a conflicting question, as opposed to an area or outcome check) is asserted in TC-004 |
+| US-013 | 2 | TC-013b, TC-014, TC-024 | — |
 | US-014 | 1 | TC-015 | — |
-| US-015 | 1 | — | the summary criterion — F-013 is Could and deferred |
+| US-015 | 1 | — | the summary criterion. F-013 is Could and deferred |
+| US-016 | 3 | TC-023 | — |
 
 ## 10. Regression Plan
 

@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: prd
 owns: features (F-###) and their MoSCoW priority · personas · user stories (US-###) and their acceptance criteria · cross-cutting business rules (BR-###) · app flow, screen inventory & UX intent · instrumentation taxonomy
 ---
@@ -15,15 +15,23 @@ owns: features (F-###) and their MoSCoW priority · personas · user stories (US
 
 ## 1. Product Purpose & Value Proposition
 
-Mangrove is a public map of mangrove funding promises in the Philippines, where anyone can check whether
-each promise came true. A funder compares a few candidate sites. For each one it sees three answers — was
-this mangrove before (Global Mangrove Watch), what's there now (Sentinel-2), what do people on the ground
-say (field partners) — each marked supported, conflicting or missing, with no invented success score.
-When the funder picks a site, Mangrove publishes a locked record of the promise: why this site, what will be
-done, what should happen, and what nobody knew yet. The record becomes a pin on the map. Later evidence
-lands on the same record and answers two separate questions: did the work happen, and did the mangroves
-come back. When sources disagree, the pin turns red. Maps and trackers show data; Mangrove locks a promise
-before the money moves and checks it afterwards.
+Mangrove is a public map of mangrove sites and funding commitments in the Philippines. A partner proposes
+a site, the benefit in their own words, a timeline and milestones. A funder commits to that proposal. Anyone
+can open a site before a commitment exists, and the map toggles between sites with a commitment and sites
+without one.
+
+Each site still shows three answers — was this mangrove before (Global Mangrove Watch), what's there now
+(Sentinel-2), what do people on the ground say — each marked supported, conflicting or missing, with no
+invented success score. The benefit on the proposal is the partner's sentence. Mangrove does not compute
+an environmental benefit.
+
+After a funder commits, the public record keeps the partner's terms. An early milestone is checked with the
+partner's photo, GPS and mapped area. The satellite line reads "not yet observable", and that is not a fail.
+After the outcome date, both the partner's report and the Sentinel-2 vegetated area (EQ-012) are required.
+If they disagree, the record is flagged and the funder is notified. The product does not declare fraud, send
+an inspector, or apply a penalty, and it does not say the project was successful. The record footer says this
+is not a certification. Maps and trackers show data; Mangrove publishes the partner's terms when a funder
+commits, then shows whether those terms and the later check agree.
 
 **Success is measured by** the targets in [`idea.md` §8](../idea.md) — not restated here.
 
@@ -31,9 +39,9 @@ before the money moves and checks it afterwards.
 
 | Persona | Role & context | Problem frequency | Today's workaround | Stories |
 |---------|----------------|-------------------|--------------------|---------|
-| **Funder** | CSR/sustainability manager at a Philippine company, or a foundation/NGO program officer, choosing between candidate mangrove sites and answerable to leadership and the public for the spend | Each funding cycle; defended for years after | Reads a partner's proposal, maybe a GMW map, then publishes a press release ("10,000 trees planted") | US-001, US-002, US-003, US-004, US-005, US-007, US-008, US-013, US-015 |
-| **Field partner** | Field officer at a local NGO or people's organization who visits sites, takes photos and maps planted areas | Per site visit | Photos and spreadsheets sent to the funder privately; nothing public | US-006, US-010 |
-| **Public reader** | Journalist, local government officer, auditor, community member or another funder checking a promise | Whenever a project is announced or questioned | Takes the press release at face value or files a request | US-009, US-011, US-012, US-014 |
+| **Funder** | CSR/sustainability manager at a Philippine company, or a foundation/NGO program officer, who commits money to a partner's proposal and is answerable to leadership and the public for the spend | Each funding cycle; defended for years after | Reads a partner's proposal, maybe a GMW map, then publishes a press release ("10,000 trees planted") | US-001, US-002, US-003, US-004, US-005, US-007, US-008, US-012, US-013, US-015 |
+| **Field partner** | Field officer at a local NGO or people's organization who proposes a site, states the benefit, timeline and milestones, then visits, takes photos and maps planted areas | Per proposal and per site visit | Photos and spreadsheets sent to the funder privately; nothing public | US-006, US-010, US-016 |
+| **Public reader** | Journalist, local government officer, auditor, community member or another funder checking a site or a commitment | Whenever a project is announced or questioned | Takes the press release at face value or files a request | US-001, US-009, US-011, US-012, US-014 |
 
 *Market segments are not defined in this suite (no market doc; see [`idea.md` §2](../idea.md)).*
 
@@ -43,16 +51,16 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 | `F-###` | Feature | Priority | Solves (problem) | Notes / why not |
 |---------|---------|----------|------------------|-----------------|
-| F-001 | Candidate sites (3–5 Manila Bay polygons) | Must | No common starting set | Demo sites are labelled demo (BR-006) |
+| F-001 | Partner-proposed sites the public can open before a commitment. The demo set is 3–5 Manila Bay polygons | Must | No common starting set | Demo sites are labelled demo (BR-006) |
 | F-002 | Evidence dossier with full provenance per item | Must | Scattered evidence | BR-005 |
-| F-003 | Source adapters: GMW history (pre-ingested), Sentinel-2 now (live + snapshot fallback) | Must | Manual reconciliation | Equations in [`methods.md`](methods.md) |
-| F-004 | Field evidence submission (photo, GPS, observation, mapped area) | Must | Map-only screening misses fishponds and land conflicts | |
+| F-003 | Source adapters: GMW history (pre-ingested), Sentinel-2 now (live + snapshot fallback) | Must | Manual reconciliation | Equations in [`methods.md`](methods.md). GMW is history, not a completion check |
+| F-004 | Field evidence submission (photo, GPS, observation, mapped area) | Must | Map-only screening misses fishponds and land conflicts | Early milestones use these inputs only |
 | F-005 | Three-question assessment, each supported / conflicting / missing | Must | Hidden disagreement | BR-001, BR-003 |
 | F-006 | Side-by-side comparison of 3–5 sites | Must | Choosing what to fund | |
-| F-007 | Locked promise record | Must | No baseline | BR-002 |
-| F-008 | Public map with pins, country-to-site zoom | Must | Promises can't be found | BR-004 |
-| F-009 | Later evidence + two checks (work happened? mangroves came back?) | Must | Nobody checks | BR-001 |
-| F-010 | Conflict flagging, red pin | Must | Deviations stay hidden | BR-001, BR-004 |
+| F-007 | Funder commits to a partner proposal; the public terms lock | Must | No baseline | BR-002. Benefit text is the partner's words |
+| F-008 | Public map that toggles sites with a commitment and sites without one | Must | Sites and promises can't be found | BR-004 |
+| F-009 | Milestone checks: field-only before the outcome date; partner report and EQ-012 after it | Must | Nobody checks | BR-001. Satellite line "not yet observable" is not a fail |
+| F-010 | Disagreement flags the record, turns the pin red, and notifies the funder | Must | Deviations stay hidden | BR-001, BR-004, BR-007 |
 | F-011 | Amazon Quick analyst over a read-only MCP server | Must | Manual analyst work | Hard requirement ([`context.md`](../context.md)) |
 | F-012 | Record integrity check | Should | "Can't be edited" must be checkable | |
 | F-013 | In-app plain-language evidence summary | Could | Dense dossiers | BR-003; LLM provider TBD |
@@ -63,7 +71,10 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 | F-018 | MRTT import | Won't | — | Reason: no documented live API. Reconsider if: a partner exports MRTT data. |
 | F-019 | Billing / subscriptions | Won't | — | Reason: willingness to pay untested. Reconsider if: a funder commits to pay. |
 | F-020 | Sentinel-1 radar | Won't | — | Reason: optional. Reconsider if: clouds block every Sentinel-2 window. |
-| F-021 | Private funder shortlists | Won't | — | Reason: public reads keep Quick's MCP unauthenticated; demo data is public-source. Reconsider if: a paying funder needs confidentiality. |
+| F-021 | Private funder shortlists | Won't | — | Reason: public reads keep Quick's MCP unauthenticated; demo data is public-source. Reconsider if: a paying funder needs confidentiality. The private object that does exist is the funder-partner contract (see [`security.md`](security.md)), not a hidden shortlist. |
+| F-022 | Inspector dispatch | Won't | — | Reason: the product stops at the flag and the funder notice. Sending people is the funder's action under the private contract (ADR-024, ADR-044). Reconsider if: a funder asks the product to dispatch. |
+| F-023 | Penalties applied in the product | Won't | — | Reason: consequences stay in the private contract (ADR-024). Reconsider if: a funder asks the product to apply a penalty. |
+| F-024 | Crowdsourced public evidence | Won't | — | Reason: roadmap, not this cycle. Reconsider if: after the demo, with a protocol for what a public submission must contain. |
 
 | Tier | Means | QA obligation |
 |------|-------|---------------|
@@ -74,11 +85,11 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 ## 4. User Stories & Acceptance Criteria
 
-**US-001 — Browse candidate sites** *(F-001)* — Priority: Must
-> As a **Funder**, I want to see the candidate sites in Manila Bay on a map and in a list so that I know
-> what I am choosing between.
+**US-001 — Browse sites with and without a commitment** *(F-001, F-008)* — Priority: Must
+> As a **Public reader**, I want to see the Manila Bay sites on a map and in a list, including sites no
+> funder has committed to, so that I can open a proposal before a commitment exists.
 
-- Given 3–5 seeded candidate sites, when I open the candidate sites screen, then each site appears as a polygon on the map and as a list row showing its name and its area in hectares (EQ-001).
+- Given 3–5 seeded sites, some with a commitment and some without, when I open the sites screen without signing in, then each site appears as a polygon on the map and as a list row showing its name, its area in hectares (EQ-001), and whether it has a commitment.
 - Given a site is demo data, when it is displayed anywhere, then it carries a visible "Demo data" label (BR-006).
 
 **US-002 — Inspect a site's evidence dossier** *(F-002, F-003)* — Priority: Must
@@ -86,7 +97,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 > that I can judge how much to trust it.
 
 - Given a site with evidence items, when I open its dossier, then every item shows its source, source version, observed date, retrieved date, method, spatial resolution (when applicable), limitation, and a link or attached asset (BR-005).
-- Given the Global Mangrove Watch snapshot was pre-ingested, when I open any demo site's dossier, then it contains a GMW item with the site's historical mangrove area per year and its maximum historical extent (EQ-002, EQ-003).
+- Given the Global Mangrove Watch snapshot was pre-ingested, when I open any demo site's dossier, then it contains a GMW item with the site's historical mangrove area per year and its maximum historical extent (EQ-002, EQ-003). That item is history. It is not a completion certificate.
 - Given an evidence item is not usable (e.g. too few cloud-free pixels, EQ-005), when it is displayed, then it is marked "not usable" with the reason, and it is excluded from status calculations (BR-001).
 
 **US-003 — See the three answers for a site** *(F-005)* — Priority: Must
@@ -118,13 +129,13 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 - Given I upload a photo, when it is stored, then its embedded metadata (EXIF) is removed, and the location shown is the GPS point I entered.
 - Given I am not signed in as a partner, when I try to submit, then the submission is rejected.
 
-**US-007 — Lock a promise** *(F-007)* — Priority: Must
-> As a **Funder**, I want to publish my choice and what I expect before money moves so that the promise is
-> public and checkable.
+**US-007 — Commit to a partner proposal** *(F-007)* — Priority: Must
+> As a **Funder**, I want to commit to a partner's proposal before money moves so that the public terms
+> stay the words the partner wrote.
 
-- Given I am signed in as a funder and viewing a site, when I submit the lock form with rationale, planned action, planned area (ha), expected outcome, implementation-check date, outcome-check date and known unknowns, then I am shown a final confirmation stating the record can never be edited or deleted.
-- Given I confirm, when the record is created, then it is published at a public URL with its publication time, my organization, a snapshot of the site geometry and of every evidence item and status at that moment, and a content hash (BR-002).
-- Given a required field is empty or the outcome-check date is before the implementation-check date, when I submit, then nothing is published and the problem is shown.
+- Given I am signed in as a funder and the site has a partner proposal and no commitment, when I confirm the commit, then I am shown a final confirmation stating the record can never be edited or deleted.
+- Given I confirm, when the record is created, then it is published at a public URL with its publication time, my organization, the partner's benefit text, timeline and milestones, a snapshot of the site geometry and of every evidence item and status at that moment, and a content hash (BR-002). The benefit text is the partner's words. No computed environmental benefit is stored.
+- Given the site has no partner proposal, when I try to commit, then nothing is published.
 
 **US-008 — A published record cannot change** *(F-007)* — Priority: Must
 > As a **Funder**, I want my published promise to be impossible to quietly edit so that its credibility
@@ -133,12 +144,13 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 - Given a published record, when anyone tries to change or delete it or its evidence through the product, then the attempt is refused and the record is unchanged (BR-002).
 - Given I need to correct a mistake, when I add a correction, then it appears as a new dated entry on the record's timeline and the original text stays visible.
 
-**US-009 — Find promises on the public map** *(F-008)* — Priority: Must
-> As a **Public reader**, I want to zoom from the whole country to a site and open its promise so that I
-> can read it without an account.
+**US-009 — Toggle sites with and without a commitment** *(F-008)* — Priority: Must
+> As a **Public reader**, I want to toggle sites with a commitment and sites without one so that I can
+> open a proposal or a locked record without an account.
 
-- Given published records, when I open the map without signing in, then the Philippines is shown with one pin per record, coloured by pin state (BR-004).
-- Given I click a pin, when the record opens, then I can read the promise, its evidence snapshot, its timeline and both checks.
+- Given sites exist, some with a published record and some without, when I open the map without signing in, then I can show sites with a commitment, sites without one, or both. A site with a commitment has one pin, coloured by pin state (BR-004).
+- Given I open a site with no commitment, when the page renders, then I see the partner's proposal and no locked record.
+- Given I click a pin, when the record opens, then I can read the promise, its evidence snapshot, its milestone reports and both checks.
 
 **US-010 — Add later evidence to a record** *(F-009)* — Priority: Must
 > As a **Field partner**, I want to add new evidence to an existing record so that the promise is checked
@@ -146,18 +158,22 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 - Given a published record, when a partner submits field evidence or a funder submits a project report (with claimed area and work date), then it is appended to the record's timeline with its provenance, and the original promise and earlier entries stay unchanged (BR-002, BR-005).
 
-**US-011 — See the two checks** *(F-009)* — Priority: Must
-> As a **Public reader**, I want "did the work happen?" and "did the mangroves come back?" answered
-> separately so that activity is not confused with recovery.
+**US-011 — See the milestone gate** *(F-009)* — Priority: Must
+> As a **Public reader**, I want an early milestone and the outcome check shown as different tests so
+> that a missing satellite reading is not a failure, and activity is not confused with recovery.
 
-- Given a record, when it renders, then it shows the two checks separately, each with a status of supported, conflicting or missing and the evidence behind it (BR-001).
-- Given today is before the record's outcome-check date, when it renders, then "Did the mangroves come back?" reads "Too early to tell", with the date it becomes checkable.
+- Given a record whose outcome date has not arrived, when an early milestone renders, then the allowed inputs are the partner's photo, GPS and mapped area, the satellite line reads "not yet observable", and that line is not a fail (BR-001).
+- Given the outcome date has passed, when the outcome check renders, then both the partner's report and the Sentinel-2 vegetated area (EQ-012) are required. If either is absent, the check is missing. It is not supported.
+- Given both required outcome inputs are present and agree, when the outcome check renders, then the status is supported, the finding is shown, and the page does not say the project was successful and does not certify (BR-007).
 
-**US-012 — Conflicts are flagged** *(F-010)* — Priority: Must
-> As a **Public reader**, I want disagreements between sources to be impossible to miss so that a
-> deviation from the promise is visible.
+**US-012 — Disagreement is flagged and the funder is notified** *(F-010)* — Priority: Must
+> As a **Public reader**, I want a disagreement on a record to be obvious, and as a **Funder** I want to
+> be told, so that the deviation is visible to everyone and the notice reaches the account that committed.
 
-- Given a record where a reported area and a measured area differ by more than the tolerance (EQ-009), when it renders, then the affected check shows "conflicting" with both values and their sources, and the record's pin is red (BR-004).
+- Given a record where a reported area and a mapped area differ by more than the tolerance (EQ-009), when it renders, then the work check shows "conflicting" with both values and their sources, and the record's pin is red (BR-004). This comparison is the report against the partner's mapped area, not a satellite count of seedlings.
+- Given the outcome date has passed and the partner's report disagrees with EQ-012, when the record renders, then the outcome check shows "conflicting", the pin is red, and the funder account is notified (BR-007).
+- Given an early milestone has no satellite observation, when it renders, then the record is not flagged for that absence.
+- Given a disagreement is flagged, when the record renders, then the page does not state fraud, name an inspector, or apply a penalty (BR-007).
 - Given conflicting evidence within one of the three site questions, when that site or record renders, then the question shows "conflicting" and lists the disagreeing items.
 
 **US-013 — Ask Amazon Quick why two sites differ** *(F-011)* — Priority: Must
@@ -173,6 +189,13 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 - Given a published record, when I request verification, then the content hash and every timeline entry hash are recomputed and I see "intact" or the first entry that does not match.
 
+**US-016 — Propose a site** *(F-001, F-007)* — Priority: Must
+> As a **Field partner**, I want to propose a site with the benefit in my words, a timeline and milestones
+> so that a funder can commit to terms I stated.
+- Given I am signed in as a partner and the site has no proposal, when I submit benefit text, a timeline and at least one milestone, then the site is publicly readable with that text, timeline and milestones, and it has no commitment.
+- Given the proposal is shown, when a reader opens the site, then the benefit is the partner's words and no computed environmental benefit is shown.
+- Given I am not signed in as a partner, when I try to submit a proposal, then the submission is rejected.
+
 **US-015 — Read a plain-language summary** *(F-013)* — Priority: Could
 > As a **Funder**, I want a short plain-language summary of a dossier so that I can brief my leadership.
 
@@ -182,12 +205,13 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 | `BR-###` | Rule | Invoked by |
 |----------|------|------------|
-| BR-001 | **Status = agreement among usable evidence.** For each site question and each record check: no usable item → *missing*; all usable items give the same finding → *supported*; usable items give different findings (or a reported vs measured area differs beyond tolerance, EQ-009) → *conflicting*. "Supported" means sources agree on the finding, not that the site is good — the finding is always shown with the status. Outcome check is *too early to tell* before the record's outcome-check date. | US-002, US-003, US-011, US-012, US-013 |
+| BR-001 | **Status = agreement among usable evidence.** For each site question and each record check: no usable item → *missing*; all usable items give the same finding → *supported*; usable items give different findings (or a reported vs measured area differs beyond tolerance, EQ-009) → *conflicting*. "Supported" means sources agree on the finding, not that the site is good. The finding is always shown with the status. Before the outcome date, the satellite line on an early milestone is *not yet observable* and is not a fail. After that date, the outcome check is supported only when the partner's report and EQ-012 are both present and agree. One without the other is *missing*, not supported. | US-002, US-003, US-011, US-012, US-013 |
 | BR-002 | **Append-only.** A published record, its evidence items and its timeline entries are never updated or deleted. Corrections and new evidence are new, dated entries. | US-007, US-008, US-010 |
 | BR-003 | **Deterministic decisions; the model only narrates.** Statuses, findings, pin states and numbers come from source data and the rules in [`methods.md`](methods.md). An LLM (Quick or in-app) may summarize them; it never sets a status or introduces a number. | US-003, US-013, US-015 |
-| BR-004 | **Pin state precedence.** Red (conflict) if any check or site question on the record is conflicting; otherwise "awaiting evidence" if a check is missing or too early; otherwise "on track". Colours other than red belong to the design doc. | US-009, US-012 |
+| BR-004 | **Pin state precedence.** Red (conflict) if any check or site question on the record is conflicting; otherwise "awaiting evidence" if a check is missing or the satellite line is not yet observable; otherwise "on track". A satellite line of "not yet observable" does not by itself turn the pin red. Colours other than red belong to the design doc. Sites with no commitment are polygons, not record pins. | US-001, US-009, US-012 |
 | BR-005 | **Provenance-first evidence.** Every evidence item carries source, source version, observed and retrieved time, geometry or location, question, finding, value and unit where applicable, method (with its `EQ-###` when computed), spatial resolution where applicable, limitation, link or asset, submitter, and a content hash. | US-002, US-005, US-006, US-010 |
 | BR-006 | **Demo data is labelled.** Every seeded site, organization, record and evidence item that is not real is flagged demo and shows a "Demo data" label wherever it appears, including in MCP tool output. Demo organizations use fictional names. | US-001, US-009, US-013 |
+| BR-007 | **Flag and notice, then stop.** A disagreement sets *conflicting* and notifies the funder account on that record. The product does not declare fraud, dispatch an inspector, apply a penalty, or say the project was successful. Consequences stay in the private contract. The page does not certify. | US-011, US-012 |
 
 **Finding vocabularies (fixed lists, per question):**
 
@@ -201,20 +225,20 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 ## 5. App Flow & UX Intent
 
-**Design reference:** [`design.md`](design.md) — not yet written; a teammate generates it from
-[`design-brief.md`](design-brief.md). Visual stack: Next.js (App Router) + MapLibre GL JS.
+**Design reference:** [`design.md`](design.md). Visual stack: Next.js (App Router) + MapLibre GL JS.
 
 ### 5.1 Screen Inventory
 
 | Screen | Purpose | Entry points | States to design |
 |--------|---------|--------------|------------------|
-| Public map | Find promises across the Philippines and open one (US-009) | App launch `/`, shared link | loading / empty (no records) / error / populated |
-| Record | Read a promise, its evidence snapshot, timeline, both checks, integrity (US-008, US-011, US-012, US-014) | Pin click, shared URL, after locking | loading / not found / error / intact / conflict / too early |
-| Sign in | Funder or partner signs in (US-005, US-006, US-007) | "Sign in" link; any write action while signed out | idle / submitting / wrong credentials / error |
-| Candidate sites | Browse 3–5 Manila Bay sites on map + list, pick sites to compare (US-001) | Signed-in home, "Compare sites" link | loading / empty / error / populated |
-| Site dossier | Three answers + all evidence for one site; refresh Sentinel-2; start a lock (US-002, US-003, US-005, US-015) | Site row or polygon click | loading / error / refreshing / live-source-failed / populated |
-| Compare | 2–5 sites in columns (US-004) | "Compare" from candidate sites | loading / invalid selection / error / populated |
-| Lock promise | Form + irreversible confirmation (US-007) | "Lock a promise" on a dossier (funder only) | editing / validation error / confirming / publishing / error |
+| Public map | Toggle sites with a commitment and sites without one; open either (US-001, US-009) | App launch `/`, shared link | loading / empty / error / with commitment / without commitment / both |
+| Record | Read a commitment, its evidence snapshot, timeline, milestone checks, flag, integrity (US-008, US-011, US-012, US-014) | Pin click, shared URL, after commit | loading / not found / error / intact / conflict / not yet observable |
+| Sign in | Funder or partner signs in (US-005, US-006, US-007, US-016) | "Sign in" link; any write action while signed out | idle / submitting / wrong credentials / error |
+| Sites | Browse Manila Bay sites on map + list, with or without a commitment (US-001) | Map, "Sites" link | loading / empty / error / populated |
+| Site dossier | Three answers, GMW history, the partner proposal, all evidence; refresh Sentinel-2; start a commit (US-002, US-003, US-005, US-015, US-016) | Site row or polygon click | loading / error / refreshing / live-source-failed / proposed / committed |
+| Compare | 2–5 sites in columns (US-004) | "Compare" from the site list | loading / invalid selection / error / populated |
+| Propose | Partner writes benefit text, timeline and milestones (US-016) | "Propose" on a dossier (partner only) | editing / validation error / error / published |
+| Commit | Confirm the partner's terms; irreversible confirmation (US-007) | "Commit" on a dossier that has a proposal (funder only) | editing / validation error / confirming / publishing / error |
 | Submit evidence | Partner or funder adds evidence to a site or record (US-006, US-010) | "Add evidence" on dossier or record | editing / uploading / validation error / error / done |
 | Amazon Quick chat (external) | Ask why sites differ (US-013) | Amazon Quick console | (owned by Quick) |
 
@@ -222,42 +246,50 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 **Linear (primary path):**
 
-`Sign in → Candidate sites → Site dossier(s) → Compare → Lock promise → (record published) → Record → Public map shows the pin → (later) Submit evidence on the record → checks recompute → pin turns red on conflict`
+`Public map (toggle) → Site dossier → Propose → Commit → Record → early milestone (photo, GPS, mapped area; satellite line "not yet observable") → after the outcome date, partner report and EQ-012 → disagreement flags the record and notifies the funder`
 
 ```mermaid
 flowchart TD
-    Map[Public map] -->|click pin| Rec[Record]
+    Map[Public map] --> Toggle{Commitment toggle}
+    Toggle --> Dossier[Site dossier]
+    Map -->|click pin| Rec[Record]
     Map -->|sign in| SignIn[Sign in]
-    SignIn --> Role{Role?}
-    Role -->|funder| Sites[Candidate sites]
-    Role -->|partner| Sites
-    Sites --> Dossier[Site dossier]
-    Dossier -->|refresh| S2{Copernicus OK?}
-    S2 -->|no| Snap[Keep stored snapshot + notice] --> Dossier
-    S2 -->|yes| Dossier
-    Sites --> Compare[Compare 2-5 sites]
+    SignIn --> Dossier
+    Dossier -->|partner| Propose[Propose benefit, timeline, milestones]
+    Propose --> Dossier
+    Dossier -->|funder, proposal exists| Commit[Commit + confirm]
+    Commit --> Rec
+    Rec --> Mile{Outcome date reached?}
+    Mile -->|no| Early[Photo, GPS, mapped area]
+    Early --> Sat[Satellite line: not yet observable]
+    Sat --> Map
+    Mile -->|yes| Both[Partner report AND EQ-012]
+    Both --> Agree{Do they agree?}
+    Agree -->|yes| Shown[Sources agree]
+    Agree -->|no| Flag[Flag and notify the funder]
+    Flag --> Map
+    Shown --> Map
+    Dossier --> Compare[Compare 2-5 sites]
     Compare --> Dossier
-    Dossier -->|funder| Lock[Lock promise + confirm]
-    Lock --> Rec
     Rec -->|add evidence| Submit[Submit evidence]
     Dossier -->|add evidence| Submit
     Submit --> Rec
-    Rec --> Map
 ```
 
 | Flow concern | Detail |
 |--------------|--------|
-| Entry points | `/` (public map); shared record URL; sign-in link; Amazon Quick (external) |
-| Decision branches | Role (funder can lock; partner can submit evidence; both can browse); Copernicus reachable or not |
-| Dead ends | None — every screen links back to the map or candidate sites |
-| Abandonment / resume | An unconfirmed lock form is not saved; nothing is published until confirmation. Submitted evidence is saved immediately. |
-| Edge cases | No records yet (empty map with explanation); Copernicus down (snapshot); all pixels cloudy (item "not usable"); outcome date in future (too early); duplicate double-submit of a lock (one record only — see `api.md`) |
+| Entry points | `/` (public map); shared site or record URL; sign-in link; Amazon Quick (external) |
+| Decision branches | Toggle (with a commitment, without one, or both); role (partner proposes and submits field evidence; funder commits, refreshes Sentinel-2, and submits a project report); outcome date reached or not; the two outcome inputs agree or not; Copernicus reachable or not |
+| Dead ends | None. Every screen links back to the map or the site list |
+| Abandonment / resume | An unconfirmed commit is not saved; nothing is published until confirmation. A submitted proposal and submitted evidence are saved immediately |
+| Edge cases | No sites yet (empty map with an explanation); a site with no proposal cannot be committed; Copernicus down (snapshot); all pixels cloudy (item "not usable"); outcome date in the future (satellite line "not yet observable", not a fail); duplicate commit (one record only, see `api.md`); disagreement does not dispatch anyone and does not apply a penalty |
 
 ### 5.3 Onboarding Flow
 
 - **Aha / first-value moment:** in the comparison, a site that looks restorable on Global Mangrove Watch
-  shows a conflicting ground answer — a partner reports an active fishpond — which the map alone does not
-  show [R09].
+  shows a conflicting ground answer, a partner reports an active fishpond, which the map alone does not
+  show [R09]. The same pass shows an early milestone whose satellite line is "not yet observable", which
+  is not a fail.
 - **Time-to-first-value target:** under 2 minutes in the demo, using pre-seeded sites and evidence.
 - **Skippable / resumable:** the public map needs no sign-in; funder/partner flows use seeded demo accounts.
 - **Friction budget:** none for public readers; one sign-in for funders and partners.
@@ -286,8 +318,11 @@ flowchart TD
 
 See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Won't` rows in §3.
 
-- No overclaiming copy: the claim boundaries in [`idea.md` §9](../idea.md) "Avoid" apply to every screen, the pitch and Quick's agent instructions. Revisit only with new evidence.
-- No enforcement: the product does not notify regulators or penalize anyone; stakeholders act on what is visible [ADR-024]. Revisit if a stakeholder asks for alerts.
+- No overclaiming copy: the claim boundaries in [`idea.md` §9](../idea.md) "Avoid" apply to every screen, the pitch and Quick's agent instructions. Revisit only with new evidence. The product does not say "successful" and does not certify.
+- No inspector dispatch (F-022). The product flags the record and notifies the funder account. It does not send people. Revisit if a funder asks the product to dispatch.
+- No penalty in the product (F-023). Consequences stay in the private contract [ADR-024]. The product does not notify regulators. Revisit if a funder asks the product to apply a penalty.
+- No crowdsourced public evidence this cycle (F-024). Revisit after the demo.
+- No marketplace fee for listing a proposal. Brokering stays out of scope in [`idea.md` §10](../idea.md).
 - No regions beyond the Manila Bay demo area are seeded for the hackathon. Revisit after the demo.
 
 ## 7. Dependencies & Open Questions
@@ -315,7 +350,7 @@ See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Wo
 ## 8. Doc Integrity Check
 
 - [x] Every `F-###` here exists in [`idea.md` §7](../idea.md) with the same ID and MoSCoW tier.
-- [x] Every `US-###` names ≥1 real `F-###`; every Must/Should feature is covered (F-001…F-012).
+- [x] Every `US-###` names ≥1 real `F-###`; every Must/Should feature is covered (F-001…F-012, including US-016 on F-001 and F-007).
 - [x] Story priorities are never stricter than their feature's.
 - [x] Every `US-###` has at least one observable Given/When/Then.
 - [x] Every persona has ≥1 story; every story names a defined persona.
@@ -330,5 +365,5 @@ See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Wo
 - [`index.md` §0](index.md) — which doc owns which fact.
 - [`methods.md`](methods.md) — every `EQ-###` cited above.
 - [`security.md`](security.md) — auth and threats. [`api.md`](api.md) — contracts. [`tests.md`](tests.md) — the `TC-###` per criterion.
-- [`design-brief.md`](design-brief.md) → `design.md` — routes, components, tokens, visual states.
+- [`design.md`](design.md) — routes, states, pin colors. Tokens live in `brand/`.
 - [`context.md`](../context.md) §7 — `[R##]` citations.

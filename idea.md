@@ -23,13 +23,16 @@ committed or what result was expected, so later reports have nothing to be compa
 
 ## 2. Target segment
 
-- **Who pays (hypothesis):** restoration funders that split limited money across several candidate
-  mangrove sites in the Philippines — corporate sustainability/CSR teams, foundations, NGOs and
-  restoration-campaign operators [ADR-011, ADR-025]. Examples of this behaviour already exist:
-  Manulife Philippines with Haribon [R17], Maybank with FEED in Bulacan [R18], RAFI with ETI in Lian
-  [R19], GCash GForest [R13].
+- **Who proposes:** a partner (a field NGO or people's organization) states the site, the benefit in
+  their own words, the timeline and the milestones before a funder commits [ADR-044]. The room called
+  this role innovator. The product calls them a partner.
+- **Who pays (hypothesis):** restoration funders that commit money to a partner's proposal — corporate
+  sustainability/CSR teams, foundations, NGOs and restoration-campaign operators [ADR-011, ADR-025].
+  Examples of this behaviour already exist: Manulife Philippines with Haribon [R17], Maybank with FEED
+  in Bulacan [R18], RAFI with ETI in Lian [R19], GCash GForest [R13].
 - **Who reads, without paying:** local communities, journalists, local governments, auditors and other
-  funders. They make the transparency matter [ADR-013 — participants, not assumed buyers].
+  funders. They make the transparency matter [ADR-013 — participants, not assumed buyers]. The public
+  map includes sites that have no commitment yet.
 - **Frequency:** a funder faces the choice each funding cycle and has to defend it for years afterwards.
   The exact cycle length is unknown.
 
@@ -89,28 +92,28 @@ This is desk research, not interviews. No funder has been interviewed and no mon
 ## 6. Value proposition
 
 For **restoration funders** who **can't easily tell which mangrove sites deserve money, or show later that
-their spending worked**, this is a **public record of funding promises** that **puts the satellite and
-ground evidence side by side before the money moves, then shows everyone whether the promise came true**,
-unlike **mangrove maps and project trackers**, because **it locks the promise in public before funding and
-checks it against independent evidence afterwards**.
+their spending worked**, and for **partners** who **need those terms written down before a funder
+commits**, this is a **public record** that **shows the partner's proposal, the funder's commitment, and
+whether the later report and the observable check agree**, unlike **mangrove maps and project trackers**,
+because **the partner's words are locked in public when the funder commits, and a disagreement is flagged**.
 
-One sentence: "Companies fund mangrove restoration and announce the planting. We make the promise public
-before the money moves, then show everyone whether it came true."
+One sentence: a partner proposes the site and the public terms, a funder commits, the public watches the
+milestones, and Mangrove flags when the report and the observable check disagree.
 
 ## 7. Feature set
 
 | `F-###` | Feature | Priority | Solves (problem from §1/§3) | Why not / what would change it |
 |---------|---------|----------|-----------------------------|--------------------------------|
-| F-001 | Candidate sites: 3–5 Manila Bay candidate polygons a funder can browse | Must | Before: no common starting set to compare | — |
+| F-001 | Partner-proposed sites the public can open before a commitment. The demo set is 3–5 Manila Bay polygons | Must | Before: no common starting set, and a site is invisible until someone has already committed | — |
 | F-002 | Evidence dossier per site: every evidence item keeps its source, version, dates, method, resolution, limitation and link | Must | Before: scattered evidence, unclear provenance | — |
-| F-003 | Source adapters: Global Mangrove Watch history (pre-ingested) and Sentinel-2 current condition (live via Copernicus, with a stored-snapshot fallback) | Must | Before: funder must reconcile tools by hand | — |
-| F-004 | Field evidence submission: a partner uploads a photo, GPS location, an observation and a mapped area | Must | Before: map-only screening misses fishponds and land conflicts | — |
+| F-003 | Source adapters: Global Mangrove Watch history (pre-ingested) and Sentinel-2 current condition (live via Copernicus, with a stored-snapshot fallback) | Must | Before: funder must reconcile tools by hand | GMW stays history. It is not a completion check |
+| F-004 | Field evidence submission: a partner uploads a photo, GPS location, an observation and a mapped area | Must | Before: map-only screening misses fishponds and land conflicts | These are the only inputs on an early milestone |
 | F-005 | Three-question assessment per site — was this mangrove before, what's there now, what do people on the ground say — each marked supported, conflicting or missing | Must | Before: hidden disagreement between sources | — |
 | F-006 | Side-by-side comparison of 3–5 sites | Must | Before: hard to tell which sites are worth funding | — |
-| F-007 | Locked promise: the funder picks a site and publishes a record — why, planned action, expected result, check dates, unknowns, evidence used — that can never be edited or deleted | Must | After: no baseline to check against | — |
-| F-008 | Public map of the Philippines with a pin per promise; zoom from country to site; click to read the record | Must | After: the public can't find or read promises | — |
-| F-009 | Later evidence added to the same record, answering two separate questions: did the work happen, did the mangroves come back ("too early to tell" until the record's check date) | Must | After: nobody checks whether the work happened or recovery appeared | — |
-| F-010 | Conflict flagging: when sources disagree (e.g. a report says 8 ha and the partner's mapped area is 5 ha) the record shows a conflict and the pin turns red | Must | After: deviations stay hidden | — |
+| F-007 | Funder commits to a partner proposal. The locked public record copies the partner's benefit text, timeline and milestones, and can never be edited or deleted | Must | After: no baseline to check against | The benefit is the partner's sentence, not a computed number |
+| F-008 | Public map that toggles sites with a commitment and sites without one; zoom from country to site | Must | After: the public can't find a proposal or a commitment | — |
+| F-009 | Milestone checks on the same record. Early: partner photo, GPS and mapped area, and a satellite line that reads "not yet observable" and is not a fail. After the outcome date: the partner's report and Sentinel-2 vegetated area (EQ-012) are both required | Must | After: nobody checks whether the work happened or recovery appeared | — |
+| F-010 | Disagreement flags the record, turns the pin red, and notifies the funder. A report of 8 ha against a mapped 5 ha is the work-check example | Must | After: deviations stay hidden | No fraud verdict, no dispatch, no penalty in the product |
 | F-011 | Amazon Quick analyst: a Quick agent answers "why does Site A differ from Site B?" from our evidence through a read-only MCP server | Must | Before: comparing evidence takes manual analyst work | — |
 | F-012 | Record integrity check: anyone can confirm a record and its timeline are unchanged since publication | Should | After: "nobody can edit it" needs to be checkable, not just asserted | — |
 | F-013 | In-app plain-language summary of a site's evidence (the model narrates; it never decides a status or makes up a number) | Could | Before: dossiers are dense to read | — |
@@ -121,11 +124,14 @@ before the money moves, then show everyone whether it came true."
 | F-018 | MRTT project import | Won't | Reuse existing lifecycle data | Reason: no documented live API to depend on; MRTT is a schema reference [ADR-030]. Reconsider if: a partner exports MRTT data for a real site. |
 | F-019 | In-app billing and subscriptions | Won't | Revenue collection | Reason: willingness to pay is untested [ADR-029]. Reconsider if: a funder commits to pay after the hackathon. |
 | F-020 | Sentinel-1 radar evidence | Won't | Evidence under cloud cover | Reason: optional; Sentinel-2 with a fallback snapshot proves the loop. Reconsider if: cloud cover blocks every Sentinel-2 window for the demo sites. |
-| F-021 | Private funder shortlists (candidate comparisons hidden from the public) | Won't | Funder confidentiality before a decision | Reason: all evidence in the demo is public-source or partner-published, and keeping reads public keeps the Amazon Quick connection unauthenticated. Reconsider if: a paying funder needs confidential screening. |
+| F-021 | Private funder shortlists (candidate comparisons hidden from the public) | Won't | Funder confidentiality before a decision | Reason: all evidence in the demo is public-source or partner-published, and keeping reads public keeps the Amazon Quick connection unauthenticated. Reconsider if: a paying funder needs confidential screening. The private object that does exist is the funder-partner contract, not a hidden shortlist. |
+| F-022 | Inspector dispatch | Won't | Sending someone to the site from inside the product | Reason: the product stops at the flag and the funder notice. Sending people is the funder's action under the private contract (ADR-024, ADR-044). Reconsider if: a funder asks the product to dispatch. |
+| F-023 | Penalties applied in the product | Won't | A consequence inside the app | Reason: consequences stay in the private contract (ADR-024). Reconsider if: a funder asks the product to apply a penalty. |
+| F-024 | Crowdsourced public evidence | Won't | The public submits evidence | Reason: roadmap, not this cycle. Reconsider if: after the demo, with a protocol for what a public submission must contain. |
 
 ## 8. Success metrics
 
-- **Activation:** a funder goes from comparing sites to a locked, published promise in one session.
+- **Activation:** a funder commits to a partner's published proposal in one session.
 - **Retention:** a funder or partner comes back to add later evidence to an existing record.
 - **Revenue / value:** a funder pays for an assessment, a subscription or monitoring. Untested;
   it is the first thing to test after the hackathon [ADR-029]. No targets are set; there is no baseline yet.
@@ -152,6 +158,7 @@ checkable record is something they want rather than something they avoid.
   current rate [ADR-002]. Revisit if a current national study is published.
 - Saying "nobody monitors survival" — some GForest partners do monitor [ADR-009].
 - Claiming satellite data shows individual seedlings — 10–20 m pixels cannot see them [ADR-006, ADR-023].
+- Claiming Global Mangrove Watch certified that a planting was completed. It is annual extent, shown as history [ADR-044].
 - Claiming public data, AI or the map is the moat — they are accessible ingredients [ADR-026].
 - Claiming the record enforces anything — it makes deviations visible; stakeholders act [ADR-024].
 - Calling remotely screened sites "qualified" — local conditions can rule them out [R09].
@@ -164,7 +171,12 @@ checkable record is something they want rather than something they avoid.
   self-reported evidence cannot establish them [ADR-022].
 - Carbon-credit verification — a separate regulated domain.
 - Selling or brokering projects (marketplace, transaction fees) — needs deal flow, trust and legal
-  structure the MVP lacks [ADR-029].
+  structure the MVP lacks [ADR-029]. Listing a partner's proposal is not that marketplace. Fees stay
+  rejected until Mangrove actually intermediates capital.
+- Dispatching an inspector, or any "send people" action, from inside the product (F-022).
+- Applying a penalty, enforcing an MOA, or referring a case to law enforcement from inside the product
+  (F-023). The app stops at the flag and the funder notice.
+- Crowdsourcing evidence from the public this cycle (F-024).
 - Countries outside the Philippines, and regions beyond the Manila Bay demo area, this cycle.
 - Government procurement as the primary market [ADR-010]; consumers as payers [ADR-013].
 

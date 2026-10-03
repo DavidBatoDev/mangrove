@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: security
 owns: threat model (T-###) · data classification · authn/authz model · secrets & audit policy · the pre-milestone go/no-go gate
 ---
@@ -26,8 +26,9 @@ Security concerns that are still guesses go in [`prd.md` §7](prd.md).
 
 | Category | Examples in this product | Where it lives | Retention & deletion |
 |----------|--------------------------|----------------|----------------------|
-| public | Sites, evidence items, records, timeline, photos (metadata stripped), organization names, hashes | Neon PostgreSQL; private S3 bucket (photos, ADR-037); API responses; MCP tool output | Kept indefinitely; append-only by design (BR-002) — never deleted through the product |
-| internal | User ids, roles, raw source responses (`evidence_item.raw`), idempotency keys, server logs | PostgreSQL; host logs | Database: for the life of the demo deployment. Logs: deleted with the demo host `[assumption]` |
+| public | Sites, evidence items, the public projection of a record (benefit text, timeline, milestones, photos with metadata stripped, checks, flag), organization names, hashes | Neon PostgreSQL; private S3 bucket (photos, ADR-037); API responses; MCP tool output | Kept indefinitely; append-only by design (BR-002). Never deleted through the product |
+| confidential | The funder-partner contract: agreement or MOA text, and consequence clauses. Not the public benefit sentence | Stored apart from the public projection ([`data-model.md`](data-model.md)). Not in public API responses. Not in MCP tool output | Kept with the record. Readable by the funder account and the partner account on that record. Never returned to the public or to Amazon Quick |
+| internal | User ids, roles, raw source responses (`evidence_item.raw`), idempotency keys, server logs, and the flag notice (recipient is the funder account; the notice body is the flag, not the contract) | PostgreSQL; host logs | Database: for the life of the demo deployment. Logs: deleted with the demo host `[assumption]` |
 | PII | Demo users' email and display name; any personal data that slips into a photo or note | `app_user`; potentially evidence photos/notes | Demo accounts only, deleted with the deployment. Personal data found in published evidence cannot be deleted through the product (§6 explains the guard and the residual risk) |
 | secret | Copernicus OAuth client secret, session signing key, demo account passwords, database password | Host environment variables; password hashes in `app_user` | Never in the repo, docs, logs or client bundle; rotate after the event |
 
@@ -43,16 +44,18 @@ forgotten in one handler.
 
 | Surface | Who may call it | How identity is proven | Enforced where |
 |---------|-----------------|------------------------|----------------|
-| Web pages (`/`, record pages) | public | — | — (read-only) |
-| `GET` sites, compare, records, verify, assets (API-004/005/006/010/011/013/014) | public — every field returned is classified public (§3) | — | Response models expose only public fields |
+| Web pages (`/`, site pages, record pages) | public for reads | — | — (read-only). Propose and commit stay signed-in |
+| `GET` sites, compare, records, verify, assets (API-004/005/006/010/011/013/014) | public. Every field on the unauthenticated response is classified public (§3). The confidential contract is omitted. The funder notice is omitted | — | Response models expose only public fields |
 | `POST /api/v1/auth/login` (API-001) | public | Email + password → session | API handler; rate limit |
 | `POST /auth/logout`, `GET /auth/me` (API-002/003) | signed in | Session cookie | API dependency |
 | `POST /sites/{id}/sentinel-refresh` (API-007) | role `funder` | Session cookie | API dependency (session + role) |
 | `POST /evidence` (API-008) | `partner` for `field`; `funder` for `project_report` | Session cookie | API dependency (session + role-by-source-type) |
-| `POST /records` (API-009) | role `funder` | Session cookie | API dependency; database stores `created_by_user_id` |
+| `POST /records` (API-009) | role `funder` | Session cookie | API dependency; database stores `created_by_user_id`. Copies the partner proposal; does not accept a funder-written benefit |
+| `POST /sites/{id}/proposal` (API-019) | role `partner` | Session cookie | API dependency (session + role) |
+| `GET /records/{id}/notice` (API-020) | role `funder` of the record's org | Session cookie | API dependency (session + role + org match). Body is the flag, not the contract |
 | `POST /records/{id}/corrections` (API-012) | role `funder` of the record's org | Session cookie | API dependency (session + role + org match) |
 | `POST /sites` (API-017), `POST /sites/{id}/summary` (API-018) | `funder` / any signed-in | Session cookie | API dependency |
-| `POST /mcp` (API-015) | public — read-only tools returning public data only | — (Amazon Quick supports unauthenticated MCP servers [R35]) | No write tools are registered; rate limit |
+| `POST /mcp` (API-015) | public — read-only tools returning the public subset only. No contract text. No funder notice | — (Amazon Quick supports unauthenticated MCP servers [R35]) | No write tools are registered; rate limit; response models exclude confidential and internal notice fields |
 | `GET /health` (API-016) | public — returns no data | — | — |
 | Any `PUT`/`PATCH`/`DELETE` on evidence, records, timeline | nobody | — | No route (405) **and** database trigger **and** grants (BR-002) |
 
@@ -75,13 +78,14 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 | T-011 | Elevation of privilege | Partner calling funder-only operations, or funder correcting another org's record | Unauthorized promises/corrections | Role and org checks in shared dependencies; tests TC-021, TC-022 | BR-002 |
 | T-012 | Tampering (prompt injection) | Evidence notes crafted to steer Amazon Quick or the F-013 summarizer | Misleading narrative | Statuses and numbers come from the engine only (BR-003); tool output marks notes as untrusted quoted data; MCP has no write tools, so injection cannot cause actions | BR-003 |
 | T-013 | Spoofing | Credential stuffing on the login | Account takeover | Login rate limit; strong per-event demo passwords; same error for wrong email or password | — |
+| T-014 | Information disclosure | Contract text or consequence clauses copied into a public GET or an MCP tool | The private agreement becomes public, and Quick can repeat it | No public or MCP schema includes the contract. The flag notice goes to the funder account and carries the flag, not the clauses. TC-024 | — |
 
 ## 6. Abuse & Safety Risks
 
 | Risk | Who is harmed | Trigger | Guard (mitigation) |
 |------|---------------|---------|--------------------|
 | Publicly flagging a site as an "active fishpond" or "land-use dispute" exposes the people who work or live there | Fishpond operators, local households, community members near the site | A partner submits ground evidence that becomes public | Findings describe site conditions, never people; notes must not name individuals; partner attestation on submit; site-level location only |
-| A funder treats "supported" as certification and greenwashes | The public, other funders, communities expecting restoration | Funder quotes the record in marketing | BR-001 wording ("sources agree", not "good"); disclaimer on every record; banned overclaiming copy (see [`design-brief.md`](design-brief.md)) |
+| A funder treats "supported" or a GMW layer as certification and greenwashes | The public, other funders, communities expecting restoration | Funder quotes the record in marketing | BR-001 wording ("sources agree", not "good"); BR-007 (no "successful", no certificate); disclaimer on every record; GMW is history, not a completion check; banned overclaiming copy (see [`design-brief.md`](design-brief.md)) |
 | Partners submit flattering evidence to make a project look good | Funders and the public | Incentive to show success | Provenance and submitter on every item; nothing can be deleted; conflicts surface automatically; never reward "successful" observations [ADR-014] |
 | Demo data mistaken for real Philippine projects or organizations | Real NGOs/companies; judges; the public | Screenshots or the live demo | `is_demo` on every entity, a visible "Demo data" label, fictional organization names (BR-006) |
 | Personal data published by mistake cannot be removed | The person in the photo or note | Append-only storage | Pre-publication guard (attestation, EXIF strip). **Residual risk:** after the event, an operator-level redaction procedure would be needed; out of scope for the hackathon and recorded in [`prd.md` §7](prd.md)'s open questions |

@@ -60,7 +60,7 @@ own. The UI shows the confidence of the items behind them.
 | EQ-009 | Area discrepancy flag | `d = |A_reported − A_measured| / A_reported`; **conflict** iff `d > AREA_TOLERANCE`. Work check: `A_reported` = project report's claimed area, `A_measured` = EQ-010. Shown as both values plus "differs by more than the tolerance" | DS-005, DS-004 | Low | Internal rule |
 | EQ-010 | Field-mapped worked area (ha) | `ST_Area(location::geography) / 10000` for a partner-submitted boundary polygon | DS-004 | Medium | PostGIS `ST_Area` (geography); GPS accuracy of the partner's device is unknown |
 | EQ-011 | Content hash and timeline hash | `content_hash = SHA-256(UTF-8(JCS(payload)))`; `event_hash = SHA-256(prev_hash ‖ UTF-8(JCS(event_payload)))`, where `prev_hash` is the record's `content_hash` for `seq = 1`, else the previous `event_hash`. Verification recomputes all and reports the first mismatch | DS-006 | High | RFC 8785 (JSON Canonicalization Scheme); FIPS 180-4 (SHA-256) |
-| EQ-012 | "Did the mangroves come back?" finding from satellite | Only when `today ≥ outcome_check_after` and `expected_vegetated_ha` is set: `recovery_seen` if `EQ-008 ≥ expected_vegetated_ha × (1 − AREA_TOLERANCE)`, else `no_recovery_seen`. Before the date → "too early to tell" (no finding). | DS-002, DS-003, DS-006 | Low | Internal rule |
+| EQ-012 | "Did the mangroves come back?" finding from satellite | Only when `today ≥ outcome_check_after` and `expected_vegetated_ha` is set: `recovery_seen` if `EQ-008 ≥ expected_vegetated_ha × (1 − AREA_TOLERANCE)`, else `no_recovery_seen`. Before the date, this equation is not evaluated. The satellite line reads "not yet observable" (§3.3), which is not a fail. | DS-002, DS-003, DS-006 | Low | Internal rule |
 | EQ-013 | Source count per question or check | Number of usable evidence items for that question (site) or check (record) | DS-001…DS-005 | High | Count |
 
 *Every constant inside a formula is either sourced (Δ from JAXA; R is the IUGG mean radius) or listed in
@@ -89,13 +89,24 @@ has inputs:
 | Was this mangrove before? | EQ-003 from GMW | Proposal or field item may assert either finding |
 | What's there now? | EQ-006 from Sentinel-2 | — |
 | What do people on the ground say? | — | Field and proposal items pick from the fixed list |
-| Did the work happen? | EQ-009 area check across a report and a field-mapped area | Project report and field items: `work_done` / `no_work_seen` |
-| Did the mangroves come back? | EQ-012 | Field items: `recovery_seen` / `no_recovery_seen` |
+| Did the work happen? | EQ-009 area check across a report and a field-mapped area. Not a satellite area (ADR-033). See §3.3 for which milestone may use it | Project report and field items: `work_done` / `no_work_seen` |
+| Did the mangroves come back? | EQ-012, and only after the outcome date, together with the partner's finding (§3.3) | Field items: `recovery_seen` / `no_recovery_seen` |
 
 **Known limits that the UI must show beside the finding:**
 - GMW (30 m) and SCL (20 m) cannot see seedlings; months after planting, satellite cannot confirm planting [ADR-006].
 - SCL "vegetation" does not distinguish mangrove from other vegetation; tide state at acquisition changes the water fraction.
 - An active fishpond and open water look alike from space; only ground evidence settles land use [R09].
+
+### 3.3 Milestone kind and allowed inputs
+
+ADR-044. No new equation. AlphaEarth (F-016) and Sentinel-1 (F-020) are not inputs to either kind (ADR-030).
+
+| Milestone kind | When | Allowed inputs | What is not an input |
+|----------------|------|----------------|----------------------|
+| Early | Before `outcome_check_after` | Partner photo, GPS point, and mapped area (EQ-010). A reported area against that mapped area still uses EQ-009. Findings come from the field item or the project report | Sentinel-2, Sentinel-1, AlphaEarth, and Global Mangrove Watch. The satellite line reads "not yet observable". That line is not a fail, not *missing*, and not *conflicting*. EQ-012 is not evaluated |
+| Outcome | `today ≥ outcome_check_after` | Both are required: the partner's report (a finding of `recovery_seen` or `no_recovery_seen`) and EQ-012 (Sentinel-2 vegetated area). Supported only when both are present and they agree. One without the other is *missing*. Disagreement is *conflicting* (BR-001) | Global Mangrove Watch (EQ-002, EQ-003) may be shown beside the outcome as history. It is context. It is not a pass, not a fail, and not a completion certificate. AlphaEarth and Sentinel-1 stay off the gate |
+
+The partner's benefit text is displayed as written. It is not an equation and it has no confidence tier.
 
 ## 4. Dataset Registry
 
