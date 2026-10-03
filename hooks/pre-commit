@@ -1,0 +1,84 @@
+#!/bin/sh
+# FMD ledger guard — IDE-AGNOSTIC commit-time enforcement.
+#
+# Why a git hook (not a Kiro/Cursor/editor hook): git runs the same way under
+# Claude Code, Cursor, Gemini CLI, ChatGPT/Codex, Kiro, and a bare terminal. The
+# enforcement must not depend on which tool the human happens to be using — so it
+# lives at the git layer, and the *discipline* lives in AGENTS.md (which every
+# agent reads). Step 1 is portable POSIX sh, no dependencies; step 2 shells
+# out to a stdlib python3 tool ONLY when the files it checks are staged, and
+# degrades to a non-blocking warning (not a failure) if python3 or the tool
+# aren't found — a missing checker should never be why a commit gets blocked.
+#
+# What it enforces (mechanically checkable only — it flags, it does not lock):
+#   1. ADR ⇒ ledger line. If this commit changes docs/adr/ but not the decision
+#      ledger, block: a significant decision must be recorded in one place too.
+#   2. Overlay/ledger consistency (ADR-0011). If this commit changes docs/index.md
+#      or the decision ledger, run check-context-overlay.py: every active-overlay
+#      row must resolve to a real DEC-### and DEC-### IDs must stay unique.
+#      Blocking, like check 1 — an inconsistent overlay is exactly the drift this
+#      mechanism exists to prevent.
+#
+# It NEVER freezes the spec or blocks iteration for anything it can't mechanically
+# check. Genuine exceptions bypass with:
+#   git commit --no-verify
+
+LEDGER="docs/ledger.md"
+INDEX="docs/index.md"
+BUILD="docs/BUILD.md"
+staged=$(git diff --cached --name-only)
+
+# --- 1. ADR ⇒ ledger line (blocking) -------------------------------------------
+adr_changed=$(printf '%s\n' "$staged" | grep -E '^docs/adr/' || true)
+ledger_changed=$(printf '%s\n' "$staged" | grep -F "$LEDGER" || true)
+
+if [ -n "$adr_changed" ] && [ -z "$ledger_changed" ]; then
+  echo "──────────────────────────────────────────────────────────────"
+  echo "BLOCKED: an ADR changed but $LEDGER did not."
+  echo "A significant decision must also get one line in §3 (Pivots) of"
+  echo "the ledger, in the SAME commit, so the live record can't drift"
+  echo "from the ADR set (the exact failure this guard prevents)."
+  echo ""
+  echo "Fix: add the §3 entry to $LEDGER and re-stage it."
+  echo "Genuine exception: git commit --no-verify"
+  echo "──────────────────────────────────────────────────────────────"
+  exit 1
+fi
+
+# --- 2. Overlay/ledger consistency (blocking, best-effort tool discovery) -----
+index_changed=$(printf '%s\n' "$staged" | grep -F "$INDEX" || true)
+
+if [ -n "$index_changed" ] || [ -n "$ledger_changed" ]; then
+  CHECKER=""
+  for candidate in tools/check-context-overlay.py fmd/tools/check-context-overlay.py \
+                   FMD/tools/check-context-overlay.py "${FMD_KIT_PATH:-}/tools/check-context-overlay.py"; do
+    if [ -n "$candidate" ] && [ -f "$candidate" ]; then
+      CHECKER="$candidate"
+      break
+    fi
+  done
+
+  if [ -z "$CHECKER" ] || ! command -v python3 >/dev/null 2>&1; then
+    echo "──────────────────────────────────────────────────────────────"
+    echo "NOTICE (not blocking): docs/index.md or $LEDGER changed, but"
+    echo "check-context-overlay.py or python3 wasn't found to verify overlay"
+    echo "consistency. Run it manually before merge:"
+    echo "  python3 <fmd-kit>/tools/check-context-overlay.py --index $INDEX --ledger $LEDGER"
+    echo "──────────────────────────────────────────────────────────────"
+  else
+    build_arg=""
+    [ -f "$BUILD" ] && build_arg="--build $BUILD"
+    # shellcheck disable=SC2086
+    if ! python3 "$CHECKER" --index "$INDEX" --ledger "$LEDGER" $build_arg; then
+      echo "──────────────────────────────────────────────────────────────"
+      echo "BLOCKED: check-context-overlay.py rejected the staged"
+      echo "docs/index.md / $LEDGER changes (see output above)."
+      echo "Fix the flagged overlay/ledger inconsistency and re-stage."
+      echo "Genuine exception: git commit --no-verify"
+      echo "──────────────────────────────────────────────────────────────"
+      exit 1
+    fi
+  fi
+fi
+
+exit 0
