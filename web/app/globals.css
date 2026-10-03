@@ -1,0 +1,138 @@
+/* App layout on the Mangrove brand kit (ADR-043). Tokens and component classes come from
+   /brand/mangrove.css (linked in app/layout.tsx). Only --mg-* tokens here: no raw hex (BRAND.md §13).
+   Red (--mg-conflict) is reserved for a conflict. */
+
+/* next/font serves Schibsted Grotesk; every brand font token points at it. */
+html.mg-fonts {
+  /* One typeface for display, body and labels (team choice over brand/BRAND.md §5's serif + mono). */
+  --mg-font-body: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+  --mg-font-display: var(--mg-font-body);
+  --mg-font-mono: var(--mg-font-body);
+  --header-h: 56px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--mg-bg); color: var(--mg-text); font: 400 var(--mg-text-body)/1.55 var(--mg-font-body); }
+a { color: var(--mg-link); text-underline-offset: 3px; }
+h1, h2 { font-family: var(--mg-font-display); font-weight: 500; color: var(--mg-heading); letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.1; margin: 0 0 var(--mg-space-2); }
+h2 { font-size: var(--mg-text-h3); line-height: 1.2; margin: var(--mg-space-6) 0 var(--mg-space-3); }
+h3 { font: 600 var(--mg-text-body)/1.3 var(--mg-font-body); color: var(--mg-heading); margin: 0 0 var(--mg-space-1); }
+code, .mono { font-family: var(--mg-font-mono); font-size: 0.85em; word-break: break-all; }
+:focus-visible { outline: 2px solid var(--mg-focus); outline-offset: 2px; }
+
+/* Header: Canopy ground, light mark (WEB.md §4 logo rule). */
+.header { position: relative; z-index: 10; display: flex; align-items: center; gap: var(--mg-space-5); padding: 0 var(--mg-space-5);
+  min-height: var(--header-h); background: var(--mg-canopy); color: var(--mg-on-dark-text); flex-wrap: wrap;
+  --mg-text-muted: var(--mg-on-dark-muted); --mg-heading: var(--mg-on-dark-heading); --mg-border: color-mix(in srgb, var(--mg-on-dark-text) 30%, transparent); }
+.header a { color: var(--mg-on-dark-text); text-decoration: none; }
+.brand { display: inline-flex; align-items: center; gap: var(--mg-space-2); font: 700 1.4rem/1 var(--mg-font-display); color: var(--mg-on-dark-heading) !important; }
+.brand img { width: 28px; height: 28px; }
+.nav { display: flex; gap: var(--mg-space-5); flex: 1; font-size: var(--mg-text-small); }
+.nav a:hover { color: var(--mg-propagule); }
+.session { display: flex; align-items: center; gap: var(--mg-space-3); font-size: var(--mg-text-small); }
+.session .mg-btn { min-height: 36px; padding: 6px 14px; font-size: var(--mg-text-small); }
+.session .mg-btn--primary { background: var(--mg-propagule); color: var(--mg-night); }
+.session .mg-btn--secondary { color: var(--mg-on-dark-text); }
+.mock-flag { font: 500 var(--mg-text-label)/1 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-on-dark-muted);
+  border: 1px dashed var(--mg-on-dark-muted); border-radius: var(--mg-radius-sm); padding: 4px 6px; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: var(--mg-space-5) var(--mg-page-x, 16px) var(--mg-space-8); }
+.lede { color: var(--mg-text-muted); margin: 0 0 var(--mg-space-4); max-width: 60ch; }
+.row { display: flex; gap: var(--mg-space-3); flex-wrap: wrap; align-items: center; }
+.split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(280px, 2fr); gap: var(--mg-space-5); }
+@media (max-width: 800px) { .split { grid-template-columns: 1fr; } }
+
+/* Small embedded map (site dossier) */
+.map { width: 100%; height: 520px; border-radius: var(--mg-radius-md); overflow: hidden; border: 1px solid var(--mg-border); }
+
+/* Map markers (lib/pin-icons.ts, docs/design.md §4). Compact; the label opens on hover or keyboard focus. */
+.map-pin { position: relative; display: block; width: 32px; height: 42px; text-decoration: none; color: var(--mg-text); cursor: pointer; }
+.map-pin svg { display: block; filter: drop-shadow(0 2px 3px color-mix(in srgb, var(--mg-ink) 45%, transparent)); transition: transform var(--mg-dur-ui) var(--mg-ease); transform-origin: 50% 100%; }
+.map-pin:hover svg, .map-pin:focus-visible svg { transform: scale(1.12); }
+.map-pin:focus-visible { outline: none; }
+.map-pin:focus-visible svg { filter: drop-shadow(0 0 2px var(--mg-focus)) drop-shadow(0 0 2px var(--mg-focus)); }
+.map-pin-demo { position: absolute; left: 50%; top: -11px; transform: translateX(-50%); font: 500 9px/13px var(--mg-font-mono); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--mg-mudflat); background: var(--mg-mist); border: 1px dashed var(--mg-brackish); border-radius: var(--mg-radius-sm); padding: 0 3px; pointer-events: none; }
+.map-pin-label { position: absolute; left: 50%; bottom: calc(100% + 16px); transform: translateX(-50%); display: none; white-space: nowrap;
+  background: var(--mg-surface); color: var(--mg-text); border: 1px solid var(--mg-border); border-radius: var(--mg-radius-md); padding: var(--mg-space-2) var(--mg-space-3);
+  font-size: var(--mg-text-small); box-shadow: var(--mg-shadow); text-align: left; }
+.map-pin-label strong { display: block; font: 700 var(--mg-text-h4)/1.2 var(--mg-font-display); color: var(--mg-heading); }
+.map-pin:hover .map-pin-label, .map-pin:focus-visible .map-pin-label { display: block; }
+.map-pin:hover, .map-pin:focus-visible { z-index: 3; }
+
+/* Lists and key/value */
+.stack { display: grid; gap: var(--mg-space-4); }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--mg-space-2); }
+.list li { background: var(--mg-surface); border: 1px solid var(--mg-border); border-radius: var(--mg-radius-md); padding: var(--mg-space-3) var(--mg-space-4); display: grid; gap: var(--mg-space-1); justify-items: start; }
+.list li.selected { border-color: var(--mg-canopy); box-shadow: inset 0 0 0 2px var(--mg-canopy); }
+.list li a strong { font: 700 var(--mg-text-h4)/1.25 var(--mg-font-display); }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: var(--mg-space-2) var(--mg-space-5); margin: 0; font-size: var(--mg-text-small); }
+.kv dt { font: 500 var(--mg-text-label)/1.6 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-text-muted); }
+.kv dd { margin: 0; }
+.meta { color: var(--mg-text-muted); font-size: var(--mg-text-small); }
+
+/* Status line: chip (mark + word) + finding + source count (BRAND.md §6) */
+.status-line { display: flex; flex-wrap: wrap; gap: var(--mg-space-3); align-items: center; }
+.finding { font-weight: 600; color: var(--mg-text); }
+.source-count { font-size: var(--mg-text-small); color: var(--mg-text-muted); }
+.measure { font-size: var(--mg-text-small); }
+.measure-meta { display: inline-flex; align-items: center; gap: var(--mg-space-2); margin-left: var(--mg-space-2); color: var(--mg-text-muted); font-size: var(--mg-text-label); }
+.measure-meta .mg-conf { font-size: 10px; }
+.placeholder-label { display: inline-block; font: 500 var(--mg-text-label)/1.2 var(--mg-font-mono); color: var(--mg-text-muted); border: 1px dashed var(--mg-brackish); border-radius: var(--mg-radius-sm); padding: 2px 6px; }
+
+/* Compare */
+.compare { display: grid; gap: var(--mg-space-4); grid-auto-flow: column; grid-auto-columns: minmax(260px, 1fr); overflow-x: auto; }
+.answer { border-top: 1px solid var(--mg-border); padding-top: var(--mg-space-3); margin-top: var(--mg-space-3); }
+.answer h3 { font: 500 var(--mg-text-label)/1.4 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-text-muted); margin-bottom: var(--mg-space-2); }
+
+/* Evidence item: copper rule, mono meta (brand .mg-evidence look) */
+.evidence { border-top: 3px solid var(--mg-root); }
+.evidence h3 { font-family: var(--mg-font-display); font-size: var(--mg-text-h4); font-weight: 500; }
+.evidence.unusable { opacity: 0.7; }
+
+/* Record */
+.hash { font-family: var(--mg-font-mono); background: var(--mg-surface-sunk); padding: var(--mg-space-2) var(--mg-space-3); border-radius: var(--mg-radius-sm); }
+.timeline { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--mg-tidal); }
+.timeline li { padding: 0 0 var(--mg-space-5) var(--mg-space-5); position: relative; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--mg-surface); border: 2px solid var(--mg-tidal); }
+.verify-ok { color: var(--mg-ok); font-weight: 600; }
+
+/* Forms */
+form.form { display: grid; gap: var(--mg-space-4); max-width: 640px; }
+.field { display: grid; gap: var(--mg-space-1); }
+.field label { font: 500 var(--mg-text-label)/1.4 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-text); }
+.field .hint { color: var(--mg-text-muted); font-size: var(--mg-text-small); }
+input, select, textarea { font: inherit; padding: var(--mg-space-2) var(--mg-space-3); min-height: 44px; border: 1px solid var(--mg-border); border-radius: var(--mg-radius-sm); background: var(--mg-surface); color: var(--mg-text); }
+input:focus, select:focus, textarea:focus { border-color: var(--mg-tidal); }
+textarea { min-height: 5rem; }
+.mg-btn:disabled, .mg-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.confirm { border: 2px solid var(--mg-canopy); border-radius: var(--mg-radius-md); background: var(--mg-surface); padding: var(--mg-space-5); display: grid; gap: var(--mg-space-3); max-width: 640px; }
+.confirm h2 { margin: 0; }
+
+/* States (docs/design.md §6) */
+.state { padding: var(--mg-space-5); border-radius: var(--mg-radius-md); background: var(--mg-surface); border: 1px solid var(--mg-border); margin: var(--mg-space-4) 0; }
+.state-empty { color: var(--mg-text-muted); border-style: dashed; }
+.state-loading { display: grid; gap: var(--mg-space-2); color: var(--mg-text-muted); font-size: var(--mg-text-small); }
+.state-alert { margin: var(--mg-space-4) 0; }
+.mg-alert { margin: var(--mg-space-3) 0; }
+.skeleton { display: block; height: 2px; width: 100%; background: linear-gradient(90deg, var(--mg-tideline) 0 30%, var(--mg-tidal) 50%, var(--mg-tideline) 70% 100%) 0 0 / 300% 100%; animation: mg-sweep 1.4s var(--mg-ease) infinite; }
+@keyframes mg-sweep { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+/* Small bits */
+.mg-card { display: block; }
+.mg-card h2:first-child { margin-top: 0; }
+
+/* ---- Single-typeface overrides of the kit's serif/mono styling ----
+   Headlines: bold sans, no italic accent. Labels: sans caps with light tracking instead of spaced mono.
+   Numbers keep tabular figures so columns still line up. */
+html.mg-fonts h1, html.mg-fonts h2, html.mg-fonts .mg-headline, html.mg-fonts .mg-display { font-weight: 700; letter-spacing: -0.02em; }
+html.mg-fonts .mg-headline em, html.mg-fonts .mg-display em, html.mg-fonts h1 em { font-style: normal; font-weight: 700; }
+html.mg-fonts .mg-mono, html.mg-fonts .mg-chip, html.mg-fonts .mg-cite, html.mg-fonts .mg-demo, html.mg-fonts .mg-conf, html.mg-fonts .hash { font-variant-numeric: tabular-nums; }
+html.mg-fonts .mg-eyebrow, html.mg-fonts .mg-demo, html.mg-fonts .mg-conf, html.mg-fonts .mg-table th, html.mg-fonts .mg-table thead th small, html.mg-fonts .kv dt, html.mg-fonts .field label, html.mg-fonts .mock-flag, html.mg-fonts .map-pin-demo,
+html.mg-fonts .stat-label, html.mg-fonts .panel-label, html.mg-fonts .settings-label, html.mg-fonts .map-legend-head, html.mg-fonts .metric-name, html.mg-fonts .provenance summary, html.mg-fonts .ctl-today span, html.mg-fonts .tag {
+  letter-spacing: 0.03em; font-weight: 600;
+}
+html.mg-fonts .mg-chip { font-weight: 600; }

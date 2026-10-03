@@ -1,0 +1,221 @@
+{
+  "site": {
+    "id": "00000000-0000-4000-8000-0000000000b0",
+    "name": "Pamarawan breached-dike pond complex",
+    "region": "Manila Bay",
+    "is_demo": true,
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [
+              120.8212,
+              14.76
+            ],
+            [
+              120.8226,
+              14.758
+            ],
+            [
+              120.825,
+              14.757
+            ],
+            [
+              120.8275,
+              14.7572
+            ],
+            [
+              120.8285,
+              14.7588
+            ],
+            [
+              120.8282,
+              14.7605
+            ],
+            [
+              120.8262,
+              14.7618
+            ],
+            [
+              120.823,
+              14.762
+            ],
+            [
+              120.8212,
+              14.76
+            ]
+          ]
+        ]
+      ]
+    },
+    "area": {
+      "value": 31.86,
+      "unit": "ha",
+      "eq_id": "EQ-001",
+      "confidence": "high"
+    },
+    "proposal_summary": "Bayfront pond complex where imagery appears to show broken outer dikes, tidal water inside, and lines of what look like mangrove along remnant dikes (our imagery reading). Wetlands International visited fishponds in Calero and Pamarawan (Malolos) and San Roque (Paombong) in Oct-Nov 2022 and describes fishponds lying abandoned, undeveloped, or underutilized; it does not say which ponds, so this block is not claimed to be one of them. Possible hydrological-repair / natural-regeneration candidate; high field-verification need."
+  },
+  "answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "supported",
+      "finding": "mangrove_recorded",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000113"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "current",
+      "label": "What's there now?",
+      "status": "supported",
+      "finding": "mostly_bare_soil",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000112"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "ground",
+      "label": "What do people on the ground say?",
+      "status": "supported",
+      "finding": "open_for_restoration",
+      "source_count": {
+        "value": 2,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000111",
+        "00000000-0000-4000-8000-000000000110"
+      ],
+      "disagreeing_evidence_ids": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-000000000112",
+      "question": "current",
+      "source_type": "sentinel2",
+      "source_name": "Copernicus Sentinel-2 L2A",
+      "source_version": "fixture-placeholder",
+      "observed_from": "2026-07-01T00:00:00Z",
+      "observed_to": "2026-09-29T00:00:00Z",
+      "retrieved_at": "2026-10-03T12:00:00Z",
+      "finding": "mostly_bare_soil",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "value": 0.72,
+          "unit": "fraction",
+          "eq_id": "EQ-005",
+          "confidence": "low"
+        },
+        {
+          "value": 0.18,
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "confidence": "low"
+        }
+      ],
+      "method": "SCL classes 4/5/6 over the polygon, leastCC mosaic, 90-day window; usable if valid fraction >= 0.50.",
+      "spatial_resolution_m": 20,
+      "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+      "provenance_url": "https://dataspace.copernicus.eu/",
+      "asset_url": null,
+      "submitted_by_org": null,
+      "is_demo": true,
+      "content_hash": "54a367d2176ed497cbe5735c597a49e275fbb79b8abd6ef70787a4ef47632202"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000111",
+      "question": "ground",
+      "source_type": "field",
+      "source_name": "Partner field visit (demo)",
+      "source_version": null,
+      "observed_from": "2026-09-20T00:00:00Z",
+      "observed_to": "2026-09-20T00:00:00Z",
+      "retrieved_at": "2026-09-21T00:00:00Z",
+      "finding": "open_for_restoration",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Field observation by a partner team, with GPS point and photo.",
+      "spatial_resolution_m": null,
+      "limitation": "One visit on one day; describes site conditions only.",
+      "provenance_url": null,
+      "asset_url": null,
+      "submitted_by_org": "Demo Bayside Partners",
+      "is_demo": true,
+      "content_hash": "ce51ef1b6d94aaab3db515719254cf85814aab5455ef30df94f67d24e81958cc"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000110",
+      "question": "ground",
+      "source_type": "proposal",
+      "source_name": "Site proposal (demo)",
+      "source_version": null,
+      "observed_from": "2026-08-15T00:00:00Z",
+      "observed_to": "2026-08-15T00:00:00Z",
+      "retrieved_at": "2026-08-20T00:00:00Z",
+      "finding": "open_for_restoration",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Stated by the proposing organization in its site proposal.",
+      "spatial_resolution_m": null,
+      "limitation": "Self-reported by the proposer; not independently checked.",
+      "provenance_url": null,
+      "asset_url": null,
+      "submitted_by_org": "Demo Coastal Fund",
+      "is_demo": true,
+      "content_hash": "1c871cfe468c78928fbeacd64d36666109164d48bc82407694eb7415f92b2c43"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000113",
+      "question": "history",
+      "source_type": "gmw",
+      "source_name": "Global Mangrove Watch v4.1.12",
+      "source_version": "fixture-placeholder",
+      "observed_from": "1996-01-01T00:00:00Z",
+      "observed_to": "2020-12-31T00:00:00Z",
+      "retrieved_at": "2026-10-03T12:00:00Z",
+      "finding": "mangrove_recorded",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "value": 0.41,
+          "unit": "fraction",
+          "eq_id": "EQ-003",
+          "confidence": "medium"
+        }
+      ],
+      "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+      "spatial_resolution_m": 25,
+      "limitation": "Placeholder value for UI building; not real GMW output.",
+      "provenance_url": "https://www.globalmangrovewatch.org/",
+      "asset_url": null,
+      "submitted_by_org": null,
+      "is_demo": true,
+      "content_hash": "380ebcd68e7c4675c5eef0816777d8b567ec1b58dbd4fda0613503aab9e59f30"
+    }
+  ]
+}

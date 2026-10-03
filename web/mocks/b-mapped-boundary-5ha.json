@@ -1,0 +1,60 @@
+{
+  "type": "FeatureCollection",
+  "name": "demo-B-mapped-boundary-5ha",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              120.8235187,
+              14.759714
+            ],
+            [
+              120.8240734,
+              14.7589217
+            ],
+            [
+              120.8250242,
+              14.7585255
+            ],
+            [
+              120.8260147,
+              14.7586047
+            ],
+            [
+              120.8264108,
+              14.7592386
+            ],
+            [
+              120.826292,
+              14.7599121
+            ],
+            [
+              120.8254996,
+              14.7604271
+            ],
+            [
+              120.8242319,
+              14.7605064
+            ],
+            [
+              120.8235187,
+              14.759714
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "is_demo": true,
+        "site_id": "B",
+        "site_uuid": "00000000-0000-4000-8000-0000000000b0",
+        "purpose": "Demo field partner's GPS-mapped worked area for the work check (ADR-033, EQ-010). Not a real survey.",
+        "how_made": "Site B polygon scaled about its centroid in EPSG:32651 until the geodesic area is 5.00 ha. Generated 2026-10-03 by the integrator.",
+        "area_ha_epsg32651": 5.0
+      }
+    }
+  ]
+}

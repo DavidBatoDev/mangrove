@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.64141,
+          14.78995
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001a0",
+        "site_name": "Macabebe bayfront ponds east of Bangkung Malapad",
+        "funder": "Demo Coastal Fund",
+        "published_at": "2026-10-01T09:00:00Z",
+        "pin_state": "awaiting",
+        "is_demo": true
+      }
+    }
+  ]
+}
