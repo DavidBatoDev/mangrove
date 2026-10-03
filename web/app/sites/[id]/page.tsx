@@ -31,9 +31,9 @@ export default function SiteDossierPage() {
   // card's year buttons pick another year or turn it off. undefined = not chosen yet.
   const gmw = useGmwLayers();
   const tileYears = gmw.years;
-  const [chosenYear, setChosenYear] = useState<number | null | undefined>(undefined);
-  const layerYear = chosenYear === undefined ? (tileYears.at(-1) ?? null) : chosenYear;
-  // Extent only; gain and loss are switched on from the national card on the map pages (ADR-056).
+  // Always the latest GMW year (2025); no year picker (ADR-057).
+  const layerYear = tileYears.at(-1) ?? null;
+  // Extent only; gain and loss are switched on from the national card on the map pages (ADR-057).
   const mangrove = layerYear === null ? null : { extentYear: layerYear, change: null, opacity: 1 };
   const [view3d, setView3d] = useState(false);
 
@@ -100,7 +100,7 @@ export default function SiteDossierPage() {
           </section>
           {trend.error && <p className="mg-alert">Global Mangrove Watch did not respond. Try again later.</p>}
           {trend.data && (
-            <SiteTrendCard t={trend.data} layerYears={tileYears} layerYear={layerYear} onLayerYear={setChosenYear} />
+            <SiteTrendCard t={trend.data} layerYears={[]} layerYear={layerYear} onLayerYear={() => {}} />
           )}
         </div>
         <div className="dossier-mapbox">

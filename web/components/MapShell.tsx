@@ -53,7 +53,7 @@ const DEFAULT_PREFS: Prefs = {
   mangroveOpacity: 1,
 };
 
-/** The side panel's switch for the gain/loss map layers (ADR-056); null outside a MapShell or without the layer. */
+/** The side panel's switch for the gain/loss map layers (ADR-057); null outside a MapShell or without the layer. */
 const MangroveChangeContext = createContext<{ on: boolean; base: number; set: (on: boolean) => void } | null>(null);
 export const useMangroveChange = () => useContext(MangroveChangeContext);
 
@@ -108,8 +108,8 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
   // GMW layers: their legend rows hide when a layer is not installed on the server.
   const gmw = useGmwLayers();
   const mangroveYears = gmw.years;
-  const mangroveYear =
-    prefs.mangroveYear !== null && mangroveYears.includes(prefs.mangroveYear) ? prefs.mangroveYear : (mangroveYears.at(-1) ?? null);
+  // Always the latest GMW year (2025); no year picker (ADR-057).
+  const mangroveYear = mangroveYears.at(-1) ?? null;
   const bases = Object.keys(gmw.changeBases).map(Number).sort((a, b) => a - b);
   const changeBase = gmw.defaultBase ?? bases[0] ?? null;
   // Change exists only for map years after the baseline.
@@ -348,14 +348,7 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
             {mangroveYear !== null && (
               <>
                 <li className="legend-group">
-                  <span>Mangroves</span>
-                  <select aria-label="Mangrove year" value={mangroveYear} onChange={(e) => update({ mangroveYear: Number(e.target.value) })}>
-                    {mangroveYears.map((y) => (
-                      <option key={y} value={y}>
-                        {y}
-                      </option>
-                    ))}
-                  </select>
+                  <span>Mangroves · {mangroveYear}</span>
                 </li>
                 <li>
                   <button
