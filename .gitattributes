@@ -1,0 +1,10 @@
+# Normalize line endings: the team is on Windows, the server is Linux.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tif binary
+*.tiff binary
+*.pdf binary
+*.zip binary
+*.gpkg binary
