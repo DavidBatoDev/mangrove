@@ -38,6 +38,9 @@ for _ in $(seq 1 30); do
   if healthy; then
     docker image prune -f >/dev/null 2>&1 || true
     echo "== deployed $SHA"
+    # Warm the zoomed-out GMW extent tiles (API-024, ADR-048) for the latest year in the background: they read
+    # many source files and take seconds each the first time; afterwards the API serves them from memory.
+    setsid nohup bash ./prewarm-tiles.sh "$DOMAIN" >/tmp/mangrove-prewarm.log 2>&1 </dev/null &
     exit 0
   fi
   sleep 5

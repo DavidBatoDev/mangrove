@@ -207,6 +207,14 @@ Pulled from the coast itself: deep canopy, tidal turquoise, new-leaf chartreuse,
 | `--mg-caution` | `#C99A2E` | Dry-season ochre. Form errors, failed live sources, outdated evidence. Always with an icon and words. |
 | `--mg-ok` | `#2E7D4F` | Reserved; not used for statuses (supported is Canopy). |
 
+### Map data (layers, not UI)
+
+| Token | Hex | Use |
+|---|---|---|
+| `--mg-data-mangrove` | `#1FCFCF` | GMW mangrove extent layer only (ADR-049). |
+| `--mg-data-gain` | `#9ED33A` | GMW mangrove gain since a baseline year, map layer only (ADR-050). |
+| `--mg-data-loss` | `#E4473A` | GMW mangrove loss since a baseline year, map layer only (ADR-050). The one exception to "only red is conflict": it lives only in that map layer and its legend row, which always says "Mangrove loss since <year>". A conflict on the map is a pin, never a filled area. |
+
 **Proportions on a typical screen:** Mist/neutrals 70%, Canopy 15%, Tidal 8%, Haze/Root 5%, Propagule 2%.
 
 **Contrast (WCAG):** Ink on Mist 16.5:1. Canopy on Mist 11.5:1. Tidal on Mist 3.7:1 (large text, icons, borders only; use Canopy for small link text if needed, or `--mg-tidal-ink: #1F6E69`, 5.6:1). Propagule only behind Canopy/Ink text, never as text on light.

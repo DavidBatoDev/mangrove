@@ -30,3 +30,21 @@ data/ingest/.venv/Scripts/python data/ingest/gmw_ingest.py --target main --sites
 
 Whatever GMW shows is what the product shows: for the demo polygons that is no mangrove inside since 1985
 (ADR-045). Do not move a polygon or change a threshold to change that.
+
+## Philippines extent layer for the map (ADR-048)
+
+`gmw_change_tiles.py` builds the gain/loss GeoTIFFs that API-025 serves (ADR-050): for baselines 1985, 1990, 2000 and 2010,
+one 2-band file per later layer year and tile into `<out>/change/`, plus `change_index.json`. Run it like `gmw_tiles.py`
+with `--chng-dir <change stacks> --out-dir /opt/bon/gmw-tiles`.
+
+`gmw_tiles.py` builds the per-year GeoTIFFs that API-024 serves as map tiles: the 93 GMW tiles touching the
+Philippines, years 1985–2025 every 5 years, values 0/255 with averaged overviews, plus `index.json`. It runs on
+the demo host into `/opt/bon/gmw-tiles` (mounted read-only into the API). rasterio's wheel needs `libexpat1` on
+slim images. Steps used on 2026-10-04 (about 6 minutes in all on a t3.medium):
+
+1. `aws s3 cp --recursive s3://bon-mangrove-evidence-baf5cf/datasets/gmw/v4.1.12/jaxa-eorc/ zips/`
+2. Extract every `GMW_N{lat}E{lon}_v4112_mng_ext.tif` with lon 116–126 and NW-corner lat 05–22 into `stacks/`.
+3. `docker run --rm -v $PWD:/work -v /opt/bon/gmw-tiles:/out python:3.12-slim bash -c "apt-get update -qq && apt-get install -y -qq libexpat1 && pip install -q rasterio==1.5.2 && python /work/data/ingest/gmw_tiles.py --stack-dir /work/stacks --out-dir /out"`
+
+A built copy (73 MB) is in `s3://bon-mangrove-evidence-baf5cf/datasets/gmw/derived/ph-extent-tiles/`;
+`aws s3 sync` of that prefix into `/opt/bon/gmw-tiles` restores it without rebuilding.

@@ -59,3 +59,6 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-045](ADR-045-gmw-context-widgets.md) | Accepted | Mangrove context from GMW (site and nearby trend, bay layer, national card); the history answer stays honest. |
 | [ADR-046](ADR-046-google-maps-display-only.md) | Accepted | Google Maps for visualization only (2D + 3D); evidence stays with GMW and Sentinel-2; MapLibre is the fallback. |
 | [ADR-047](ADR-047-deploy-on-push-to-master.md) | Accepted | Every push to `master` redeploys the demo host through GitHub Actions, OIDC and SSM, with rollback on a failed health check. |
+| [ADR-048](ADR-048-ph-mangrove-extent-tiles.md) | Accepted | Mangrove extent for the whole Philippines, served by the API as brand-Tidal map tiles on Google and MapLibre; context only. |
+| [ADR-049](ADR-049-mangrove-layer-cyan-and-open-tiles.md) | Accepted | The mangrove layer uses a dedicated GMW-style cyan token; API-024 tiles allow any origin so fixtures mode shows real tiles. |
+| [ADR-050](ADR-050-mangrove-change-layer-and-legend-filters.md) | Accepted | GMW mangrove gain/loss as map tiles (API-025), loss in red as a named map-data exception; compact legend toggles and filters layers; tiles to zoom 22 with a fade. |

@@ -3,7 +3,12 @@
 # Run from infra/:  docker compose --env-file ../.env up -d --build
 services:
   web:
-    build: ../web
+    build:
+      context: ../web
+      args:
+        # Public browser keys are inlined at build time (ADR-046); restrict the key to this domain in Google Cloud.
+        NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY:-}
+        NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID: ${NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID:-}
     env_file: ../.env
     environment:
       - API_INTERNAL_URL=http://api:8000
@@ -13,6 +18,11 @@ services:
   api:
     build: ../api
     env_file: ../.env
+    environment:
+      - GMW_TILE_DIR=/data/gmw-tiles
+    volumes:
+      # Philippines GMW extent layer built by data/ingest/gmw_tiles.py (ADR-048); read-only.
+      - ${GMW_TILE_DIR_HOST:-/opt/bon/gmw-tiles}:/data/gmw-tiles:ro
     restart: unless-stopped
 
   caddy:
