@@ -236,6 +236,8 @@ export interface GmwExtentTiles {
   version: string;
   bbox: [number, number, number, number];
   max_zoom: number;
+  /** Look version; part of the tile URL so a new look is not served from browser cache. */
+  style?: string;
   /** Relative URL template with {year}, {z}, {x}, {y}. */
   tiles: string;
   source: GmwSource;

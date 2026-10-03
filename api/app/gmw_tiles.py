@@ -3,8 +3,9 @@
 Reads the per-year GeoTIFFs built offline by data/ingest/gmw_tiles.py (directory GMW_TILE_DIR, with index.json).
 Context only: a tile is a picture of GMW's classification. It sets no status and carries no number (BR-003).
 
-Color: brand Tidal lift (#4DB3AB, `--mg-tidal-lift` in brand/tokens.css). Opacity grows with how much of the
-pixel GMW mapped as mangrove, so a zoomed-out tile still shows thin fringes without hiding the imagery.
+Color: GMW-style cyan, brand token `--mg-data-mangrove` (#1FCFCF, ADR-049), near-opaque like GMW's own viewer.
+Zoomed out (z <= DILATE_MAX_ZOOM) every mangrove pixel is grown by one screen pixel so thin coastal fringes read.
+Responses carry `Access-Control-Allow-Origin: *` (public data) so a local or fixtures-mode web app can use them.
 """
 
 from __future__ import annotations
@@ -31,8 +32,10 @@ TILE = 256
 MAX_ZOOM = 16
 WEB_MERCATOR = CRS.from_epsg(3857)
 HALF_WORLD = 20037508.342789244
-TIDAL_LIFT = (0x4D, 0xB3, 0xAB)  # brand --mg-tidal-lift
-ALPHA_MIN, ALPHA_MAX = 150, 225
+DATA_MANGROVE = (0x1F, 0xCF, 0xCF)  # brand --mg-data-mangrove (ADR-049)
+ALPHA_MIN, ALPHA_MAX = 215, 250
+DILATE_MAX_ZOOM = 10
+STYLE = "cyan-1"  # bump when the look changes; clients put it in the tile URL to bust browser caches
 
 
 def tile_dir() -> Path:
@@ -53,7 +56,7 @@ def index() -> dict:
 
 def layer_info() -> dict:
     ix = index()
-    return {"years": ix["years"], "version": ix["version"], "bbox": ix["bbox"], "max_zoom": MAX_ZOOM,
+    return {"years": ix["years"], "version": ix["version"], "bbox": ix["bbox"], "max_zoom": MAX_ZOOM, "style": STYLE,
             "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png",
             "source": {"name": "Global Mangrove Watch", "version": ix["version"],
                        "provenance_url": "https://doi.org/10.5281/zenodo.21346457"}}
@@ -105,10 +108,17 @@ def _render(root: str, year: int, z: int, x: int, y: int, built_at: str) -> byte
             np.maximum(acc, vrt.read(1), out=acc)
     if not acc.any():
         return EMPTY_PNG
-    alpha = np.where(acc > 0, ALPHA_MIN + (acc.astype("uint16") * (ALPHA_MAX - ALPHA_MIN) // 255), 0).astype("uint8")
+    core = acc > 0
+    shown = core.copy()
+    if z <= DILATE_MAX_ZOOM:  # grow by one pixel (4-neighbour) so thin fringes stay visible zoomed out
+        shown[1:, :] |= core[:-1, :]
+        shown[:-1, :] |= core[1:, :]
+        shown[:, 1:] |= core[:, :-1]
+        shown[:, :-1] |= core[:, 1:]
+    alpha = np.where(core, ALPHA_MIN + (acc.astype("uint16") * (ALPHA_MAX - ALPHA_MIN) // 255), np.where(shown, ALPHA_MIN, 0)).astype("uint8")
     rgba = np.zeros((4, TILE, TILE), dtype="uint8")
-    for i, c in enumerate(TIDAL_LIFT):
-        rgba[i][acc > 0] = c
+    for i, c in enumerate(DATA_MANGROVE):
+        rgba[i][shown] = c
     rgba[3] = alpha
     return _png(rgba)
 
@@ -119,4 +129,4 @@ def tile_png(year: int, z: int, x: int, y: int) -> bytes:
         raise ApiError(422, "VALIDATION_FAILED", f"year must be one of {ix['years']}")
     if not (0 <= z <= MAX_ZOOM and 0 <= x < (1 << z) and 0 <= y < (1 << z)):
         raise ApiError(422, "VALIDATION_FAILED", f"tile {z}/{x}/{y} is outside zoom 0-{MAX_ZOOM}")
-    return _render(str(tile_dir()), year, z, x, y, ix.get("built_at", ""))
+    return _render(str(tile_dir()), year, z, x, y, ix.get("built_at", "") + STYLE)

@@ -62,6 +62,7 @@ def test_tc027_layer_info(client, tile_dir):
     assert body["years"] == [2020, 2025]
     assert body["tiles"].endswith("/{year}/{z}/{x}/{y}.png")
     assert body["source"]["name"] == "Global Mangrove Watch"
+    assert body["style"]
 
 
 def test_tc027_tile_over_mangrove_is_drawn(client, tile_dir):
@@ -69,6 +70,7 @@ def test_tc027_tile_over_mangrove_is_drawn(client, tile_dir):
     r = client.get(f"/api/v1/layers/gmw-extent/tiles/2025/9/{x}/{y}.png")
     assert r.status_code == 200 and r.headers["content-type"] == "image/png"
     assert "max-age" in r.headers["cache-control"]
+    assert r.headers["access-control-allow-origin"] == "*"
     alpha = _alpha(r.content)
     assert (alpha > 0).any(), "mangrove pixels must be visible"
     assert (alpha == 0).any(), "non-mangrove pixels must stay transparent"

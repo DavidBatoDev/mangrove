@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Mangrove layer in GMW-style cyan; tiles readable from any origin
+- **ID:** DEC-019
+- **Type:** zoom-in
+- **Change:** brand Tidal lift at partial opacity, hidden in fixtures mode → data cyan `--mg-data-mangrove` near-opaque with zoomed-out fringes grown, read from the live API in fixtures mode (CORS on API-024)
+- **Why:** the team found the layer too faint next to GMW's viewer and saw no layer in local fixtures mode.
+- **Invalidated:** ADR-048's color and its fixtures-mode hiding
+- **Recorded as:** ADR-049
+
 ### 2026-10-04 — Mangrove extent for the whole Philippines, as map tiles
 - **ID:** DEC-018
 - **Type:** scope-add
