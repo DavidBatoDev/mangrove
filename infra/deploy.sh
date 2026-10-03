@@ -25,7 +25,7 @@ for svc in web api; do
   fi
 done
 
-# Rendered map tiles live on the host so deploys keep them (ADR-051); the API runs as uid 999.
+# Rendered map tiles live on the host so deploys keep them (ADR-052); the API runs as uid 999.
 sudo install -d -o 999 -g 999 /opt/bon/gmw-tile-cache
 
 # A failed build exits here (set -e) and the running containers are left untouched.
@@ -41,7 +41,7 @@ for _ in $(seq 1 30); do
   if healthy; then
     docker image prune -f >/dev/null 2>&1 || true
     echo "== deployed $SHA"
-    # Render any GMW map tiles not yet on disk (ADR-051), in the background at low priority.
+    # Render any GMW map tiles not yet on disk (ADR-052), in the background at low priority.
     setsid nohup bash ./prewarm-tiles.sh >/tmp/mangrove-prewarm.log 2>&1 </dev/null &
     exit 0
   fi

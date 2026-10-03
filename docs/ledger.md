@@ -43,12 +43,12 @@ owns: which decision is current · names and immutable IDs · rejected approache
 ## 3. Pivots & decisions (newest first, append at top)
 
 ### 2026-10-04 — GMW map tiles rendered once and kept on disk
-- **ID:** DEC-021
+- **ID:** DEC-022
 - **Type:** zoom-in
 - **Change:** tiles rendered per request and kept in memory → rendered once into a disk cache, prerendered for the default view after each deploy, enlarged from zoom 12 above it
 - **Why:** cold renders queued for over 90 s on the 2-CPU host and the map blurred when zoomed in.
 - **Invalidated:** ADR-048's in-memory cache and zoom 4–8 prewarm
-- **Recorded as:** ADR-051
+- **Recorded as:** ADR-052
 
 ### 2026-10-04 — Mangrove gain and loss on the map; compact legend filters
 - **ID:** DEC-020

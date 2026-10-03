@@ -178,7 +178,7 @@ def test_tc028_change_layer_missing_is_503(client, tile_dir):
     assert r.status_code == 503 and r.json()["error"]["code"] == "UPSTREAM_UNAVAILABLE"
 
 
-# --- TC-029: tiles are kept on disk and enlarged past NATIVE_ZOOM (ADR-051) ---------------------------------------
+# --- TC-029: tiles are kept on disk and enlarged past NATIVE_ZOOM (ADR-052) ---------------------------------------
 
 
 def test_tc029_tile_is_cached_on_disk_and_reused(client, tile_dir, tmp_path_factory, monkeypatch):

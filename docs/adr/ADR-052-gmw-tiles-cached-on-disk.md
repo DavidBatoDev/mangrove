@@ -1,9 +1,9 @@
-# ADR-051 — GMW map tiles are rendered once, kept on disk, and enlarged past zoom 12
+# ADR-052 — GMW map tiles are rendered once, kept on disk, and enlarged past zoom 12
 
 - **Date:** 2026-10-04
 - **Status:** Accepted
 - **Owners:** the team (built by the orchestrator at the team's request)
-- **Related:** DEC-021, ADR-048, ADR-050, API-024, API-025, TC-029
+- **Related:** DEC-022, ADR-048, ADR-050, API-024, API-025, TC-029
 
 ### Context
 

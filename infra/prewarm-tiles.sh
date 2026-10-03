@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Render the GMW map tiles (API-024, API-025) for zoom 4-12 over the Philippines into the API's disk cache (ADR-051),
+# Render the GMW map tiles (API-024, API-025) for zoom 4-12 over the Philippines into the API's disk cache (ADR-052),
 # so no viewer waits for a cold tile. Started in the background by infra/deploy.sh; tiles already on disk are skipped,
 # so a rerun after a deploy takes seconds. Runs inside the API container at the lowest CPU priority.
 # Usage: bash prewarm-tiles.sh

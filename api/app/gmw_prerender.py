@@ -1,4 +1,4 @@
-"""Render the GMW map tiles ahead of time into the disk cache (ADR-051), so no viewer waits for a cold tile.
+"""Render the GMW map tiles ahead of time into the disk cache (ADR-052), so no viewer waits for a cold tile.
 
 Runs inside the API container at low priority after a deploy (infra/prewarm-tiles.sh):
     nice -n 19 python -m app.gmw_prerender [--max-zoom 12]

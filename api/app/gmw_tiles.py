@@ -7,7 +7,7 @@ Context only: a tile is a picture of GMW's classification. It sets no status and
 Color: GMW-style cyan, brand token `--mg-data-mangrove` (#1FCFCF, ADR-049), near-opaque like GMW's own viewer.
 Zoomed out (z <= DILATE_MAX_ZOOM) every mangrove pixel is grown by one screen pixel so thin coastal fringes read.
 Tiles up to NATIVE_ZOOM are rendered once and kept on disk (GMW_TILE_CACHE), so restarts and deploys keep them; above it a
-tile is cut from its NATIVE_ZOOM parent and enlarged, since GMW's 30 m pixels hold no more detail (ADR-051).
+tile is cut from its NATIVE_ZOOM parent and enlarged, since GMW's 30 m pixels hold no more detail (ADR-052).
 Responses carry `Access-Control-Allow-Origin: *` (public data) so a local or fixtures-mode web app can use them.
 """
 
@@ -45,7 +45,7 @@ DATA_LOSS = (0xE4, 0x47, 0x3A)  # brand --mg-data-loss: GMW-style red for loss, 
 DILATE_MAX_ZOOM = 10
 # The demo host has 2 CPUs: more parallel GDAL renders only thrash it and starve every other request.
 _RENDER_SLOTS = threading.BoundedSemaphore(2)
-NATIVE_ZOOM = 12  # rendered from the GeoTIFFs at or below this zoom; enlarged from the parent above it (ADR-051)
+NATIVE_ZOOM = 12  # rendered from the GeoTIFFs at or below this zoom; enlarged from the parent above it (ADR-052)
 STYLE = "cyan-2"  # bump when the look changes; clients put it in the tile URL to bust browser caches
 
 
