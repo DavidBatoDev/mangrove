@@ -1,26 +1,42 @@
 "use client";
 
-import { MapPin, Plus } from "lucide-react";
+import { Check, FileUp, ImagePlus, Lock, MapPin, Plus } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { useSession } from "@/components/session";
 import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
-import { BrandIcon, ICON_PROPS, IconBadge, SourceIcon } from "@/components/visual";
+import {
+  BrandIcon,
+  ICON_PROPS,
+  IconBadge,
+  QuestionIcon,
+  SourceIcon,
+} from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
 import { USE_MOCKS } from "@/lib/api";
 import type { ApiError } from "@/lib/api-error";
-import { FINDINGS_BY_QUESTION, findingLabel, QUESTION_LABELS } from "@/lib/format";
+import {
+  FINDINGS_BY_QUESTION,
+  findingLabel,
+  QUESTION_LABELS,
+} from "@/lib/format";
 import type { EvidenceInput, EvidenceQuestion } from "@/lib/types";
 
 type Phase = "editing" | "uploading" | "done";
 
 function toPolygon(gj: unknown): GeoJSON.Polygon | null {
-  const g = gj as { type?: string; features?: unknown[]; geometry?: unknown; coordinates?: unknown };
+  const g = gj as {
+    type?: string;
+    features?: unknown[];
+    geometry?: unknown;
+    coordinates?: unknown;
+  };
   if (g?.type === "Polygon") return g as GeoJSON.Polygon;
   if (g?.type === "Feature") return toPolygon(g.geometry);
-  if (g?.type === "FeatureCollection" && g.features?.length) return toPolygon(g.features[0]);
+  if (g?.type === "FeatureCollection" && g.features?.length)
+    return toPolygon(g.features[0]);
   return null;
 }
 
@@ -32,7 +48,10 @@ function centroidOf(geom: GeoJSON.Geometry): [number, number] | null {
   };
   if ("coordinates" in geom) visit(geom.coordinates);
   if (!pts.length) return null;
-  return [pts.reduce((s, p) => s + p[0], 0) / pts.length, pts.reduce((s, p) => s + p[1], 0) / pts.length];
+  return [
+    pts.reduce((s, p) => s + p[0], 0) / pts.length,
+    pts.reduce((s, p) => s + p[1], 0) / pts.length,
+  ];
 }
 
 // Submit evidence (US-006, US-010): a funder adds a project report, a partner adds field evidence.
@@ -44,13 +63,25 @@ function EvidenceForm() {
   const sites = useApi(() => api.listSites(), []);
 
   const [target, setTarget] = useState(() =>
-    params.get("record") ? `record:${params.get("record")}` : params.get("site") ? `site:${params.get("site")}` : "",
+    params.get("record")
+      ? `record:${params.get("record")}`
+      : params.get("site")
+        ? `site:${params.get("site")}`
+        : "",
   );
   const isFunder = user?.role === "funder";
-  const questions: EvidenceQuestion[] = isFunder ? ["work", "outcome", "ground", "history"] : ["ground", "work", "outcome", "history"];
-  const [question, setQuestion] = useState<EvidenceQuestion>(params.get("record") ? "work" : "ground");
-  const [finding, setFinding] = useState(() => FINDINGS_BY_QUESTION[params.get("record") ? "work" : "ground"][0]);
-  const [observedAt, setObservedAt] = useState(() => new Date().toISOString().slice(0, 10));
+  const questions: EvidenceQuestion[] = isFunder
+    ? ["work", "outcome", "ground", "history"]
+    : ["ground", "work", "outcome", "history"];
+  const [question, setQuestion] = useState<EvidenceQuestion>(
+    params.get("record") ? "work" : "ground",
+  );
+  const [finding, setFinding] = useState(
+    () => FINDINGS_BY_QUESTION[params.get("record") ? "work" : "ground"][0],
+  );
+  const [observedAt, setObservedAt] = useState(() =>
+    new Date().toISOString().slice(0, 10),
+  );
   const [reportedHa, setReportedHa] = useState("");
   const [lon, setLon] = useState("");
   const [lat, setLat] = useState("");
@@ -62,12 +93,21 @@ function EvidenceForm() {
   const [error, setError] = useState<string | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
 
+  const targetLabel = target.startsWith("record:")
+    ? pins.data?.features.find((f) => f.properties.id === target.slice(7))
+        ?.properties.site_name
+    : sites.data?.features.find((f) => f.properties.id === target.slice(5))
+        ?.properties.name;
+
   if (!ready) return <Loading />;
   if (!user)
     return (
       <div className="state">
         <p>Sign in as a funder or a partner to add evidence.</p>
-        <Link className="mg-btn mg-btn--primary" href={`/sign-in?next=${encodeURIComponent(`/evidence/new?${params.toString()}`)}`}>
+        <Link
+          className="mg-btn mg-btn--primary"
+          href={`/sign-in?next=${encodeURIComponent(`/evidence/new?${params.toString()}`)}`}
+        >
           Sign in
         </Link>
       </div>
@@ -112,20 +152,37 @@ function EvidenceForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!target) return setError("Pick the site or record this evidence is about.");
+    if (!target)
+      return setError("Pick the site or record this evidence is about.");
     if (!finding) return setError("Pick a finding.");
-    if (isFunder && question === "work" && !(Number(reportedHa) > 0)) return setError("Enter the reported area in ha.");
-    if (!isFunder && !(lon && lat)) return setError("Field evidence needs the GPS point where it was observed.");
-    if (photo && photo.size > 10 * 1024 * 1024) return setError("The photo is over 10 MB.");
+    if (isFunder && question === "work" && !(Number(reportedHa) > 0))
+      return setError("Enter the reported area in hectares.");
+    if (!isFunder && !(lon && lat))
+      return setError(
+        "Field evidence needs the GPS point where it was observed.",
+      );
+    if (photo && photo.size > 10 * 1024 * 1024)
+      return setError("The photo is over 10 MB.");
 
     const input: EvidenceInput = {
       source_type: isFunder ? "project_report" : "field",
       question,
       finding,
       observed_at: observedAt,
-      ...(target.startsWith("record:") ? { record_id: target.slice(7) } : { site_id: target.slice(5) }),
-      ...(isFunder && reportedHa ? { reported_area_ha: Number(reportedHa) } : {}),
-      ...(!isFunder ? { point: { type: "Point", coordinates: [Number(lon), Number(lat)] } as GeoJSON.Point } : {}),
+      ...(target.startsWith("record:")
+        ? { record_id: target.slice(7) }
+        : { site_id: target.slice(5) }),
+      ...(isFunder && reportedHa
+        ? { reported_area_ha: Number(reportedHa) }
+        : {}),
+      ...(!isFunder
+        ? {
+            point: {
+              type: "Point",
+              coordinates: [Number(lon), Number(lat)],
+            } as GeoJSON.Point,
+          }
+        : {}),
       ...(boundary ? { boundary } : {}),
       ...(note.trim() ? { note: note.trim() } : {}),
       ...(photo ? { photo } : {}),
@@ -133,10 +190,17 @@ function EvidenceForm() {
     setPhase("uploading");
     try {
       await api.submitEvidence(input);
-      setResultUrl(input.record_id ? `/records/${input.record_id}` : `/sites/${input.site_id}`);
+      setResultUrl(
+        input.record_id
+          ? `/records/${input.record_id}`
+          : `/sites/${input.site_id}`,
+      );
       setPhase("done");
     } catch (err) {
-      setError((err as ApiError).message || "Could not save. Nothing was added; try again.");
+      setError(
+        (err as ApiError).message ||
+          "Could not save. Nothing was added; try again.",
+      );
       setPhase("editing");
     }
   }
@@ -148,9 +212,15 @@ function EvidenceForm() {
           <BrandIcon name="evidence-trace" size={32} />
         </IconBadge>
         <h2>Evidence added</h2>
-        <p className="meta">It is now part of the public history and cannot be removed.</p>
+        <p className="meta">
+          It is now part of the public history and cannot be removed.
+        </p>
         <div className="row">
-          <button className="mg-btn mg-btn--primary" type="button" onClick={() => router.push(resultUrl)}>
+          <button
+            className="mg-btn mg-btn--primary"
+            type="button"
+            onClick={() => router.push(resultUrl)}
+          >
             See it
           </button>
           <button
@@ -171,149 +241,339 @@ function EvidenceForm() {
     );
 
   return (
-    <form className="form form--wide" onSubmit={onSubmit} noValidate>
-      <div className="role-banner">
-        <IconBadge tone="root">
-          <SourceIcon type={isFunder ? "project_report" : "field"} />
-        </IconBadge>
-        <div>
-          <span className="mg-eyebrow" style={{ margin: 0 }}>
-            {isFunder ? "Project report" : "Field evidence"}
-          </span>
-          <strong>{user.org.name}</strong> <DemoLabel show={user.org.is_demo} />
-        </div>
-      </div>
-      {error && <p className="mg-alert" role="alert">{error}</p>}
-      {(pins.error || sites.error) && <ErrorBox error={pins.error ?? sites.error} onRetry={() => (pins.reload(), sites.reload())} />}
-
-      <fieldset className="mg-card form-section">
-        <legend className="card-head">
-          <IconBadge>
-            <BrandIcon name="field-observation" />
+    <div className="ev-layout">
+      <form className="form ev-form" onSubmit={onSubmit} noValidate>
+        <div className="role-banner">
+          <IconBadge tone="root">
+            <SourceIcon type={isFunder ? "project_report" : "field"} />
           </IconBadge>
-          <span>What you observed</span>
-        </legend>
-      <div className="field">
-        <label htmlFor="target">About</label>
-        <select id="target" value={target} onChange={(e) => setTarget(e.target.value)}>
-          <option value="">Choose a record or site…</option>
-          {pins.data && pins.data.features.length > 0 && (
-            <optgroup label="Published records">
-              {pins.data.features.map((f) => (
-                <option key={f.properties.id} value={`record:${f.properties.id}`}>
-                  Record: {f.properties.site_name}
-                  {f.properties.is_demo ? " (Demo data)" : ""}
-                </option>
-              ))}
-            </optgroup>
-          )}
-          {sites.data && (
-            <optgroup label="Candidate sites">
-              {sites.data.features.map((f) => (
-                <option key={f.properties.id} value={`site:${f.properties.id}`}>
-                  Site: {f.properties.name}
-                  {f.properties.is_demo ? " (Demo data)" : ""}
-                </option>
-              ))}
-            </optgroup>
-          )}
-        </select>
-      </div>
-
-      <div className="field-row field-row--3">
-        <div className="field">
-          <label htmlFor="question">Question</label>
-          <select id="question" value={question} onChange={(e) => {
-              const q = e.target.value as EvidenceQuestion;
-              setQuestion(q);
-              setFinding(FINDINGS_BY_QUESTION[q]?.[0] ?? ""); // keep the finding inside the question's vocabulary
-            }}>
-            {questions.map((q) => (
-              <option key={q} value={q}>
-                {QUESTION_LABELS[q]}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor="finding">Finding</label>
-          <select id="finding" value={finding} onChange={(e) => setFinding(e.target.value)}>
-            {(FINDINGS_BY_QUESTION[question] ?? []).map((f) => (
-              <option key={f} value={f}>
-                {findingLabel(f)}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor="observed_at">Observed on</label>
-          <input id="observed_at" type="date" value={observedAt} max={new Date().toISOString().slice(0, 10)} onChange={(e) => setObservedAt(e.target.value)} />
-        </div>
-      </div>
-
-      {isFunder && question === "work" && (
-        <div className="field">
-          <label htmlFor="reported">Reported area, ha</label>
-          <input id="reported" type="number" min="0" step="0.1" value={reportedHa} onChange={(e) => setReportedHa(e.target.value)} />
-          <span className="hint">The area the project report says was worked.</span>
-        </div>
-      )}
-
-      </fieldset>
-
-      <fieldset className="mg-card form-section">
-        <legend className="card-head">
-          <IconBadge>
-            <MapPin {...ICON_PROPS} />
-          </IconBadge>
-          <span>Where, and what you can attach</span>
-        </legend>
-      {!isFunder && (
-        <div className="field">
-          <label>GPS point where observed</label>
-          <div className="row">
-            <input aria-label="Longitude" placeholder="Longitude" value={lon} onChange={(e) => setLon(e.target.value)} />
-            <input aria-label="Latitude" placeholder="Latitude" value={lat} onChange={(e) => setLat(e.target.value)} />
-            <button className="mg-btn mg-btn--secondary" type="button" onClick={useSiteCentre}>
-              Use site centre
-            </button>
+          <div>
+            <span className="mg-eyebrow" style={{ margin: 0 }}>
+              {isFunder ? "Project report" : "Field evidence"}
+            </span>
+            <strong>{user.org.name}</strong>{" "}
+            <DemoLabel show={user.org.is_demo} />
           </div>
         </div>
-      )}
+        {error && (
+          <p className="mg-alert" role="alert">
+            {error}
+          </p>
+        )}
+        {(pins.error || sites.error) && (
+          <ErrorBox
+            error={pins.error ?? sites.error}
+            onRetry={() => (pins.reload(), sites.reload())}
+          />
+        )}
 
-      <div className="field">
-        <label htmlFor="boundary">Mapped boundary (GeoJSON polygon, optional)</label>
-        <div className="row">
-          <input id="boundary" type="file" accept=".geojson,.json,application/geo+json,application/json" onChange={(e) => onBoundaryFile(e.target.files?.[0])} />
-          {USE_MOCKS && (
-            <button className="mg-btn mg-btn--secondary" type="button" onClick={useDemoBoundary}>
-              Use demo boundary for site B
-            </button>
+        <fieldset className="mg-card form-section">
+          <legend className="card-head">
+            <span className="ev-step">1</span>
+            <span>What you observed</span>
+          </legend>
+          <div className="field">
+            <label htmlFor="target">About</label>
+            <select
+              id="target"
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+            >
+              <option value="">Choose a record or site…</option>
+              {pins.data && pins.data.features.length > 0 && (
+                <optgroup label="Published records">
+                  {pins.data.features.map((f) => (
+                    <option
+                      key={f.properties.id}
+                      value={`record:${f.properties.id}`}
+                    >
+                      Record: {f.properties.site_name}
+                      {f.properties.is_demo ? " (Demo data)" : ""}
+                    </option>
+                  ))}
+                </optgroup>
+              )}
+              {sites.data && (
+                <optgroup label="Candidate sites">
+                  {sites.data.features.map((f) => (
+                    <option
+                      key={f.properties.id}
+                      value={`site:${f.properties.id}`}
+                    >
+                      Site: {f.properties.name}
+                      {f.properties.is_demo ? " (Demo data)" : ""}
+                    </option>
+                  ))}
+                </optgroup>
+              )}
+            </select>
+          </div>
+
+          <div className="field">
+            <span className="field-label">Question</span>
+            <div className="ev-qcards" role="radiogroup" aria-label="Question">
+              {questions.map((q) => (
+                <label
+                  key={q}
+                  className={`ev-qcard${q === question ? " is-on" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name="question"
+                    value={q}
+                    checked={q === question}
+                    onChange={() => {
+                      setQuestion(q);
+                      setFinding(FINDINGS_BY_QUESTION[q]?.[0] ?? ""); // keep the finding inside the question's vocabulary
+                    }}
+                  />
+                  <QuestionIcon q={q} size={22} />
+                  <span>{QUESTION_LABELS[q]}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="field">
+            <span className="field-label">Finding</span>
+            <div className="ev-chips" role="radiogroup" aria-label="Finding">
+              {(FINDINGS_BY_QUESTION[question] ?? []).map((f) => (
+                <label
+                  key={f}
+                  className={`ev-chip${f === finding ? " is-on" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name="finding"
+                    value={f}
+                    checked={f === finding}
+                    onChange={() => setFinding(f)}
+                  />
+                  {f === finding && <Check {...ICON_PROPS} size={14} />}
+                  {findingLabel(f)}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="field ev-date">
+            <label htmlFor="observed_at">Observed on</label>
+            <input
+              id="observed_at"
+              type="date"
+              value={observedAt}
+              max={new Date().toISOString().slice(0, 10)}
+              onChange={(e) => setObservedAt(e.target.value)}
+            />
+          </div>
+
+          {isFunder && question === "work" && (
+            <div className="field">
+              <label htmlFor="reported">Reported area, hectares</label>
+              <input
+                id="reported"
+                type="number"
+                min="0"
+                step="0.1"
+                value={reportedHa}
+                onChange={(e) => setReportedHa(e.target.value)}
+              />
+              <span className="hint">
+                The area the project report says was worked.
+              </span>
+            </div>
           )}
+        </fieldset>
+
+        <fieldset className="mg-card form-section">
+          <legend className="card-head">
+            <span className="ev-step">2</span>
+            <span>Where, and what you can attach</span>
+          </legend>
+          {!isFunder && (
+            <div className="field">
+              <span className="field-label">
+                <MapPin {...ICON_PROPS} size={14} /> GPS point where observed
+              </span>
+              <div className="ev-gps">
+                <input
+                  aria-label="Longitude"
+                  placeholder="Longitude"
+                  value={lon}
+                  onChange={(e) => setLon(e.target.value)}
+                />
+                <input
+                  aria-label="Latitude"
+                  placeholder="Latitude"
+                  value={lat}
+                  onChange={(e) => setLat(e.target.value)}
+                />
+                <button
+                  className="mg-btn mg-btn--secondary"
+                  type="button"
+                  onClick={useSiteCentre}
+                >
+                  Use site centre
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="field">
+            <span className="field-label">
+              Mapped boundary (GeoJSON polygon, optional)
+            </span>
+            <div className="ev-drop-row">
+              <label
+                className={`ev-drop${boundary ? " is-set" : ""}`}
+                htmlFor="boundary"
+              >
+                <FileUp {...ICON_PROPS} size={22} />
+                <span>
+                  <strong>{boundaryName || "Choose a GeoJSON file"}</strong>
+                  <small>.geojson or .json · one polygon</small>
+                </span>
+                <input
+                  id="boundary"
+                  type="file"
+                  accept=".geojson,.json,application/geo+json,application/json"
+                  onChange={(e) => onBoundaryFile(e.target.files?.[0])}
+                />
+              </label>
+              {USE_MOCKS && (
+                <button
+                  className="mg-btn mg-btn--secondary"
+                  type="button"
+                  onClick={useDemoBoundary}
+                >
+                  Use demo boundary for site B
+                </button>
+              )}
+            </div>
+            <span className="hint">
+              The worked area is computed from this outline (EQ-010).
+            </span>
+          </div>
+
+          <div className="field">
+            <span className="field-label">Photo (optional)</span>
+            <label
+              className={`ev-drop${photo ? " is-set" : ""}`}
+              htmlFor="photo"
+            >
+              <ImagePlus {...ICON_PROPS} size={22} />
+              <span>
+                <strong>{photo ? photo.name : "Choose a photo"}</strong>
+                <small>JPEG or PNG · up to 10 MB</small>
+              </span>
+              <input
+                id="photo"
+                type="file"
+                accept="image/jpeg,image/png"
+                onChange={(e) => setPhoto(e.target.files?.[0] ?? null)}
+              />
+            </label>
+          </div>
+
+          <div className="field">
+            <label htmlFor="note">Note (optional)</label>
+            <textarea
+              id="note"
+              maxLength={2000}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+            />
+            <span className="hint">
+              Describe the site, not people. No names or contact details.
+            </span>
+          </div>
+        </fieldset>
+
+        <div className="row">
+          <button
+            className="mg-btn mg-btn--primary"
+            type="submit"
+            disabled={phase === "uploading"}
+          >
+            {phase === "uploading" ? "Saving…" : "Add evidence"}
+          </button>
         </div>
-        {boundaryName && <span className="hint">Boundary: {boundaryName}</span>}
-        <span className="hint">The worked area is computed from this outline (EQ-010).</span>
-      </div>
+      </form>
+      <EvidenceSummary
+        target={targetLabel}
+        question={QUESTION_LABELS[question]}
+        q={question}
+        finding={finding ? findingLabel(finding) : "—"}
+        observedAt={observedAt}
+        checks={[
+          { label: "Site or record", ok: !!target },
+          ...(isFunder ? [] : [{ label: "GPS point", ok: !!(lon && lat) }]),
+          ...(isFunder && question === "work"
+            ? [{ label: "Reported area", ok: Number(reportedHa) > 0 }]
+            : []),
+          { label: "Boundary (optional)", ok: !!boundary },
+          { label: "Photo (optional)", ok: !!photo },
+        ]}
+        demo={user.org.is_demo}
+      />
+    </div>
+  );
+}
 
-      <div className="field">
-        <label htmlFor="photo">Photo (JPEG or PNG, optional)</label>
-        <input id="photo" type="file" accept="image/jpeg,image/png" onChange={(e) => setPhoto(e.target.files?.[0] ?? null)} />
+/** Live preview of the entry that will be appended, with a readiness checklist. */
+function EvidenceSummary({
+  target,
+  question,
+  q,
+  finding,
+  observedAt,
+  checks,
+  demo,
+}: {
+  target?: string;
+  question: string;
+  q: EvidenceQuestion;
+  finding: string;
+  observedAt: string;
+  checks: { label: string; ok: boolean }[];
+  demo: boolean;
+}) {
+  return (
+    <aside className="mg-card ev-summary" aria-label="What will be published">
+      <span className="mg-eyebrow" style={{ margin: 0 }}>
+        What will be published
+      </span>
+      <div className="ev-summary-head">
+        <IconBadge tone="root">
+          <QuestionIcon q={q} size={20} />
+        </IconBadge>
+        <div>
+          <small>{question}</small>
+          <strong>{finding}</strong>
+        </div>
       </div>
-
-      <div className="field">
-        <label htmlFor="note">Note (optional)</label>
-        <textarea id="note" maxLength={2000} value={note} onChange={(e) => setNote(e.target.value)} />
-        <span className="hint">Describe the site, not people. No names or contact details.</span>
-      </div>
-
-      </fieldset>
-
-      <div className="row">
-        <button className="mg-btn mg-btn--primary" type="submit" disabled={phase === "uploading"}>
-          {phase === "uploading" ? "Saving…" : "Add evidence"}
-        </button>
-      </div>
-    </form>
+      <dl className="ev-summary-dl">
+        <dt>About</dt>
+        <dd>{target ?? "Not chosen yet"}</dd>
+        <dt>Observed</dt>
+        <dd className="mg-mono">{observedAt}</dd>
+      </dl>
+      <ul className="ev-checks">
+        {checks.map((c) => (
+          <li key={c.label} className={c.ok ? "is-ok" : undefined}>
+            <span className="ev-check-dot">
+              {c.ok && <Check {...ICON_PROPS} size={12} />}
+            </span>
+            {c.label}
+          </li>
+        ))}
+      </ul>
+      <p className="ev-lock">
+        <Lock {...ICON_PROPS} size={14} /> Append-only: once added, it cannot be
+        edited or removed.
+      </p>
+      <DemoLabel show={demo} />
+    </aside>
   );
 }
 
@@ -324,7 +584,10 @@ export default function NewEvidencePage() {
         <Plus {...ICON_PROPS} size={14} /> Add evidence
       </span>
       <h1>Add what you saw</h1>
-      <p className="lede">Evidence is appended to the public history. It is never edited or removed.</p>
+      <p className="lede">
+        Evidence is appended to the public history. It is never edited or
+        removed.
+      </p>
       <Suspense fallback={<Loading />}>
         <EvidenceForm />
       </Suspense>

@@ -56,13 +56,16 @@ export const ACTION_LABELS: Record<string, string> = {
   other: "Other",
 };
 
+/** Units spelled out for readers: "ha" → "hectares". */
+export const unitWord = (u: string) => (u === "ha" ? "hectares" : u);
+
 export function formatMeasure(m: Measure | null | undefined): string {
   if (!m) return "—";
   const v =
     typeof m.value === "number"
       ? m.value.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: Number.isInteger(m.value) ? 0 : 2 })
       : String(m.value);
-  return m.unit === "items" ? v : `${v} ${m.unit}`;
+  return m.unit === "items" ? v : `${v} ${unitWord(m.unit)}`;
 }
 
 export function formatDate(ts: string | null | undefined): string {

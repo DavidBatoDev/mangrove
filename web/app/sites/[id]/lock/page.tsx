@@ -71,8 +71,8 @@ export default function LockPage() {
       "known_unknowns",
     ];
     if (required.some((k) => !form[k].trim())) return "Fill in every field marked required.";
-    if (!(Number(form.planned_area_ha) > 0)) return "Planned area must be more than 0 ha.";
-    if (form.expected_vegetated_ha && !(Number(form.expected_vegetated_ha) > 0)) return "Expected vegetated area must be more than 0 ha.";
+    if (!(Number(form.planned_area_ha) > 0)) return "Planned area must be more than 0 hectares.";
+    if (form.expected_vegetated_ha && !(Number(form.expected_vegetated_ha) > 0)) return "Expected vegetated area must be more than 0 hectares.";
     if (form.outcome_check_after <= form.work_check_after) return "The outcome check date must come after the work check date.";
     return null;
   }
@@ -164,11 +164,11 @@ export default function LockPage() {
             </legend>
             <div className="field-row">
               <div className="field">
-                <label htmlFor="planned_area_ha">Planned area, ha (required)</label>
+                <label htmlFor="planned_area_ha">Planned area, hectares (required)</label>
                 <input id="planned_area_ha" type="number" min="0" step="0.1" value={form.planned_area_ha} onChange={set("planned_area_ha")} />
               </div>
               <div className="field">
-                <label htmlFor="expected_vegetated_ha">Expected vegetated, ha</label>
+                <label htmlFor="expected_vegetated_ha">Expected vegetated, hectares</label>
                 <input id="expected_vegetated_ha" type="number" min="0" step="0.1" value={form.expected_vegetated_ha} onChange={set("expected_vegetated_ha")} />
               </div>
             </div>
@@ -213,7 +213,7 @@ export default function LockPage() {
             <Lock {...ICON_PROPS} size={14} /> Promise · {s.name}
           </span>
           <p className="record-title record-title--sm">
-            {form.planned_area_ha} ha of <em>{actionLabel.toLowerCase()}</em>
+            {form.planned_area_ha} hectares of <em>{actionLabel.toLowerCase()}</em>
           </p>
           <div className="stats stats--3">
             <StatTile icon={<BrandIcon name="promise" />} label="Planned area" m={{ value: Number(form.planned_area_ha), unit: "ha", eq_id: null, confidence: "high" }} />

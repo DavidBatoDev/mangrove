@@ -4,7 +4,7 @@
 // the promise in one line, the two checks, key numbers and the latest evidence, with actions.
 // The header image is the same EOxCloudless 2016 imagery as the basemap (docs/prd.md §7), not a photo.
 
-import { ArrowLeft, CalendarClock, Crosshair, Link2, ScrollText } from "lucide-react";
+import { ArrowLeft, CalendarClock, Link2, ScrollText } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { DemoLabel, ErrorBox, RealCaseLabel, Loading, PinLabel, StatusBadge } from "@/components/ui";
@@ -74,12 +74,10 @@ export default function PlaceCard({
   recordId,
   lonLat,
   onBack,
-  onRecenter,
 }: {
   recordId: string;
   lonLat: [number, number];
   onBack: () => void;
-  onRecenter: () => void;
 }) {
   const r = useApi(() => api.getRecord(recordId), [recordId]);
   const [copied, setCopied] = useState(false);
@@ -151,12 +149,6 @@ export default function PlaceCard({
                     Site dossier
                   </Link>
                 )}
-                <button type="button" className="place-action" onClick={onRecenter}>
-                  <span>
-                    <Crosshair {...ICON_PROPS} size={20} />
-                  </span>
-                  Zoom to
-                </button>
                 <button type="button" className="place-action" onClick={copyLink}>
                   <span>
                     <Link2 {...ICON_PROPS} size={20} />

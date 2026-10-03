@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { CountryCard } from "@/components/GmwContext";
 import MapShell from "@/components/MapShell";
 import PlaceCard from "@/components/PlaceCard";
@@ -23,7 +23,6 @@ function PublicMap() {
   const router = useRouter();
   const pathname = usePathname();
   const selectedId = params.get("record");
-  const [recenter, setRecenter] = useState(0);
 
   const select = (id: string | null) => {
     const q = new URLSearchParams(params.toString());
@@ -46,8 +45,7 @@ function PublicMap() {
   const selected = pins.data?.features.find((f) => f.properties.id === selectedId) ?? null;
   const lonLat = selected ? (selected.geometry.coordinates as [number, number]) : null;
   // Zoom all the way in to the site (17 = closest zoom of the EOx imagery; Google goes further but 17 frames a site).
-  // A new object on each recenter request so the map flies again even to the same pin.
-  const focus = lonLat ? { center: lonLat, zoom: 17, key: `${selectedId}-${recenter}` } : null;
+  const focus = lonLat ? { center: lonLat, zoom: 17, key: selectedId ?? "" } : null;
 
   return (
     <MapShell
@@ -64,7 +62,6 @@ function PublicMap() {
           recordId={selected.properties.id}
           lonLat={lonLat}
           onBack={() => select(null)}
-          onRecenter={() => setRecenter((n) => n + 1)}
         />
       ) : (
         <>
