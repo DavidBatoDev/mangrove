@@ -1,6 +1,6 @@
 # Case study: Post-Yolanda Mangrove and Beach Forest Development Project (MBFDP)
 
-Compiled 4 October 2026. Every figure carries a source number in brackets; the list is at the end. Items I could not find are listed in section 11 and should not be filled in by guesswork.
+Compiled 4 October 2026. Every figure carries a source number in brackets; the list is at the end. Items I could not find are listed in section 11 and should not be filled in by guesswork. Errors found by a second research pass the same day are fixed in place and listed in section 13.
 
 ## 1. Summary
 
@@ -10,7 +10,7 @@ By its own output targets the program succeeded. By outcome it is contested:
 
 - Independent scientists found only 100–200 hectares in Leyte and Eastern Samar needed replanting, and warned before funds were released that mass planting was unnecessary and risky [7][11].
 - DENR's own research bureau later listed wrong species, unsuitable sites, barnacles, and wave washout among the program's problems [18].
-- The only program-wide survival figure is DENR's own (78.3%), taken within months of planting with no published method [18]. Later provincial reports range from 0% to 100% [23].
+- The only program-wide survival figure is DENR's own (78.3%), taken within months of planting with no published method [18]. Later provincial reports give 25% for Samar province (western Samar, not Eastern Samar) and 0–100% for Leyte [23].
 
 The core lesson for a funder-to-partner system: money and reporting followed planting activity, while need, site suitability, and survival were not what was verified.
 
@@ -36,14 +36,16 @@ MBFDP did not use commercial contractors. Work was delegated to barangay governm
 
 | Partner | Place | What is documented | Source |
 |---|---|---|---|
-| Barangay Local Government of Paraiso (Barangay 83) | Tacloban City | Led mangrove planting from 2014 with DENR support. About 15 workers were paid ₱8 per seedling potted and ₱7 per seedling outplanted. | [29] |
+| Barangay Local Government of Paraiso (Barangay 83) | Tacloban City | Led mangrove planting from 2014. DENR assisted a first planting in early 2014; Typhoons Ruby and Seniang killed those seedlings in December 2014. | [29][38] |
 | Paraiso Tacloban Fisherfolk, Mangrove Eco-Learning Park Service Cooperative | Tacloban City | Community organization that emerged from the Paraiso work and now manages the site | [29] |
-| OISCA-Japan | Tacloban City | Joined the next phase of the Paraiso planting | [29] |
+| OISCA-Japan | Tacloban City | Ran the next phase of the Paraiso planting. OISCA paid about 15 workers ₱8 per seedling potted and ₱7 per seedling outplanted; 10,000 seedlings on 5 hectares in 2016. | [29][38] |
+| Ministry of Foreign Affairs of Japan | Tacloban City | Funded the 2015–2018 Paraiso planting: about 30,000 seedlings on 4 hectares. Not MBFDP. | [37] |
+| Provincial Government of Leyte | Tacloban City | Implements the 70-hectare Cancabato Bay project with ₱28.8 million from the DENR Region 8 budget, with BFAR and the Environmental Management Bureau. The source does not call it MBFDP. | [21] |
 | Barangay governments in 36 barangays | Tacloban, Palo, Tanauan, Tolosa, Dulag (Leyte) | Tapped through cash-for-work for beach forest site preparation, planting, and maintenance | [15] |
-| Naungan-San Juan Mangrove Planters Association | Ormoc City | Named in Ormoc's mangrove report, which also records an MBFDP site of 105 hectares in 8 parcels. The report does not state that this association held the MBFDP work. | [20] |
+| Naungan-San Juan Mangrove Planters Association | Ormoc City | Ormoc's mangrove report lists an MBFDP project of 105 hectares in 8 parcels, 2015–2017, in this association's project history table [20]. It manages the afforested stand in Barangay Lao and the natural stand in Barangay San Juan, where a Mangrove Eco Park was established in 2023 [26]. The area is managed by a people's organization [41]. | [20][26][41] |
 | Unnamed "local community or people's organization members" | Eastern Samar | Responsible for planting and monitoring 2,553 hectares | [22] |
 
-Whether the 2014 Paraiso planting was paid from MBFDP money is not stated. The first MBFDP release came in February 2015 [3], and a separate ₱38 million Leyte Gulf rehabilitation fund existed in 2014 [9][16].
+The 2015–2018 Paraiso planting was funded by Japan's Ministry of Foreign Affairs [37], and the per-seedling pay was OISCA's [38], so Paraiso is not an MBFDP site. Whether DENR's early-2014 assisted planting there was paid from MBFDP money is not stated. The first MBFDP release came in February 2015 [3], and a separate ₱38 million Leyte Gulf rehabilitation fund existed in 2014 [9][16].
 
 ### Public side
 
@@ -52,7 +54,7 @@ Whether the 2014 Paraiso planting was paid from MBFDP money is not stated. The f
 | Dr. Jurgenne Primavera and a 17-person survey team (Zoological Society of London, Guiuan Development Foundation, Haribon, Conservation International, Tambuyog, UP Diliman, UP Tacloban, Ateneo, De La Salle, DENR Region 6) | Independent damage assessment and public objection | [11] |
 | More than 100 signatories of the Tacloban Declaration (local governments, state universities, NGOs, national agencies) | Formal recommendations to the national government | [13] |
 | Coastal residents and fishers | Hired labor, and the intended beneficiaries of coastal protection | [15][32] |
-| Journalists (Rappler, Inquirer, GMA, VERA Files, Mongabay) | Reported site failures and long-term outcomes | [16][29][31] |
+| Journalists (Rappler, Inquirer, GMA, VERA Files, Mongabay) | Reported site failures and long-term outcomes | [16][29][31][43] |
 | Commission on Audit | Audited the parent National Greening Program | [27] |
 
 ## 3. What each side wanted
@@ -68,7 +70,7 @@ Whether the 2014 Paraiso planting was paid from MBFDP money is not stated. The f
 
 No contract or agreement text is public, so partner goals come from reporting only:
 
-- Income after the disaster. Workers were paid through cash-for-work, and at one site by the seedling [15][29].
+- Income after the disaster. Workers were paid through cash-for-work [15]; at Paraiso, in a non-MBFDP project, OISCA paid by the seedling [38].
 - Protection of their own shoreline. Residents of Bungtod, Guiuan said they would plant regardless of pay [32].
 
 **Public and scientific goals**
@@ -83,9 +85,11 @@ No contract or agreement text is public, so partner goals come from reporting on
 - **Nationwide:** 43 provinces [1] across Regions 4B, 5, 6, 7, 8, 9, 10, 11, and 13 [3]. DENR's January 2016 breakdown also lists Calabarzon [1].
 - **Eastern Visayas:** 13,633 hectares [1].
 - **Leyte:** beach forest launch at Barangay 89 (Payapay), Tacloban, on 7 October 2014; 208 hectares targeted across 36 barangays in Tacloban, Palo, Tanauan, Tolosa, and Dulag by late 2014 [15]. The article's own municipal figures add up to 213. A later phase targeted 2,048 hectares province-wide, September 2017 to November 2018 [21].
-- **Tacloban, Cancabato Bay:** 70 hectares over 14 months with ₱28.8 million from DENR Region 8, the fisheries bureau, and the Environmental Management Bureau [21]. Barangay 83 (Paraiso) sits on this bay [31].
-- **Ormoc City:** 105 hectares in 8 parcels, 2015–2017 [20].
-- **Eastern Samar:** about 2,553 hectares, plus Dolores (214 ha) and Borongan (339 ha) [22].
+- **Tacloban, Cancabato Bay:** 70 hectares over 14 months, implemented by the provincial government with ₱28.8 million from the DENR Region 8 budget, with the fisheries bureau (BFAR) and the Environmental Management Bureau [21]. The source does not call it MBFDP, and no source states its outcome. Barangay 83 (Paraiso) sits on this bay [31]; there are reforested stands in Barangays Burayan and Paraiso [26].
+- **Tacloban, Paraiso:** about 30,000 seedlings on 4 hectares, 2015–2018, funded by Japan's Ministry of Foreign Affairs [37]. Not an MBFDP site.
+- **Ormoc City:** 105 hectares in 8 parcels, 2015–2017, in the Naungan-San Juan Mangrove Planters Association's history table [20]; afforested stand in Barangay Lao [26].
+- **Eastern Samar:** about 2,553 hectares, plus Dolores (214 ha) and Borongan (339 ha) [22]. In Guiuan, a 206-hectare plantation in Barangays Campoyong and Bungtod had not grown back six months after the typhoon [40].
+- **Samar province (western Samar):** 1,900 hectares of MBFDP across 13 municipalities; this is the province of the 25% survival figure [23], not Eastern Samar.
 - **Leyte Gulf:** a 2015 DENR Region 8 plan targeted 13,500 hectares, prioritizing Rhizophora, including Tacloban and Salcedo [26].
 
 ## 5. Contract and payment terms
@@ -96,7 +100,7 @@ What is documented:
 - Unit cost was ₱16,500 per hectare for up to three years [17].
 - Later budget releases required lists of planting sites and geo-tagged photos [2]. These prove planting, not survival.
 - As of September 2015, DENR was still reviewing what tenure rights beneficiaries would receive over planted areas [17].
-- At one site (Paraiso, Tacloban), pay was by the piece: ₱8 per seedling potted, ₱7 per seedling planted [29].
+- No MBFDP piece rate is published. The ₱8 per seedling potted and ₱7 per seedling planted at Paraiso, Tacloban, was paid by OISCA in a non-MBFDP project [38][29].
 - Under the parent program's published schedule, payment came in four tranches: 15% on mobilization, 50% after initial work, 25% after planting, and 10% once 85% survival was reached [28]. I could not confirm MBFDP followed this schedule.
 
 What is not documented: the MBFDP agreement template, daily wage rates, any survival condition on MBFDP payments, and any penalty or replanting clause.
@@ -112,11 +116,11 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 | Jan and Mar 2014 | Independent survey of 14 sites finds most stands recovering; total mortality at only three sites (Barangay Batang in Hernani, Maliwaliw Island in Guiuan, Barangay 83a in Tacloban), about 100–200 hectares | [11] |
 | 15 Mar 2014 | Eastern Visayas confirmed as a major recipient of the ₱1 billion fund; the plan targets 38.5 km of coast from Palo to San Juanico Bridge and nearby areas | [6] |
 | 4–10 Apr 2014 | Primavera calls the ₱1 billion "too much" and "risky"; proposes ₱100 million for assessment and ₱900 million for science-based management | [7][8] |
-| 20 Apr–3 May 2014 | ERDB counts 1,696 hectares damaged in Eastern Samar and disputes the scientists' figure | [10] |
+| 20 Apr–3 May 2014 | ERDB counts 1,696 hectares damaged in Eastern Samar and disputes the scientists' figure; the count includes the 206 ha Campoyong–Bungtod plantation in Guiuan, dead by May 2014 | [10][40] |
 | 13–14 May 2014 | Tacloban Declaration signed by more than 100 participants | [12][13] |
 | Jun 2014 | Recommendations sent to the President's office, DENR, the budget department, and others; no reply had been received at publication | [12] |
 | 2014 | ERDB sets up a 4-hectare seed production area in Eastern Samar, mostly Rhizophora | [22] |
-| 2014 | Paraiso planting begins; Typhoons Ruby and Seniang damage it the same year and the community replants | [29] |
+| Early 2014 | DENR assists a first Paraiso planting; Typhoons Ruby and Seniang kill the seedlings in December 2014 and the community replants | [29][38] |
 | 7 Oct 2014 | Beach forest planting launched in Tacloban, described as part of a 20,000-hectare, ₱1 billion Leyte Gulf project | [15] |
 
 ### Execution (2015 to 2018)
@@ -125,6 +129,8 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 |---|---|---|
 | 18 Dec (year given as 2015, probably 2014) | Executive Secretary approves the ₱1 billion | [3] |
 | 5 Feb 2015 | First ₱400 million released | [3] |
+| 2015–2018 | Paraiso: about 30,000 seedlings on 4 ha, funded by Japan's Ministry of Foreign Affairs (not MBFDP); OISCA's 2016 project planted 10,000 seedlings on 5 ha | [37][38] |
+| By mid-2015 | Within 18 months of the typhoon, severely, moderately and minimally damaged mangrove areas decreased by 90%, 81% and 57% | [39] |
 | 20 Mar 2015 | Budget department announces the release; target is 22,000 ha of mangrove and 5,400 ha of beach forest | [2] |
 | 2015 (date not shown on page) | Rappler reports bakhaw about to be planted on seagrass in Guiuan, a failed ₱500,000 planting in Hernani, and dead bakhaw in Tacloban | [16] |
 | Jul 2015 | Target is 41,694 ha; 33,006 ha validated; 2,399 ha planted | [17] |
@@ -133,20 +139,22 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 | Feb–May 2016 | DENR survival check: 78.3% mangrove, 76.3% beach forest | [18] |
 | 2016 | DENR Region 8 reports 13,590 ha of mangrove and beach forest "maintained and protected" | [19] |
 | 2015–2017 | Ormoc switches from Rhizophora to Avicennia and Sonneratia | [20] |
-| Sep 2017–Nov 2018 | Leyte phase (2,048 ha) and Cancabato Bay (70 ha) | [21] |
+| Sep 2017–Nov 2018 | Leyte phase (2,048 ha) and Cancabato Bay (70 ha, provincial government, ₱28.8 million from the DENR Region 8 budget) | [21] |
 
 ### Results and aftermath (2018 to 2026)
 
 | Date | Event | Source |
 |---|---|---|
-| 18–19 Apr 2018 | ERDB reports final figures and lists problems; a state university participant says "On the first year of the project, we got low survival" | [18] |
-| 2019 | Regional summit reports average survival of 52.63% across Central and Eastern Visayas rehabilitation projects: Samar 25%, Leyte 0–100%. It notes there is "no standard monitoring protocol" and the figures "need field validation." | [23] |
+| 18–19 Apr 2018 | ERDB reports final figures and lists problems. A "low survival" remark at the same conference is about BFAR's aquasilviculture programme (PNAP), not MBFDP. Another speaker reports "0% in Tacloban which was damaged by the typhoon" (city-level, programme unnamed) | [18][44] |
+| 2019 | Regional summit reports average survival of 52.63% across Central and Eastern Visayas rehabilitation projects: Samar province (western Samar, 1,900 ha MBFDP in 13 municipalities) 25%, Leyte 0–100%. It notes there is "no standard monitoring protocol" and the figures "need field validation." | [23] |
 | 2019 | Leyte's report: "Many failed due to improper implementation, but some succeeded." | [21] |
 | 2019 | Audit of the parent program finds fast-tracking "led to waste of resources" | [27] |
-| 2022 | In Sulangan, Guiuan, repeated plantings failed near shore; in Bungtod, 104.39 ha were recovering as of 2020 | [32] |
+| 2022 | In Sulangan, Guiuan, repeated plantings failed near shore; Bungtod's mangroves are "now recovering"; the Guiuan Marine Resource Protected Landscape and Seascape had 104.39 ha mapped as recovered with planted seedlings as of 2020 | [32] |
+| 2023 | Bungtod mangroves sampled (454 individuals); mangroves along Cancabato Bay show regeneration; a Paraiso resident says the planting was done "without a single cent of support from the government" | [40][42][43] |
 | 2023 | DENR criticized for repeating the same species errors in Bohol and Negros Occidental | [33] |
+| 2024 | Naungan, Ormoc: Avicennia marina dominant, followed by Sonneratia alba; managed by a people's organization | [41] |
 | 2024 | A regional review says most post-Yolanda projects were "deemed as inefficient and unsustainable" and some destroyed seagrass beds | [34] |
-| 2025 | A published study finds Paraiso's mangrove cover reached 3.6 ha by 2023, above the 1.9 ha before the typhoon | [31] |
+| 2025 | A published study finds no significant NDVI recovery at Paraiso at 16 months and 3.6 years, then 3.6 ha (40 pixels) by the 10th anniversary, above the 1.9 ha before the typhoon; the fringe grew 80% over pre-disaster levels | [31][37] |
 | Jan 2026 | A DENR undersecretary says the budget for mangrove establishment has been cut to zero | [35] |
 
 ## 7. Results
@@ -160,7 +168,8 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 **Outcomes**
 
 - Survival, DENR figure: 78.3% (mangrove) and 76.3% (beach forest), February–May 2016, method unpublished [18].
-- Survival, provincial reports in 2019: Samar 25%, Leyte 0–100%, unvalidated and not limited to MBFDP sites [23].
+- Survival, provincial reports in 2019: Samar province (western Samar, not Eastern Samar) 25%, Leyte 0–100%, unvalidated and not limited to MBFDP sites [23].
+- Natural recovery: within 18 months, severely, moderately and minimally damaged mangrove areas decreased by 90%, 81% and 57% [39].
 - No independent, multi-year, program-wide survival study exists in the sources.
 - Region 8 had 20,553 hectares of mangrove as of 2019 [24].
 
@@ -168,7 +177,7 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 
 ## 8. Failures and how they happened
 
-1. **Planting exceeded assessed need.** The independent survey found 100–200 ha needing replanting [11]; ERDB found 1,696 ha damaged in Eastern Samar [10]. Eastern Visayas received 13,633 ha [1]. Natural stands recovered within 18 months [25].
+1. **Planting exceeded assessed need.** The independent survey found 100–200 ha needing replanting [11]; ERDB found 1,696 ha damaged in Eastern Samar [10]. ERDB's count includes the 206 ha Campoyong–Bungtod plantation that had died by May 2014 [10][40]. Eastern Visayas received 13,633 ha [1]. Damaged areas shrank by 57–90% within 18 months [39], and natural stands were recovering "compared to the devastated plantation" [25].
 2. **Targets grew without a matching damage assessment.** 27,400 ha in March 2015 [2], 41,694 ha by September 2015 [17], 50,000 ha in the final report [18].
 3. **Speed.** 2,399 ha in July 2015 [17] to 50,417 ha in January 2016 [1].
 4. **Species chosen for convenience.** Rhizophora was favored for ease of transport and planting, yet showed high mortality and poor storm recovery [25]. The Eastern Samar seed area was mostly Rhizophora [22].
@@ -178,7 +187,7 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 8. **Reporting measured the wrong thing.** The program website showed seedlings and hectares, not survival [16]. Survival data that does exist has no standard protocol [23].
 9. **Expert warnings went unanswered.** Recommendations sent in June 2014 had no reply at publication, and the program went ahead as a planting program [12].
 10. **A risk created by cash-for-work.** Scientists warned that paid "cleaning" and replanting could lead people to clear recovering stands [7][12].
-11. **Storm damage to new plantings.** Paraiso was replanted after two typhoons in 2014 [29].
+11. **Storm damage to new plantings.** DENR's early-2014 planting at Paraiso was killed by Typhoons Ruby and Seniang in December 2014 [38].
 12. **No lasting maintenance funding.** By 2026 Paraiso depended on ageing volunteers [30], and national mangrove establishment funding was reported at zero [35].
 
 ## 9. Accountability gap
@@ -200,12 +209,12 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 - No public partner list, agreement text, or accounting of the remaining ₱600 million was found (see section 11).
 - The nationwide target rose from 27,400 to 41,694 to 50,000 hectares [2][17][18] with no published damage assessment to match. Independent scientists put the need in Leyte and Eastern Samar at 100–200 hectares [11].
 - Expert recommendations sent in June 2014 had received no reply at publication [12].
-- Pay rewarded volume: at Paraiso, ₱8 per seedling potted and ₱7 per seedling planted [29]. Scientists warned that paid clearing and replanting gave people a reason to remove recovering stands [7][12].
+- MBFDP's pay terms are not public. The one published piece rate in the area is OISCA's at Paraiso (₱8 per seedling potted, ₱7 per seedling planted), a non-MBFDP project [38]. Scientists warned that paid clearing and replanting gave people a reason to remove recovering stands [7][12].
 
 **3. Unmaintained**
 
 - The unit cost covered up to three years [17]. No lasting maintenance funding was found.
-- Paraiso, the clearest success, now depends on an ageing volunteer base [30].
+- Paraiso, the clearest success in the area (funded by Japan, not MBFDP [37]), now depends on an ageing volunteer base [30].
 - In January 2026 the national budget for mangrove establishment was reported at zero [35].
 
 **Wider context (not specific to this program)**
@@ -216,15 +225,15 @@ What is not documented: the MBFDP agreement template, daily wage rates, any surv
 **Do not claim**
 
 - "Corruption happened" or "funds were stolen." Nothing in the record shows it.
-- "Nothing survived." Survival is unverified, not zero, and Paraiso's mangrove cover now exceeds pre-typhoon levels [31].
+- "Nothing survived." Survival is unverified, not zero, and Paraiso's mangrove cover (a non-MBFDP site) now exceeds pre-typhoon levels [31][37].
 
 **Suggested pitch line.** "Systems like this make corruption undetectable. Our app closes that gap."
 
 ## 10. What worked
 
-- **Paraiso, Tacloban:** about 30,000 seedlings on roughly 4 hectares between 2015 and 2018, with residents, NGOs, and Philippine and Japanese government support. Cover now exceeds pre-typhoon levels [31].
-- **Ormoc:** switched species to match the site [20].
-- **Bungtod, Guiuan:** resident-led planting, 104.39 ha recovering by 2020 [32].
+- **Paraiso, Tacloban (not MBFDP):** about 30,000 seedlings on 4 hectares between 2015 and 2018, funded by Japan's Ministry of Foreign Affairs [37]. The fringe grew 80% over pre-disaster levels [37]; cover now exceeds pre-typhoon levels [31].
+- **Ormoc:** switched species to match the site [20]; at Naungan, Avicennia marina and Sonneratia alba now dominate under a people's organization [41].
+- **Bungtod, Guiuan:** resident-led planting; mangroves "now recovering" [32]. The 104.39 ha figure is the whole protected area's recovered area with planted seedlings as of 2020, not Bungtod's [32].
 - My reading of the common factor: a local group that stayed and kept replanting and guarding the site after the paid work ended.
 
 ## 11. Not found
@@ -237,7 +246,8 @@ Do not encode these as facts:
 - An independent program-wide survival rate
 - How the remaining ₱600 million was released and spent
 - Per-site survival for Eastern Visayas MBFDP plots
-- Whether the Hernani and Paraiso 2014 plantings were MBFDP-funded
+- Whether the Hernani and Paraiso 2014 plantings were MBFDP-funded (Paraiso's 2015–2018 planting was not [37])
+- The outcome of the 70-hectare Cancabato Bay project
 
 Where to get them: a freedom-of-information request to DENR Region 8 and ERDB for the MBFDP terminal report and partner list, and Commission on Audit annual reports for DENR Region 8, 2015–2018.
 
@@ -246,7 +256,7 @@ Where to get them: a freedom-of-information request to DENR Region 8 and ERDB fo
 ```python
 # FUNDER-SIDE CHECKS
 
-# 1. Need check [11][25]
+# 1. Need check [11][39]
 if site.natural_regeneration_present or months_since_storm < 18:
     hold_planting(reason="Natural stands can recover within 18 months. Protect first.")
 
@@ -262,7 +272,7 @@ if project.target_revised and not project.new_assessment_attached:
 if contract.share_paid_before_survival_check > MAX_UPFRONT_SHARE:   # team's design choice
     flag(reason="Most payment is released before survival is verified.")
 
-# 5. Piece-rate pay [29]
+# 5. Piece-rate pay [38] (a non-MBFDP project; MBFDP terms are not public)
 if contract.pay_basis == "PER_SEEDLING":
     flag(reason="Pay per seedling rewards volume, not survival.")
 
@@ -292,6 +302,24 @@ if project.open_expert_objections and not project.funder_response:
 ```
 
 `MAX_UPFRONT_SHARE` and `MIN_YEARS` are values for the team to set. The parent program paid 90% before any survival check, and this case had no lasting maintenance funding; neither gives an exact threshold.
+
+## 13. Corrections (2026-10-04)
+
+A second research pass fetched the sources and quoted them verbatim. These were wrong in the first version and are fixed above (ADR-059):
+
+| # | Was | Now | Source |
+|---|---|---|---|
+| a | Natural stands recovered within 18 months [25] | The 18-month figure (damaged areas down 90%, 81%, 57%) is Long et al.; Primavera et al. say natural mangroves were recovering "compared to the devastated plantation" | [39][25] |
+| b | 25% survival read as Eastern Samar | 25% is Samar province (western Samar, 1,900 ha MBFDP across 13 municipalities), not Eastern Samar (§1, §6, §7) | [23] |
+| c | DENR/barangay paid ₱8/₱7 per seedling at Paraiso | OISCA paid it. DENR's early-2014 assisted planting was killed in December 2014 | [38][29] |
+| d | Paraiso treated as an MBFDP site | The 2015–2018 planting was funded by Japan's Ministry of Foreign Affairs; Paraiso is not an MBFDP site | [37] |
+| e | 104.39 ha recovering in Bungtod | 104.39 ha is the Guiuan Marine Resource Protected Landscape and Seascape's mapped recovered area with planted seedlings as of 2020; Bungtod is "now recovering" | [32] |
+| f | ERDB's 1,696 ha read as damaged natural stands | It includes the 206 ha Campoyong–Bungtod plantation, dead by May 2014 | [10][40] |
+| g | NATMANCON-3 "low survival" quote read as MBFDP | It was about BFAR's aquasilviculture programme (PNAP) | [18] |
+| h | Cancabato 70 ha funded by DENR Region 8, BFAR and EMB | Implemented by the provincial government with ₱28.8 million from the DENR Region 8 budget (with BFAR and EMB); the source does not call it MBFDP | [21] |
+| i | ₱1 billion approval "Dec. 18, 2015" | Printed after the February 2015 release; likely a typo for 2014 (already noted in §6) | [3] |
+
+Still not found: how the remaining ₱600 million was released and spent, and any audit finding specific to MBFDP.
 
 ## Sources
 
@@ -331,3 +359,11 @@ if project.open_expert_objections and not project.funder_response:
 34. ICSC, "A Case for Mangrove Conservation and Protection in Eastern Visayas," 28 Feb 2024. https://icsc.ngo/a-case-for-mangrove-conservation-and-protection-in-eastern-visayas/
 35. Inquirer Business, "Mangroves matter," 2026. https://business.inquirer.net/569194/mangroves-matter
 36. Inquirer, "COA questions DENR over P2.4-B unliquidated funds," 11 Aug 2018. https://newsinfo.inquirer.net/1019936/coa-questions-denr-over-p2-4-b-unliquidated-funds
+37. Takagi, Journal of Environmental Management 395:127840, 2025 (open access). Paraiso study behind [31]. https://doi.org/10.1016/j.jenvman.2025.127840
+38. UP Open University special problem on Paraiso and Naungan community mangrove work, Zenodo, 2022. https://doi.org/10.5281/zenodo.6975985
+39. Long et al., Marine Pollution Bulletin 109(2):734–43, 2016. https://doi.org/10.1016/j.marpolbul.2016.06.080
+40. Bobon-Carnice et al., Academia Journal of Biology 45(3):69–80, 2023. https://doi.org/10.15625/2615-9023/18041
+41. Pasa et al., Biodiversitas 25(5), 2024. https://doi.org/10.13057/biodiv/d250527 (https://smujo.id/biodiv/article/view/17583)
+42. Matillano et al., BIODIVERS 2(2), 2023. https://doi.org/10.56060/bdv.2023.2.2.2099
+43. Mongabay, "Causeway threatens mangroves that Philippine fishers planted as typhoon shield," 21 Dec 2023. https://news.mongabay.com/2023/12/causeway-threatens-mangroves-that-philippine-fishers-planted-as-typhoon-shield/
+44. Proceedings of the 3rd National Mangrove Conference, p. 40 (same document as [18]). https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf

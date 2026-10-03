@@ -2,6 +2,7 @@
 
 Seed it first:  py -3.12 db/apply.py --target test --reset
 then ingest GMW: data/ingest/.venv/Scripts/python data/ingest/gmw_ingest.py --target test --sites-only --stack-dir <dir>
+then Sentinel-2: data/ingest/.venv/Scripts/python data/ingest/s2_ingest.py --target test
 """
 
 from __future__ import annotations

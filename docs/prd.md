@@ -65,6 +65,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 | F-012 | Record integrity check | Should | "Can't be edited" must be checkable | |
 | F-013 | In-app plain-language evidence summary | Could | Dense dossiers | BR-003; LLM provider TBD |
 | F-014 | Upload a new candidate polygon | Could | Limited to pre-loaded sites | Waits on the core loop |
+| F-026 | In-app assistant: ask AIDE-M questions in a side panel, answered from the MCP tools | Should | Answers only inside Amazon Quick | BR-003 (ADR-062) |
 | F-025 | Mangrove context (GMW): inside and nearby extent 1985–2025, Philippines extent map layer, national card | Should | No sense of the trend around a site | BR-001, BR-003 (ADR-045) |
 | F-015 | Success score / probability | Won't | — | Reason: fake precision [ADR-023, ADR-028]. Reconsider if: a validated outcome model exists. |
 | F-016 | AlphaEarth embeddings | Won't | — | Reason: not interpretable; costs time. Reconsider if: core loop done early. |
@@ -202,6 +203,14 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 > As a **Funder**, I want a short plain-language summary of a dossier so that I can brief my leadership.
 
 - Given a site dossier, when I request a summary, then it is generated only from the dossier's items and statuses, is labelled as AI-generated, and states no status or number that the dossier does not contain (BR-003).
+
+**US-018 — Ask the app why two sites differ** *(F-026)* — Priority: Should
+> As a **Funder** or **Public reader**, I want to ask a question in the app and get an answer built from AIDE-M's
+> own data so that I do not have to read every dossier to understand a difference.
+
+- Given any page, when I click "Ask AIDE-M" in the app bar, then a right side panel opens with suggested questions, and Escape or the close button closes it.
+- Given the panel, when I ask why two named sites differ, then the answer names the tools it used, quotes each number with its `eq_id` and confidence exactly as the tools returned it, says "Demo data" for demo items, and is labelled AI-generated.
+- Given I ask it to change data, when the agent runs, then it has no tool that writes and says so.
 
 **US-017 — See the mangrove trend around a site** *(F-025)* — Priority: Should
 > As a **Funder**, I want to see how much mangrove Global Mangrove Watch records inside and near a site each year

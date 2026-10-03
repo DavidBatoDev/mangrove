@@ -54,6 +54,11 @@ export interface Evidence {
   limitation: string | null;
   provenance_url: string | null;
   asset_url: string | null;
+  // The Sentinel-2 2016–2017 picture beside the current one (API-005); only on items that have one.
+  asset_then_url?: string | null;
+  asset_then_observed?: string | null;
+  // Published photos linked (not rehosted) from a public report, with credit (ADR-059).
+  photos?: { url: string; credit: string; caption: string }[];
   submitted_by_org: { name: string; is_demo: boolean } | null;
   is_demo: boolean;
   content_hash: string;
@@ -228,6 +233,48 @@ export interface CountryContext {
   name: string;
   source: GmwSource;
   years: { year: number; extent: RangeMeasure; gain: Measure | null; loss: Measure | null; net: Measure | null }[];
+}
+
+// --- Public funding program (API-026, EQ-017, DS-009) ---
+
+/** Where a quoted figure came from: a numbered source in docs/case-study-yolanda.md. */
+export interface ProgramSource {
+  publisher: string;
+  title: string;
+  date: string | null;
+  url: string;
+  case_study_ref: string;
+}
+
+/** A figure quoted as published (EQ-017, low confidence), with the exact sentence it came from. */
+export interface QuotedFigure extends Measure {
+  id: string;
+  label: string;
+  /** Upper end when the source gives a range ("100–200 hectares"). */
+  upper?: number;
+  as_of: string | null;
+  quote: string;
+  source: ProgramSource;
+  limitation?: string;
+  see_also?: { as_of: string | null; quote: string; source: ProgramSource }[];
+}
+
+/** API-026: a public funding program, its figures quoted from the case study. */
+export interface ProgramContext {
+  program_id: string;
+  name: string;
+  short_name: string;
+  funder: string;
+  is_demo: boolean;
+  compiled: string;
+  case_study: string;
+  record_ids: string[];
+  facts: QuotedFigure[];
+  target_history: QuotedFigure[];
+  framing: { line: string; quote: string; case_study_ref: string; proof: { as_of: string | null; quote: string; source: ProgramSource }[] };
+  not_found: string[];
+  not_found_ref: string;
+  limitation: string;
 }
 
 /** API-023: GMW extent polygons for the Manila Bay demo area, one year. */

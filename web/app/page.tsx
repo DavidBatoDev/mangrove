@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { CountryCard } from "@/components/GmwContext";
 import MapShell from "@/components/MapShell";
 import PlaceCard from "@/components/PlaceCard";
+import { ProgramCallout } from "@/components/ProgramCard";
 import { DemoLabel, Empty, ErrorBox, Loading, PinLabel } from "@/components/ui";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
@@ -19,6 +20,8 @@ function PublicMap() {
   const pins = useApi(() => api.listRecords(), []);
   // National context (API-022) for the no-pin panel: Philippine extent and yearly gain/loss from GMW.
   const country = useApi(() => api.countryContext("PHL"), []);
+  // The real case being demoed (API-026): the ₱1 billion Post-Yolanda program and its four records.
+  const program = useApi(() => api.programContext("mbfdp"), []);
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -70,6 +73,8 @@ function PublicMap() {
           <h1>Mangrove funding promises</h1>
           <p className="lede">Each pin is a promise made public before the money moved. Pick one to see whether the evidence agrees.</p>
 
+          {program.data && <ProgramCallout p={program.data} pins={pins.data} />}
+
           <h2 className="panel-label">Published records</h2>
           {pins.loading && <Loading what="Loading records" />}
           <ErrorBox error={pins.error} onRetry={pins.reload} />
@@ -83,7 +88,7 @@ function PublicMap() {
                     <span>
                       <strong className="record-item-name">{f.properties.site_name}</strong>
                       <span className="meta">
-                        {f.properties.funder} · published {formatDate(f.properties.published_at)}
+                        {f.properties.funder} · {f.properties.is_demo ? "published" : "reconstructed"} {formatDate(f.properties.published_at)}
                       </span>
                       <span className="row" style={{ gap: "var(--mg-space-2)", marginTop: "var(--mg-space-1)" }}>
                         <PinLabel state={f.properties.pin_state} />

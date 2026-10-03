@@ -7,11 +7,12 @@
 import { ArrowLeft, CalendarClock, Link2, ScrollText } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { SiteNowPictures } from "@/components/SatellitePictures";
 import { DemoLabel, ErrorBox, RealCaseLabel, Loading, PinLabel, StatusBadge } from "@/components/ui";
 import { BrandIcon, ICON_PROPS, QuestionIcon, SourceIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
-import { ACTION_LABELS, findingLabel, formatDate, formatMeasure } from "@/lib/format";
+import { ACTION_LABELS, findingLabel, formatDate, formatMeasure, snapshotSite } from "@/lib/format";
 import type { Measure, PinState } from "@/lib/types";
 import Site3DView, { toneFromPin } from "@/components/Site3DView";
 
@@ -99,7 +100,7 @@ export default function PlaceCard({
           <ArrowLeft {...ICON_PROPS} size={20} />
         </button>
         {r.data ? (
-          <PlaceHero3D siteId={(r.data.record.snapshot as { site_id?: string }).site_id} pin={r.data.pin_state} lonLat={lonLat} />
+          <PlaceHero3D siteId={snapshotSite(r.data.record).id} pin={r.data.pin_state} lonLat={lonLat} />
         ) : (
           <SiteImagery lon={lonLat[0]} lat={lonLat[1]} />
         )}
@@ -110,7 +111,8 @@ export default function PlaceCard({
       {r.data &&
         (() => {
           const { record, checks, site_answers, timeline, pin_state } = r.data;
-          const snap = record.snapshot as { site_id?: string; site_name?: string };
+          const lockedSite = snapshotSite(record);
+          const snap = { site_id: lockedSite.id, site_name: lockedSite.name };
           const work = checks.find((c) => c.check === "work");
           const outcome = checks.find((c) => c.check === "outcome");
           const sources: Measure = {
@@ -214,6 +216,12 @@ export default function PlaceCard({
                   ))}
                 </ul>
               </section>
+
+              {snap.site_id && (
+                <section className="place-section">
+                  <SiteNowPictures siteId={snap.site_id} siteName={snap.site_name} />
+                </section>
+              )}
 
               <section className="place-section">
                 <span className="mg-eyebrow">Latest evidence</span>

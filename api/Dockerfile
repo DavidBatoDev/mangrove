@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app ./app
 COPY engine ./engine
 COPY ledger ./ledger
+COPY adapters ./adapters
 
 RUN useradd --system --no-create-home api
 USER api

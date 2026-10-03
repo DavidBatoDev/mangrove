@@ -1,5 +1,5 @@
 """Integration cases on the P0 read path (docs/tests.md §6): TC-001, TC-002 shape, TC-007, TC-008, TC-010 shape,
-TC-029, TC-030."""
+TC-029, TC-030, TC-031, TC-032."""
 
 from __future__ import annotations
 
@@ -30,15 +30,19 @@ def test_dossier_provenance(client):
     body = client.get(f"/api/v1/sites/{SITE['E']}").json()
     assert body["site"]["is_demo"] is True
     # History comes from the real GMW ingest (ADR-045): no mangrove inside E since 1985.
-    assert [a["status"] for a in body["answers"]] == ["supported", "missing", "conflicting"]
+    assert [a["status"] for a in body["answers"]] == ["supported", "supported", "conflicting"]
     assert body["answers"][0]["finding"] == "no_mangrove_recorded"
-    assert sorted(e["source_type"] for e in body["evidence"]) == ["field", "gmw", "proposal"]
+    # "What's there now?" from the real Sentinel-2 ingest (data/ingest/s2_ingest.py): open water in the ponds.
+    assert body["answers"][1]["finding"] == "mostly_water"
+    assert {e["source_type"] for e in body["evidence"]} == {"field", "gmw", "proposal", "sentinel2"}  # set: the test branch is shared
     for e in body["evidence"]:
+        if e["source_type"] == "sentinel2" and not e["asset_url"]:
+            continue  # not written by s2_ingest.py: another session's rows on the shared test branch
         for key in ("source_name", "observed_from", "retrieved_at", "method", "limitation", "content_hash"):
             assert e[key]
         assert len(e["content_hash"]) == 64
-        # Demo ground items are labelled demo; the GMW item is real data (BR-006).
-        assert e["is_demo"] is (e["source_type"] != "gmw")
+        # Demo ground items are labelled demo; the GMW and Sentinel-2 items are real data (BR-006).
+        assert e["is_demo"] is (e["source_type"] not in ("gmw", "sentinel2"))
         assert "raw" not in e and "submitted_by_user_id" not in e  # internal fields stay internal
 
 
@@ -204,7 +208,7 @@ def test_real_records_read_as_the_sources_say(client):
         "/api/v1/sites", params={"region": "Eastern Visayas"}).json()["features"]} == set(REAL_SITE.values())
 
     pins = {f["properties"]["id"]: f["properties"] for f in client.get("/api/v1/records").json()["features"]}
-    expected = {"F1": "on_track", "F2": "awaiting", "F3": "awaiting", "F4": "conflict"}
+    expected = {"F1": "on_track", "F2": "awaiting", "F3": "on_track", "F4": "on_track"}
     for key, state in expected.items():
         assert pins[REAL_RECORD[key]]["pin_state"] == state, key
         assert pins[REAL_RECORD[key]]["is_demo"] is False
@@ -214,7 +218,8 @@ def test_real_records_read_as_the_sources_say(client):
         assert rec["record"]["is_demo"] is False and not rec["record"]["funder"]["is_demo"]
         assert "Reconstructed on 2026-10-04" in rec["record"]["known_unknowns"]
         assert rec["record"]["expected_vegetated_ha"] is None
-        assert rec["site_answers"][1]["status"] == "missing"  # no Sentinel-2 adapter yet: honest gap
+        # "What's there now?" comes from one real Sentinel-2 item per site (data/ingest/s2_ingest.py, TC-032).
+        assert rec["site_answers"][1]["status"] == "supported" and rec["site_answers"][1]["finding"]
         assert rec["disclaimer"].startswith("This record is not a certification")
         assert any(e["question"] == "history" for e in rec["record"]["snapshot"]["evidence"])  # GMW baseline locked in
         for entry in rec["timeline"]:
@@ -225,7 +230,73 @@ def test_real_records_read_as_the_sources_say(client):
         assert client.get(f"/api/v1/records/{rid}/verify").json()["intact"] is True
 
     f4 = client.get(f"/api/v1/records/{REAL_RECORD['F4']}").json()
-    assert f4["site_answers"][2]["status"] == "conflicting"  # ERDB damage count vs natural recovery
+    assert (f4["site_answers"][2]["status"], f4["site_answers"][2]["finding"]) == ("supported", "open_for_restoration")
+    assert f4["checks"][1]["status"] == "supported" and f4["checks"][1]["source_count"]["value"] == 3
+    f1 = client.get(f"/api/v1/records/{REAL_RECORD['F1']}").json()
+    assert f1["record"]["funder"]["name"] == "Ministry of Foreign Affairs of Japan"  # not MBFDP (ADR-059)
+    photos = [p for t in f1["timeline"] for p in t["evidence"].get("photos", [])]
+    assert photos and all(p["url"].startswith("https://") and p["credit"] for p in photos)
     f2 = client.get(f"/api/v1/records/{REAL_RECORD['F2']}").json()
-    assert f2["checks"][1]["status"] == "missing"  # only province-wide items, recorded as not usable
+    assert f2["checks"][1]["status"] == "missing"  # no source states the 70 ha outcome; the rest is not usable
     assert f2["checks"][0]["reported_area"]["value"] == 70.0
+
+
+# --- TC-031 (API-026) --------------------------------------------------------------------------------
+
+def test_program_context_quotes_the_case_study(client):
+    """TC-031: the Post-Yolanda program card: every figure EQ-017 · low, sourced, quoted verbatim from the case study."""
+    from pathlib import Path
+
+    case_study = (Path(__file__).resolve().parents[2] / "docs" / "case-study-yolanda.md").read_text(encoding="utf-8")
+    p = client.get("/api/v1/context/programs/mbfdp")
+    assert p.status_code == 200
+    body = p.json()
+    assert body["funder"] == "Department of Environment and Natural Resources (DENR)" and body["is_demo"] is False
+    assert body["record_ids"] == [REAL_RECORD["F3"], REAL_RECORD["F4"]]  # the MBFDP records (ADR-059)
+    figures = body["facts"] + body["target_history"]
+    by_id = {f["id"]: f for f in figures}
+    assert by_id["allocation"]["value"] == 1_000_000_000 and by_id["allocation"]["unit"] == "PHP"
+    assert by_id["first_release"]["value"] == 400_000_000 and by_id["first_release"]["as_of"] == "2015-02-05"
+    assert by_id["planted"]["value"] == 50417 and by_id["eastern_visayas"]["value"] == 13633
+    assert by_id["survival_denr"]["value"] == 78.3 and by_id["unit_cost"]["value"] == 16500
+    assert (by_id["need_independent"]["value"], by_id["need_independent"]["upper"]) == (100, 200)
+    assert [t["value"] for t in body["target_history"]] == [27400, 41694, 50000]
+    for f in figures:
+        assert f["eq_id"] == "EQ-017" and f["confidence"] == "low", f["id"]
+        assert f["quote"] in case_study, f["id"]
+        assert f["source"]["url"].startswith("https://") and f["source"]["case_study_ref"], f["id"]
+    assert all(item in case_study for item in body["not_found"])
+    assert "How the remaining ₱600 million was released and spent" in body["not_found"]
+    assert body["framing"]["quote"] in case_study
+    assert "corruption" not in p.text.lower()
+    assert client.get("/api/v1/context/programs/nope").status_code == 404
+    assert client.get("/api/v1/context/programs/..%2Fgmw_country_PHL").status_code == 404
+
+
+# --- TC-032 (API-014, Sentinel-2 pictures) -----------------------------------------------------------
+
+def test_evidence_assets_serve_the_sentinel2_pictures(client):
+    """TC-032: every current Sentinel-2 item's picture (and its "then" picture) is served by its own SHA-256."""
+    import hashlib
+
+    seen = 0
+    for sid in [*SITE.values(), *REAL_SITE.values()]:
+        for e in client.get(f"/api/v1/sites/{sid}").json()["evidence"]:
+            # Only rows s2_ingest.py wrote (it always attaches a picture); the test branch is shared.
+            if e["source_type"] != "sentinel2" or not e["asset_url"]:
+                continue
+            assert e["question"] == "current" and e["is_demo"] is False
+            assert e["provenance_url"].startswith("https://earth-search.aws.element84.com/v1/collections/")
+            assert "Contains modified Copernicus Sentinel data" in e["limitation"]
+            assert all(m["confidence"] == "low" and m["eq_id"] in ("EQ-005", "EQ-006", "EQ-007") for m in e["metrics"])
+            for url in filter(None, (e["asset_url"], e.get("asset_then_url"))):
+                r = client.get(url)
+                assert r.status_code == 200 and r.headers["content-type"] == "image/png"
+                assert "immutable" in r.headers["cache-control"]
+                assert hashlib.sha256(r.content).hexdigest() == url.rsplit("/", 1)[1]
+                seen += 1
+    assert seen > 0
+    for bad in ("0" * 64, "not-a-hash", "A" * 64):
+        r = client.get(f"/api/v1/assets/{bad}")
+        assert r.status_code == 404 and r.json()["error"]["code"] == "NOT_FOUND"
+    assert client.get("/api/v1/assets/..%2F..%2Fmain.py").status_code == 404  # never reaches the route

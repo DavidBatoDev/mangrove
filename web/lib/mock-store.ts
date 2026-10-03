@@ -39,11 +39,12 @@ import type {
   CountryContext,
   GmwExtentLayer,
   GmwTimeline,
+  ProgramContext,
 } from "@/lib/types";
 
 const DISCLAIMER = "This record is not a certification of restoration success or approval of funding.";
 const AREA_TOLERANCE = 0.2; // docs/methods.md §3.1, EQ-009
-const STORE_KEY = "mangrove-mock-v3"; // bumped when the seeded fixtures change
+const STORE_KEY = "mangrove-mock-v4"; // bumped when the seeded fixtures change
 
 const PREVIEW = uiPreview as unknown as { dossiers: Dossier[]; records: RecordDetail[]; pins: PinsFC["features"] };
 const DOSSIERS: Dossier[] = [...([siteA, siteB, siteC, siteD, siteE, siteF1, siteF2, siteF3, siteF4] as unknown as Dossier[]), ...PREVIEW.dossiers];
@@ -419,6 +420,12 @@ export async function gmwTimeline(siteId: string): Promise<GmwTimeline> {
 export async function countryContext(iso3: string): Promise<CountryContext> {
   if (iso3.toUpperCase() !== "PHL") throw new ApiError(404, "NOT_FOUND", "No statistics for that country");
   return (await import("@/mocks/api-022-country-phl.json")).default as unknown as CountryContext;
+}
+
+// API-026: a copy of api/app/context_data/program_mbfdp.json.
+export async function programContext(programId: string): Promise<ProgramContext> {
+  if (programId.toLowerCase() !== "mbfdp") throw new ApiError(404, "NOT_FOUND", "No program with that id");
+  return (await import("@/mocks/api-026-program-mbfdp.json")).default as unknown as ProgramContext;
 }
 
 export async function gmwExtent(year?: number): Promise<GmwExtentLayer> {

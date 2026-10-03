@@ -71,7 +71,9 @@ export function formatMeasure(m: Measure | null | undefined): string {
 export function formatDate(ts: string | null | undefined): string {
   if (!ts) return "—";
   const d = new Date(ts.length === 10 ? `${ts}T00:00:00Z` : ts);
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  // Philippine time (UTC+8): a record published late in the UTC day carries the local date it was made.
+  // Date-only values parse as UTC midnight, so they keep their calendar day.
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Manila" });
 }
 
 export const shortHash = (h: string) => `${h.slice(0, 12)}…${h.slice(-6)}`;
@@ -90,3 +92,10 @@ export const EQ_LABELS: Record<string, string> = {
   "EQ-013": "Sources",
   "EQ-017": "Quoted from a public report",
 };
+
+/** The record's site as locked in its snapshot. The API stores `snapshot.site` (data-model.md); older mock
+ * fixtures used flat `site_id` / `site_name`. Falls back to the record's own site_id. */
+export function snapshotSite(record: { site_id?: string; snapshot: Record<string, unknown> }): { id?: string; name?: string } {
+  const snap = record.snapshot as { site?: { id?: string; name?: string }; site_id?: string; site_name?: string };
+  return { id: snap.site?.id ?? snap.site_id ?? record.site_id, name: snap.site?.name ?? snap.site_name };
+}

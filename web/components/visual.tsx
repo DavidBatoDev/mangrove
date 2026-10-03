@@ -132,7 +132,11 @@ export function CheckTimeline({
       </div>
       <div className="ctl-labels">
         {points.map((p) => (
-          <span key={p.key} style={{ left: `${p.at}%` }} className={`ctl-label ctl-label--${p.key}`}>
+          <span
+            key={p.key}
+            style={{ left: `${p.at}%` }}
+            className={`ctl-label ctl-label--${p.key} ctl-label--${p.at <= 0 ? "start" : p.at >= 100 ? "end" : "mid"}`}
+          >
             <strong>{p.label}</strong>
             <span className="mg-mono">{formatDate(p.date)}</span>
           </span>

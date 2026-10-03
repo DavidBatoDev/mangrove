@@ -9,6 +9,8 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import AnswerBlock from "@/components/AnswerBlock";
 import EvidenceCard from "@/components/EvidenceCard";
+import ProgramCard from "@/components/ProgramCard";
+import { SiteNowPictures } from "@/components/SatellitePictures";
 import SiteHero3D from "@/components/SiteHero3D";
 import { toneFromPin } from "@/components/Site3DView";
 import { useSession } from "@/components/session";
@@ -17,7 +19,7 @@ import { AreaBar, BrandIcon, CheckTimeline, EmptyArt, ICON_PROPS, IconBadge, Que
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
 import type { ApiError } from "@/lib/api-error";
-import { ACTION_LABELS, findingLabel, formatDate, formatMeasure, shortHash } from "@/lib/format";
+import { ACTION_LABELS, findingLabel, formatDate, formatMeasure, shortHash, snapshotSite } from "@/lib/format";
 import type { Check, Evidence, Measure, VerifyResponse } from "@/lib/types";
 
 function WorkCheck({ c, from, evidence }: { c: Check; from: string; evidence: Evidence[] }) {
@@ -101,6 +103,8 @@ export default function RecordPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useSession();
   const r = useApi(() => api.getRecord(id), [id]);
+  // The real Post-Yolanda records belong to a public program (API-026); its card sits above the promise.
+  const program = useApi(() => api.programContext("mbfdp"), []);
   const [verify, setVerify] = useState<VerifyResponse | null>(null);
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
@@ -109,7 +113,8 @@ export default function RecordPage() {
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
   if (!r.data) return null;
   const { record, checks, site_answers, timeline, pin_state, disclaimer } = r.data;
-  const snap = record.snapshot as { site_id?: string; site_name?: string; evidence_ids?: string[] };
+  const lockedSite = snapshotSite(record);
+  const snap = { site_id: lockedSite.id, site_name: lockedSite.name };
   const work = checks.find((c) => c.check === "work");
   const outcome = checks.find((c) => c.check === "outcome");
   // Usable sources behind the three site answers when the promise was locked (sum of EQ-013 counts).
@@ -146,6 +151,8 @@ export default function RecordPage() {
       </p>
 
       {snap.site_id && <SiteHero3D siteId={snap.site_id} tone={toneFromPin(pin_state)} motion="orbit" />}
+
+      {program.data?.record_ids.includes(record.id) && <ProgramCard p={program.data} />}
 
       {/* Above the waterline: the promise */}
       <span className="mg-eyebrow">
@@ -279,6 +286,7 @@ export default function RecordPage() {
             <AnswerBlock key={a.question} a={a} siteId={snap.site_id ?? ""} />
           ))}
         </div>
+        {snap.site_id && <SiteNowPictures siteId={snap.site_id} siteName={snap.site_name} />}
       </section>
 
       <h2 className="section-title">
@@ -297,7 +305,7 @@ export default function RecordPage() {
                 <span className="mg-mono">#{t.seq}</span> · {t.kind.replaceAll("_", " ")} · {formatDate(t.created_at)} ·{" "}
                 <span className="mg-mono">{t.event_hash.slice(0, 12)}…</span>
               </div>
-              {t.evidence && <EvidenceCard e={t.evidence} />}
+              {t.evidence && <EvidenceCard e={t.evidence} siteName={snap.site_name} />}
             </li>
           ))}
         </ol>

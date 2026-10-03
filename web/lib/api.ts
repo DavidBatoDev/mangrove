@@ -3,6 +3,8 @@
 
 import { ApiError } from "@/lib/api-error";
 import type {
+  Answer,
+  Evidence,
   CompareResponse,
   CountryContext,
   Dossier,
@@ -15,6 +17,7 @@ import type {
   LockBody,
   LockResponse,
   PinsFC,
+  ProgramContext,
   RecordDetail,
   SitesFC,
   User,
@@ -55,6 +58,13 @@ const json = (method: string, data: unknown, headers: Record<string, string> = {
   headers: { "Content-Type": "application/json", ...headers },
   body: JSON.stringify(data),
 });
+
+// API-007: pull the site's current condition from Sentinel-2 (AWS Open Data, ADR-061). Live data only:
+// fixtures mode has no satellite archive behind it.
+export const sentinelRefresh = (siteId: string): Promise<{ evidence: Evidence; answers: Answer[] }> =>
+  USE_MOCKS
+    ? Promise.reject(new ApiError(503, "UPSTREAM_UNAVAILABLE", "Satellite refresh needs the live API, not demo fixtures."))
+    : http(`/sites/${siteId}/sentinel-refresh`, { method: "POST" });
 
 // API-001
 export const login = (email: string, password: string): Promise<{ user: User }> =>
@@ -113,6 +123,10 @@ export const gmwTimeline = (siteId: string): Promise<GmwTimeline> =>
 export const countryContext = (iso3: string): Promise<CountryContext> =>
   USE_MOCKS ? mock().then((m) => m.countryContext(iso3)) : http(`/context/countries/${encodeURIComponent(iso3)}`);
 
+// API-026: a public funding program (the real Post-Yolanda case), figures quoted as published.
+export const programContext = (programId: string): Promise<ProgramContext> =>
+  USE_MOCKS ? mock().then((m) => m.programContext(programId)) : http(`/context/programs/${encodeURIComponent(programId)}`);
+
 // API-023
 export const gmwExtent = (year?: number): Promise<GmwExtentLayer> =>
   USE_MOCKS ? mock().then((m) => m.gmwExtent(year)) : http(`/layers/gmw-extent${year ? `?year=${year}` : ""}`);
@@ -155,3 +169,10 @@ export function mangroveOpacityAt(zoom: number, opacity: number): number {
 
 /** Demo boundary for site B; fixtures mode only. */
 export const demoBoundary = (): Promise<unknown> => mock().then((m) => m.demoBoundary());
+
+// API-027: in-app assistant over the read-only MCP tools (ADR-062). Always the live API, also in fixtures mode:
+// the agent reads the database through its own tools, so there is nothing to fake.
+export type AssistantMessage = { role: "user" | "assistant"; content: string };
+export type AssistantReply = { reply: string; tool_calls: { name: string; arguments: Record<string, unknown> }[]; generated_by: "AI"; model: string };
+export const assistantChat = (messages: AssistantMessage[]): Promise<AssistantReply> =>
+  http("/assistant/chat", json("POST", { messages }));

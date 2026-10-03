@@ -291,7 +291,7 @@
     "region": "Eastern Visayas",
     "is_demo": false,
     "polygon_basis": "OpenStreetMap way 892162587 (wetland=mangrove) inside Barangay 83 (Paraiso)",
-    "case_note": "Paraiso planting: about 30,000 seedlings on roughly 4 ha, 2015-2018 [31]; community-led from 2014 [29]. The planted boundary is not published.",
+    "case_note": "Paraiso planting: about 30,000 seedlings on 4 ha, 2015-2018, funded by Japan's Ministry of Foreign Affairs [37]; community-led after a DENR-assisted 2014 planting was lost [38]. The planted boundary is not published.",
     "area_ha_geodesic_prep": 2.53,
     "status": "sketched, not field-verified"
    }
@@ -1584,7 +1584,7 @@
     "region": "Eastern Visayas",
     "is_demo": false,
     "polygon_basis": "Union of nine OpenStreetMap natural=wetland ways on the Cancabato Bay shore (ways 1312555058, 245216638, 1302217918, 1082125171, 245370994, 1082127825, 1082127826, 1082125170, 245204176), excluding the Paraiso stand",
-    "case_note": "Cancabato Bay: 70 ha over 14 months, Sep 2017-Nov 2018 [21]. The 70 ha boundary is not published.",
+    "case_note": "Cancabato Bay: a 70 ha provincial rehabilitation project, Sep 2017-Nov 2018, paid from the DENR Region 8 budget [21]. The 70 ha boundary is not published.",
     "area_ha_geodesic_prep": 54.93,
     "status": "sketched, not field-verified"
    }
@@ -2294,7 +2294,7 @@
     "region": "Eastern Visayas",
     "is_demo": false,
     "polygon_basis": "Outline of the largest Global Mangrove Watch v4.1.12 2010 (pre-Yolanda) mangrove patch south of the Bungtod barangay hall, simplified to 0.0004 degrees. No OpenStreetMap mangrove feature exists there",
-    "case_note": "Eastern Samar: about 2,553 ha planted by local people's organization members [22]; in Bungtod, 104.39 ha were recovering as of 2020 [32]. This patch stands in for the province-level program; it is not a published site boundary.",
+    "case_note": "Eastern Samar: about 2,553 ha planted with DENR funding [22]; the Guiuan protected area mapped 104.39 ha of recovered areas with planted seedlings by 2020 [32]. This patch stands in for the province program; it is not a published site boundary.",
     "area_ha_geodesic_prep": 119.99,
     "status": "sketched, not field-verified"
    }

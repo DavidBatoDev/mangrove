@@ -69,3 +69,6 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-055](ADR-055-google-gmw-overlay-back-to-tile-layers.md) | Accepted | Google map back to per-zoom GMW tile layers on the static tiles; ADR-054's fixed overlay felt laggy. |
 | [ADR-056](ADR-056-real-sourced-case-records.md) | Accepted | Four real, sourced Post-Yolanda records (`is_demo = false`) beside the demo cast; `public_report` evidence always links its source; real organizations only as cited parties, no individuals; reconstructed, not locked at the time. |
 | [ADR-057](ADR-057-gain-loss-off-by-default-panel-switch.md) | Accepted | Gain and loss are off by default; one switch on the side-panel national card turns them on (since 1985). |
+| [ADR-059](ADR-059-real-records-corrected-and-reseeded.md) | Accepted | Real records corrected by resetting and reseeding the main database: Paraiso funded by Japan (not MBFDP), Naungan and Bungtod on track, Cancabato Bay awaiting. |
+| [ADR-060](ADR-060-sentinel2-pictures-served-from-repo.md) | Accepted | Sentinel-2 then/now chips are committed and served by API-014 from the repo; ADR-037's S3 store still holds partner photos. |
+| [ADR-062](ADR-062-in-app-assistant-over-mcp-tools.md) | Accepted | In-app assistant: an OpenAI agent (API-027) over the same six read-only MCP tools, opened from the app bar. |

@@ -1,0 +1,242 @@
+{
+  "program_id": "mbfdp",
+  "name": "Post-Yolanda Mangrove and Beach Forest Development Project",
+  "short_name": "Post-Yolanda MBFDP",
+  "funder": "Department of Environment and Natural Resources (DENR)",
+  "is_demo": false,
+  "compiled": "2026-10-04",
+  "case_study": "docs/case-study-yolanda.md",
+  "record_ids": [
+    "00000000-0000-4000-8000-0000000001f3",
+    "00000000-0000-4000-8000-0000000001f4"
+  ],
+  "facts": [
+    {
+      "id": "allocation",
+      "label": "Allocated",
+      "value": 1000000000,
+      "unit": "PHP",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2014",
+      "quote": "Allocated ₱1 billion under the 2014 national budget, reconstruction and rehabilitation provision",
+      "source": {
+        "publisher": "PENRO Occidental Mindoro",
+        "title": "Mangrove and Beach Forest Development Program",
+        "date": null,
+        "url": "https://penrooccidentalmindoro.gov.ph/mangove-and-beach-forest-development-program/",
+        "case_study_ref": "case-study-yolanda.md §2 [3]"
+      }
+    },
+    {
+      "id": "first_release",
+      "label": "First release",
+      "value": 400000000,
+      "unit": "PHP",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2015-02-05",
+      "quote": "First ₱400 million released",
+      "source": {
+        "publisher": "PENRO Occidental Mindoro",
+        "title": "Mangrove and Beach Forest Development Program",
+        "date": null,
+        "url": "https://penrooccidentalmindoro.gov.ph/mangove-and-beach-forest-development-program/",
+        "case_study_ref": "case-study-yolanda.md §6 [3]"
+      },
+      "see_also": [
+        {
+          "as_of": "2015-03-20",
+          "quote": "Budget department announces the release; target is 22,000 ha of mangrove and 5,400 ha of beach forest",
+          "source": {
+            "publisher": "Philippine Star",
+            "title": "DBM releases P400 M to DENR for mangrove dev't in risk areas",
+            "date": "2015-03-20",
+            "url": "https://www.philstar.com/business/2015/03/20/1435412/business",
+            "case_study_ref": "case-study-yolanda.md §6 [2]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "planted",
+      "label": "Reported planted, 43 provinces",
+      "value": 50417,
+      "unit": "ha",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2016-01-30",
+      "quote": "It reported 50,417 hectares planted across 43 provinces in \"a little over a year\" [1].",
+      "source": {
+        "publisher": "Philippine Star",
+        "title": "125 M mangrove seedlings planted in Yolanda-hit areas",
+        "date": "2016-01-30",
+        "url": "https://www.philstar.com/nation/2016/01/30/1547951/nation",
+        "case_study_ref": "case-study-yolanda.md §1 [1]"
+      }
+    },
+    {
+      "id": "eastern_visayas",
+      "label": "Eastern Visayas share",
+      "value": 13633,
+      "unit": "ha",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2016-01-30",
+      "quote": "Eastern Visayas, where the typhoon made landfall, received the largest share at 13,633 hectares [1].",
+      "source": {
+        "publisher": "Philippine Star",
+        "title": "125 M mangrove seedlings planted in Yolanda-hit areas",
+        "date": "2016-01-30",
+        "url": "https://www.philstar.com/nation/2016/01/30/1547951/nation",
+        "case_study_ref": "case-study-yolanda.md §1 [1]"
+      }
+    },
+    {
+      "id": "unit_cost",
+      "label": "Unit cost, up to 3 years",
+      "value": 16500,
+      "unit": "PHP/ha",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2015-09-01",
+      "quote": "Unit cost was ₱16,500 per hectare for up to three years [17].",
+      "source": {
+        "publisher": "2nd National Mangrove Conference",
+        "title": "Proceedings of the 2nd National Mangrove Conference, Iloilo City, 1–3 Sep 2015",
+        "date": "2015-09-01",
+        "url": "https://www.forestfoundation.ph/wp-content/uploads/2017/09/Forest-Foundation-Ph-Proceedings-NatManCon2-1.pdf",
+        "case_study_ref": "case-study-yolanda.md §5 [17]"
+      }
+    },
+    {
+      "id": "survival_denr",
+      "label": "DENR survival, mangrove",
+      "value": 78.3,
+      "unit": "%",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2016-02/2016-05",
+      "quote": "Survival, DENR figure: 78.3% (mangrove) and 76.3% (beach forest), February–May 2016, method unpublished [18].",
+      "source": {
+        "publisher": "3rd National Mangrove Conference",
+        "title": "Proceedings of the 3rd National Mangrove Conference, Iloilo City, 18–19 Apr 2018",
+        "date": "2018-04-18",
+        "url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+        "case_study_ref": "case-study-yolanda.md §7 [18]"
+      },
+      "limitation": "DENR's own figure, taken within months of planting; method unpublished."
+    },
+    {
+      "id": "need_independent",
+      "label": "Independent need, Leyte + Eastern Samar",
+      "value": 100,
+      "unit": "ha",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2014-06-15",
+      "quote": "Independent scientists put the need in Leyte and Eastern Samar at 100–200 hectares [11].",
+      "source": {
+        "publisher": "Inquirer",
+        "title": "Mangroves of E. Visayas need protection (Primavera et al.)",
+        "date": "2014-06-15",
+        "url": "https://opinion.inquirer.net/75597/mangroves-of-e-visayas-need-protection",
+        "case_study_ref": "case-study-yolanda.md §9 [11]"
+      },
+      "upper": 200
+    }
+  ],
+  "target_history": [
+    {
+      "id": "target_2015_03",
+      "label": "Target, Mar 2015",
+      "value": 27400,
+      "unit": "ha",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2015-03",
+      "quote": "27,400 ha in March 2015 [2]",
+      "source": {
+        "publisher": "Philippine Star",
+        "title": "DBM releases P400 M to DENR for mangrove dev't in risk areas",
+        "date": "2015-03-20",
+        "url": "https://www.philstar.com/business/2015/03/20/1435412/business",
+        "case_study_ref": "case-study-yolanda.md §8 [2]"
+      }
+    },
+    {
+      "id": "target_2015_09",
+      "label": "Target, Sep 2015",
+      "value": 41694,
+      "unit": "ha",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2015-09",
+      "quote": "41,694 ha by September 2015 [17]",
+      "source": {
+        "publisher": "2nd National Mangrove Conference",
+        "title": "Proceedings of the 2nd National Mangrove Conference, Iloilo City, 1–3 Sep 2015",
+        "date": "2015-09-01",
+        "url": "https://www.forestfoundation.ph/wp-content/uploads/2017/09/Forest-Foundation-Ph-Proceedings-NatManCon2-1.pdf",
+        "case_study_ref": "case-study-yolanda.md §8 [17]"
+      }
+    },
+    {
+      "id": "target_final",
+      "label": "Target, final report",
+      "value": 50000,
+      "unit": "ha",
+      "eq_id": "EQ-017",
+      "confidence": "low",
+      "as_of": "2018-04",
+      "quote": "50,000 ha in the final report [18]",
+      "source": {
+        "publisher": "3rd National Mangrove Conference",
+        "title": "Proceedings of the 3rd National Mangrove Conference, Iloilo City, 18–19 Apr 2018",
+        "date": "2018-04-18",
+        "url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+        "case_study_ref": "case-study-yolanda.md §8 [18]"
+      }
+    }
+  ],
+  "framing": {
+    "line": "The program verified planting, not outcomes.",
+    "quote": "The system verified planting, not outcomes.",
+    "case_study_ref": "case-study-yolanda.md §9",
+    "proof": [
+      {
+        "as_of": null,
+        "quote": "Later fund releases required only site lists and geo-tagged photos [2].",
+        "source": {
+          "publisher": "Philippine Star",
+          "title": "DBM releases P400 M to DENR for mangrove dev't in risk areas",
+          "date": "2015-03-20",
+          "url": "https://www.philstar.com/business/2015/03/20/1435412/business",
+          "case_study_ref": "case-study-yolanda.md §9 [2]"
+        }
+      },
+      {
+        "as_of": null,
+        "quote": "Progress was reported as seedlings and hectares, not survival [16].",
+        "source": {
+          "publisher": "Rappler",
+          "title": "'Wrong' mangrove rehab in Yolanda areas wasting funds",
+          "date": null,
+          "url": "https://www.rappler.com/environment/89163-unscientific-mangrove-rehabilitation-yolanda/",
+          "case_study_ref": "case-study-yolanda.md §9 [16]"
+        }
+      }
+    ]
+  },
+  "not_found": [
+    "A full list of MBFDP partner organizations, in any region",
+    "The MBFDP agreement text, daily wage, or survival conditions on payment",
+    "Any audit finding specific to MBFDP",
+    "An independent program-wide survival rate",
+    "How the remaining ₱600 million was released and spent",
+    "Per-site survival for Eastern Visayas MBFDP plots",
+    "Whether the Hernani and Paraiso 2014 plantings were MBFDP-funded"
+  ],
+  "not_found_ref": "case-study-yolanda.md §11",
+  "limitation": "Figures are quoted as published (EQ-017, low confidence); AIDE-M computes none of them."
+}
