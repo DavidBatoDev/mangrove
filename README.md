@@ -36,7 +36,7 @@ Follows `docs/system-design.md` §2 and `docs/tests.md` §6.
   existed before 10:00 PM.
 - **Outside this repository, before the window:** cloud provisioning (EC2, S3, IAM, DNS), API credential smoke tests, public-data
   provenance records, and planning notes. None of that was copied into this repo as code.
-- **During the window:** everything else, built in Kiro.
+- **During the window:** everything else, built in Kiro, except the brand kit in `brand/` (made with Claude Code and Figma, see Tools used).
 
 ## Tools used
 
@@ -45,7 +45,8 @@ _[TEAM: complete honestly before submission.]_
 - **Amazon Quick**: analyst chat agent over our read-only MCP tools
 - **AWS**: EC2 (Docker Compose + Caddy), S3, IAM
 - **Neon** (Postgres + PostGIS), **Copernicus Data Space** (Sentinel-2 Statistical API); an LLM only if F-013 is built (it narrates, never sets a status)
-- **Claude Code**: pre-event setup agent (cloud provisioning, smoke tests, planning drafts, this skeleton)
+- **Claude Code**: pre-event setup agent (cloud provisioning, smoke tests, planning drafts, this skeleton); during the build, the brand kit in `brand/` (tokens, components, starter page) and its adaptation to the product docs
+- **Figma**: brand guidelines and deck template (exports in `brand/slides/`)
 
 ## Data sources and licenses
 

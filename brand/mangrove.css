@@ -1,0 +1,177 @@
+/* Mangrove components: the Figma deck look (T01–T08) as reusable web classes.
+   Load after tokens.css. Reference page: brand/starter.html. Recipe: brand/WEB.md.
+   Copy the whole brand/ folder into your public/static dir (e.g. public/brand/) so the
+   relative texture URLs below keep working. Never restyle these per feature; extend here. */
+
+@import url("tokens.css");
+
+/* ---------- Base ---------- */
+.mg-page { margin: 0; background: var(--mg-bg); color: var(--mg-text); font: 400 var(--mg-text-body)/1.6 var(--mg-font-body); -webkit-font-smoothing: antialiased; }
+.mg-page *, .mg-page *::before, .mg-page *::after { box-sizing: border-box; }
+.mg-wrap { width: 100%; max-width: calc(1200px + 2 * var(--mg-page-x)); margin: 0 auto; padding-inline: var(--mg-page-x); }
+:root { --mg-page-x: clamp(16px, 6.25vw, 120px); } /* 120px at 1920, same as the slides */
+:where(.mg-page a) { color: var(--mg-link); text-underline-offset: 3px; } /* zero specificity so .mg-btn etc. win */
+.mg-page :focus-visible { outline: 2px solid var(--mg-focus); outline-offset: 2px; }
+
+/* ---------- Type: eyebrow, headline, big number ---------- */
+.mg-eyebrow { display: block; font: 500 var(--mg-text-label)/1.3 var(--mg-font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mg-text-muted); margin: 0 0 var(--mg-space-4); }
+.mg-headline { font: 500 clamp(2.5rem, 6.2vw, 7.25rem)/1.0 var(--mg-font-display); letter-spacing: -.02em; color: var(--mg-heading); text-wrap: balance; margin: 0; max-width: 16ch; }
+.mg-headline--md { font-size: clamp(2rem, 4.6vw, 5.5rem); max-width: 22ch; line-height: 1.04; }
+/* The one emotional word. Propagule on dark grounds, Tidal on light, Root when the word is about evidence/roots. */
+.mg-headline em, .mg-display em { font-style: italic; font-weight: 400; color: var(--mg-tidal-ink); }
+.mg-headline em.mg-em--root { color: var(--mg-root); }
+.mg-display { font: 400 clamp(6rem, 17vw, 20rem)/.9 var(--mg-font-display); letter-spacing: -.03em; color: var(--mg-heading); margin: 0; font-variant-numeric: lining-nums; }
+.mg-lede { font-size: clamp(1.0625rem, 1.6vw, 1.5rem); line-height: 1.45; color: var(--mg-text); max-width: 34ch; margin: 0; }
+.mg-mono { font-family: var(--mg-font-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- Grounds (textures). One per band, never stacked, never tinted. ---------- */
+.mg-band { position: relative; overflow: hidden; padding-block: clamp(64px, 9vw, 160px); }
+/* Night Roots: the texture's waterline sits at 59.26% (640/1080). Matching background-position keeps it there at any band size. */
+.mg-band--night { background: var(--mg-night) url("textures/night-roots.svg") 50% 59.26% / cover no-repeat; }
+.mg-band--canopy { background: var(--mg-canopy) url("textures/canopy-contours.svg") center / cover no-repeat; }
+.mg-band--survey { background: var(--mg-mist) url("textures/survey-tide.svg") 50% 66% / cover no-repeat; }
+.mg-band--plain { background: var(--mg-bg); }
+.mg-band--night, .mg-band--canopy {
+  color-scheme: dark;
+  --mg-text: var(--mg-on-dark-text); --mg-heading: var(--mg-on-dark-heading); --mg-text-muted: var(--mg-on-dark-muted);
+  --mg-tidal: var(--mg-tidal-lift); --mg-tidal-ink: var(--mg-tidal-lift); --mg-root: var(--mg-root-lift); --mg-link: var(--mg-tidal-lift);
+  --mg-border: color-mix(in srgb, var(--mg-on-dark-text) 16%, transparent);
+  --mg-btn-primary-bg: var(--mg-propagule); --mg-btn-primary-fg: var(--mg-night);
+}
+.mg-band--night .mg-headline em, .mg-band--canopy .mg-headline em, .mg-band--night .mg-display em { color: var(--mg-propagule); }
+/* Survey Tide is a light texture; in dark mode fall back to the dark survey grid (IMAGERY.md §5). */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mg-band--survey { background: var(--mg-night) linear-gradient(var(--mg-night-grid) 1px, transparent 1px) 0 0 / 100% var(--mg-grid-size), linear-gradient(90deg, var(--mg-night-grid) 1px, transparent 1px) 0 0 / var(--mg-grid-size) 100%; } }
+:root[data-theme="dark"] .mg-band--survey { background: var(--mg-night) linear-gradient(var(--mg-night-grid) 1px, transparent 1px) 0 0 / 100% var(--mg-grid-size), linear-gradient(90deg, var(--mg-night-grid) 1px, transparent 1px) 0 0 / var(--mg-grid-size) 100%; }
+
+/* Hero on Night Roots (T01). Copy sits above the waterline, meta line just below it. */
+.mg-hero { min-height: max(560px, min(100svh, 56.25vw)); padding: 0; display: grid; }
+.mg-hero > .mg-wrap { position: relative; height: 100%; }
+.mg-hero__top { position: absolute; top: clamp(24px, 5vw, 96px); left: var(--mg-page-x); right: var(--mg-page-x); display: flex; align-items: center; justify-content: space-between; gap: var(--mg-space-5); }
+.mg-hero__copy { position: absolute; left: var(--mg-page-x); right: var(--mg-page-x); bottom: calc(40.74% + clamp(24px, 4vw, 64px)); } /* 40.74% = below-waterline share */
+.mg-hero__meta { position: absolute; left: var(--mg-page-x); top: calc(59.26% + clamp(16px, 3vw, 52px)); font: 400 var(--mg-text-small)/1.4 var(--mg-font-mono); color: var(--mg-text-muted); letter-spacing: .04em; }
+.mg-hero__meta--cite { color: var(--mg-root); }
+.mg-hero__nav { display: flex; gap: var(--mg-space-5); font-size: var(--mg-text-small); }
+.mg-hero__nav a { color: var(--mg-text); text-decoration: none; }
+.mg-hero--short { min-height: max(520px, min(90svh, 50vw)); }
+@media (max-width: 600px) {
+  .mg-hero, .mg-hero--short { min-height: 760px; } /* more sky above the waterline for stacked copy */
+  .mg-hero__nav { display: none; }
+}
+.mg-hero__actions { display: flex; flex-wrap: wrap; gap: var(--mg-space-3); margin-top: var(--mg-space-6); }
+
+/* Ghost mark (T02): the dark mark, huge and faint, bottom-right of a Canopy band. Decorative only. */
+.mg-ghost-mark { position: absolute; right: -4%; top: 50%; width: min(48vw, 760px); transform: translateY(-46%); opacity: .14; pointer-events: none; }
+
+/* Statement on Survey Tide (T03): headline in the top 66%, source row under the texture's waterline. */
+.mg-statement { min-height: clamp(520px, 56.25vw, 1000px); padding: 0; display: grid; grid-template-rows: 66% 1fr; }
+.mg-statement > * { padding-inline: var(--mg-page-x); }
+.mg-statement__top { align-self: end; padding-bottom: clamp(48px, 8vw, 160px); }
+.mg-statement__src { padding-top: clamp(24px, 3vw, 48px); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--mg-space-5); color: var(--mg-text-muted); }
+
+/* ---------- The Waterline (once per section) ---------- */
+.mg-waterline { position: relative; height: 10px; border: 0; margin: clamp(40px, 6vw, 96px) 0; }
+.mg-waterline::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: var(--mg-waterline, var(--mg-tidal)); }
+.mg-waterline::after { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; opacity: .45; background: repeating-linear-gradient(90deg, var(--mg-tidal) 0 28px, transparent 28px 45px); }
+.mg-waterline--bleed { margin-inline: calc(-1 * var(--mg-page-x)); }
+
+/* ---------- Evidence (T04): copper rule, mono meta, plain sentence ---------- */
+.mg-evidence-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: var(--mg-space-6) clamp(24px, 3vw, 60px); }
+.mg-evidence { border-top: 3px solid var(--mg-root); padding-top: var(--mg-space-5); }
+.mg-evidence__meta { display: block; font: 500 var(--mg-text-small)/1.4 var(--mg-font-mono); color: var(--mg-root); margin-bottom: var(--mg-space-2); }
+.mg-evidence__body { margin: 0; font-size: clamp(1.0625rem, 1.5vw, 1.375rem); line-height: 1.4; color: var(--mg-text); }
+
+/* ---------- Chips ---------- */
+.mg-cite { display: inline-block; font: 400 .82em/1 var(--mg-font-mono); color: var(--mg-root); text-decoration: none; white-space: nowrap; }
+.mg-cite--box { padding: 6px 8px; border: 1px solid var(--mg-root); border-radius: var(--mg-radius-sm); }
+.mg-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 2px solid currentColor; border-radius: var(--mg-radius-sm); font: 500 var(--mg-text-small)/1 var(--mg-font-mono); background: transparent; }
+/* Status chips (BR-001): always the word, a mark, and the finding + source count next to it. */
+.mg-chip::before { content: ""; width: .8em; height: .8em; flex: none; border-radius: 50%; background: currentColor; }
+.mg-chip--supported { color: var(--mg-status-supported); }
+.mg-chip--conflicting { color: var(--mg-status-conflicting); } /* the only red on the page */
+.mg-chip--conflicting::before { border-radius: 1px; transform: rotate(45deg) scale(.85); }
+.mg-chip--missing { color: var(--mg-status-missing); border-style: dashed; }
+.mg-chip--missing::before { background: transparent; border: 1.5px dashed currentColor; }
+.mg-chip--too-early { color: var(--mg-status-too-early); border-color: var(--mg-haze); }
+.mg-chip--too-early::before { background: transparent; border: 1.5px solid currentColor; box-shadow: inset .18em -.18em 0 -.1em currentColor; } /* clock hint */
+.mg-chip--recovery { background: var(--mg-propagule); color: var(--mg-canopy); border-color: var(--mg-propagule); } /* recovery_seen; Propagule max once per screen */
+.mg-chip--recovery::before { display: none; }
+
+/* Demo data label (BR-006): on every seeded site, record, organization and pin. */
+.mg-demo { display: inline-block; padding: 3px 8px; border: 1px dashed var(--mg-brackish); border-radius: var(--mg-radius-sm); font: 500 var(--mg-text-label)/1.2 var(--mg-font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mg-text-muted); white-space: nowrap; }
+
+/* Record disclaimer (design-brief §4): on every record page. */
+.mg-disclaimer { font: 400 var(--mg-text-small)/1.5 var(--mg-font-body); color: var(--mg-text-muted); border-top: 1px solid var(--mg-border); padding-top: var(--mg-space-4); margin-top: var(--mg-space-6); }
+
+/* Form errors and failed live sources: caution, never red (red = conflict only). */
+.mg-alert { display: flex; gap: var(--mg-space-3); align-items: flex-start; padding: var(--mg-space-3) var(--mg-space-4); border-left: 3px solid var(--mg-caution); background: var(--mg-surface-sunk); color: var(--mg-text); font-size: var(--mg-text-small); }
+.mg-alert strong { color: var(--mg-caution-ink); }
+
+/* ---------- Confidence (methods.md §2): for numbers only, mark + word ---------- */
+.mg-conf { display: inline-flex; align-items: center; gap: 8px; font: 500 var(--mg-text-label)/1 var(--mg-font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mg-text); }
+.mg-conf::before { content: ""; width: 1.5em; height: 1.5em; border-radius: 50%; flex: none; border: 1.5px solid var(--c); }
+.mg-conf--high { --c: var(--mg-conf-high); } .mg-conf--high::before { background: var(--c); }
+.mg-conf--medium { --c: var(--mg-conf-medium); } .mg-conf--medium::before { background: repeating-linear-gradient(-45deg, var(--c) 0 2px, transparent 2px 4px); }
+.mg-conf--low { --c: var(--mg-conf-low); } .mg-conf--low::before { background: radial-gradient(var(--c) 0.75px, transparent 1.1px) 0 0 / 4px 4px; }
+
+/* ---------- Pin states (BR-004). Map pins in MapLibre use the same tokens; this is the legend. ---------- */
+.mg-pin { display: inline-flex; align-items: center; gap: 8px; font: 500 var(--mg-text-small)/1 var(--mg-font-body); color: var(--mg-text); }
+.mg-pin::before { content: ""; width: 14px; height: 14px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); flex: none; border: 2px solid var(--mg-mist); box-shadow: 0 0 0 1px var(--mg-border); }
+.mg-pin--conflict::before { background: var(--mg-pin-conflict); }
+.mg-pin--awaiting::before { background: var(--mg-mist); border: 2px dashed var(--mg-pin-awaiting); box-shadow: none; }
+.mg-pin--on-track::before { background: var(--mg-pin-on-track); }
+
+/* ---------- Buttons ---------- */
+.mg-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 20px; border-radius: var(--mg-radius-sm); border: 1.5px solid transparent; font: 600 var(--mg-text-body)/1 var(--mg-font-body); text-decoration: none; cursor: pointer; transition: background var(--mg-dur-ui) var(--mg-ease), color var(--mg-dur-ui) var(--mg-ease), border-color var(--mg-dur-ui) var(--mg-ease); }
+.mg-btn--primary { background: var(--mg-btn-primary-bg); color: var(--mg-btn-primary-fg); }
+.mg-btn--secondary { background: transparent; color: var(--mg-heading); border-color: var(--mg-border); }
+.mg-btn--secondary:hover { border-color: var(--mg-tidal); }
+
+/* ---------- Cards and panels (borders over shadows) ---------- */
+.mg-card { background: var(--mg-surface); border: 1px solid var(--mg-border); border-radius: var(--mg-radius-md); padding: var(--mg-space-5); }
+.mg-card__title { font: 600 var(--mg-text-h3)/1.25 var(--mg-font-body); color: var(--mg-heading); margin: 0 0 var(--mg-space-2); }
+
+/* ---------- Follow-through (T07) ---------- */
+.mg-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--mg-space-6) clamp(24px, 6vw, 120px); align-items: start; }
+@media (max-width: 760px) { .mg-split { grid-template-columns: minmax(0, 1fr); } }
+.mg-label--promise { color: var(--mg-tidal-ink); }
+.mg-label--observed { color: var(--mg-root); }
+.mg-progress { position: relative; height: 28px; background: var(--mg-surface-sunk); margin-top: var(--mg-space-7); }
+.mg-progress__fill { position: absolute; inset: 0 auto 0 0; width: var(--value, 0%); background: var(--mg-tidal); }
+.mg-progress__fill::after { content: ""; position: absolute; right: -18px; top: 50%; width: 36px; height: 36px; transform: translateY(-50%); border-radius: 50%; background: var(--mg-surface); border: 2px solid var(--mg-canopy); }
+.mg-progress__labels { display: flex; justify-content: space-between; margin-top: var(--mg-space-4); font: 400 var(--mg-text-small)/1.4 var(--mg-font-mono); color: var(--mg-text); }
+
+/* ---------- Compare table (BRAND.md §0): sites as columns, questions as rows, a mark in every cell ---------- */
+.mg-table { width: 100%; border-collapse: collapse; font-size: var(--mg-text-small); }
+.mg-table th { font: 500 var(--mg-text-label)/1.3 var(--mg-font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mg-text-muted); text-align: left; padding: var(--mg-space-3) var(--mg-space-4) var(--mg-space-3) 0; border-bottom: 2px solid var(--mg-waterline, var(--mg-tidal)); vertical-align: bottom; }
+.mg-table thead th { font: 500 var(--mg-text-h4)/1.2 var(--mg-font-display); letter-spacing: 0; text-transform: none; color: var(--mg-heading); }
+.mg-table thead th small { display: block; font: 500 var(--mg-text-label)/1.3 var(--mg-font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mg-text-muted); margin-bottom: 4px; }
+.mg-table td { padding: var(--mg-space-4) var(--mg-space-4) var(--mg-space-4) 0; border-bottom: 1px solid var(--mg-border); vertical-align: top; }
+.mg-table td .mg-chip { margin-bottom: 6px; }
+.mg-table td > span:not(.mg-chip) { display: block; color: var(--mg-text); }
+.mg-table td > .mg-chip { display: inline-flex; }
+.mg-table td small { display: block; font: 400 var(--mg-text-label)/1.4 var(--mg-font-mono); color: var(--mg-root); }
+.mg-table tbody th { font: 500 var(--mg-text-small)/1.35 var(--mg-font-body); letter-spacing: 0; text-transform: none; color: var(--mg-heading); border-bottom: 1px solid var(--mg-border); vertical-align: top; padding-top: var(--mg-space-4); }
+
+/* ---------- Root profile frame (T05). Draw the roots as inline SVG; see starter.html. ---------- */
+.mg-root-profile { width: 100%; min-width: 880px; height: auto; display: block; }
+.mg-scroll-x { overflow-x: auto; margin-inline: calc(-1 * var(--mg-page-x)); padding-inline: var(--mg-page-x); } /* wide diagrams scroll inside, the page never does */
+
+/* ---------- Footer (every slide: mark left, mono citations right) ---------- */
+.mg-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--mg-space-5); padding-block: var(--mg-space-6); font: 400 var(--mg-text-small)/1.4 var(--mg-font-mono); color: var(--mg-text-muted); }
+.mg-foot img, .mg-foot svg { width: 44px; height: auto; }
+
+/* ---------- Icons ----------
+   Lucide for UI (1.75 stroke). Brand icons from brand/icons/ via mask so they take currentColor
+   and pick up edits to the SVG files automatically:
+   <span class="mg-icon" style="--mg-icon:url(/brand/icons/propagule.svg)" aria-hidden="true"></span> */
+.mg-icon { display: inline-block; width: 24px; height: 24px; flex: none; background: currentColor; -webkit-mask: var(--mg-icon) center / contain no-repeat; mask: var(--mg-icon) center / contain no-repeat; vertical-align: middle; }
+.mg-icon--lg { width: 32px; height: 32px; }
+
+/* ---------- Motion: lines draw, nothing bounces ---------- */
+.mg-draw path { stroke-dasharray: var(--len, 1200); stroke-dashoffset: var(--len, 1200); animation: mg-draw var(--mg-dur-reveal) var(--mg-ease) forwards; }
+@keyframes mg-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .mg-draw path { animation: none; stroke-dashoffset: 0; } .mg-page * { transition: none !important; } }
+
+/* ---------- Utilities ---------- */
+.mg-stack > * + * { margin-top: var(--mg-space-5); }
+.mg-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

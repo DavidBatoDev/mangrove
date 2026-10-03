@@ -32,7 +32,8 @@ When two docs disagree, this order wins:
 | Stored shape | [`docs/data-model.md`](docs/data-model.md) |
 | A computed number, a threshold, a confidence | [`docs/methods.md`](docs/methods.md) |
 | An endpoint or an MCP tool | [`docs/api.md`](docs/api.md) |
-| Look, components, or routes | `docs/design.md`, which does not exist yet. Start from [`docs/design-brief.md`](docs/design-brief.md) and create `docs/design.md` from it. |
+| Routes, screen states, pin colors | [`docs/design.md`](docs/design.md) |
+| Tokens, components, voice, keywords | [`brand/BRAND.md`](brand/BRAND.md) and the files beside it (ADR-042) |
 | Auth or threats | [`docs/security.md`](docs/security.md) |
 | What you will not build | PRD non-goals, or a Won't row in `idea.md` §7. A reason and a revisit condition. |
 | Why you chose | a new file under [`docs/adr/`](docs/adr/) |
@@ -45,14 +46,14 @@ Story priority on a product story is Must, Should, or Could. Won't is only for a
 
 Add `docs/adr/ADR-NNN-short-slug.md` when behavior, structure, security, or the plan changed, or when a later reader would ask why. Skip a trivial edit with no lasting why.
 
-The next free number is ADR-042. Never reuse a number. Never edit an Accepted ADR.
+The next free number is ADR-043. Never reuse a number. Never edit an Accepted ADR.
 
 Fill Context, Why now, Options (at least two), Decision, Why this option, Overrides, Consequences. Same change as the code or doc it records. Add a §3 entry to `docs/ledger.md` that cites the ADR in the same commit; the pre-commit hook blocks the commit otherwise.
 
 ## Pivot
 
 1. Write the new ADR. In Overrides, name the old ADR and the doc section it beats.
-2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-012.
+2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-013.
 3. If you can update the owning doc in this change, do that and do not add a §0.5 row. If you cannot, add one §0.5 row: the concern, the owning doc, the `DEC-###`, and the section it overrides.
 4. Leave the old ADR as it was.
 
@@ -99,6 +100,10 @@ Co-authored-by: Kiro <noreply@kiro.dev>
 - A real decision has a new ADR and a ledger line.
 - No secrets in the diff. `.env` stays untracked.
 - A displayed number cites its `EQ-###` and a confidence from `docs/methods.md`. The model does not invent one.
+
+## Look and copy
+
+Anything a person sees (screens, copy, charts, decks, images) uses the brand kit in `brand/`. Read `brand/BRAND.md`, look at `brand/slides/*.png`, then build from `brand/WEB.md`, `brand/starter.html` and `brand/mangrove.css`. Show, don't explain: each section is one visual device (`brand/BRAND.md` §0), comparisons are tables, and it must read at a glance. Red is only for a conflict, every seeded item shows "Demo data", and every record page shows the disclaimer. Kiro loads this through `.kiro/steering/branding.md`.
 
 ## Stack currency
 
