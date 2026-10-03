@@ -132,7 +132,8 @@ async function tileInfo<T>(path: string): Promise<T> {
   return res.json();
 }
 
-const tileBase = () => `${TILE_ORIGIN || (typeof window !== "undefined" ? window.location.origin : "")}/api/v1/layers`;
+// Tiles are static files (ADR-053): Caddy serves stored ones straight from disk, like GMW's own tile host.
+const tileBase = () => `${TILE_ORIGIN || (typeof window !== "undefined" ? window.location.origin : "")}/tiles/gmw/${TILE_STYLE}`;
 
 export const gmwExtentTiles = (): Promise<GmwExtentTiles> => tileInfo("/layers/gmw-extent/tiles");
 
@@ -140,11 +141,11 @@ export const gmwExtentTiles = (): Promise<GmwExtentTiles> => tileInfo("/layers/g
 export const gmwChangeTiles = (): Promise<GmwChangeTiles> => tileInfo("/layers/gmw-change/tiles");
 
 /** Absolute XYZ template for one year (map engines fetch tiles outside fetch(), so the origin is spelled out). */
-export const gmwTileTemplate = (year: number): string => `${tileBase()}/gmw-extent/tiles/${year}/{z}/{x}/{y}.png?s=${TILE_STYLE}`;
+export const gmwTileTemplate = (year: number): string => `${tileBase()}/extent/${year}/{z}/{x}/{y}.png`;
 
 /** Absolute XYZ template for gain or loss against a baseline year. */
 export const gmwChangeTileTemplate = (base: number, year: number, only: "gain" | "loss"): string =>
-  `${tileBase()}/gmw-change/tiles/${base}/${year}/{z}/{x}/{y}.png?only=${only}&s=${TILE_STYLE}`;
+  `${tileBase()}/change/${base}/${year}/${only}/{z}/{x}/{y}.png`;
 
 /** Layer opacity at a zoom: full until z13, fading to 30% by z16 so the imagery shows through when zoomed in. */
 export function mangroveOpacityAt(zoom: number, opacity: number): number {
