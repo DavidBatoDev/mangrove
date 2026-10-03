@@ -64,12 +64,12 @@ def index() -> dict:
     return _index_for(str(p), p.stat().st_mtime)
 
 
-COVERAGE_ZOOM = 10  # the one tile level the Google map draws and scales (ADR-054)
+COVERAGE_ZOOMS = (7, 10)  # the fixed tile levels the Google map draws and scales: country view, then close (ADR-054)
 
 
-@lru_cache(maxsize=2)
-def _coverage(built_at: str) -> list[list[int]]:
-    """[x, y] of every COVERAGE_ZOOM tile over the Philippines that touches a GMW file; all others are empty."""
+@lru_cache(maxsize=4)
+def _coverage(built_at: str, z: int) -> list[list[int]]:
+    """[x, y] of every zoom-z tile over the Philippines that touches a GMW file; all others are empty."""
     ix = index()
     seen: dict[str, dict] = {}
     for entries in ix["tiles"].values():
@@ -77,7 +77,6 @@ def _coverage(built_at: str) -> list[list[int]]:
             seen[json.dumps(t["bounds"])] = t
     files = list(seen.values())
     w, s_, e, n = ix["bbox"]
-    z = COVERAGE_ZOOM
     x0, x1 = int((w + 180) / 360 * (1 << z)), int((e + 180) / 360 * (1 << z))
     ty = lambda lat: int((1 - math.log(math.tan(math.radians(lat)) + 1 / math.cos(math.radians(lat))) / math.pi) / 2 * (1 << z))
     return [[x, y] for x in range(x0, x1 + 1) for y in range(ty(n), ty(s_) + 1) if _files_for(files, z, x, y)]
@@ -86,7 +85,7 @@ def _coverage(built_at: str) -> list[list[int]]:
 def layer_info() -> dict:
     ix = index()
     return {"years": ix["years"], "version": ix["version"], "bbox": ix["bbox"], "max_zoom": MAX_ZOOM, "style": STYLE,
-            "coverage": {"z": COVERAGE_ZOOM, "tiles": _coverage(ix.get("built_at", ""))},
+            "coverage": [{"z": z, "tiles": _coverage(ix.get("built_at", ""), z)} for z in COVERAGE_ZOOMS],
             "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png",
             "source": {"name": "Global Mangrove Watch", "version": ix["version"],
                        "provenance_url": "https://doi.org/10.5281/zenodo.21346457"}}
