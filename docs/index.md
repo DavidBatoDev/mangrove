@@ -30,7 +30,9 @@ Each concern has one owner. Other docs link to it. When two docs disagree, the o
 | What proves each feature (`TC-###`) | [Tests](tests.md) | |
 | Pitch script and question ownership | [Pitch](pitch.md) | Rubric weights stay in `context.md`. |
 | Messages between David and Ethan (changes, requests, context) | [`notes/`](../notes/README.md) | A note is a message, not a fact. The fact it announces lives in its owner above (ADR-040). |
-| What the design doc must decide | [Design brief](design-brief.md) | `design.md` does not exist yet. The teammate who owns design writes it from the brief. |
+| What the design doc must decide | [Design brief](design-brief.md) | Input to `design.md`. Its "no brand seed" line is superseded by ADR-042. |
+| Routes, components, visual states, pin colors | [Design](design.md) | Points to `brand/` for tokens, type, components and voice (ADR-042). |
+| Tokens, type, voice, keywords, deck template | [`brand/BRAND.md`](../brand/BRAND.md) | The brand kit. The PRD wins on behaviour. |
 
 **The rule:** a fact lives in its owner. Do not restate it elsewhere.
 
@@ -55,6 +57,7 @@ No active overlay. The decisions in the ledger are already written into the owni
 | Ledger | [ledger.md](ledger.md) | draft | 2026-10-03 |
 | Pitch | [pitch.md](pitch.md) | draft | 2026-10-03 |
 | Design brief | [design-brief.md](design-brief.md) | draft | 2026-10-03 |
+| Design | [design.md](design.md) | draft | 2026-10-04 |
 
 ## 2. Health check
 

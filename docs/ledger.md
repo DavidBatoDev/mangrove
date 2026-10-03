@@ -41,6 +41,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — The brand kit is the design system
+- **ID:** DEC-012
+- **Type:** zoom-in
+- **Change:** "no brand seed" (design brief) → `brand/` (Mangrove brand kit and Figma deck) is the design system; `docs/design.md` created and points to it
+- **Why:** one look and one vocabulary across both builders, the deck and the pitch; the kit's wording now follows the PRD.
+- **Invalidated:** the "There is no brand seed" line in `docs/design-brief.md` (the brief's other constraints stand)
+- **Recorded as:** ADR-042
+
 ### 2026-10-03 — Three large phases
 - **ID:** DEC-011
 - **Type:** zoom-out

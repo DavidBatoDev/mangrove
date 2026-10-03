@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mangrove starter</title>
+<meta name="description" content="A public map of mangrove restoration promises in the Philippines. See the evidence before the money moves, then check whether the promise came true.">
+<link rel="icon" href="logo/mangrove-mark.svg">
+<link rel="stylesheet" href="mangrove.css">
+<!--
+  Reference page: the Figma deck (brand/slides/T01–T08) translated to a website.
+  Copy this file's sections and classes; don't restyle. Recipe: brand/WEB.md.
+  Each <section> names the slide it comes from. Copy is demo data from data/sites/README.md;
+  the "was this mangrove before / what's there now" findings are illustrative until GMW and Sentinel-2 run.
+-->
+</head>
+<body class="mg-page">
+
+<!-- T01 · Title · Night Roots  →  website hero / public map intro -->
+<header class="mg-band mg-band--night mg-hero">
+  <div class="mg-hero__top">
+    <a href="#" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--mg-heading)">
+      <img src="logo/mangrove-mark-dark.svg" width="44" height="44" alt="">
+      <span style="font:500 1.75rem/1 var(--mg-font-display)">Mangrove</span>
+    </a>
+    <nav class="mg-hero__nav">
+      <a href="#compare">Compare sites</a>
+      <a href="#record">Read a record</a>
+      <a href="#">Sign in</a>
+    </nav>
+  </div>
+  <div class="mg-hero__copy">
+    <h1 class="mg-headline">Evidence that <em>holds</em> ground.</h1>
+    <div class="mg-hero__actions">
+      <a class="mg-btn mg-btn--primary" href="#">Open the map</a>
+      <a class="mg-btn mg-btn--secondary" href="#how">How a promise works</a>
+    </div>
+  </div>
+  <p class="mg-hero__meta">Mangrove restoration promises in the Philippines &nbsp;·&nbsp; Manila Bay demo &nbsp;·&nbsp; 4 Oct 2026</p>
+</header>
+
+<!-- T03 · Statement · Survey Tide -->
+<section class="mg-band mg-band--survey mg-statement" id="how">
+  <div class="mg-statement__top">
+    <span class="mg-eyebrow">The problem</span>
+    <h2 class="mg-headline">Restoration money is limited. The evidence is <em>scattered</em>.</h2>
+  </div>
+  <div class="mg-statement__src">
+    <a class="mg-cite mg-cite--box" href="#">[R09]</a>
+    <span>Manila Bay candidates still needed field checks for fishponds and ownership. Wetlands International, 2024.</span>
+  </div>
+</section>
+
+<!-- T04 · Claim and evidence · Waterline -->
+<section class="mg-band mg-band--plain">
+  <div class="mg-wrap">
+    <span class="mg-eyebrow">Before the money moves</span>
+    <h2 class="mg-headline mg-headline--md">Funders reconcile maps, imagery and reports by hand before every allocation.</h2>
+    <hr class="mg-waterline">
+    <div class="mg-evidence-row">
+      <article class="mg-evidence"><span class="mg-evidence__meta">[R03] · Global Mangrove Watch · 2024</span><p class="mg-evidence__body">Global maps show extent and change, not fundable sites.</p></article>
+      <article class="mg-evidence"><span class="mg-evidence__meta">[R05] · Restoration tracker · 2025</span><p class="mg-evidence__body">Trackers report project activity, not recovery.</p></article>
+      <article class="mg-evidence"><span class="mg-evidence__meta">[R09] · Field ground-truthing · 2024</span><p class="mg-evidence__body">Some sites that look good on a map are active fishponds.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- T02 · Section · Canopy Contours -->
+<section class="mg-band mg-band--canopy">
+  <img class="mg-ghost-mark" src="logo/mangrove-mark-dark.svg" alt="">
+  <div class="mg-wrap" style="position:relative">
+    <span class="mg-eyebrow">Follow-through</span>
+    <h2 class="mg-headline">The second failure happens <em>after</em> funding.</h2>
+  </div>
+</section>
+
+<!-- T06 · Big number · Night Roots -->
+<section class="mg-band mg-band--night mg-hero mg-hero--short">
+  <div class="mg-hero__copy" style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:24px 48px">
+    <div><span class="mg-eyebrow">Work check · Site B</span><p class="mg-display">8 <em>vs</em> 5</p></div>
+    <p class="mg-lede" style="padding-top:2.5em">hectares reported against hectares mapped by the field partner at Pamarawan. Sources disagree.</p>
+  </div>
+  <p class="mg-hero__meta mg-hero__meta--cite">Project report · reported 8 ha &nbsp;·&nbsp; Field partner · mapped 5.0 ha &nbsp;·&nbsp; EQ-009 &nbsp;·&nbsp; Demo data</p>
+</section>
+
+<!-- T05 · Compare · Root profile (BRAND.md §6): one root per question, status by root form -->
+<section class="mg-band mg-band--plain" id="compare">
+  <div class="mg-wrap">
+    <span class="mg-eyebrow">Compare</span>
+    <h2 class="mg-headline mg-headline--md">Which case is better <em class="mg-em--root">rooted</em>?</h2>
+    <p style="margin-top:16px"><span class="mg-demo">Demo data</span></p>
+    <div class="mg-scroll-x" style="margin-top:40px">
+    <svg class="mg-root-profile" viewBox="0 0 1680 780" role="img" aria-labelledby="rp-t rp-d" style="font-family:var(--mg-font-body)">
+      <title id="rp-t">Three sites compared across the three questions</title>
+      <desc id="rp-d">Site B Pamarawan: all three questions supported. Site D Orani: what people on the ground say is missing. Site E Paombong: what people on the ground say is conflicting, the proposal says open for restoration and the field partner reports an active fishpond.</desc>
+      <defs>
+        <linearGradient id="rp-ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--mg-tideline)"/><stop offset="1" style="stop-color:var(--mg-mud)"/></linearGradient>
+      </defs>
+      <!-- site labels above the waterline -->
+      <g style="fill:var(--mg-text-muted);font:500 16px var(--mg-font-mono);letter-spacing:.12em" text-anchor="middle"><text x="360" y="22">SITE B · ABOUT 32 HA</text><text x="880" y="22">SITE D · ABOUT 11 HA</text><text x="1400" y="22">SITE E · ABOUT 35 HA</text></g>
+      <g style="fill:var(--mg-heading);font:500 44px var(--mg-font-display)" text-anchor="middle"><text x="360" y="72">Pamarawan</text><text x="880" y="72">Orani</text><text x="1400" y="72">Paombong</text></g>
+      <!-- ground, waterline, evidence line -->
+      <rect x="0" y="210" width="1680" height="470" fill="url(#rp-ground)"/>
+      <path d="M0 210 H1680" style="stroke:var(--mg-tidal)" stroke-width="2"/>
+      <path d="M0 217 H1680" style="stroke:var(--mg-tidal)" stroke-width="2" stroke-dasharray="28 17" opacity=".45"/>
+      <path d="M0 560 H1680" style="stroke:var(--mg-brackish)" stroke-width="1" stroke-dasharray="4 6" opacity=".6"/>
+      <text x="20" y="548" style="font:500 14px var(--mg-font-mono);letter-spacing:.12em;fill:var(--mg-text-muted)">EVIDENCE</text>
+      <!-- legend -->
+      <g style="font:500 15px var(--mg-font-mono);letter-spacing:.1em;fill:var(--mg-text)">
+        <circle cx="30" cy="650" r="9" style="fill:var(--mg-status-supported)"/><text x="48" y="655">SUPPORTED</text>
+        <rect x="216" y="643" width="14" height="14" transform="rotate(45 223 650)" style="fill:var(--mg-status-conflicting)"/><text x="244" y="655">CONFLICTING</text>
+        <circle cx="430" cy="650" r="9" fill="none" style="stroke:var(--mg-status-missing)" stroke-width="2" stroke-dasharray="3 3"/><text x="448" y="655">MISSING</text>
+      </g>
+      <!-- trunks + leaves -->
+      <g style="stroke:var(--mg-canopy)" stroke-width="6"><path d="M360 132 V210"/><path d="M880 132 V210"/><path d="M1400 132 V210"/></g>
+      <g style="fill:var(--mg-propagule)">
+        <path d="M360 140 C350 112 328 104 322 106 C324 126 340 140 360 140Z M360 140 C370 112 392 104 398 106 C396 126 380 140 360 140Z"/>
+        <path d="M880 140 C870 112 848 104 842 106 C844 126 860 140 880 140Z M880 140 C890 112 912 104 918 106 C916 126 900 140 880 140Z"/>
+        <path d="M1400 140 C1390 112 1368 104 1362 106 C1364 126 1380 140 1400 140Z M1400 140 C1410 112 1432 104 1438 106 C1436 126 1420 140 1400 140Z"/>
+      </g>
+      <!-- roots: before (left), now (middle), ground (right) -->
+      <g fill="none" style="stroke:var(--mg-root)" stroke-linecap="round" stroke-width="5">
+        <path d="M360 190 C280 190 210 250 210 560"/><path d="M360 190 V560"/><path d="M360 190 C440 190 510 250 510 560"/>
+        <path d="M880 190 C800 190 730 250 730 560"/><path d="M880 190 V560"/>
+        <path d="M1400 190 C1320 190 1250 250 1250 560"/><path d="M1400 190 V560"/>
+      </g>
+      <path d="M880 190 C940 190 990 230 1000 330" fill="none" style="stroke:var(--mg-status-missing)" stroke-width="2.5" stroke-dasharray="7 6" stroke-linecap="round"/>
+      <g fill="none" style="stroke:var(--mg-status-conflicting)" stroke-width="5" stroke-linecap="round">
+        <path d="M1400 190 C1480 190 1540 250 1545 420"/><path d="M1545 420 C1545 480 1505 520 1490 560"/><path d="M1545 420 C1545 480 1590 520 1605 560"/>
+      </g>
+      <!-- nodes -->
+      <g style="fill:var(--mg-status-supported)">
+        <circle cx="210" cy="560" r="16"/><circle cx="360" cy="560" r="16"/><circle cx="510" cy="560" r="16"/>
+        <circle cx="730" cy="560" r="16"/><circle cx="880" cy="560" r="16"/>
+        <circle cx="1250" cy="560" r="16"/><circle cx="1400" cy="560" r="16"/>
+      </g>
+      <circle cx="1000" cy="330" r="16" style="fill:var(--mg-mist);stroke:var(--mg-status-missing)" stroke-width="2" stroke-dasharray="4 4"/>
+      <g style="fill:var(--mg-status-conflicting)"><rect x="1478" y="548" width="24" height="24" transform="rotate(45 1490 560)"/><rect x="1593" y="548" width="24" height="24" transform="rotate(45 1605 560)"/></g>
+      <!-- findings -->
+      <g style="fill:var(--mg-canopy);font:400 17px var(--mg-font-body)" text-anchor="middle">
+        <text x="210" y="600">Mangrove recorded</text><text x="360" y="622">Mostly water</text><text x="510" y="600">Open for restoration</text>
+        <text x="730" y="600">No mangrove recorded</text><text x="880" y="622">Mostly water</text><text x="1000" y="372">No evidence yet</text>
+        <text x="1250" y="600">No mangrove recorded</text><text x="1400" y="622">Mostly water</text>
+        <text x="1490" y="604" style="fill:var(--mg-conflict)">Open (proposal)</text><text x="1605" y="626" style="fill:var(--mg-conflict)">Active fishpond</text>
+      </g>
+      <!-- question key + sources -->
+      <g style="fill:var(--mg-text-muted);font:500 13px var(--mg-font-mono);letter-spacing:.08em" text-anchor="middle">
+        <text x="210" y="244">BEFORE?</text><text x="360" y="244" dx="40">NOW?</text><text x="510" y="244">GROUND?</text>
+      </g>
+      <g style="fill:var(--mg-root);font:400 17px var(--mg-font-mono)" text-anchor="middle"><text x="360" y="740">4 evidence items</text><text x="880" y="740">2 evidence items · ground missing</text><text x="1400" y="740">4 evidence items · 1 conflict</text></g>
+    </svg></div>
+  </div>
+</section>
+
+<!-- T07 · Follow-through · Promise vs observed  →  record page -->
+<section class="mg-band mg-band--plain" id="record" style="padding-top:0">
+  <div class="mg-wrap">
+    <span class="mg-eyebrow">Record · Site B, Pamarawan &nbsp;<span class="mg-demo">Demo data</span></span>
+    <span class="mg-eyebrow mg-label--promise" style="margin-top:48px">Promise · locked 4 Oct 2026 by Demo Coastal Fund</span>
+    <h2 class="mg-headline mg-headline--md">8 ha of hydrological repair</h2>
+    <p style="margin-top:12px;color:var(--mg-text-muted)">Work check after 1 Apr 2027 &nbsp;·&nbsp; Outcome check after 1 Oct 2029</p>
+    <hr class="mg-waterline">
+    <div class="mg-split">
+      <div>
+        <span class="mg-eyebrow mg-label--observed">Did the work happen?</span>
+        <p class="mg-headline mg-headline--md">5 ha mapped</p>
+        <p style="margin-top:24px"><span class="mg-chip mg-chip--conflicting">Conflicting</span></p>
+      </div>
+      <div>
+        <p class="mg-lede" style="color:var(--mg-mudflat)">Sources disagree. The project report says 8 ha; the field partner's mapped boundary is 5.0 ha. <span class="mg-cite">Field partner · 2027-04</span></p>
+        <p style="margin-top:24px"><span class="mg-eyebrow" style="margin:0 0 8px">Did the mangroves come back?</span><span class="mg-chip mg-chip--too-early">Too early to tell</span> <span style="color:var(--mg-text-muted);font-size:var(--mg-text-small)">Checkable from 1 Oct 2029</span></p>
+      </div>
+    </div>
+    <div class="mg-progress" role="img" aria-label="5 of 8 reported hectares mapped"><div class="mg-progress__fill" style="--value:62.5%"></div></div>
+    <div class="mg-progress__labels"><span style="padding-left:calc(62.5% - 2.5em)">Mapped 5.0 ha</span><span>Reported 8 ha</span></div>
+    <p class="mg-disclaimer">This record is not a certification of restoration success or approval of funding.</p>
+  </div>
+</section>
+
+<!-- T08 · Closing · Canopy Contours -->
+<section class="mg-band mg-band--canopy">
+  <div class="mg-wrap">
+    <img src="logo/mangrove-mark-dark.svg" width="72" height="72" alt="" style="display:block;margin-bottom:32px">
+    <h2 class="mg-headline">Evidence that <em>holds</em> ground.</h2>
+    <div class="mg-hero__actions"><a class="mg-btn mg-btn--primary" href="#">Open the map</a></div>
+  </div>
+</section>
+
+<footer class="mg-wrap mg-foot">
+  <img src="logo/mangrove-mark.svg" alt="Mangrove">
+  <span style="display:flex;gap:20px;flex-wrap:wrap;align-items:center"><span class="mg-pin mg-pin--conflict">Sources disagree</span><span class="mg-pin mg-pin--awaiting">Awaiting evidence</span><span class="mg-pin mg-pin--on-track">On track</span></span>
+</footer>
+
+</body>
+</html>
