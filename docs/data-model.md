@@ -45,7 +45,7 @@ informs the site's three answers, which is intended.
 | Field | Type | Null? | Default | Class | Description |
 |-------|------|-------|---------|-------|-------------|
 | `id` | `uuid` | no | `gen_random_uuid()` | public | Stable identifier |
-| `name` | `text` | no | — | public | Organization name; fictional for demo orgs (BR-006) |
+| `name` | `text` | no | — | public | Organization name; fictional for demo orgs (BR-006); a real organization only as a cited party in `is_demo = false` sourced records (ADR-051) |
 | `kind` | `org_kind` (`funder` \| `partner`) | no | — | public | What the organization does in Mangrove |
 | `is_demo` | `boolean` | no | `true` | public | Shows the "Demo data" label (BR-006) |
 
@@ -83,16 +83,16 @@ geometry and name are copied into the record snapshot at lock time.
 
 ### evidence_item — append-only
 
-**Stored in:** table `evidence_item` · **Written by:** Source adapters (GMW ingest, Sentinel-2 refresh) and the Evidence API (field submissions, project reports)
+**Stored in:** table `evidence_item` · **Written by:** Source adapters (GMW ingest, Sentinel-2 refresh), the Evidence API (field submissions, project reports), and the seed for cited public reports (ADR-051)
 
 | Field | Type | Null? | Default | Class | Description |
 |-------|------|-------|---------|-------|-------------|
 | `id` | `uuid` | no | `gen_random_uuid()` | public | Stable identifier |
 | `site_id` | `uuid` | no | — | public | The site this evidence is about |
 | `question` | `question` (`history` \| `current` \| `ground` \| `work` \| `outcome`) | no | — | public | Which site question or record check it answers (PRD §4.1 vocabularies) |
-| `source_type` | `source_type` (`gmw` \| `sentinel2` \| `field` \| `project_report` \| `proposal`) | no | — | public | Kind of source |
-| `source_name` | `text` | no | — | public | e.g. `Global Mangrove Watch`, `Copernicus Sentinel-2 L2A`, partner org name |
-| `source_version` | `text` | yes | `null` | public | e.g. `v4.1.12`; null for field submissions |
+| `source_type` | `source_type` (`gmw` \| `sentinel2` \| `field` \| `project_report` \| `proposal` \| `public_report`) | no | — | public | Kind of source. `public_report` = a figure or statement quoted from a published source (DS-009, EQ-017, ADR-051) |
+| `source_name` | `text` | no | — | public | e.g. `Global Mangrove Watch`, `Copernicus Sentinel-2 L2A`, partner org name; for `public_report`, `<Publisher>, “<Title>”` |
+| `source_version` | `text` | yes | `null` | public | e.g. `v4.1.12`; null for field submissions; for `public_report`, `Published <date> (case study source <n>)` |
 | `observed_from` | `timestamptz` | no | — | public | Start of the observation (equals `observed_to` for a single moment) |
 | `observed_to` | `timestamptz` | no | — | public | End of the observation window |
 | `retrieved_at` | `timestamptz` | no | `now()` | public | When Mangrove obtained it |
@@ -102,7 +102,7 @@ geometry and name are copied into the record snapshot at lock time.
 | `method` | `text` | no | — | public | How the finding was produced, in one line |
 | `spatial_resolution_m` | `numeric` | yes | `null` | public | Pixel size for raster sources; null otherwise |
 | `limitation` | `text` | no | — | public | What this source cannot tell you |
-| `provenance_url` | `text` | yes | `null` | public | Link to the dataset, document or request record |
+| `provenance_url` | `text` | yes | `null` | public | Link to the dataset, document or request record; required for `public_report` (`ck_evidence_public_report_cited`) |
 | `asset_sha256` | `char(64)` | yes | `null` | public | Uploaded photo or document; S3 key `assets/<sha256>` (ADR-037) |
 | `asset_mime` | `text` | yes | `null` | public | `image/jpeg` or `image/png` |
 | `raw` | `jsonb` | yes | `null` | internal | Source response as received (e.g. Statistical API JSON), kept for audit |
@@ -182,6 +182,7 @@ A flag on the public record produces a notice. The recipient is the funder accou
 | evidence_item | `fk_evidence_site` → site | foreign key, `restrict` | Evidence cannot outlive its site |
 | evidence_item | `ck_evidence_finding` | check | `finding` is in the vocabulary for `question` (PRD §4.1) or null when unusable — BR-001 |
 | evidence_item | `ck_evidence_unusable_reason` | check | `usable = true OR unusable_reason IS NOT NULL` |
+| evidence_item | `ck_evidence_public_report_cited` | check | `source_type <> 'public_report' OR provenance_url IS NOT NULL`: a quoted report always links its source (ADR-051) |
 | evidence_item | `ix_evidence_site_question` on `(site_id, question, created_at)` | index | Building a site's three answers — every dossier, compare and MCP read |
 | evidence_item | `ix_evidence_location` | GiST | Spatial checks on field points/boundaries |
 | promise_record | `fk_record_site` → site, `fk_record_funder` → organization | foreign key, `restrict` | A record's site and funder cannot be deleted |
@@ -195,6 +196,8 @@ A flag on the public record produces a notice. The recipient is the funder accou
 | evidence_item, promise_record, record_event | app database role granted `SELECT, INSERT` only | grant | **BR-002**: second layer; the app role cannot even issue `UPDATE`/`DELETE` |
 
 `restrict` everywhere on the append-only side: a single delete must never cascade away a published promise.
+
+**Schema changes after the first apply.** `db/apply.py` skips `db/init/` once the tables exist, except files whose first line contains `-- idempotent`: those run on every apply. `006_public_report.sql` (enum value, `ADD VALUE IF NOT EXISTS`) and `007_public_report_cited.sql` (the CHECK above) are such files. Neither touches the append-only triggers or grants.
 
 ## 4. Doc Integrity Check
 

@@ -62,3 +62,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-048](ADR-048-ph-mangrove-extent-tiles.md) | Accepted | Mangrove extent for the whole Philippines, served by the API as brand-Tidal map tiles on Google and MapLibre; context only. |
 | [ADR-049](ADR-049-mangrove-layer-cyan-and-open-tiles.md) | Accepted | The mangrove layer uses a dedicated GMW-style cyan token; API-024 tiles allow any origin so fixtures mode shows real tiles. |
 | [ADR-050](ADR-050-mangrove-change-layer-and-legend-filters.md) | Accepted | GMW mangrove gain/loss as map tiles (API-025), loss in red as a named map-data exception; compact legend toggles and filters layers; tiles to zoom 22 with a fade. |
+| [ADR-051](ADR-051-real-sourced-case-records.md) | Accepted | Four real, sourced Post-Yolanda records (`is_demo = false`) beside the demo cast; `public_report` evidence always links its source; real organizations only as cited parties, no individuals; reconstructed, not locked at the time. |

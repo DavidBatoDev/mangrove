@@ -92,7 +92,7 @@ request using those methods gets `405` (BR-002).
 
 | Parameter | In | Type | Required | Notes |
 |-----------|----|------|----------|-------|
-| `region` | query | string | no | e.g. `Manila Bay`; omitted = all |
+| `region` | query | string | no | e.g. `Manila Bay` (demo) or `Eastern Visayas` (real, sourced; ADR-051); omitted = all |
 | `commitment` | query | `with` \| `without` \| `all` | no | Default `all`. `with` = a funder has committed. `without` = a public site with no commitment |
 
 **Response — `200`** — a GeoJSON `FeatureCollection`:
@@ -166,7 +166,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
+- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW, public reports). `source_type` ∈ `gmw | sentinel2 | field | project_report | proposal | public_report`; a `public_report` item always has a `provenance_url` and its metrics cite EQ-017 (ADR-051). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
 
 ### API-006 — `GET /api/v1/compare` — side-by-side comparison
 
@@ -201,7 +201,7 @@ request using those methods gets `405` (BR-002).
 |-------|------|----------|-------|
 | `site_id` | uuid | yes unless `record_id` | |
 | `record_id` | uuid | no | When set, the item is also appended to that record's timeline; `site_id` is taken from the record |
-| `source_type` | `field` \| `project_report` | yes | `field` requires role `partner`; `project_report` requires role `funder` |
+| `source_type` | `field` \| `project_report` | yes | `field` requires role `partner`; `project_report` requires role `funder`. `public_report` is seed-only, never accepted here |
 | `question` | `history` \| `current` \| `ground` \| `work` \| `outcome` | yes | `current` is rejected for human sources (satellite only) |
 | `finding` | string | yes | Must be in the question's vocabulary ([`prd.md` §4.1](prd.md)) |
 | `observed_at` | date | yes | Not in the future |
