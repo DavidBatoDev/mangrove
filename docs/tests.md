@@ -324,7 +324,7 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 
 ### TC-029 — Public reports must cite their source, and stay append-only
 
-- **Covers:** F-001, F-002 · **Proves:** US-001 (ADR-055)
+- **Covers:** F-001, F-002 · **Proves:** US-001 (ADR-056)
 - **Level:** integration
 - **Preconditions / controlled data:** test database with `db/init/006`–`007` applied; app-role connection, rolled back
 - **Steps:** insert a `public_report` evidence item with a `provenance_url`; insert one without; try `UPDATE` and `DELETE` on a seeded real `public_report` row
@@ -333,7 +333,7 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 
 ### TC-030 — The four real Post-Yolanda records read as the sources say
 
-- **Covers:** F-001, F-008, F-009, F-010 · **Proves:** US-001, US-009 (ADR-055)
+- **Covers:** F-001, F-008, F-009, F-010 · **Proves:** US-001, US-009 (ADR-056)
 - **Level:** integration
 - **Preconditions / controlled data:** the real sites seeded (`data/sites/real/README.md`) and GMW ingested for them
 - **Steps:** `GET /api/v1/sites`; `GET /api/v1/records`; `GET /api/v1/records/{id}` and `/verify` for each real record

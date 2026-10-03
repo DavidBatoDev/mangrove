@@ -104,7 +104,7 @@ export function CheckTimeline({
   outcomeAfter: string;
 }) {
   const t = (s: string) => new Date(s.length === 10 ? `${s}T00:00:00Z` : s).getTime();
-  // A reconstructed record (ADR-055) is published after its check dates, so the rail runs from the earliest
+  // A reconstructed record (ADR-056) is published after its check dates, so the rail runs from the earliest
   // date to the latest rather than from the lock.
   const start = Math.min(t(lockedAt), t(workAfter));
   const end = Math.max(t(lockedAt), t(outcomeAfter));

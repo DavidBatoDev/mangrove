@@ -1,4 +1,4 @@
--- idempotent: re-run on every apply (db/apply.py). ADR-055.
+-- idempotent: re-run on every apply (db/apply.py). ADR-056.
 -- A public report is only evidence with its link: every public_report item carries provenance_url.
 -- No change to the append-only triggers or the grants.
 DO $do$

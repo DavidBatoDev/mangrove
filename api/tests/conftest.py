@@ -32,7 +32,7 @@ os.environ["DATABASE_URL_DIRECT"] = _test_owner
 
 SITE = {k: f"00000000-0000-4000-8000-0000000000{k.lower()}0" for k in "ABCDE"}
 RECORD_A = "00000000-0000-4000-8000-0000000001a0"
-# Real, sourced Post-Yolanda sites and records (ADR-055, data/sites/real/README.md).
+# Real, sourced Post-Yolanda sites and records (ADR-056, data/sites/real/README.md).
 REAL_SITE = {k: f"00000000-0000-4000-8000-0000000000{k.lower()}" for k in ("F1", "F2", "F3", "F4")}
 REAL_RECORD = {k: f"00000000-0000-4000-8000-0000000001{k.lower()}" for k in ("F1", "F2", "F3", "F4")}
 

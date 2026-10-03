@@ -4,7 +4,7 @@
 - Evidence and the site-A record are written as the app role through the ledger, so the grants and the
   EQ-011 hashes are the real ones. Passwords are Argon2id hashes of DEMO_*_PASSWORD from the environment.
 - No satellite evidence: history and current stay "missing" until real GMW / Sentinel-2 ingest (P1).
-- Then the real, sourced Eastern Visayas records (db/seed_real.py, ADR-055).
+- Then the real, sourced Eastern Visayas records (db/seed_real.py, ADR-056).
 """
 
 from __future__ import annotations

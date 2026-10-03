@@ -13,7 +13,7 @@ export function DemoLabel({ show = true }: { show?: boolean }) {
   return <span className="mg-demo">Demo data</span>;
 }
 
-/** Real, sourced case record (is_demo = false; ADR-055): every figure cites a public report. Never red. */
+/** Real, sourced case record (is_demo = false; ADR-056): every figure cites a public report. Never red. */
 export function RealCaseLabel({ show = true }: { show?: boolean }) {
   if (!show) return null;
   return <span className="real-case">Real case · sourced</span>;

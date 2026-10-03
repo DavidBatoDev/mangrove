@@ -92,7 +92,7 @@ request using those methods gets `405` (BR-002).
 
 | Parameter | In | Type | Required | Notes |
 |-----------|----|------|----------|-------|
-| `region` | query | string | no | e.g. `Manila Bay` (demo) or `Eastern Visayas` (real, sourced; ADR-055); omitted = all |
+| `region` | query | string | no | e.g. `Manila Bay` (demo) or `Eastern Visayas` (real, sourced; ADR-056); omitted = all |
 | `commitment` | query | `with` \| `without` \| `all` | no | Default `all`. `with` = a funder has committed. `without` = a public site with no commitment |
 
 **Response — `200`** — a GeoJSON `FeatureCollection`:
@@ -166,7 +166,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW, public reports). `source_type` ∈ `gmw | sentinel2 | field | project_report | proposal | public_report`; a `public_report` item always has a `provenance_url` and its metrics cite EQ-017 (ADR-055). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
+- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW, public reports). `source_type` ∈ `gmw | sentinel2 | field | project_report | proposal | public_report`; a `public_report` item always has a `provenance_url` and its metrics cite EQ-017 (ADR-056). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
 
 ### API-006 — `GET /api/v1/compare` — side-by-side comparison
 
