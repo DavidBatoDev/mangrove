@@ -24,7 +24,7 @@ const LEGEND_PINS: { state: PinState; hint: string }[] = [
   { state: "conflict", hint: "Some evidence disagrees" },
 ];
 
-const PREF_KEY = "mangrove-map-prefs-v1";
+const PREF_KEY = "mangrove-map-prefs-v2"; // v2: satellite default (ADR-063) reaches earlier visitors too
 
 interface Prefs {
   basemap: BasemapId;
