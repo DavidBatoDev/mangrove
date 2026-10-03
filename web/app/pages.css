@@ -294,3 +294,13 @@ form.form--wide { max-width: 760px; }
 .gmw-table .mg-table { margin-top: var(--mg-space-2); }
 .gmw-table .mg-table td { padding: var(--mg-space-1) var(--mg-space-3) var(--mg-space-1) 0; }
 @media (max-width: 480px) { .gmw-duel { grid-template-columns: 1fr; } }
+
+/* Side-panel switch for the gain/loss map layers (ADR-057) */
+.gmw-switch { display: flex; align-items: center; gap: var(--mg-space-2); margin: var(--mg-space-3) 0; font-size: var(--mg-text-small); color: var(--mg-text); cursor: pointer; }
+.gmw-switch input { appearance: none; flex: none; position: relative; width: 36px; height: 20px; min-height: 0; margin: 0; padding: 0; border: 0;
+  border-radius: 999px; background: var(--mg-border); cursor: pointer; transition: background var(--mg-dur-ui) var(--mg-ease); }
+.gmw-switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--mg-surface);
+  transition: transform var(--mg-dur-ui) var(--mg-ease); }
+.gmw-switch input:checked { background: var(--mg-tidal); }
+.gmw-switch input:checked::after { transform: translateX(16px); }
+.gmw-switch input:focus-visible { outline: 2px solid var(--mg-focus); outline-offset: 2px; }

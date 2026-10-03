@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Gain and loss off by default, one side-panel switch
+- **ID:** DEC-027
+- **Type:** zoom-in
+- **Change:** gain/loss on by default with legend toggles and a baseline picker → off by default, one switch on the national card
+- **Why:** the team wants a simpler default map.
+- **Invalidated:** ADR-050's default and legend controls
+- **Recorded as:** ADR-057
+
 ### 2026-10-04 — Real, sourced Post-Yolanda records beside the demo cast
 - **ID:** DEC-026
 - **Type:** scope-add

@@ -68,6 +68,8 @@ function PublicMap() {
         />
       ) : (
         <>
+          {country.data && <CountryCard c={country.data} />}
+
           <h1>Mangrove funding promises</h1>
           <p className="lede">Each pin is a promise made public before the money moved. Pick one to see whether the evidence agrees.</p>
 
@@ -97,7 +99,6 @@ function PublicMap() {
             </ul>
           )}
 
-          {country.data && <CountryCard c={country.data} />}
         </>
       )}
     </MapShell>

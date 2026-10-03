@@ -68,3 +68,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-054](ADR-054-gmw-one-fixed-tile-level.md) | Accepted | The map draws GMW layers from one fixed zoom-10 tile set, scaled with the map, never reloaded per zoom. |
 | [ADR-055](ADR-055-google-gmw-overlay-back-to-tile-layers.md) | Accepted | Google map back to per-zoom GMW tile layers on the static tiles; ADR-054's fixed overlay felt laggy. |
 | [ADR-056](ADR-056-real-sourced-case-records.md) | Accepted | Four real, sourced Post-Yolanda records (`is_demo = false`) beside the demo cast; `public_report` evidence always links its source; real organizations only as cited parties, no individuals; reconstructed, not locked at the time. |
+| [ADR-057](ADR-057-gain-loss-off-by-default-panel-switch.md) | Accepted | Gain and loss are off by default; one switch on the side-panel national card turns them on (since 1985). |
