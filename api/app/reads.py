@@ -91,6 +91,7 @@ SELECT e.id, e.site_id, e.question::text AS question, e.source_type::text AS sou
        e.finding, e.metrics, e.method, e.spatial_resolution_m, e.limitation, e.provenance_url,
        e.asset_sha256, e.asset_mime, e.raw, e.usable, e.unusable_reason, e.note,
        e.submitted_by_user_id, e.submitted_by_org_id, e.is_demo, e.created_at, e.content_hash,
+       e.submitter_name, e.submitter_org, e.submitter_role,
        CASE WHEN GeometryType(e.location) IN ('POLYGON', 'MULTIPOLYGON')
             THEN {E.EQ010_SQL.replace("location", "e.location")} END AS mapped_area_ha,
        o.name AS submitted_by_org_name, o.is_demo AS submitted_by_org_is_demo
@@ -137,6 +138,11 @@ def evidence_dto(row: dict[str, Any]) -> dict[str, Any]:
         "submitted_by_org": (
             {"name": row["submitted_by_org_name"], "is_demo": row["submitted_by_org_is_demo"]}
             if row["submitted_by_org_id"] else None
+        ),
+        # Who typed a public submission (ADR-061); contact email is never read here.
+        "submitted_by": (
+            {"name": row["submitter_name"], "organisation": row["submitter_org"], "role": row["submitter_role"]}
+            if row.get("submitter_name") else None
         ),
         "is_demo": row["is_demo"],
         "created_at": normalize(row["created_at"]),
@@ -213,9 +219,11 @@ SELECT r.id, r.site_id, r.funder_org_id, r.created_by_user_id, r.rationale,
        r.planned_action::text AS planned_action, r.planned_action_detail, r.planned_area_ha,
        r.expected_outcome, r.expected_vegetated_ha, r.work_check_after, r.outcome_check_after,
        r.known_unknowns, r.snapshot, r.is_demo, r.published_at, r.content_hash,
-       o.name AS funder_name, o.is_demo AS funder_is_demo
+       r.funder_name, r.funder_org, r.funder_role,
+       COALESCE(o.name, r.funder_org, r.funder_name) AS funder_display,
+       COALESCE(o.is_demo, r.is_demo) AS funder_is_demo
 FROM promise_record r
-JOIN organization o ON o.id = r.funder_org_id
+LEFT JOIN organization o ON o.id = r.funder_org_id
 """
 
 _EVENTS_SQL = """
@@ -288,7 +296,7 @@ def list_records(conn: Connection, today: date | None = None) -> dict[str, Any]:
             "geometry": {"type": "Point", "coordinates": [point["lon"], point["lat"]]},
             "properties": {
                 "id": str(r["id"]), "site_id": str(r["site_id"]), "site_name": site_row["name"],
-                "funder": r["funder_name"], "published_at": normalize(r["published_at"]),
+                "funder": r["funder_display"], "published_at": normalize(r["published_at"]),
                 "pin_state": ctx["pin_state"], "is_demo": r["is_demo"],
             },
         })
@@ -299,7 +307,12 @@ def _record_dto(r: dict[str, Any]) -> dict[str, Any]:
     return {
         "id": str(r["id"]),
         "site_id": str(r["site_id"]),
-        "funder": {"name": r["funder_name"], "is_demo": r["funder_is_demo"]},
+        "funder": {"name": r["funder_display"], "is_demo": r["funder_is_demo"]},
+        # Who locked a public promise (ADR-061); null for seeded records. Contact email is never read here.
+        "locked_by": (
+            {"name": r["funder_name"], "organisation": r["funder_org"], "role": r["funder_role"]}
+            if r.get("funder_name") else None
+        ),
         "published_at": normalize(r["published_at"]),
         "rationale": r["rationale"],
         "planned_action": r["planned_action"],

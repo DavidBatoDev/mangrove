@@ -37,16 +37,29 @@ EVENT_HASH_FIELDS = (
 GEOJSON_PRECISION = 9  # decimal places, for both writing and ST_AsGeoJSON(location, 9) on read
 
 
+# Who typed a public submission (ADR-061). Hashed only when present, so every item and record written before
+# these columns existed keeps exactly the hash it was published with. contact_email is never hashed.
+PUBLIC_EVIDENCE_FIELDS = ("submitter_name", "submitter_org", "submitter_role")
+PUBLIC_RECORD_FIELDS = ("funder_name", "funder_org", "funder_role")
+
+
 def _pick(row: Mapping[str, Any], fields: Iterable[str]) -> dict[str, Any]:
     return {f: row.get(f) for f in fields}
 
 
+def _with_public(row: Mapping[str, Any], fields: tuple[str, ...], public: tuple[str, ...]) -> dict[str, Any]:
+    out = _pick(row, fields)
+    if any(row.get(f) is not None for f in public):
+        out.update(_pick(row, public))
+    return out
+
+
 def evidence_hash(item: Mapping[str, Any]) -> str:
-    return content_hash(_pick(item, EVIDENCE_HASH_FIELDS))
+    return content_hash(_with_public(item, EVIDENCE_HASH_FIELDS, PUBLIC_EVIDENCE_FIELDS))
 
 
 def record_hash(record: Mapping[str, Any]) -> str:
-    return content_hash(_pick(record, RECORD_HASH_FIELDS))
+    return content_hash(_with_public(record, RECORD_HASH_FIELDS, PUBLIC_RECORD_FIELDS))
 
 
 def event_hash(prev_hash: str, event: Mapping[str, Any]) -> str:

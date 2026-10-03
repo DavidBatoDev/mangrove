@@ -30,15 +30,15 @@ carries `is_demo`. Errors use `{"error": {"code": "<CODE>", "message": "<human t
 
 | `API-###` | Operation | Serves | Auth | Status |
 |-----------|-----------|--------|------|--------|
-| API-001 | `POST /api/v1/auth/login` | F-003, F-004, F-007 | **none — it is the sign-in; rate-limited (§5)** | stable |
-| API-002 | `POST /api/v1/auth/logout` | F-007 | session | stable |
-| API-003 | `GET /api/v1/auth/me` | F-004, F-007 | session | stable |
+| API-001 | `POST /api/v1/auth/login` | — | — | **removed — no accounts (ADR-061)** |
+| API-002 | `POST /api/v1/auth/logout` | — | — | **removed — no accounts (ADR-061)** |
+| API-003 | `GET /api/v1/auth/me` | — | — | **removed — no accounts (ADR-061)** |
 | API-004 | `GET /api/v1/sites` | F-001 | **none — public data** | stable |
 | API-005 | `GET /api/v1/sites/{site_id}` | F-002, F-003, F-005 | **none — public data** | stable |
 | API-006 | `GET /api/v1/compare` | F-006 | **none — public data** | stable |
-| API-007 | `POST /api/v1/sites/{site_id}/sentinel-refresh` | F-003 | session, role `funder` | stable |
-| API-008 | `POST /api/v1/evidence` | F-004, F-009, F-010 | session, role `partner` (field) or `funder` (project report) | stable |
-| API-009 | `POST /api/v1/records` | F-007 | session, role `funder` | stable |
+| API-007 | `POST /api/v1/sites/{site_id}/sentinel-refresh` | F-003 | **none — public (ADR-061); 1 refresh per site per 10 minutes (§5)** | stable |
+| API-008 | `POST /api/v1/evidence` | F-004, F-009, F-010 | **none — public; submitter typed in the body; rate-limited per IP (§5, ADR-061)** | stable |
+| API-009 | `POST /api/v1/records` | F-007 | **none — public; submitter typed in the body; rate-limited per IP (§5, ADR-061)** | stable |
 | API-019 | `POST /api/v1/sites/{site_id}/proposal` | F-001, F-007 | session, role `partner` | stable |
 | API-020 | `GET /api/v1/records/{record_id}/notice` | F-010 | session, role `funder`, same org as the record | stable |
 | API-010 | `GET /api/v1/records` | F-008, F-010 | **none — public data** | stable |
@@ -62,31 +62,10 @@ request using those methods gets `405` (BR-002).
 
 ## 3. Operations
 
-### API-001 — `POST /api/v1/auth/login` — sign in
+### API-001 to API-003 — removed
 
-- **Serves:** F-003, F-004, F-007 · **Implements:** US-005, US-006, US-007
-- **Auth:** none — this is how a session is obtained.
-- **Idempotent:** yes (same credentials → a session).
-
-```json
-{ "email": "<email>", "password": "<password>" }
-```
-
-**Response — `200`** sets an `HttpOnly; Secure; SameSite=Lax` session cookie.
-
-```json
-{ "user": { "id": "<uuid>", "display_name": "<name>", "role": "funder", "org": { "id": "<uuid>", "name": "<org>", "is_demo": true } } }
-```
-
-- **Errors:** `401` `UNAUTHENTICATED` (wrong credentials, same message whether email or password is wrong) · `429` `RATE_LIMITED`.
-
-### API-002 — `POST /api/v1/auth/logout` — sign out
-
-- **Serves:** F-007 · **Auth:** session · **Idempotent:** yes. **Response — `204`**, cookie cleared.
-
-### API-003 — `GET /api/v1/auth/me` — current user
-
-- **Serves:** F-004, F-007 · **Auth:** session. **Response — `200`** same `user` object as API-001; `401` if no session.
+The product has no accounts (ADR-061). Sign-in, sign-out and the current-user call are gone; whoever adds evidence
+or locks a promise says who they are in the request body (`submitter`, below).
 
 ### API-004 — `GET /api/v1/sites` — list candidate sites
 
@@ -192,40 +171,50 @@ request using those methods gets `405` (BR-002).
 - **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` · `429` `RATE_LIMITED` · `502` `UPSTREAM_UNAVAILABLE`.
 - **Notes:** on `502` nothing is written and the stored snapshot remains the site's latest Sentinel-2 item. An all-cloud result is a `201` with `usable: false`, not an error.
 
-### API-008 — `POST /api/v1/evidence` — submit evidence to a site or record
+### API-008 — `POST /api/v1/evidence` — add evidence to a site or record
 
-- **Serves:** F-004, F-009, F-010 · **Implements:** US-006, US-010 · **Auth:** session; role rules below
+- **Serves:** F-004, F-009, F-010 · **Implements:** US-006, US-010 · **Auth:** none — public (ADR-061); rate-limited (§5)
 - **Idempotent:** no — each call appends one item.
 
-**Request — `multipart/form-data`**
+**Request — `application/json`** (no photo upload)
 
 | Field | Type | Required | Notes |
 |-------|------|----------|-------|
 | `site_id` | uuid | yes unless `record_id` | |
 | `record_id` | uuid | no | When set, the item is also appended to that record's timeline; `site_id` is taken from the record |
-| `source_type` | `field` \| `project_report` | yes | `field` requires role `partner`; `project_report` requires role `funder`. `public_report` is seed-only, never accepted here |
-| `question` | `history` \| `current` \| `ground` \| `work` \| `outcome` | yes | `current` is rejected for human sources (satellite only) |
-| `finding` | string | yes | Must be in the question's vocabulary ([`prd.md` §4.1](prd.md)) |
-| `observed_at` | date | yes | Not in the future |
-| `point` | GeoJSON Point | `field`: yes | Where the observation was made |
+| `question` | `history` \| `ground` \| `work` \| `outcome` | yes | `current` is rejected: satellite only |
+| `finding` | string | yes | In the question's vocabulary ([`prd.md` §4.1](prd.md)) |
+| `observed_at` | date | yes | Not after today in any time zone (UTC+14) |
+| `point` | GeoJSON Point | field observation: yes | Where the observation was made |
 | `boundary` | GeoJSON Polygon | no | Mapped worked area → EQ-010 |
-| `reported_area_ha` | number > 0 | `project_report` + `work`: yes | The claimed area (DS-005) |
-| `note` | string ≤ 2,000 chars | no | No personal data ([`security.md` §6](security.md)) |
-| `photo` | file (JPEG/PNG) | no | ≤ 10 MB `[assumption]`; EXIF stripped before storage |
+| `reported_area_ha` | number > 0 | project report: yes | The claimed area (DS-005) |
+| `note` | string ≤ 2,000 chars | no | About the site, not people ([`security.md` §6](security.md)) |
+| `submitter.name` | string 1–80 | yes | Shown with the item |
+| `submitter.organisation` | string ≤ 120 | no | Shown with the item |
+| `submitter.role` | `field_partner` \| `funder` \| `resident` | yes | Shown with the item |
+| `submitter.contact_email` | email ≤ 254 | no | **Private:** stored for follow-up; never returned, hashed, displayed or sent to MCP |
 
-**Response — `201`** `{ "evidence": { … }, "record_event": { "seq": 3, "event_hash": "<64 hex>" } | null }`
+`source_type` is set by the server: `project_report` when `submitter.role = funder` and `question = work`, else `field`.
 
-- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` · `413` `PAYLOAD_TOO_LARGE` · `415` `UNSUPPORTED_MEDIA` · `422` `VALIDATION_FAILED` · `429`.
-- **Notes:** the evidence item and its record event are written in one transaction — both or neither.
+**Response — `201`** `{ "evidence": { …, "submitted_by": { "name", "organisation", "role" } }, "record_event": { "seq": 3, "event_hash": "<64 hex>" } | null }`
 
-### API-009 — `POST /api/v1/records` — commit to a partner proposal
+- **Errors:** `404` · `413` `PAYLOAD_TOO_LARGE` (body over 32 KB) · `422` `VALIDATION_FAILED` · `429` `RATE_LIMITED`.
+- **Notes:** the evidence item and its record event are written in one transaction — both or neither. Submitter name, organisation and role are part of the item's EQ-011 hash; the email is not.
 
-- **Serves:** F-007 · **Implements:** US-007 · **Auth:** session, role `funder`
+### API-009 — `POST /api/v1/records` — lock a promise
+
+- **Serves:** F-007 · **Implements:** US-007 · **Auth:** none — public (ADR-061); rate-limited (§5); one promise per site
 - **Idempotent:** yes, via the required `Idempotency-Key` header (client-generated UUID).
 
 ```json
-{ "site_id": "<uuid>" }
+{ "site_id": "<uuid>", "rationale": "…", "planned_action": "planting | natural_regeneration | hydrological_repair | protection | other",
+  "planned_action_detail": "…", "planned_area_ha": 8, "expected_outcome": "…", "expected_vegetated_ha": 6,
+  "work_check_after": "2027-04-01", "outcome_check_after": "2029-10-01", "known_unknowns": "…",
+  "submitter": { "name": "…", "organisation": "…", "role": "funder", "contact_email": "… (optional, private)" } }
 ```
+
+Text fields are 1–2,000 characters; areas > 0; `outcome_check_after` ≥ `work_check_after`. The record's funder is shown as
+the submitter's organisation, or their name when no organisation is given; `locked_by` shows name, organisation and role.
 
 **Response — `201`**
 
@@ -233,8 +222,8 @@ request using those methods gets `405` (BR-002).
 { "id": "<uuid>", "url": "/records/<uuid>", "published_at": "<ts>", "content_hash": "<64 hex>", "is_demo": true }
 ```
 
-- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` (site) · `409` `IDEMPOTENCY_CONFLICT` (same key, different body) · `422` `VALIDATION_FAILED` (no partner proposal on the site, or the site already has a commitment).
-- **Notes:** the server copies the partner proposal (benefit text, timeline, milestones, and the planned action, area and dates the proposal carries) into the public record. The client does not send the benefit text. A retry with the same key and body returns the original `201` body; no second record. The snapshot is computed server-side at commit time; the client cannot supply evidence or statuses. The response and the stored public record contain no contract text.
+- **Errors:** `404` (site) · `409` `IDEMPOTENCY_CONFLICT` (same key, another site) · `413` · `422` `VALIDATION_FAILED` (missing `Idempotency-Key`, invalid body, or the site already has a promise) · `429` `RATE_LIMITED`.
+- **Notes:** a retry with the same key returns the original `201` body; no second record. The snapshot (site, evidence and answers at lock time) is computed server-side; the client cannot supply evidence or statuses. `is_demo` follows the site. The contact email is stored privately and never returned or hashed.
 
 ### API-010 — `GET /api/v1/records` — map pins
 
@@ -522,9 +511,9 @@ Error messages never include stack traces, SQL or internal hostnames ([`security
 
 | Limit | Scope | Window | Behaviour on breach |
 |-------|-------|--------|---------------------|
-| 10 login attempts `[assumption]` | per IP | 1 minute | `429` + `Retry-After` |
+| 10 evidence submissions (API-008) | per IP | 1 hour | `429`; stands in for accounts (ADR-061) |
+| 3 promise locks (API-009) | per IP | 1 hour | `429`; one promise per site regardless |
 | 1 Sentinel-2 refresh `[assumption]` | per site | 10 minutes | `429`; protects the Copernicus quota (10,000 requests/month, 300/minute) |
-| 30 evidence submissions `[assumption]` | per user | 1 hour | `429` |
 | 120 requests `[assumption]` | per IP, across public GETs and `/mcp` | 1 minute | `429` |
 
 ## 6. Versioning & Deprecation

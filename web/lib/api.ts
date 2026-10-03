@@ -3,6 +3,8 @@
 
 import { ApiError } from "@/lib/api-error";
 import type {
+  Answer,
+  Evidence,
   CompareResponse,
   CountryContext,
   Dossier,
@@ -18,7 +20,6 @@ import type {
   ProgramContext,
   RecordDetail,
   SitesFC,
-  User,
   VerifyResponse,
 } from "@/lib/types";
 
@@ -57,15 +58,14 @@ const json = (method: string, data: unknown, headers: Record<string, string> = {
   body: JSON.stringify(data),
 });
 
-// API-001
-export const login = (email: string, password: string): Promise<{ user: User }> =>
-  USE_MOCKS ? mock().then((m) => m.login(email, password)) : http("/auth/login", json("POST", { email, password }));
+// API-007: pull the site's current condition from Sentinel-2 (AWS Open Data, ADR-042). Live data only:
+// fixtures mode has no satellite archive behind it.
+export const sentinelRefresh = (siteId: string): Promise<{ evidence: Evidence; answers: Answer[] }> =>
+  USE_MOCKS
+    ? Promise.reject(new ApiError(503, "UPSTREAM_UNAVAILABLE", "Satellite refresh needs the live API, not demo fixtures."))
+    : http(`/sites/${siteId}/sentinel-refresh`, { method: "POST" });
 
-// API-002
-export const logout = (): Promise<void> => (USE_MOCKS ? mock().then((m) => m.logout()) : http("/auth/logout", { method: "POST" }));
-
-// API-003
-export const me = (): Promise<{ user: User }> => (USE_MOCKS ? mock().then((m) => m.me()) : http("/auth/me"));
+// No accounts: API-001..003 (sign-in) are not part of the public product (ADR-061).
 
 // API-004
 export const listSites = (): Promise<SitesFC> => (USE_MOCKS ? mock().then((m) => m.listSites()) : http("/sites"));
@@ -93,18 +93,9 @@ export const verifyRecord = (recordId: string): Promise<VerifyResponse> =>
 export const lockRecord = (body: LockBody, idempotencyKey: string): Promise<LockResponse> =>
   USE_MOCKS ? mock().then((m) => m.lockRecord(body, idempotencyKey)) : http("/records", json("POST", body, { "Idempotency-Key": idempotencyKey }));
 
-// API-008 (multipart/form-data)
-export function submitEvidence(input: EvidenceInput): Promise<EvidenceResponse> {
-  if (USE_MOCKS) return mock().then((m) => m.submitEvidence(input));
-  const form = new FormData();
-  for (const [key, value] of Object.entries(input)) {
-    if (value == null || value === "") continue;
-    if (value instanceof File) form.append(key, value);
-    else if (typeof value === "object") form.append(key, JSON.stringify(value));
-    else form.append(key, String(value));
-  }
-  return http("/evidence", { method: "POST", body: form });
-}
+// API-008: public evidence, JSON, no photo (ADR-061).
+export const submitEvidence = (input: EvidenceInput): Promise<EvidenceResponse> =>
+  USE_MOCKS ? mock().then((m) => m.submitEvidence(input)) : http("/evidence", json("POST", input));
 
 // API-021
 export const gmwTimeline = (siteId: string): Promise<GmwTimeline> =>

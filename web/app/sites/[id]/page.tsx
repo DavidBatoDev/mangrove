@@ -9,9 +9,9 @@ import { useState } from "react";
 import AnswerBlock from "@/components/AnswerBlock";
 import EvidenceCard from "@/components/EvidenceCard";
 import { SiteTrendCard } from "@/components/GmwContext";
+import SatelliteRefresh from "@/components/SatelliteRefresh";
 import Map from "@/components/Map";
 import Site3DView, { toneFromAnswers } from "@/components/Site3DView";
-import { useSession } from "@/components/session";
 import { DemoLabel, ErrorBox, Loading, RealCaseLabel } from "@/components/ui";
 import { BrandIcon, EmptyArt, ICON_PROPS, QuestionIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
@@ -19,12 +19,11 @@ import { useGmwLayers } from "@/hooks/useGmwLayers";
 import * as api from "@/lib/api";
 import { QUESTION_LABELS } from "@/lib/format";
 import { resolveSiteId, siteLetter } from "@/lib/ids";
-import type { Measure, SitesFC } from "@/lib/types";
+import type { Answer, Evidence, Measure, SitesFC } from "@/lib/types";
 
 export default function SiteDossierPage() {
   const { id } = useParams<{ id: string }>();
   const siteId = resolveSiteId(decodeURIComponent(id));
-  const { user } = useSession();
   const d = useApi(() => api.getSite(siteId), [siteId]);
   const trend = useApi(() => api.gmwTimeline(siteId), [siteId]);
   // GMW mangrove extent on the map (API-024 tiles, ADR-048): on by default at the latest year; the trend
@@ -36,11 +35,15 @@ export default function SiteDossierPage() {
   // Extent only; gain and loss are switched on from the national card on the map pages (ADR-057).
   const mangrove = layerYear === null ? null : { extentYear: layerYear, change: null, opacity: 1 };
   const [view3d, setView3d] = useState(false);
+  // A satellite refresh (API-007) adds one item and new answers without reloading the page.
+  const [fresh, setFresh] = useState<{ answers: Answer[]; added: Evidence[] } | null>(null);
 
   if (d.loading) return <Loading what="Loading site" />;
   if (d.error) return <ErrorBox error={d.error} onRetry={d.reload} />;
   if (!d.data) return null;
-  const { site, answers, evidence } = d.data;
+  const { site } = d.data;
+  const answers = fresh?.answers ?? d.data.answers;
+  const evidence = [...(fresh?.added ?? []), ...d.data.evidence];
   const fc: SitesFC = {
     type: "FeatureCollection",
     features: [{ type: "Feature", geometry: site.geometry, properties: { id: site.id, name: site.name, region: site.region, is_demo: site.is_demo, area: site.area } }],
@@ -63,21 +66,13 @@ export default function SiteDossierPage() {
       <div className="page-head">
         <h1>{site.name}</h1>
         <div className="row">
-          {user?.role === "funder" && (
-            <Link className="mg-btn mg-btn--primary" href={`/sites/${site.id}/lock`}>
-              <Lock {...ICON_PROPS} size={18} /> Lock a promise
-            </Link>
-          )}
-          {user && (
-            <Link className="mg-btn mg-btn--secondary" href={`/evidence/new?site=${site.id}`}>
-              <Plus {...ICON_PROPS} size={18} /> Add evidence
-            </Link>
-          )}
-          {!user && (
-            <Link className="mg-btn mg-btn--secondary" href={`/sign-in?next=/sites/${site.id}`}>
-              Sign in to act
-            </Link>
-          )}
+          {/* Public product, no accounts (ADR-061): anyone can lock a promise or add evidence. */}
+          <Link className="mg-btn mg-btn--primary" href={`/sites/${site.id}/lock`}>
+            <Lock {...ICON_PROPS} size={18} /> Lock a promise
+          </Link>
+          <Link className="mg-btn mg-btn--secondary" href={`/evidence/new?site=${site.id}`}>
+            <Plus {...ICON_PROPS} size={18} /> Add evidence
+          </Link>
         </div>
       </div>
       {site.proposal_summary && <p className="lede">{site.proposal_summary}</p>}
@@ -92,6 +87,10 @@ export default function SiteDossierPage() {
             <div className="card-head">
               <h2>Three questions</h2>
             </div>
+            <SatelliteRefresh
+              siteId={site.id}
+              onResult={(r) => setFresh((f) => ({ answers: r.answers, added: [r.evidence, ...(f?.added ?? [])] }))}
+            />
             <div className="answers-list">
               {answers.map((a) => (
                 <AnswerBlock key={a.question} a={a} evidence={evidence} siteId={site.id} />
