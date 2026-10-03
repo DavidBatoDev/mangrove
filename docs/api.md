@@ -136,18 +136,22 @@ request using those methods gets `405` (BR-002).
       "id": "<uuid>", "question": "current", "source_type": "sentinel2",
       "source_name": "Copernicus Sentinel-2 L2A", "source_version": "<processing baseline or null>",
       "observed_from": "<ts>", "observed_to": "<ts>", "retrieved_at": "<ts>",
+      "location": { "<GeoJSON or null>": "…" },
       "finding": "mostly_bare_soil", "usable": true, "unusable_reason": null,
       "metrics": [ { "name": "valid_fraction", "value": "<0-1>", "unit": "fraction", "eq_id": "EQ-005", "confidence": "low" } ],
       "method": "<one line incl. thresholds used>", "spatial_resolution_m": 20,
       "limitation": "<text>", "provenance_url": "<url or null>",
-      "asset_url": null, "submitted_by_org": null, "is_demo": true, "content_hash": "<64 hex>"
+      "asset_url": null, "note": "<text or null>",
+      "submitted_by_org": { "name": "<org>", "is_demo": true },
+      "is_demo": true, "created_at": "<ts>", "content_hash": "<64 hex>",
+      "mapped_area": { "value": "<ha>", "unit": "ha", "eq_id": "EQ-010", "confidence": "medium" }
     }
   ]
 }
 ```
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged).
+- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW). `mapped_area` is present only on an item with a mapped boundary.
 
 ### API-006 — `GET /api/v1/compare` — side-by-side comparison
 
@@ -236,7 +240,7 @@ request using those methods gets `405` (BR-002).
 
 ```json
 { "type": "Feature", "geometry": { "type": "Point", "coordinates": ["<lon>", "<lat>"] },
-  "properties": { "id": "<uuid>", "site_name": "<name>", "funder": "<org>", "published_at": "<ts>",
+  "properties": { "id": "<uuid>", "site_id": "<uuid>", "site_name": "<name>", "funder": "<org>", "published_at": "<ts>",
                   "pin_state": "conflict", "is_demo": true } }
 ```
 
@@ -250,23 +254,29 @@ request using those methods gets `405` (BR-002).
 
 ```json
 {
-  "record": { "id": "<uuid>", "funder": { "name": "<org>", "is_demo": true }, "published_at": "<ts>",
+  "record": { "id": "<uuid>", "site_id": "<uuid>", "funder": { "name": "<org>", "is_demo": true }, "published_at": "<ts>",
               "rationale": "…", "planned_action": "…", "planned_action_detail": "…",
               "planned_area_ha": { "value": 8.0, "unit": "ha", "eq_id": null, "confidence": "high" },
               "expected_outcome": "…", "expected_vegetated_ha": null,
               "work_check_after": "<date>", "outcome_check_after": "<date>",
-              "known_unknowns": "…", "snapshot": { "…": "as stored" }, "content_hash": "<64 hex>" },
+              "known_unknowns": "…", "snapshot": { "…": "as stored" }, "is_demo": true,
+              "content_hash": "<64 hex>" },
+  "site": { "…": "same shape as API-005 site" },
   "checks": [
     { "check": "work", "label": "Did the work happen?", "status": "conflicting", "finding": null,
+      "source_count": { "value": 1, "unit": "items", "eq_id": "EQ-013", "confidence": "high" },
       "reported_area": { "value": 8.0, "unit": "ha", "eq_id": null, "confidence": "low" },
       "measured_area": { "value": 5.0, "unit": "ha", "eq_id": "EQ-010", "confidence": "medium" },
       "area_conflict": { "value": true, "unit": "flag", "eq_id": "EQ-009", "confidence": "low" },
-      "evidence_ids": ["<uuid>"] },
+      "evidence_ids": ["<uuid>"], "disagreeing_evidence_ids": ["<uuid>"] },
     { "check": "outcome", "label": "Did the mangroves come back?", "status": "too_early",
-      "checkable_from": "<date>", "finding": null, "evidence_ids": [] }
+      "checkable_from": "<date>", "finding": null,
+      "source_count": { "value": 0, "unit": "items", "eq_id": "EQ-013", "confidence": "high" },
+      "evidence_ids": [], "disagreeing_evidence_ids": [], "vegetated_area": null }
   ],
   "site_answers": [ "… three answers as in API-005, computed now …" ],
-  "timeline": [ { "seq": 1, "kind": "evidence_added", "created_at": "<ts>", "evidence": { "…": "…" }, "event_hash": "<64 hex>" } ],
+  "timeline": [ { "seq": 1, "kind": "evidence_added", "created_at": "<ts>", "prev_hash": "<64 hex>",
+                  "event_hash": "<64 hex>", "evidence": { "…": "evidence item as in API-005" } } ],
   "pin_state": "conflict",
   "disclaimer": "This record is not a certification of restoration success or approval of funding."
 }
@@ -275,7 +285,7 @@ request using those methods gets `405` (BR-002).
 *(Values above are illustrative of the shape; `planned_area_ha` and `reported_area` are inputs, not computed, hence `eq_id: null`.)*
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `checks[].status` ∈ `supported | conflicting | missing | too_early` (`too_early` only for `outcome`). `timeline` ordered by `seq`.
+- **Notes:** `checks[].status` ∈ `supported | conflicting | missing | too_early` (`too_early` only for `outcome`). `timeline` ordered by `seq`; an entry carries `evidence` when it adds an item, otherwise `body`. `vegetated_area` on the outcome check is `EQ-008` (confidence low) once a usable Sentinel-2 vegetation fraction exists, else `null`.
 
 ### API-012 — `POST /api/v1/records/{record_id}/corrections` — append a correction
 
@@ -309,7 +319,7 @@ request using those methods gets `405` (BR-002).
 |------|------------------------------|---------|--------------|
 | `list_sites` | `region` | Sites with id, name, area, `is_demo` | API-004 |
 | `get_site_dossier` | **`site_id`** | Three answers + evidence items with provenance, `eq_id`, `confidence` | API-005 |
-| `compare_sites` | **`site_ids`** (2–5) | Per-site answers in request order, plus a list of questions whose findings differ between sites | API-006 |
+| `compare_sites` | **`site_ids`** (2–5) | Per-site answers in request order, plus `differing_questions`: the questions whose status or finding differs between sites | API-006 |
 | `list_records` | — | Records with pin state | API-010 |
 | `get_record` | **`record_id`** | Promise, checks, timeline | API-011 |
 | `verify_record` | **`record_id`** | Integrity result | API-013 |
@@ -330,6 +340,8 @@ request using those methods gets `405` (BR-002).
 
 ## 4. Error Codes
 
+Every error has the body `{ "error": { "code": "<CODE>", "message": "<text>" } }`.
+
 | Code | HTTP | Meaning | When it occurs |
 |------|------|---------|----------------|
 | `UNAUTHENTICATED` | 401 | No valid session, or wrong credentials | Any session-protected operation; API-001 |
@@ -344,7 +356,7 @@ request using those methods gets `405` (BR-002).
 | `COMPARE_RANGE` | 422 | Not 2–5 site ids | API-006, `compare_sites` |
 | `DATES_ORDER` | 422 | `outcome_check_after` before `work_check_after` | API-009 |
 | `RATE_LIMITED` | 429 | Limit in §5 exceeded; `Retry-After` set | Any limited operation |
-| `UPSTREAM_UNAVAILABLE` | 502 / 503 | Copernicus (502) or LLM (503) failed | API-007, API-018 |
+| `UPSTREAM_UNAVAILABLE` | 502 / 503 | Sentinel-2 source (Earth Search, ADR-042) (502) or LLM (503) failed | API-007, API-018 |
 
 Error messages never include stack traces, SQL or internal hostnames ([`security.md` §5](security.md)).
 
