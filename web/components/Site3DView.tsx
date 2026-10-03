@@ -2,7 +2,7 @@
 
 // A 3D view of one site on Google's photorealistic/satellite globe, used for one strong moment:
 // the fly-in when a site is selected and the slow orbit at the top of a record.
-// Display only (ADR-043, draft): the boundary is drawn on Google imagery; nothing is measured or traced
+// Display only (ADR-046): the boundary is drawn on Google imagery; nothing is measured or traced
 // from it, and the label says the evidence comes from GMW and Sentinel-2. Without a key, without WebGL,
 // or on any failure, the caller's 2D fallback renders instead.
 

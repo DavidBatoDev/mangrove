@@ -1,9 +1,9 @@
-# ADR-043 — Google Maps for visualization only; evidence stays with GMW and Sentinel-2
+# ADR-046 — Google Maps for visualization only; evidence stays with GMW and Sentinel-2
 
 - **Date:** 2026-10-04
-- **Status:** Proposed
-- **Owners:** David (frontend, P0); for acceptance by the team at the P0/P1 integration
-- **Related:** DEC-013, `docs/prd.md` §7 (basemap), `docs/design.md` §4 (map), ADR-033, ADR-038, ADR-042
+- **Status:** Accepted
+- **Owners:** David (frontend, P0); accepted by the team at the integration of 2026-10-04
+- **Related:** DEC-016, `docs/prd.md` §7 (basemap), `docs/design.md` §4 (map), ADR-033, ADR-038, ADR-043
 
 ### Context
 

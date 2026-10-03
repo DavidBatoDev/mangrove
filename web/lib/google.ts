@@ -1,5 +1,5 @@
 // Google Maps JavaScript API: display only (imagery backdrop and 3D views). Evidence stays with GMW and
-// Sentinel-2; nothing is measured, traced or stored from Google imagery (ADR-043, draft).
+// Sentinel-2; nothing is measured, traced or stored from Google imagery (ADR-046).
 // Without NEXT_PUBLIC_GOOGLE_MAPS_API_KEY, without WebGL, or if Google fails to load or rejects the key,
 // every map falls back to the MapLibre view.
 

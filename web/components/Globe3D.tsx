@@ -2,7 +2,7 @@
 
 // Google's 3D globe for the map screens, opened by the 3D button when Google is the map engine.
 // Google's 2D map only tilts at street-level zoom, so "3D" here swaps in Map3DElement at the current view,
-// with record pins (Marker3DInteractiveElement) and site outlines. Display only (ADR-043, draft).
+// with record pins (Marker3DInteractiveElement) and site outlines. Display only (ADR-046).
 
 import { useEffect, useRef } from "react";
 import { GOOGLE_IMAGERY_NOTE, loadMaps3d, loadMarker, outerRings } from "@/lib/google";
