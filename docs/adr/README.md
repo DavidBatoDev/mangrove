@@ -66,4 +66,5 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-052](ADR-052-gmw-tiles-cached-on-disk.md) | Accepted | GMW tiles render once into a disk cache, prerendered for the default view after deploy; above zoom 12 they are enlarged from the parent. |
 | [ADR-053](ADR-053-gmw-static-tile-tree.md) | Accepted | GMW tiles are a static tile tree at /tiles/gmw/… served by Caddy; the API only renders missing tiles. |
 | [ADR-054](ADR-054-gmw-one-fixed-tile-level.md) | Accepted | The map draws GMW layers from one fixed zoom-10 tile set, scaled with the map, never reloaded per zoom. |
+| [ADR-055](ADR-055-google-gmw-overlay-back-to-tile-layers.md) | Accepted | Google map back to per-zoom GMW tile layers on the static tiles; ADR-054's fixed overlay felt laggy. |
 | [ADR-056](ADR-056-real-sourced-case-records.md) | Accepted | Four real, sourced Post-Yolanda records (`is_demo = false`) beside the demo cast; `public_report` evidence always links its source; real organizations only as cited parties, no individuals; reconstructed, not locked at the time. |

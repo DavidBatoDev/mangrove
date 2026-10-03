@@ -50,6 +50,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 - **Invalidated:** BR-006's fictional-name rule, `docs/security.md` §8's all-fictional gate and PRD §6's Manila-only scope, for these sourced records only
 - **Recorded as:** ADR-056
 
+### 2026-10-04 — Google map back to per-zoom GMW tile layers
+- **ID:** DEC-025
+- **Type:** pivot
+- **Change:** fixed-tile overlay on Google → Google `ImageMapType` tile layers on the static tiles
+- **Why:** the fixed overlay felt laggy.
+- **Invalidated:** ADR-054 for the Google map
+- **Recorded as:** ADR-055
+
 ### 2026-10-04 — Map draws GMW layers from one fixed tile level
 - **ID:** DEC-024
 - **Type:** zoom-in
