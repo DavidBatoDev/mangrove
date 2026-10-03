@@ -433,9 +433,10 @@ request using those methods gets `405` (BR-002).
 `{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 16, "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
 
 `GET /api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png` → **`200`** `image/png`, 256 × 256 Web Mercator
-(XYZ, Google/OSM tiling). Mangrove pixels are brand Tidal lift with opacity rising with the mangrove share of the
-pixel; everything else is transparent. A tile with no mangrove is a transparent PNG, not `404`.
-`Cache-Control: public, max-age=604800`.
+(XYZ, Google/OSM tiling). Mangrove pixels are data cyan (`--mg-data-mangrove`, ADR-049), near-opaque, grown by one pixel at
+zoom ≤ 10; everything else is transparent. A tile with no mangrove is a transparent PNG, not `404`.
+`Cache-Control: public, max-age=604800`; `Access-Control-Allow-Origin: *` on both routes (public map data, ADR-049).
+Clients add `?s=<style>` from the info response to bust caches when the look changes; the server ignores it.
 
 - **Errors:** `422` `VALIDATION_FAILED` (year not in `years`, or `z` outside 0–16, or `x`/`y` outside the zoom) · `503` `UPSTREAM_UNAVAILABLE` (the layer is not installed on this server).
 - **Notes:** rendered from the per-year GeoTIFFs built by `data/ingest/gmw_tiles.py` (DS-001, ADR-048); context only, it carries no number and sets no status.

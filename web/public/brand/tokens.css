@@ -38,6 +38,10 @@
   --mg-night-grid: #1A2E29;
   --mg-mud: #D9CFC3;            /* bottom of the root-profile ground gradient (BRAND.md §6) */
 
+  /* Map data (ADR-049): the GMW mangrove extent layer only, GMW-style cyan so it reads on satellite imagery.
+     Never a status, a pin or an accent. */
+  --mg-data-mangrove: #1FCFCF;
+
   /* Roles (components use these) */
   --mg-bg: var(--mg-mist);
   --mg-surface: #FFFFFF;

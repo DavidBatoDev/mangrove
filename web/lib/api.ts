@@ -116,13 +116,24 @@ export const countryContext = (iso3: string): Promise<CountryContext> =>
 export const gmwExtent = (year?: number): Promise<GmwExtentLayer> =>
   USE_MOCKS ? mock().then((m) => m.gmwExtent(year)) : http(`/layers/gmw-extent${year ? `?year=${year}` : ""}`);
 
-// API-024: the Philippines mangrove extent as map tiles. Fixtures mode has no tiles, so the layer hides itself.
-export const gmwExtentTiles = (): Promise<GmwExtentTiles> =>
-  USE_MOCKS ? Promise.reject(new ApiError(503, "UPSTREAM_UNAVAILABLE", "No map tiles in fixtures mode.")) : http("/layers/gmw-extent/tiles");
+// API-024: the Philippines mangrove extent as map tiles (ADR-048, ADR-049). The tiles are real public GMW data,
+// not fixtures, so fixtures mode and local dev read them from the live API (it allows any origin); a deployed
+// build reads them from its own origin. NEXT_PUBLIC_GMW_TILES_ORIGIN overrides both.
+const LIVE_API_ORIGIN = "https://18-140-211-157.sslip.io";
+const TILE_ORIGIN = process.env.NEXT_PUBLIC_GMW_TILES_ORIGIN || (USE_MOCKS ? LIVE_API_ORIGIN : "");
+/** Bump with the API's STYLE (api/app/gmw_tiles.py) so browsers drop tiles cached in an older look. */
+const TILE_STYLE = "cyan-1";
+
+export async function gmwExtentTiles(): Promise<GmwExtentTiles> {
+  if (!TILE_ORIGIN) return http("/layers/gmw-extent/tiles");
+  const res = await fetch(`${TILE_ORIGIN}/api/v1/layers/gmw-extent/tiles`, { cache: "no-store" }).catch(() => null);
+  if (!res?.ok) throw new ApiError(res?.status ?? 0, "UPSTREAM_UNAVAILABLE", "The mangrove extent layer is not reachable.");
+  return res.json();
+}
 
 /** Absolute XYZ template for one year (map engines fetch tiles outside fetch(), so the origin is spelled out). */
 export const gmwTileTemplate = (year: number): string =>
-  `${typeof window !== "undefined" ? window.location.origin : ""}/api/v1/layers/gmw-extent/tiles/${year}/{z}/{x}/{y}.png`;
+  `${TILE_ORIGIN || (typeof window !== "undefined" ? window.location.origin : "")}/api/v1/layers/gmw-extent/tiles/${year}/{z}/{x}/{y}.png?s=${TILE_STYLE}`;
 
 /** Demo boundary for site B; fixtures mode only. */
 export const demoBoundary = (): Promise<unknown> => mock().then((m) => m.demoBoundary());
