@@ -1,6 +1,6 @@
 "use client";
 
-// API-007 (ADR-061): check the site's latest Sentinel-2 image from the AWS Open Data archive and add it as
+// API-007 (ADR-042): check the site's latest Sentinel-2 image from the AWS Open Data archive and add it as
 // "What's there now?" evidence. Takes a few seconds; one refresh per site per 10 minutes.
 
 import { RefreshCw } from "lucide-react";

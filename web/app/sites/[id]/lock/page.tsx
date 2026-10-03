@@ -4,7 +4,7 @@ import { CalendarClock, Lock } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { useSession } from "@/components/session";
+import SubmitterFields, { cleanSubmitter, useSubmitter } from "@/components/SubmitterFields";
 import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
 import { BrandIcon, ICON_PROPS, IconBadge, QuestionIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
@@ -21,7 +21,8 @@ export default function LockPage() {
   const { id } = useParams<{ id: string }>();
   const siteId = resolveSiteId(decodeURIComponent(id));
   const router = useRouter();
-  const { user, ready } = useSession();
+  // No accounts (ADR-061): whoever locks types who they are; the funder shown on the record is their organisation or name.
+  const [who, setWho] = useSubmitter("funder");
   const site = useApi(() => api.getSite(siteId), [siteId]);
   const idempotencyKey = useRef<string>("");
 
@@ -41,22 +42,7 @@ export default function LockPage() {
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  if (!ready || site.loading) return <Loading />;
-  if (!user)
-    return (
-      <div className="state">
-        <p>Sign in as a funder to lock a promise.</p>
-        <Link className="mg-btn mg-btn--primary" href={`/sign-in?next=/sites/${siteId}/lock`}>
-          Sign in
-        </Link>
-      </div>
-    );
-  if (user.role !== "funder")
-    return (
-      <div className="mg-alert" role="alert">
-        Only a funder can lock a promise. You are signed in as a partner.
-      </div>
-    );
+  if (site.loading) return <Loading />;
   if (site.error) return <ErrorBox error={site.error} onRetry={site.reload} />;
   if (!site.data) return null;
 
@@ -70,9 +56,10 @@ export default function LockPage() {
       "outcome_check_after",
       "known_unknowns",
     ];
+    if (!who.name.trim()) return "Add your name under About you.";
     if (required.some((k) => !form[k].trim())) return "Fill in every field marked required.";
-    if (!(Number(form.planned_area_ha) > 0)) return "Planned area must be more than 0 ha.";
-    if (form.expected_vegetated_ha && !(Number(form.expected_vegetated_ha) > 0)) return "Expected vegetated area must be more than 0 ha.";
+    if (!(Number(form.planned_area_ha) > 0)) return "Planned area must be more than 0 hectares.";
+    if (form.expected_vegetated_ha && !(Number(form.expected_vegetated_ha) > 0)) return "Expected vegetated area must be more than 0 hectares.";
     if (form.outcome_check_after <= form.work_check_after) return "The outcome check date must come after the work check date.";
     return null;
   }
@@ -101,6 +88,7 @@ export default function LockPage() {
       work_check_after: form.work_check_after,
       outcome_check_after: form.outcome_check_after,
       known_unknowns: form.known_unknowns.trim(),
+      submitter: cleanSubmitter(who),
     };
     try {
       const res = await api.lockRecord(body, idempotencyKey.current);
@@ -127,6 +115,7 @@ export default function LockPage() {
       {phase === "editing" ? (
         <form className="form form--wide" onSubmit={review} noValidate>
           {error && <p className="mg-alert" role="alert">{error}</p>}
+          <SubmitterFields value={who} onChange={setWho} />
 
           <fieldset className="mg-card form-section">
             <legend className="card-head">
@@ -164,11 +153,11 @@ export default function LockPage() {
             </legend>
             <div className="field-row">
               <div className="field">
-                <label htmlFor="planned_area_ha">Planned area, ha (required)</label>
+                <label htmlFor="planned_area_ha">Planned area, hectares (required)</label>
                 <input id="planned_area_ha" type="number" min="0" step="0.1" value={form.planned_area_ha} onChange={set("planned_area_ha")} />
               </div>
               <div className="field">
-                <label htmlFor="expected_vegetated_ha">Expected vegetated, ha</label>
+                <label htmlFor="expected_vegetated_ha">Expected vegetated, hectares</label>
                 <input id="expected_vegetated_ha" type="number" min="0" step="0.1" value={form.expected_vegetated_ha} onChange={set("expected_vegetated_ha")} />
               </div>
             </div>
@@ -213,7 +202,7 @@ export default function LockPage() {
             <Lock {...ICON_PROPS} size={14} /> Promise · {s.name}
           </span>
           <p className="record-title record-title--sm">
-            {form.planned_area_ha} ha of <em>{actionLabel.toLowerCase()}</em>
+            {form.planned_area_ha} hectares of <em>{actionLabel.toLowerCase()}</em>
           </p>
           <div className="stats stats--3">
             <StatTile icon={<BrandIcon name="promise" />} label="Planned area" m={{ value: Number(form.planned_area_ha), unit: "ha", eq_id: null, confidence: "high" }} />

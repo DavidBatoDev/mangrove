@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Schibsted_Grotesk } from "next/font/google";
 import Header from "@/components/Header";
-import { SessionProvider } from "@/components/session";
 import "./globals.css";
 import "./pages.css";
 
@@ -25,10 +24,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="stylesheet" href="/brand/mangrove.css" precedence="default" />
       </head>
       <body className="mg-page">
-        <SessionProvider>
-          <Header />
-          <main className="main">{children}</main>
-        </SessionProvider>
+        {/* Public-only product: no accounts or sign-in (ADR-061). */}
+        <Header />
+        <main className="main">{children}</main>
       </body>
     </html>
   );

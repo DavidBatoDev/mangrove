@@ -31,7 +31,7 @@ Auth per route follows [`security.md`](security.md) §4; this table states the e
 
 | Screen (PRD §5.1) | Route | Auth | Ground (WEB.md §2) |
 |-------------------|-------|------|--------------------|
-| Public map | `/` | public | full-bleed MapLibre map; Night Roots intro band above it; a toggle for sites with a commitment, sites without one, or both |
+| Public map | `/` | public | full-bleed MapLibre map; Night Roots intro band above it; a toggle for sites with a commitment, sites without one, or both. A guided tour (react-joyride) runs once per browser on first visit, remembered in localStorage (`aide-m-home-tour-v1`); a **Help** button in the header, shown on `/` only, replays it. Its last stop opens the Ask AIDE-M panel |
 | Record | `/records/{id}` | public | plain; the partner's terms above the Waterline, the two checks below (T07). Early: field inputs and the line "not yet observable". After the outcome date: partner report and EQ-012 |
 | Sign in | `/sign-in` | public | plain, centered card is allowed here only |
 | Sites | `/sites` | public | plain; map + list. Each row shows whether a funder has committed |

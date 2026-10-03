@@ -1,7 +1,8 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import dynamic from "next/dynamic";
+import { Suspense, useCallback } from "react";
 import { CountryCard } from "@/components/GmwContext";
 import MapShell from "@/components/MapShell";
 import PlaceCard from "@/components/PlaceCard";
@@ -12,6 +13,9 @@ import * as api from "@/lib/api";
 import { formatDate } from "@/lib/format";
 import { pinSvg } from "@/lib/pin-icons";
 import type { SitesFC } from "@/lib/types";
+
+// The guided tour runs in the browser only (react-joyride; first visit, then the header's Help button).
+const HomeTour = dynamic(() => import("@/components/HomeTour"), { ssr: false });
 
 // Public map (US-009): one pin per published record, colored by BR-004 pin state.
 // Clicking a pin (or a list row) opens a place card in the panel; the record is one click further.
@@ -26,7 +30,10 @@ function PublicMap() {
   const router = useRouter();
   const pathname = usePathname();
   const selectedId = params.get("record");
-  const [recenter, setRecenter] = useState(0);
+  // Before the tour starts, close an open place card so the record list it points at is on screen.
+  const showList = useCallback(() => {
+    if (new URLSearchParams(window.location.search).has("record")) router.replace(pathname, { scroll: false });
+  }, [router, pathname]);
 
   const select = (id: string | null) => {
     const q = new URLSearchParams(params.toString());
@@ -49,10 +56,11 @@ function PublicMap() {
   const selected = pins.data?.features.find((f) => f.properties.id === selectedId) ?? null;
   const lonLat = selected ? (selected.geometry.coordinates as [number, number]) : null;
   // Zoom all the way in to the site (17 = closest zoom of the EOx imagery; Google goes further but 17 frames a site).
-  // A new object on each recenter request so the map flies again even to the same pin.
-  const focus = lonLat ? { center: lonLat, zoom: 17, key: `${selectedId}-${recenter}` } : null;
+  const focus = lonLat ? { center: lonLat, zoom: 17, key: selectedId ?? "" } : null;
 
   return (
+    <>
+    <HomeTour onBeforeStart={showList} />
     <MapShell
       pins={pins.data}
       sites={selectedSite.data}
@@ -67,7 +75,6 @@ function PublicMap() {
           recordId={selected.properties.id}
           lonLat={lonLat}
           onBack={() => select(null)}
-          onRecenter={() => setRecenter((n) => n + 1)}
         />
       ) : (
         <>
@@ -83,7 +90,7 @@ function PublicMap() {
           <ErrorBox error={pins.error} onRetry={pins.reload} />
           {pins.data && pins.data.features.length === 0 && <Empty>No promises have been published yet.</Empty>}
           {pins.data && pins.data.features.length > 0 && (
-            <ul className="list">
+            <ul className="list" data-tour="records">
               {pins.data.features.map((f) => (
                 <li key={f.properties.id} className="record-item">
                   <button type="button" className="record-item-btn" onClick={() => select(f.properties.id)}>
@@ -107,6 +114,7 @@ function PublicMap() {
         </>
       )}
     </MapShell>
+    </>
   );
 }
 

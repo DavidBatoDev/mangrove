@@ -247,7 +247,7 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
         )}
       </aside>
 
-      <div className="map-controls" role="toolbar" aria-label="Map controls">
+      <div className="map-controls" role="toolbar" aria-label="Map controls" data-tour="controls">
         <button type="button" className="map-btn" onClick={fullscreen} title="Full screen" aria-label="Full screen">
           {Icon.expand}
         </button>
@@ -302,7 +302,7 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
         </div>
       </div>
 
-      <section className={`map-legend map-legend--compact${legendOpen ? "" : " is-collapsed"}`} aria-label="Legend and layers">
+      <section data-tour="legend" className={`map-legend map-legend--compact${legendOpen ? "" : " is-collapsed"}`} aria-label="Legend and layers">
         <button type="button" className="map-legend-head" aria-expanded={legendOpen} onClick={() => setLegendOpen((o) => !o)}>
           <span>Legend</span>
           {Icon.chevron}

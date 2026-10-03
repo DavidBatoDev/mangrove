@@ -98,6 +98,8 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | TC-001–TC-013, TC-017, TC-025, TC-029, TC-030, TC-031, TC-032 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
 | TC-027 | integration / pytest | `api/tests/test_gmw_tiles.py` | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-029 | integration / pytest | `api/tests/test_gmw_tiles.py` (disk cache, enlargement, prerender) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
+| TC-034 | integration / pytest | `api/tests/test_public_writes.py` | `pytest api/tests/test_public_writes.py` | local, before demo | pytest output |
+| TC-035 | unit + integration / pytest | `api/tests/test_sentinel2.py` (API-007 refresh, synthetic COGs) | `pytest api/tests/test_sentinel2.py` | local, before demo | pytest output |
 | TC-028 | integration / pytest | `api/tests/test_gmw_tiles.py` (change tests) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-014 | contract / pytest | `api/tests/test_mcp.py` | `pytest api/tests/test_mcp.py` | local, before demo | pytest output |
 | TC-015 | unit / pytest | `api/tests/test_ledger.py` | `pytest api/tests/test_ledger.py` | local, before demo | pytest output |
