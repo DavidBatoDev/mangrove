@@ -494,56 +494,910 @@
       ]
     },
     "area": {
-      "value": 11.43,
+      "value": 11.36,
       "unit": "ha",
       "eq_id": "EQ-001",
       "confidence": "high"
     },
-    "proposal_summary": "Ormoc MBFDP site: 105 ha in 8 parcels, 2015-2017 [20]. Parcel locations are not published; Naungan is shown because the same report names the Naungan-San Juan Mangrove Planters Association. Outline: OpenStreetMap ways 246018761, 246035216, 246035217 (wetland=mangrove) at Naungan. Sketched, not field-verified."
+    "proposal_summary": "Ormoc MBFDP site: 105 ha in 8 parcels, 2015-2017 (Ormoc report, State of the Mangrove Summit 2019). Parcel locations are not published; Naungan is shown because the same report names the Naungan-San Juan Mangrove Planters Association."
   },
   "answers": [
     {
       "question": "history",
       "label": "Was this mangrove before?",
-      "status": "missing",
-      "finding": null,
+      "status": "supported",
+      "finding": "mangrove_recorded",
       "source_count": {
-        "value": 0,
+        "value": 1,
         "unit": "items",
         "eq_id": "EQ-013",
         "confidence": "high"
       },
-      "evidence_ids": [],
+      "evidence_ids": [
+        "65122563-164f-4461-b840-ac5ddf6016ea"
+      ],
       "disagreeing_evidence_ids": []
     },
     {
       "question": "current",
       "label": "What's there now?",
-      "status": "missing",
-      "finding": null,
+      "status": "supported",
+      "finding": "mostly_vegetation",
       "source_count": {
-        "value": 0,
+        "value": 1,
         "unit": "items",
         "eq_id": "EQ-013",
         "confidence": "high"
       },
-      "evidence_ids": [],
+      "evidence_ids": [
+        "4423d673-59cc-447b-af16-503689bc8c6e"
+      ],
       "disagreeing_evidence_ids": []
     },
     {
       "question": "ground",
       "label": "What do people on the ground say?",
-      "status": "missing",
-      "finding": null,
+      "status": "supported",
+      "finding": "existing_mangrove",
       "source_count": {
-        "value": 0,
+        "value": 2,
         "unit": "items",
         "eq_id": "EQ-013",
         "confidence": "high"
       },
-      "evidence_ids": [],
+      "evidence_ids": [
+        "00000000-0000-4000-8000-0000000ef302",
+        "00000000-0000-4000-8000-0000000ef301"
+      ],
       "disagreeing_evidence_ids": []
     }
   ],
-  "evidence": []
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-0000000ef305",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Carbon Research 4, “Understanding blue carbon management strategies”",
+      "source_version": "Published 2025 (case study source 26)",
+      "observed_from": "2023-01-01T00:00:00.000000Z",
+      "observed_to": "2023-03-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:04.397280Z",
+      "location": null,
+      "finding": "recovery_seen",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “The natural stand is in Brgy. San Juan, while afforested stand is established in Brgy. Lao. The mangroves are managed by the Naungan San Juan Mangrove Planters Association (NSJMPA)… a Mangrove Eco Park was established in 2023”.",
+      "spatial_resolution_m": null,
+      "limitation": "Peer-reviewed field survey; it does not state the planting year or programme of the Lao stand, and Brgy. Lao borders this polygon rather than lying inside it.",
+      "provenance_url": "https://link.springer.com/article/10.1007/s44246-025-00216-6",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:04.397280Z",
+      "content_hash": "0906ba14fcfc8009c69918598742b1bc2b61f1face12fa544d6c7a528fde28ef"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef304",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Proceedings of the 3rd National Mangrove Conference, Iloilo City",
+      "source_version": "Published 2018-04 (case study source 18)",
+      "observed_from": "2016-02-01T00:00:00.000000Z",
+      "observed_to": "2016-05-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:04.006752Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "Program-wide figure across 43 provinces with no published method; not measured at this site.",
+      "metrics": [
+        {
+          "name": "reported_survival_mangrove",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 78.3,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: DENR's survival check found 78.3% for mangrove and 76.3% for beach forest. No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "DENR's own figure, taken within months of planting, method unpublished.",
+      "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:04.006752Z",
+      "content_hash": "138b6472dd26656a6a8e3f434decb54d041291a5b4f6d04508f069e4ee7ef3a8"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef303",
+      "question": "work",
+      "source_type": "public_report",
+      "source_name": "State of the Mangrove Summit, “State of the Mangrove in Ormoc City”",
+      "source_version": "Published 2019 (case study source 20)",
+      "observed_from": "2015-01-01T00:00:00.000000Z",
+      "observed_to": "2017-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:03.643144Z",
+      "location": null,
+      "finding": "work_done",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "reported_area",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 105,
+          "confidence": "low"
+        },
+        {
+          "name": "reported_parcels",
+          "unit": "parcels",
+          "eq_id": "EQ-017",
+          "value": 8,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: the planters' association's history table lists “2015–2017 MBFDP Project: Granted 105 ha for mangrove plantation comprising of 8 parcels; maintenance and protection activity; changed Rhizophora to Avicennia/Sonneratia”.",
+      "spatial_resolution_m": null,
+      "limitation": "Summit proceedings; parcel locations are not published, so the polygon is a stand-in.",
+      "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/3.-state-of-the-mangrove.pdf",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:03.643144Z",
+      "content_hash": "6fb91aee79eb0d8fbb47fea4c6218d95c3ec2d8cc984e4255ddcda36c54bbfc4"
+    },
+    {
+      "id": "4423d673-59cc-447b-af16-503689bc8c6e",
+      "question": "current",
+      "source_type": "sentinel2",
+      "source_name": "Sentinel-2 L2A (Earth Search)",
+      "source_version": "S2B_T51PXN_20260803T021259_L2A",
+      "observed_from": "2026-08-03T02:14:31.674000Z",
+      "observed_to": "2026-08-03T02:14:31.674000Z",
+      "retrieved_at": "2026-10-03T22:30:08.660186Z",
+      "location": null,
+      "finding": "mostly_vegetation",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "valid_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-005",
+          "value": 0.9435,
+          "confidence": "low"
+        },
+        {
+          "name": "vegetation_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.9738,
+          "confidence": "low"
+        },
+        {
+          "name": "bare_soil_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0262,
+          "confidence": "low"
+        },
+        {
+          "name": "water_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0,
+          "confidence": "low"
+        },
+        {
+          "name": "mean_ndvi",
+          "unit": "NDVI",
+          "eq_id": "EQ-007",
+          "value": 0.734,
+          "confidence": "low"
+        }
+      ],
+      "method": "EQ-005: over Sentinel-2 L2A SCL pixels (20 m) with centre inside the site, f_valid = n(SCL in {4,5,6}) / n(SCL != 0); the best of 23 scenes in [t - S2_WINDOW_DAYS 90 d, t = 2026-10-03]; usable iff f_valid >= MIN_VALID_FRACTION 0.5. EQ-006: finding = the largest of the SCL 4/5/6 fractions of valid pixels. EQ-007: mean NDVI (B08 - B04)/(B08 + B04) on 10 m pixels with centre inside and SCL (nearest to 10 m) in {4,5}, context only.",
+      "spatial_resolution_m": 20.0,
+      "limitation": "SCL \"vegetation\" does not tell mangrove from other vegetation; tide state at acquisition changes the water fraction; an active fishpond and open water look alike from space, so only ground evidence settles land use; 20 m pixels cannot see seedlings, and months after planting satellite cannot confirm planting. Pictures are true-colour (TCI) chips with the site outline drawn in. Contains modified Copernicus Sentinel data 2017 and 2026.",
+      "provenance_url": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a/items/S2B_T51PXN_20260803T021259_L2A",
+      "asset_url": "https://18-140-211-157.sslip.io/api/v1/assets/59ebe871f9ab8ec75a352e2542f96f589dc081fbbe4824d1487f71e55638a9d8",
+      "note": "Then picture: Sentinel-2 L2A scene S2A_51PXN_20170417_1_L2A (2017-04-17, collection sentinel-2-l2a), same window. A picture only; no number is computed from it.",
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:30:08.660205Z",
+      "content_hash": "1c07142fe322dd034025cc30204e59bf803188f3a9e48cd5c912f410c75df5a4",
+      "asset_then_url": "https://18-140-211-157.sslip.io/api/v1/assets/ed4e17e8152a22a9847f4b5efbb746d932800c59a57e4e7df60d76ab39ae389c",
+      "asset_then_observed": "2017-04-17"
+    },
+    {
+      "id": "65122563-164f-4461-b840-ac5ddf6016ea",
+      "question": "history",
+      "source_type": "gmw",
+      "source_name": "Global Mangrove Watch",
+      "source_version": "v4.1.12",
+      "observed_from": "1985-01-01T00:00:00.000000Z",
+      "observed_to": "2025-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:31.955053Z",
+      "location": null,
+      "finding": "mangrove_recorded",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "max_mangrove_area",
+          "unit": "ha",
+          "eq_id": "EQ-003",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_year",
+          "unit": "year",
+          "eq_id": "EQ-003",
+          "value": 1985,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-003",
+          "value": 0.2249,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.29,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.29,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.29,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.2,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.2,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.2,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.03,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 2.38,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 94.65,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 94.65,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 94.65,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 94.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.53,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.53,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.53,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.09,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.53,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.71,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.89,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 94.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 95.09,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 94.47,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 89.71,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 91.04,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 90.95,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 90.33,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 90.77,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 92.27,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 94.3,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 95.53,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 98.35,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 100.38,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 102.32,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 101.96,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 100.29,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 97.73,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 97.38,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 95.88,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 99.5,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 103.11,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 104.61,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 106.11,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 105.49,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 107.78,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 109.89,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 111.13,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 113.07,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 114.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 115.27,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_buffer",
+          "unit": "m",
+          "eq_id": null,
+          "value": 1000,
+          "confidence": "high"
+        }
+      ],
+      "method": "EQ-002: sum of GMW v4.1.12 DN=1 pixel areas with centre inside the site, 41 annual bands 1985-2025; EQ-003: finding = mangrove_recorded iff max area / site area >= HISTORY_MIN_FRACTION 0.1; EQ-014: same sum within NEARBY_BUFFER_M 1000 m outside the site (context only).",
+      "spatial_resolution_m": 30.0,
+      "limitation": "GMW starts in 1985; ponds converted earlier are not visible, so no mangrove recorded does not mean the site was never mangrove. 30 m modelled classification: cannot see seedlings; accuracy varies locally (GMW global F1 0.93).",
+      "provenance_url": "https://doi.org/10.5281/zenodo.21346457",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:31.955053Z",
+      "content_hash": "0e26a77234ae8c59b55be553876751e0b2781bb72ff5a008b720deaed4ec79f1"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef302",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "Biodiversitas 25(5), Naungan mangrove study",
+      "source_version": "Published 2024 (case study source 41)",
+      "observed_from": "2023-01-01T00:00:00.000000Z",
+      "observed_to": "2023-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:30.018997Z",
+      "location": null,
+      "finding": "existing_mangrove",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: at Naungan “Avicennia marina is the most dominant upperstorey species… followed by Sonneratia alba… The area is managed by a people's organization”.",
+      "spatial_resolution_m": null,
+      "limitation": "Peer-reviewed vegetation survey; survey dates are not stated, dated here to the year before publication.",
+      "provenance_url": "https://smujo.id/biodiv/article/view/17583",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:30.018997Z",
+      "content_hash": "cb74e235af39c26796fa549c9d81376134a4324ddcf0170ac4d250803d4caea9",
+      "photos": [
+        {
+          "url": "https://i0.wp.com/shellwanders.com/wp-content/uploads/2023/05/Ormoc-Mangrove-Ecopark-Barangay-Naungan-Boardwalk.jpg",
+          "credit": "Shellwanders (personal travel blog), 8 May 2023",
+          "caption": "Ormoc Mangrove Eco Park boardwalk, Barangay Naungan"
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef301",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "Inquirer Opinion, “Mangroves of E. Visayas need protection”",
+      "source_version": "Published 2014-06-15 (case study source 11)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2014-03-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:29.974735Z",
+      "location": null,
+      "finding": "existing_mangrove",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: Ormoc City has “pristine, old growth forests” suited for development as ecoparks.",
+      "spatial_resolution_m": null,
+      "limitation": "City-level remark from the 2014 independent survey; the stands are not mapped.",
+      "provenance_url": "https://opinion.inquirer.net/75597/mangroves-of-e-visayas-need-protection",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:29.974735Z",
+      "content_hash": "ef349181a6cacb45579ba0551753b850c95c4291a33fbba305102e608fce437c"
+    }
+  ]
 }

@@ -142,3 +142,6 @@ html.mg-fonts .stat-label, html.mg-fonts .panel-label, html.mg-fonts .settings-l
   letter-spacing: 0.03em; font-weight: 600;
 }
 html.mg-fonts .mg-chip { font-weight: 600; }
+/* MapLibre without WebGL2 (MapView): a quiet note in the map's place, never a crashed page. */
+.map-unavailable { display: grid; place-items: center; padding: var(--mg-space-5); background: var(--mg-surface); border: 1px dashed var(--mg-brackish); color: var(--mg-text-muted); font-size: var(--mg-text-small); text-align: center; }
+.map-unavailable p { margin: 0; max-width: 36ch; }

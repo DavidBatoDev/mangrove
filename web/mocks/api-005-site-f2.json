@@ -1282,56 +1282,932 @@
       ]
     },
     "area": {
-      "value": 55.28,
+      "value": 54.93,
       "unit": "ha",
       "eq_id": "EQ-001",
       "confidence": "high"
     },
-    "proposal_summary": "Cancabato Bay: 70 ha over 14 months, Sep 2017-Nov 2018 [21]. The 70 ha boundary is not published. Outline: Union of nine OpenStreetMap natural=wetland ways on the Cancabato Bay shore (ways 1312555058, 245216638, 1302217918, 1082125171, 245370994, 1082127825, 1082127826, 1082125170, 245204176), excluding the Paraiso stand. Sketched, not field-verified."
+    "proposal_summary": "Cancabato Bay: a 70 ha provincial rehabilitation project, Sep 2017-Nov 2018, paid from the DENR Region 8 budget (Leyte report, State of the Mangrove Summit 2019). The 70 ha boundary is not published."
   },
   "answers": [
     {
       "question": "history",
       "label": "Was this mangrove before?",
-      "status": "missing",
-      "finding": null,
+      "status": "supported",
+      "finding": "no_mangrove_recorded",
       "source_count": {
-        "value": 0,
+        "value": 1,
         "unit": "items",
         "eq_id": "EQ-013",
         "confidence": "high"
       },
-      "evidence_ids": [],
+      "evidence_ids": [
+        "d790c61e-68e8-4b3f-8a01-2234763b8b15"
+      ],
       "disagreeing_evidence_ids": []
     },
     {
       "question": "current",
       "label": "What's there now?",
-      "status": "missing",
-      "finding": null,
+      "status": "supported",
+      "finding": "mostly_vegetation",
       "source_count": {
-        "value": 0,
+        "value": 1,
         "unit": "items",
         "eq_id": "EQ-013",
         "confidence": "high"
       },
-      "evidence_ids": [],
+      "evidence_ids": [
+        "445b6006-0235-46f8-aa3c-911c07f21673"
+      ],
       "disagreeing_evidence_ids": []
     },
     {
       "question": "ground",
       "label": "What do people on the ground say?",
-      "status": "missing",
-      "finding": null,
+      "status": "supported",
+      "finding": "existing_mangrove",
       "source_count": {
-        "value": 0,
+        "value": 1,
         "unit": "items",
         "eq_id": "EQ-013",
         "confidence": "high"
       },
-      "evidence_ids": [],
+      "evidence_ids": [
+        "00000000-0000-4000-8000-0000000ef201"
+      ],
       "disagreeing_evidence_ids": []
     }
   ],
-  "evidence": []
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-0000000ef205",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "State of the Mangrove Summit, “Synthesis”",
+      "source_version": "Published 2019 (case study source 23)",
+      "observed_from": "2019-01-01T00:00:00.000000Z",
+      "observed_to": "2019-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:03.140324Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "Province-wide range that spans both outcomes; the source says the figures need field validation.",
+      "metrics": [
+        {
+          "name": "reported_survival_leyte_min",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 0,
+          "confidence": "low"
+        },
+        {
+          "name": "reported_survival_leyte_max",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 100,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: survival in Leyte ranged from 0% to 100%, with “no standard monitoring protocol”. No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "Not limited to this project; the source says the figures “need field validation”.",
+      "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/6.-synthesis.pdf",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:03.140324Z",
+      "content_hash": "8f41c5d6a115d78e732b753808fbc9ad2917bd9e6b42a719a4cf54acad512577"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef204",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Carbon Research 4, “Understanding blue carbon management strategies”",
+      "source_version": "Published 2025 (case study source 26)",
+      "observed_from": "2023-01-01T00:00:00.000000Z",
+      "observed_to": "2023-03-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:02.524244Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "Names no planting programme, so it is not evidence about the 70 ha project.",
+      "metrics": [
+        {
+          "name": "mangrove_cover_burayan",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 4.28,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: two stations along Cancabato Bay, Brgy. Burayan and Brgy. Paraiso, had 4.28 ha and 5.18 ha of mangrove cover, and “There are reforested stands in both barangays.” No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "Peer-reviewed field survey; the reforested stands are not tied to any programme or year.",
+      "provenance_url": "https://link.springer.com/article/10.1007/s44246-025-00216-6",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:02.524244Z",
+      "content_hash": "41e90b6c0c1007bb21a15eaaf6007cf68a1670111b1d1c8b979f16d64100ccdd"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef203",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Proceedings of the 3rd National Mangrove Conference, Iloilo City (p. 40)",
+      "source_version": "Published 2018-04 (case study source 44)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2018-04-01T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:02.105841Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "City-level remark that names no programme or planting; not this project.",
+      "metrics": [
+        {
+          "name": "reported_survival_tacloban",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 0,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: “There was a survival rate of 98% in some parts of Quezon and 0% in Tacloban which was damaged by the typhoon.” No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "Remark at a national conference; city-level, the programme and planting are not named.",
+      "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:02.105841Z",
+      "content_hash": "5466779dd71be947be2d1eba237de0eba21a9abbecc901fbe04b5551ceee2efe"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef202",
+      "question": "work",
+      "source_type": "public_report",
+      "source_name": "State of the Mangrove Summit, “State of the Mangrove in Leyte”",
+      "source_version": "Published 2019 (case study source 21)",
+      "observed_from": "2017-09-01T00:00:00.000000Z",
+      "observed_to": "2018-11-30T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:01.827188Z",
+      "location": null,
+      "finding": "work_done",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "reported_area",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 70,
+          "confidence": "low"
+        },
+        {
+          "name": "reported_budget",
+          "unit": "million PHP",
+          "eq_id": "EQ-017",
+          "value": 28.8,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: the provincial government implements its own mangrove rehabilitation project in Cancabato Bay, 70 hectares over 14 months, with ₱28.8 million from the budget of DENR Region 8 in partnership with the fisheries bureau and the Environmental Management Bureau.",
+      "spatial_resolution_m": null,
+      "limitation": "Government-reported activity in a summit chapter; the 70 ha boundary is not published.",
+      "provenance_url": "https://www.academia.edu/87539308/State_of_the_Mangrove_in_Leyte",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:01.827188Z",
+      "content_hash": "8a79adce962f8252d98c06d6834fb9804070a567da4a84d3a0ad0e601503d6d2"
+    },
+    {
+      "id": "445b6006-0235-46f8-aa3c-911c07f21673",
+      "question": "current",
+      "source_type": "sentinel2",
+      "source_name": "Sentinel-2 L2A (Earth Search)",
+      "source_version": "S2C_T51PYN_20260729T021211_L2A",
+      "observed_from": "2026-07-29T02:14:30.184000Z",
+      "observed_to": "2026-07-29T02:14:30.184000Z",
+      "retrieved_at": "2026-10-03T22:29:23.539902Z",
+      "location": null,
+      "finding": "mostly_vegetation",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "valid_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-005",
+          "value": 0.9985,
+          "confidence": "low"
+        },
+        {
+          "name": "vegetation_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.9745,
+          "confidence": "low"
+        },
+        {
+          "name": "bare_soil_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0255,
+          "confidence": "low"
+        },
+        {
+          "name": "water_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0,
+          "confidence": "low"
+        },
+        {
+          "name": "mean_ndvi",
+          "unit": "NDVI",
+          "eq_id": "EQ-007",
+          "value": 0.789,
+          "confidence": "low"
+        }
+      ],
+      "method": "EQ-005: over Sentinel-2 L2A SCL pixels (20 m) with centre inside the site, f_valid = n(SCL in {4,5,6}) / n(SCL != 0); the best of 23 scenes in [t - S2_WINDOW_DAYS 90 d, t = 2026-10-03]; usable iff f_valid >= MIN_VALID_FRACTION 0.5. EQ-006: finding = the largest of the SCL 4/5/6 fractions of valid pixels. EQ-007: mean NDVI (B08 - B04)/(B08 + B04) on 10 m pixels with centre inside and SCL (nearest to 10 m) in {4,5}, context only.",
+      "spatial_resolution_m": 20.0,
+      "limitation": "SCL \"vegetation\" does not tell mangrove from other vegetation; tide state at acquisition changes the water fraction; an active fishpond and open water look alike from space, so only ground evidence settles land use; 20 m pixels cannot see seedlings, and months after planting satellite cannot confirm planting. Pictures are true-colour (TCI) chips with the site outline drawn in. Contains modified Copernicus Sentinel data 2017 and 2026.",
+      "provenance_url": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a/items/S2C_T51PYN_20260729T021211_L2A",
+      "asset_url": "https://18-140-211-157.sslip.io/api/v1/assets/b3e35c54fd1fbf5aa906fbcdb7b2ab7b93f6fae58174d603f04fa72f30503a78",
+      "note": "Then picture: Sentinel-2 L2A scene S2A_51PYN_20170417_0_L2A (2017-04-17, collection sentinel-2-l2a), same window. A picture only; no number is computed from it.",
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:29:23.539905Z",
+      "content_hash": "eaf8d545931ebed1a90eb33757692cab6b5907b0ca46a084347d51ca75cb5355",
+      "asset_then_url": "https://18-140-211-157.sslip.io/api/v1/assets/e5431f8f72a2e16108537854c13df61fbf0341c2df2bba1b47b670a5ac4c482d",
+      "asset_then_observed": "2017-04-17"
+    },
+    {
+      "id": "d790c61e-68e8-4b3f-8a01-2234763b8b15",
+      "question": "history",
+      "source_type": "gmw",
+      "source_name": "Global Mangrove Watch",
+      "source_version": "v4.1.12",
+      "observed_from": "1985-01-01T00:00:00.000000Z",
+      "observed_to": "2025-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:31.955053Z",
+      "location": null,
+      "finding": "no_mangrove_recorded",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "max_mangrove_area",
+          "unit": "ha",
+          "eq_id": "EQ-003",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_year",
+          "unit": "year",
+          "eq_id": "EQ-003",
+          "value": 1985,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-003",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.64,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.46,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.46,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.37,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.28,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.58,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.58,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.23,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.23,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.76,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.67,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.76,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.2,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.55,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.9,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.9,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.37,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.67,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 3.96,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 3.96,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.32,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.76,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 6.87,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 6.52,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 6.96,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 7.93,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 8.45,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 8.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 8.81,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 9.25,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_buffer",
+          "unit": "m",
+          "eq_id": null,
+          "value": 1000,
+          "confidence": "high"
+        }
+      ],
+      "method": "EQ-002: sum of GMW v4.1.12 DN=1 pixel areas with centre inside the site, 41 annual bands 1985-2025; EQ-003: finding = mangrove_recorded iff max area / site area >= HISTORY_MIN_FRACTION 0.1; EQ-014: same sum within NEARBY_BUFFER_M 1000 m outside the site (context only).",
+      "spatial_resolution_m": 30.0,
+      "limitation": "GMW starts in 1985; ponds converted earlier are not visible, so no mangrove recorded does not mean the site was never mangrove. 30 m modelled classification: cannot see seedlings; accuracy varies locally (GMW global F1 0.93).",
+      "provenance_url": "https://doi.org/10.5281/zenodo.21346457",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:31.955053Z",
+      "content_hash": "5a3ed3ab795de996438bc4e490c9e6923ff7c7e23fcc53916cb35480c44120a9"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef201",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "BIODIVERS 2(2), “Natural Regrowth of Mangrove Five Years After a Large-Scale Disturbance”",
+      "source_version": "Published 2023 (case study source 42)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2019-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:29.931095Z",
+      "location": null,
+      "finding": "existing_mangrove",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “Mangrove survived along San Juanico Strait, Anibong Bay, and Cancabato Bay exhibiting regeneration”.",
+      "spatial_resolution_m": null,
+      "limitation": "Bay-level statement from plots surveyed one and five years after the typhoon; the plots are not this polygon.",
+      "provenance_url": "https://doi.org/10.56060/bdv.2023.2.2.2099",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:29.931095Z",
+      "content_hash": "324b864257bb7f62f6376c942f35a0054e68ce49aee17dde4a756e5d72de48d8",
+      "photos": [
+        {
+          "url": "https://imgs.mongabay.com/wp-content/uploads/sites/20/2023/12/21123915/Cancabato-Bay.jpg",
+          "credit": "Bagoto via Wikimedia Commons (CC BY-SA 4.0), via Mongabay",
+          "caption": "Cancabato Bay, Tacloban"
+        }
+      ]
+    }
+  ]
 }

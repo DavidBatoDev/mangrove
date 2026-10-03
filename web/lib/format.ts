@@ -68,7 +68,9 @@ export function formatMeasure(m: Measure | null | undefined): string {
 export function formatDate(ts: string | null | undefined): string {
   if (!ts) return "—";
   const d = new Date(ts.length === 10 ? `${ts}T00:00:00Z` : ts);
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  // Philippine time (UTC+8): a record published late in the UTC day carries the local date it was made.
+  // Date-only values parse as UTC midnight, so they keep their calendar day.
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Manila" });
 }
 
 export const shortHash = (h: string) => `${h.slice(0, 12)}…${h.slice(-6)}`;

@@ -91,7 +91,7 @@ function PublicMap() {
                     <span>
                       <strong className="record-item-name">{f.properties.site_name}</strong>
                       <span className="meta">
-                        {f.properties.funder} · published {formatDate(f.properties.published_at)}
+                        {f.properties.funder} · {f.properties.is_demo ? "published" : "reconstructed"} {formatDate(f.properties.published_at)}
                       </span>
                       <span className="row" style={{ gap: "var(--mg-space-2)", marginTop: "var(--mg-space-1)" }}>
                         <PinLabel state={f.properties.pin_state} />
