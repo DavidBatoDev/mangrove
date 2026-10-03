@@ -6,7 +6,7 @@
 
 import { useEffect, useRef } from "react";
 import type { MapViewProps } from "@/components/MapView";
-import { gmwTileTemplate } from "@/lib/api";
+import { gmwChangeTileTemplate, gmwTileTemplate, mangroveOpacityAt } from "@/lib/api";
 import { DEFAULT_BASEMAP, type BasemapId } from "@/lib/basemaps";
 import { GOOGLE_IMAGERY_NOTE, GOOGLE_MAP_ID, loadMaps, loadMarker, onGoogleAuthFailure, outerRings } from "@/lib/google";
 import type { Padding } from "@/lib/map-handle";
@@ -33,7 +33,7 @@ export default function GoogleMapView({
   onPinClick,
   selectedPinId,
   highlightSiteIds,
-  extentYear = null,
+  mangrove = null,
   basemap = DEFAULT_BASEMAP,
   showSites = true,
   showPins = true,
@@ -47,11 +47,13 @@ export default function GoogleMapView({
   const polys = useRef<Map<string, google.maps.Polygon[]>>(new Map());
   const markers = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
   const markerLib = useRef<google.maps.MarkerLibrary | null>(null);
-  const extentLayer = useRef<google.maps.ImageMapType | null>(null);
+  const gmwLayers = useRef<google.maps.ImageMapType[]>([]);
+  const gmwOpacity = useRef(1);
+  const zoomListener = useRef<google.maps.MapsEventListener | null>(null);
   const router = useRouter();
-  const latest = useRef({ onSiteClick, onPinClick, fitPadding, basemap });
+  const latest = useRef({ onSiteClick, onPinClick, fitPadding, basemap, mangrove });
   useEffect(() => {
-    latest.current = { onSiteClick, onPinClick, fitPadding, basemap };
+    latest.current = { onSiteClick, onPinClick, fitPadding, basemap, mangrove };
   });
   const onFailRef = useRef(onFail);
   const onReadyRef = useRef(onMapReady);
@@ -198,33 +200,56 @@ export default function GoogleMapView({
     [highlightSiteIds, showSites, sites, basemap],
   );
 
-  // GMW mangrove extent (API-024 tiles, F-025, ADR-048): an image overlay above the basemap, under polygons and pins.
+  // GMW mangrove layers (API-024 extent, API-025 gain and loss): image overlays above the basemap, under polygons
+  // and pins, in that order. Opacity follows the zoom (lib/api.ts mangroveOpacityAt).
+  const mangroveKey = mangrove ? JSON.stringify({ ...mangrove, opacity: undefined }) : "";
   useEffect(
     () =>
       whenReady((map) => {
-        if (extentLayer.current) {
-          const i = map.overlayMapTypes.getArray().indexOf(extentLayer.current);
+        for (const l of gmwLayers.current) {
+          const i = map.overlayMapTypes.getArray().indexOf(l);
           if (i >= 0) map.overlayMapTypes.removeAt(i);
-          extentLayer.current = null;
         }
-        if (extentYear == null) return;
-        const template = gmwTileTemplate(extentYear);
-        const layer = new google.maps.ImageMapType({
-          name: `GMW mangrove extent ${extentYear}`,
-          tileSize: new google.maps.Size(256, 256),
-          maxZoom: 16,
-          getTileUrl: (c, z) => {
-            const n = 1 << z;
-            if (c.y < 0 || c.y >= n) return null;
-            const x = ((c.x % n) + n) % n;
-            return template.replace("{z}", String(z)).replace("{x}", String(x)).replace("{y}", String(c.y));
-          },
+        gmwLayers.current = [];
+        const m = latest.current.mangrove;
+        if (!m) return;
+        const urls = [
+          m.extentYear != null ? gmwTileTemplate(m.extentYear) : null,
+          m.change?.gain ? gmwChangeTileTemplate(m.change.base, m.change.year, "gain") : null,
+          m.change?.loss ? gmwChangeTileTemplate(m.change.base, m.change.year, "loss") : null,
+        ].filter((u): u is string => !!u);
+        urls.forEach((template, i) => {
+          const layer = new google.maps.ImageMapType({
+            name: `GMW layer ${i}`,
+            tileSize: new google.maps.Size(256, 256),
+            maxZoom: 22,
+            opacity: mangroveOpacityAt(map.getZoom() ?? 6, gmwOpacity.current),
+            getTileUrl: (c, z) => {
+              const n = 1 << z;
+              if (c.y < 0 || c.y >= n) return null;
+              const x = ((c.x % n) + n) % n;
+              return template.replace("{z}", String(z)).replace("{x}", String(x)).replace("{y}", String(c.y));
+            },
+          });
+          map.overlayMapTypes.insertAt(i, layer);
+          gmwLayers.current.push(layer);
         });
-        map.overlayMapTypes.insertAt(0, layer);
-        extentLayer.current = layer;
       }),
-    [extentYear],
+     
+    [mangroveKey],
   );
+
+  // Opacity: the viewer's setting, faded when zoomed far in (tiles stay, at 30%).
+  useEffect(() => {
+    gmwOpacity.current = mangrove?.opacity ?? 1;
+    const off = whenReady((map) => {
+      const apply = () => gmwLayers.current.forEach((l) => l.setOpacity(mangroveOpacityAt(map.getZoom() ?? 6, gmwOpacity.current)));
+      apply();
+      zoomListener.current ??= map.addListener("zoom_changed", apply);
+    });
+    return off;
+  }, [mangrove?.opacity]);
+  useEffect(() => () => zoomListener.current?.remove(), []);
 
   // Record pins as advanced markers carrying the shared pin element.
   useEffect(

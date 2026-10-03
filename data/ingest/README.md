@@ -33,6 +33,10 @@ Whatever GMW shows is what the product shows: for the demo polygons that is no m
 
 ## Philippines extent layer for the map (ADR-048)
 
+`gmw_change_tiles.py` builds the gain/loss GeoTIFFs that API-025 serves (ADR-050): for baselines 1985, 1990, 2000 and 2010,
+one 2-band file per later layer year and tile into `<out>/change/`, plus `change_index.json`. Run it like `gmw_tiles.py`
+with `--chng-dir <change stacks> --out-dir /opt/bon/gmw-tiles`.
+
 `gmw_tiles.py` builds the per-year GeoTIFFs that API-024 serves as map tiles: the 93 GMW tiles touching the
 Philippines, years 1985–2025 every 5 years, values 0/255 with averaged overviews, plus `index.json`. It runs on
 the demo host into `/opt/bon/gmw-tiles` (mounted read-only into the API). rasterio's wheel needs `libexpat1` on
