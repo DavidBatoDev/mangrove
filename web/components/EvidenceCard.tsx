@@ -1,7 +1,7 @@
 import { EvidencePictures } from "@/components/SatellitePictures";
 import { DemoLabel, MeasureText } from "@/components/ui";
 import { IconBadge, SourceIcon } from "@/components/visual";
-import { EQ_LABELS, findingLabel, formatDate, QUESTION_LABELS, shortHash } from "@/lib/format";
+import { EQ_LABELS, findingLabel, formatDate, QUESTION_LABELS, ROLE_LABELS, shortHash } from "@/lib/format";
 import type { Evidence } from "@/lib/types";
 
 // One evidence item with its full provenance (BR-005), in the brand's evidence look:
@@ -74,6 +74,15 @@ export default function EvidenceCard({ e, siteName }: { e: Evidence; siteName?: 
             {e.source_type}
             {e.submitted_by_org ? ` · ${e.submitted_by_org.name}` : ""}
           </dd>
+          {e.submitted_by && (
+            <>
+              <dt>Submitted by</dt>
+              <dd>
+                {e.submitted_by.name}
+                {e.submitted_by.organisation ? ` · ${e.submitted_by.organisation}` : ""} · {ROLE_LABELS[e.submitted_by.role]}
+              </dd>
+            </>
+          )}
           <dt>Version</dt>
           <dd>{e.source_version ?? "—"}</dd>
           <dt>Retrieved</dt>

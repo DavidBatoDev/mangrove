@@ -1,10 +1,9 @@
 "use client";
 
-import { Check, FileUp, ImagePlus, Lock, MapPin, Plus } from "lucide-react";
-import Link from "next/link";
+import { Check, FileUp, Lock, MapPin, Plus } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { useSession } from "@/components/session";
+import SubmitterFields, { cleanSubmitter, useSubmitter } from "@/components/SubmitterFields";
 import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
 import {
   BrandIcon,
@@ -21,6 +20,7 @@ import {
   FINDINGS_BY_QUESTION,
   findingLabel,
   QUESTION_LABELS,
+  ROLE_LABELS,
 } from "@/lib/format";
 import type { EvidenceInput, EvidenceQuestion } from "@/lib/types";
 
@@ -54,11 +54,12 @@ function centroidOf(geom: GeoJSON.Geometry): [number, number] | null {
   ];
 }
 
-// Submit evidence (US-006, US-010): a funder adds a project report, a partner adds field evidence.
+// Add evidence (US-006, US-010), open to anyone (ADR-061): the submitter types who they are. A funder's "Did the work
+// happen?" is a project report (claimed area); everything else is a field observation with a GPS point.
 function EvidenceForm() {
   const params = useSearchParams();
   const router = useRouter();
-  const { user, ready } = useSession();
+  const [who, setWho] = useSubmitter("resident");
   const pins = useApi(() => api.listRecords(), []);
   const sites = useApi(() => api.listSites(), []);
 
@@ -69,7 +70,7 @@ function EvidenceForm() {
         ? `site:${params.get("site")}`
         : "",
   );
-  const isFunder = user?.role === "funder";
+  const isFunder = who.role === "funder";
   const questions: EvidenceQuestion[] = isFunder
     ? ["work", "outcome", "ground", "history"]
     : ["ground", "work", "outcome", "history"];
@@ -79,39 +80,28 @@ function EvidenceForm() {
   const [finding, setFinding] = useState(
     () => FINDINGS_BY_QUESTION[params.get("record") ? "work" : "ground"][0],
   );
-  const [observedAt, setObservedAt] = useState(() =>
-    new Date().toISOString().slice(0, 10),
-  );
+  // Today in the viewer's own time zone (toISOString would give yesterday on a Manila morning).
+  const [observedAt, setObservedAt] = useState(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  });
   const [reportedHa, setReportedHa] = useState("");
   const [lon, setLon] = useState("");
   const [lat, setLat] = useState("");
   const [boundary, setBoundary] = useState<GeoJSON.Polygon | null>(null);
   const [boundaryName, setBoundaryName] = useState("");
   const [note, setNote] = useState("");
-  const [photo, setPhoto] = useState<File | null>(null);
   const [phase, setPhase] = useState<Phase>("editing");
   const [error, setError] = useState<string | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
 
+  // Same rule as the API: only a funder's work report is a project report.
+  const isReport = isFunder && question === "work";
   const targetLabel = target.startsWith("record:")
     ? pins.data?.features.find((f) => f.properties.id === target.slice(7))
         ?.properties.site_name
     : sites.data?.features.find((f) => f.properties.id === target.slice(5))
         ?.properties.name;
-
-  if (!ready) return <Loading />;
-  if (!user)
-    return (
-      <div className="state">
-        <p>Sign in as a funder or a partner to add evidence.</p>
-        <Link
-          className="mg-btn mg-btn--primary"
-          href={`/sign-in?next=${encodeURIComponent(`/evidence/new?${params.toString()}`)}`}
-        >
-          Sign in
-        </Link>
-      </div>
-    );
 
   async function useSiteCentre() {
     setError(null);
@@ -155,27 +145,25 @@ function EvidenceForm() {
     if (!target)
       return setError("Pick the site or record this evidence is about.");
     if (!finding) return setError("Pick a finding.");
-    if (isFunder && question === "work" && !(Number(reportedHa) > 0))
+    if (!who.name.trim()) return setError("Add your name under About you.");
+    if (isReport && !(Number(reportedHa) > 0))
       return setError("Enter the reported area in hectares.");
-    if (!isFunder && !(lon && lat))
+    if (!isReport && !(lon && lat))
       return setError(
         "Field evidence needs the GPS point where it was observed.",
       );
-    if (photo && photo.size > 10 * 1024 * 1024)
-      return setError("The photo is over 10 MB.");
 
     const input: EvidenceInput = {
-      source_type: isFunder ? "project_report" : "field",
-      question,
+      question: question as EvidenceInput["question"],
       finding,
       observed_at: observedAt,
       ...(target.startsWith("record:")
         ? { record_id: target.slice(7) }
         : { site_id: target.slice(5) }),
-      ...(isFunder && reportedHa
+      ...(isReport && reportedHa
         ? { reported_area_ha: Number(reportedHa) }
         : {}),
-      ...(!isFunder
+      ...(!isReport
         ? {
             point: {
               type: "Point",
@@ -185,7 +173,7 @@ function EvidenceForm() {
         : {}),
       ...(boundary ? { boundary } : {}),
       ...(note.trim() ? { note: note.trim() } : {}),
-      ...(photo ? { photo } : {}),
+      submitter: cleanSubmitter(who),
     };
     setPhase("uploading");
     try {
@@ -231,7 +219,6 @@ function EvidenceForm() {
               setBoundary(null);
               setBoundaryName("");
               setNote("");
-              setPhoto(null);
             }}
           >
             Add more
@@ -245,16 +232,16 @@ function EvidenceForm() {
       <form className="form ev-form" onSubmit={onSubmit} noValidate>
         <div className="role-banner">
           <IconBadge tone="root">
-            <SourceIcon type={isFunder ? "project_report" : "field"} />
+            <SourceIcon type={isReport ? "project_report" : "field"} />
           </IconBadge>
           <div>
             <span className="mg-eyebrow" style={{ margin: 0 }}>
-              {isFunder ? "Project report" : "Field evidence"}
+              {isReport ? "Project report" : "Field evidence"}
             </span>
-            <strong>{user.org.name}</strong>{" "}
-            <DemoLabel show={user.org.is_demo} />
+            <strong>{who.name.trim() ? `${who.organisation?.trim() || who.name.trim()} · ${ROLE_LABELS[who.role]}` : ROLE_LABELS[who.role]}</strong>
           </div>
         </div>
+        <SubmitterFields value={who} onChange={setWho} />
         {error && (
           <p className="mg-alert" role="alert">
             {error}
@@ -367,7 +354,7 @@ function EvidenceForm() {
             />
           </div>
 
-          {isFunder && question === "work" && (
+          {isReport && (
             <div className="field">
               <label htmlFor="reported">Reported area, hectares</label>
               <input
@@ -390,7 +377,7 @@ function EvidenceForm() {
             <span className="ev-step">2</span>
             <span>Where, and what you can attach</span>
           </legend>
-          {!isFunder && (
+          {!isReport && (
             <div className="field">
               <span className="field-label">
                 <MapPin {...ICON_PROPS} size={14} /> GPS point where observed
@@ -456,26 +443,6 @@ function EvidenceForm() {
           </div>
 
           <div className="field">
-            <span className="field-label">Photo (optional)</span>
-            <label
-              className={`ev-drop${photo ? " is-set" : ""}`}
-              htmlFor="photo"
-            >
-              <ImagePlus {...ICON_PROPS} size={22} />
-              <span>
-                <strong>{photo ? photo.name : "Choose a photo"}</strong>
-                <small>JPEG or PNG · up to 10 MB</small>
-              </span>
-              <input
-                id="photo"
-                type="file"
-                accept="image/jpeg,image/png"
-                onChange={(e) => setPhoto(e.target.files?.[0] ?? null)}
-              />
-            </label>
-          </div>
-
-          <div className="field">
             <label htmlFor="note">Note (optional)</label>
             <textarea
               id="note"
@@ -507,14 +474,14 @@ function EvidenceForm() {
         observedAt={observedAt}
         checks={[
           { label: "Site or record", ok: !!target },
-          ...(isFunder ? [] : [{ label: "GPS point", ok: !!(lon && lat) }]),
-          ...(isFunder && question === "work"
+          { label: "Your name", ok: !!who.name.trim() },
+          ...(isReport ? [] : [{ label: "GPS point", ok: !!(lon && lat) }]),
+          ...(isReport
             ? [{ label: "Reported area", ok: Number(reportedHa) > 0 }]
             : []),
           { label: "Boundary (optional)", ok: !!boundary },
-          { label: "Photo (optional)", ok: !!photo },
         ]}
-        demo={user.org.is_demo}
+        demo={!!sites.data?.features.find((f) => f.properties.id === target.slice(5))?.properties.is_demo}
       />
     </div>
   );

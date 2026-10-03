@@ -1,6 +1,6 @@
 // Plain-language labels. Copy rules: docs/design-brief.md §4.
 
-import type { CheckStatus, Measure, PinState } from "@/lib/types";
+import type { CheckStatus, Measure, PinState, SubmitterRole } from "@/lib/types";
 
 const FINDINGS: Record<string, string> = {
   mangrove_recorded: "Mangrove recorded here before",
@@ -99,3 +99,10 @@ export function snapshotSite(record: { site_id?: string; snapshot: Record<string
   const snap = record.snapshot as { site?: { id?: string; name?: string }; site_id?: string; site_name?: string };
   return { id: snap.site?.id ?? snap.site_id ?? record.site_id, name: snap.site?.name ?? snap.site_name };
 }
+
+/** Public submitter roles (ADR-061), as shown on screen. */
+export const ROLE_LABELS: Record<SubmitterRole, string> = {
+  field_partner: "Field partner",
+  funder: "Funder",
+  resident: "Resident",
+};

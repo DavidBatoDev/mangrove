@@ -1,4 +1,4 @@
-"""TC-033: API-007 Sentinel-2 refresh from AWS Open Data (ADR-042, ADR-061), EQ-005/006/007.
+"""TC-035: API-007 Sentinel-2 refresh from AWS Open Data (ADR-042), EQ-005/006/007.
 
 The adapter is tested on tiny synthetic COG-like GeoTIFFs and a fake STAC search, so no network is used.
 The route test writes one evidence item to the test branch through a stubbed adapter.
@@ -40,7 +40,7 @@ def _item(tmp_path, name, scl, red=None, nir=None, cloud=10.0):
             "properties": {"datetime": "2026-09-25T02:33:52Z", "eo:cloud_cover": cloud, "s2:processing_baseline": "05.13"}}
 
 
-def test_tc033_picks_clearest_scene_and_classifies(tmp_path):
+def test_tc035_picks_clearest_scene_and_classifies(tmp_path):
     cloudy = np.full((60, 60), 9, dtype="uint8")  # SCL 9 = cloud high probability
     clear = np.full((60, 60), 4, dtype="uint8")  # vegetation
     clear[:, 42:] = 6  # water east of the site (the site spans columns 20-40)
@@ -57,18 +57,18 @@ def test_tc033_picks_clearest_scene_and_classifies(tmp_path):
     assert out["provenance_url"] == "https://example.test/items/clear" and "05.13" in out["source_version"]
 
 
-def test_tc033_all_cloud_is_unusable_not_an_error(tmp_path):
+def test_tc035_all_cloud_is_unusable_not_an_error(tmp_path):
     items = [_item(tmp_path, "cloudy", np.full((60, 60), 9, dtype="uint8"))]
     out = s2.refresh("site", POLY, is_demo=True, now=NOW, searcher=lambda *a, **k: items)
     assert out["usable"] is False and out["finding"] is None and out["unusable_reason"] == "too few cloud-free pixels"
 
 
-def test_tc033_no_scene_in_window_is_unusable(tmp_path):
+def test_tc035_no_scene_in_window_is_unusable(tmp_path):
     out = s2.refresh("site", POLY, is_demo=True, now=NOW, searcher=lambda *a, **k: [])
     assert out["usable"] is False and "no Sentinel-2 scene" in out["unusable_reason"]
 
 
-def test_tc033_upstream_failure_is_502_and_writes_nothing(client, monkeypatch):
+def test_tc035_upstream_failure_is_502_and_writes_nothing(client, monkeypatch):
     def boom(*a, **k):
         raise s2.UpstreamError("down")
 
@@ -82,7 +82,7 @@ def test_tc033_upstream_failure_is_502_and_writes_nothing(client, monkeypatch):
     assert str(SITE["C"]) not in sentinel._last
 
 
-def test_tc033_refresh_appends_current_evidence_then_rate_limits(client, monkeypatch):
+def test_tc035_refresh_appends_current_evidence_then_rate_limits(client, monkeypatch):
     def fake(site_id, geometry, *, is_demo, **k):
         return {"site_id": site_id, "question": "current", "source_type": "sentinel2", "source_name": s2.SOURCE_NAME,
                 "method": s2.METHOD, "spatial_resolution_m": 20, "limitation": s2.LIMITATION, "is_demo": is_demo,
@@ -101,6 +101,6 @@ def test_tc033_refresh_appends_current_evidence_then_rate_limits(client, monkeyp
     assert again.status_code == 429 and again.json()["error"]["code"] == "RATE_LIMITED"
 
 
-def test_tc033_unknown_site_is_404(client):
+def test_tc035_unknown_site_is_404(client):
     r = client.post("/api/v1/sites/00000000-0000-4000-8000-00000000ffff/sentinel-refresh")
     assert r.status_code == 404

@@ -38,10 +38,10 @@ Each concern has one owner. Other docs link to it. When two docs disagree, the o
 
 ## 0.5 Active semantic overlays
 
-No active overlay. The decisions in the ledger are already written into the owning docs.
-
 | Concern | Base owner | Active decision | Affected IDs/sections | Consolidate by |
 |---------|------------|-----------------|------------------------|----------------|
+| Who can act (no accounts) | [PRD](prd.md) | DEC-032 | F-004, F-007, prd.md § 2, prd.md § 5 | After the demo, rewrite the PRD roles as public contributors |
+| Routes | [Design](design.md) | DEC-032 | F-004, F-007, design.md § 2 | After the demo |
 
 ## 1. Document suite
 

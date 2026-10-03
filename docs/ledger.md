@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Public-only: no sign-in; open evidence and locking
+- **ID:** DEC-032
+- **Type:** pivot
+- **Change:** two signed-in roles (funder, field partner) with sign-in only in fixtures mode → no accounts; anyone adds evidence (API-008) or locks a promise (API-009), typing name, organisation and role; contact email private
+- **Why:** the team wants the product shown from the public's perspective, working live.
+- **Invalidated:** API-001..003; the role gates on API-008/009; prd.md §2 personas' sign-in, §5 sign-in screen; design.md `/sign-in`
+- **Recorded as:** ADR-061
+
 ### 2026-10-04 — In-app assistant over the MCP tools
 - **ID:** DEC-031
 - **Type:** scope-add

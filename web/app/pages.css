@@ -383,6 +383,17 @@ html.mg-fonts .field label.ev-qcard, html.mg-fonts .field label.ev-chip, html.mg
 .answer-cite-n { flex: none; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--mg-tidal); color: #fff; font-size: 11px; font-weight: 700; }
 .answer-cite-date { flex: none; color: var(--mg-text-muted); font-size: 12px; }
 
+/* Public submitter fields (ADR-061) */
+.submitter { border: 1px solid var(--mg-border); border-radius: var(--mg-radius-md); padding: var(--mg-space-4); margin: 0 0 var(--mg-space-5); display: grid; gap: var(--mg-space-3); }
+.submitter legend { padding: 0 var(--mg-space-2); font-weight: 700; color: var(--mg-heading); }
+.submitter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--mg-space-3); }
+.submitter .field { display: grid; gap: var(--mg-space-1); }
+.submitter-roles { display: flex; flex-wrap: wrap; gap: var(--mg-space-2); }
+.submitter-role { display: inline-flex; align-items: center; gap: var(--mg-space-2); padding: 6px 12px; border: 1px solid var(--mg-border); border-radius: 999px; cursor: pointer; font-size: var(--mg-text-small); }
+.submitter-role input { width: 16px; height: 16px; min-height: 0; margin: 0; padding: 0; accent-color: var(--mg-tidal); }
+.submitter-role.is-on { border-color: var(--mg-tidal); }
+.submitted-by { margin: var(--mg-space-2) 0 0; font-size: var(--mg-text-small); color: var(--mg-text-muted, var(--mg-text)); }
+
 /* Side-panel tabs (candidate sites / extent stats) */
 .panel-tabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px; margin-bottom: var(--mg-space-4); border-radius: 999px; background: var(--mg-surface-sunk); }
 .panel-tabs button { border: 0; background: transparent; padding: 8px 12px; border-radius: 999px; font: inherit; font-weight: 600; font-size: var(--mg-text-small); color: var(--mg-text-muted); cursor: pointer; }
@@ -439,7 +450,7 @@ html.mg-fonts .field label.ev-qcard, html.mg-fonts .field label.ev-chip, html.mg
 .evidence-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--mg-radius-sm); border: 1px solid var(--mg-brackish); display: block; }
 .evidence-photos figcaption { font-size: var(--mg-text-label); color: var(--mg-text-muted); margin-top: var(--mg-space-1); }
 
-/* API-007 satellite refresh on the site page (ADR-061) */
+/* API-007 satellite refresh on the site page (ADR-042) */
 .sat-refresh { display: grid; gap: var(--mg-space-2); justify-items: start; margin-bottom: var(--mg-space-4); }
 .sat-refresh .mg-btn { min-height: 36px; padding: 6px 14px; font-size: var(--mg-text-small); }
 .sat-refresh p { margin: 0; }

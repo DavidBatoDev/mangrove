@@ -12,7 +12,6 @@ import { SiteTrendCard } from "@/components/GmwContext";
 import SatelliteRefresh from "@/components/SatelliteRefresh";
 import Map from "@/components/Map";
 import Site3DView, { toneFromAnswers } from "@/components/Site3DView";
-import { useSession } from "@/components/session";
 import { DemoLabel, ErrorBox, Loading, RealCaseLabel } from "@/components/ui";
 import { BrandIcon, EmptyArt, ICON_PROPS, QuestionIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
@@ -25,7 +24,6 @@ import type { Answer, Evidence, Measure, SitesFC } from "@/lib/types";
 export default function SiteDossierPage() {
   const { id } = useParams<{ id: string }>();
   const siteId = resolveSiteId(decodeURIComponent(id));
-  const { user } = useSession();
   const d = useApi(() => api.getSite(siteId), [siteId]);
   const trend = useApi(() => api.gmwTimeline(siteId), [siteId]);
   // GMW mangrove extent on the map (API-024 tiles, ADR-048): on by default at the latest year; the trend
@@ -68,21 +66,13 @@ export default function SiteDossierPage() {
       <div className="page-head">
         <h1>{site.name}</h1>
         <div className="row">
-          {user?.role === "funder" && (
-            <Link className="mg-btn mg-btn--primary" href={`/sites/${site.id}/lock`}>
-              <Lock {...ICON_PROPS} size={18} /> Lock a promise
-            </Link>
-          )}
-          {user && (
-            <Link className="mg-btn mg-btn--secondary" href={`/evidence/new?site=${site.id}`}>
-              <Plus {...ICON_PROPS} size={18} /> Add evidence
-            </Link>
-          )}
-          {!user && (
-            <Link className="mg-btn mg-btn--secondary" href={`/sign-in?next=/sites/${site.id}`}>
-              Sign in to act
-            </Link>
-          )}
+          {/* Public product, no accounts (ADR-061): anyone can lock a promise or add evidence. */}
+          <Link className="mg-btn mg-btn--primary" href={`/sites/${site.id}/lock`}>
+            <Lock {...ICON_PROPS} size={18} /> Lock a promise
+          </Link>
+          <Link className="mg-btn mg-btn--secondary" href={`/evidence/new?site=${site.id}`}>
+            <Plus {...ICON_PROPS} size={18} /> Add evidence
+          </Link>
         </div>
       </div>
       {site.proposal_summary && <p className="lede">{site.proposal_summary}</p>}

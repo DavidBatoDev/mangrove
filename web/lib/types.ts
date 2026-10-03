@@ -14,7 +14,21 @@ export type EvidenceQuestion = Question | "work" | "outcome";
 export type Status = "supported" | "conflicting" | "missing";
 export type CheckStatus = Status | "too_early";
 export type PinState = "conflict" | "awaiting" | "on_track";
-export type Role = "funder" | "partner";
+/** Who a member of the public says they are when adding evidence or locking a promise (ADR-061; no accounts). */
+export type SubmitterRole = "field_partner" | "funder" | "resident";
+export interface Submitter {
+  name: string;
+  organisation?: string;
+  role: SubmitterRole;
+  /** Stored privately for follow-up; never displayed or returned by the API. */
+  contact_email?: string;
+}
+/** What the API shows about a public submitter (never the email). */
+export interface SubmittedBy {
+  name: string;
+  organisation: string | null;
+  role: SubmitterRole;
+}
 
 export interface Site {
   id: string;
@@ -60,6 +74,8 @@ export interface Evidence {
   // Published photos linked (not rehosted) from a public report, with credit (ADR-059).
   photos?: { url: string; credit: string; caption: string }[];
   submitted_by_org: { name: string; is_demo: boolean } | null;
+  /** A public submission's typed submitter (ADR-061); null for seeded and satellite items. */
+  submitted_by?: SubmittedBy | null;
   is_demo: boolean;
   content_hash: string;
   // Present on mock items that carry the reported or mapped area (DS-004, DS-005).
@@ -111,6 +127,8 @@ export interface Check {
 export interface PromiseRecord {
   id: string;
   funder: { name: string; is_demo: boolean };
+  /** Who locked a public promise (ADR-061); null for seeded records. */
+  locked_by?: SubmittedBy | null;
   published_at: string;
   rationale: string;
   planned_action: string;
@@ -150,13 +168,6 @@ export interface VerifyResponse {
   first_mismatch_seq: number | null;
 }
 
-export interface User {
-  id: string;
-  display_name: string;
-  role: Role;
-  org: { id: string; name: string; is_demo: boolean };
-}
-
 export interface LockBody {
   site_id: string;
   rationale: string;
@@ -168,6 +179,7 @@ export interface LockBody {
   work_check_after: string;
   outcome_check_after: string;
   known_unknowns: string;
+  submitter: Submitter;
 }
 
 export interface LockResponse {
@@ -181,15 +193,14 @@ export interface LockResponse {
 export interface EvidenceInput {
   site_id?: string;
   record_id?: string;
-  source_type: "field" | "project_report";
-  question: EvidenceQuestion;
+  question: Exclude<EvidenceQuestion, "current">;
   finding: string;
   observed_at: string;
   point?: GeoJSON.Point;
   boundary?: GeoJSON.Polygon;
   reported_area_ha?: number;
   note?: string;
-  photo?: File;
+  submitter: Submitter;
 }
 
 export interface EvidenceResponse {
