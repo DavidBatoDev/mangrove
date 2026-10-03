@@ -349,14 +349,14 @@ def verify_record(conn: Connection, record_id: str) -> dict[str, Any]:
     return verify_chain(rows[0], events, evidence)
 
 
-# --- GMW context (F-022, ADR-044) --------------------------------------------------------------------
+# --- GMW context (F-025, ADR-045) --------------------------------------------------------------------
 
 CONTEXT_DIR = Path(__file__).resolve().parent / "context_data"
 GMW_LIMITATION = "GMW starts in 1985; ponds converted earlier are not visible. 30 m pixels."
 
 
 def gmw_timeline(conn: Connection, site_id: str) -> dict[str, Any]:
-    """API-019: GMW mangrove area inside (EQ-002) and near (EQ-014) a site, per year."""
+    """API-021: GMW mangrove area inside (EQ-002) and near (EQ-014) a site, per year."""
     sid = parse_uuid(site_id, "Site not found")
     site = conn.execute("SELECT id, is_demo FROM site WHERE id = %s", (sid,)).fetchone()
     if site is None:
@@ -389,7 +389,7 @@ def _context_file(name: str) -> dict[str, Any] | None:
 
 
 def country_context(iso3: str) -> dict[str, Any]:
-    """API-020: national extent (EQ-015) and gain/loss/net (EQ-016), as published by GMW."""
+    """API-022: national extent (EQ-015) and gain/loss/net (EQ-016), as published by GMW."""
     code = (iso3 or "").upper()
     data = _context_file(f"gmw_country_{code}.json") if code.isalpha() and len(code) == 3 else None
     if data is None:
@@ -402,7 +402,7 @@ def layer_years() -> list[int]:
 
 
 def gmw_extent_layer(year: int | None) -> dict[str, Any]:
-    """API-021: GMW extent polygons for the Manila Bay demo area, one year."""
+    """API-023: GMW extent polygons for the Manila Bay demo area, one year."""
     years = layer_years()
     if not years:
         raise not_found("No extent layer shipped")

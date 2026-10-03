@@ -1,6 +1,6 @@
 "use client";
 
-// Mangrove context from Global Mangrove Watch (F-022, US-016, ADR-044). Context only: nothing here sets a
+// Mangrove context from Global Mangrove Watch (F-025, US-017, ADR-045). Context only: nothing here sets a
 // status, finding or pin (BR-001). Charts follow BRAND.md §8: series Tidal then Root, the zero line drawn as
 // the Waterline, Tideline gridlines, mono axis labels, and a data table under every chart (§12).
 

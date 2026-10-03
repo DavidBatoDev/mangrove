@@ -396,10 +396,10 @@ export async function demoBoundary(): Promise<unknown> {
   return (await import("@/mocks/b-mapped-boundary-5ha.json")).default;
 }
 
-// --- GMW context (F-022). Fixtures are real API responses (web/mocks/api-019..021); the layer ships 2025 only.
+// --- GMW context (F-025). Fixtures are real API responses (web/mocks/api-021..023); the layer ships 2025 only.
 
 export async function gmwTimeline(siteId: string): Promise<GmwTimeline> {
-  const all = (await import("@/mocks/api-019-gmw-timelines.json")).default as unknown as Record<string, GmwTimeline>;
+  const all = (await import("@/mocks/api-021-gmw-timelines.json")).default as unknown as Record<string, GmwTimeline>;
   const t = all[siteId];
   if (!t) throw new ApiError(404, "NOT_FOUND", "Site not found");
   return t;
@@ -407,11 +407,11 @@ export async function gmwTimeline(siteId: string): Promise<GmwTimeline> {
 
 export async function countryContext(iso3: string): Promise<CountryContext> {
   if (iso3.toUpperCase() !== "PHL") throw new ApiError(404, "NOT_FOUND", "No statistics for that country");
-  return (await import("@/mocks/api-020-country-phl.json")).default as unknown as CountryContext;
+  return (await import("@/mocks/api-022-country-phl.json")).default as unknown as CountryContext;
 }
 
 export async function gmwExtent(year?: number): Promise<GmwExtentLayer> {
-  const layer = (await import("@/mocks/api-021-gmw-extent-2025.json")).default as unknown as GmwExtentLayer;
+  const layer = (await import("@/mocks/api-023-gmw-extent-2025.json")).default as unknown as GmwExtentLayer;
   if (year && !layer.available_years.includes(year))
     throw new ApiError(422, "VALIDATION_FAILED", `year must be one of ${JSON.stringify(layer.available_years)}`);
   return layer;

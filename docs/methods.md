@@ -61,7 +61,7 @@ own. The UI shows the confidence of the items behind them.
 | EQ-010 | Field-mapped worked area (ha) | `ST_Area(location::geography) / 10000` for a partner-submitted boundary polygon | DS-004 | Medium | PostGIS `ST_Area` (geography); GPS accuracy of the partner's device is unknown |
 | EQ-011 | Content hash and timeline hash | `content_hash = SHA-256(UTF-8(JCS(payload)))`; `event_hash = SHA-256(prev_hash ‖ UTF-8(JCS(event_payload)))`, where `prev_hash` is the record's `content_hash` for `seq = 1`, else the previous `event_hash`. Verification recomputes all and reports the first mismatch | DS-006 | High | RFC 8785 (JSON Canonicalization Scheme); FIPS 180-4 (SHA-256) |
 | EQ-012 | "Did the mangroves come back?" finding from satellite | Only when `today ≥ outcome_check_after` and `expected_vegetated_ha` is set: `recovery_seen` if `EQ-008 ≥ expected_vegetated_ha × (1 − AREA_TOLERANCE)`, else `no_recovery_seen`. Before the date → "too early to tell" (no finding). | DS-002, DS-003, DS-006 | Low | Internal rule |
-| EQ-014 | Mangrove area near the site, per year y = 1985…2025 (ha) — context only, no status | EQ-002's sum over GMW pixels with DN=1 in band y whose centre lies inside `ST_Buffer(site::geography, NEARBY_BUFFER_M)` and outside the site polygon | DS-001, DS-003 | Medium | Internal rule (ADR-044) |
+| EQ-014 | Mangrove area near the site, per year y = 1985…2025 (ha) — context only, no status | EQ-002's sum over GMW pixels with DN=1 in band y whose centre lies inside `ST_Buffer(site::geography, NEARBY_BUFFER_M)` and outside the site polygon | DS-001, DS-003 | Medium | Internal rule (ADR-045) |
 | EQ-015 | National mangrove extent, per year (ha), with lower and upper 95% bounds — context only | Read as published: GMW v4.1.12 country statistics, "corrected" area (GMW applied an accuracy correction factor of 0.9775) | DS-007 | Medium | GMW v4.1.12 README [R31] |
 | EQ-016 | National mangrove gain, loss and net change between consecutive years (ha) — context only | `gain_y`, `loss_y` read as published from GMW's change matrix (base year y−1, target y); `net_y = gain_y − loss_y`. Net change between y1 and y2 is `EQ-015(y2) − EQ-015(y1)` | DS-007 | Medium | GMW v4.1.12 change statistics [R31] |
 | EQ-013 | Source count per question or check | Number of usable evidence items for that question (site) or check (record) | DS-001…DS-005 | High | Count |
@@ -100,7 +100,7 @@ has inputs:
 - GMW (30 m) and SCL (20 m) cannot see seedlings; months after planting, satellite cannot confirm planting [ADR-006].
 - SCL "vegetation" does not distinguish mangrove from other vegetation; tide state at acquisition changes the water fraction.
 - An active fishpond and open water look alike from space; only ground evidence settles land use [R09].
-- GMW starts in 1985. Mangrove cut for ponds before 1985 is not visible, so `no_mangrove_recorded` does not mean the site was never mangrove (ADR-044).
+- GMW starts in 1985. Mangrove cut for ponds before 1985 is not visible, so `no_mangrove_recorded` does not mean the site was never mangrove (ADR-045).
 
 ## 4. Dataset Registry
 
@@ -116,7 +116,7 @@ has inputs:
 
 ## 5. Traceability
 
-- Features that display numbers: F-001 (EQ-001), F-002/F-003 (EQ-002…EQ-007), F-005/F-006 (EQ-003, EQ-006, EQ-013), F-009/F-010 (EQ-008, EQ-009, EQ-010, EQ-012), F-012 (EQ-011), F-022 (EQ-002, EQ-003, EQ-014, EQ-015, EQ-016).
+- Features that display numbers: F-001 (EQ-001), F-002/F-003 (EQ-002…EQ-007), F-005/F-006 (EQ-003, EQ-006, EQ-013), F-009/F-010 (EQ-008, EQ-009, EQ-010, EQ-012), F-012 (EQ-011), F-025 (EQ-002, EQ-003, EQ-014, EQ-015, EQ-016).
 - Every `EQ-###` uses only `DS-###` rows in §4, and every §4 row is used.
 - [`tests.md`](tests.md) has a case per equation family asserting the computed value and the rendered confidence (TC-016…TC-019).
 - Stored numbers name their `EQ-###` in `evidence_item.metrics` ([`data-model.md` §2](data-model.md)).

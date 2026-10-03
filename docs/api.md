@@ -48,9 +48,9 @@ carries `is_demo`. Errors use `{"error": {"code": "<CODE>", "message": "<human t
 | API-016 | `GET /api/v1/health` | — | **none — returns no data** | stable |
 | API-017 | `POST /api/v1/sites` | F-014 | session, role `funder` | beta |
 | API-018 | `POST /api/v1/sites/{site_id}/summary` | F-013 | session (any role) — protects LLM cost | beta |
-| API-019 | `GET /api/v1/sites/{site_id}/gmw-timeline` | F-022 | **none — public data** | stable |
-| API-020 | `GET /api/v1/context/countries/{iso3}` | F-022 | **none — public data** | stable |
-| API-021 | `GET /api/v1/layers/gmw-extent` | F-022 | **none — public data** | stable |
+| API-021 | `GET /api/v1/sites/{site_id}/gmw-timeline` | F-025 | **none — public data** | stable |
+| API-022 | `GET /api/v1/context/countries/{iso3}` | F-025 | **none — public data** | stable |
+| API-023 | `GET /api/v1/layers/gmw-extent` | F-025 | **none — public data** | stable |
 
 There is deliberately **no** `PUT`, `PATCH` or `DELETE` on sites' evidence, records or timeline entries. A
 request using those methods gets `405` (BR-002).
@@ -341,9 +341,9 @@ request using those methods gets `405` (BR-002).
 
 - **Serves:** F-013 · **Implements:** US-015 · **Auth:** session. **Response — `200`** `{ "summary": "<text>", "generated_by": "AI", "source_evidence_ids": [ … ] }`; `503` `UPSTREAM_UNAVAILABLE` if the LLM fails. The prompt contains only the dossier; the response is labelled AI-generated (BR-003).
 
-### API-019 — `GET /api/v1/sites/{site_id}/gmw-timeline` — GMW mangrove area inside and near a site
+### API-021 — `GET /api/v1/sites/{site_id}/gmw-timeline` — GMW mangrove area inside and near a site
 
-- **Serves:** F-022 · **Implements:** US-016 · **Auth:** none
+- **Serves:** F-025 · **Implements:** US-017 · **Auth:** none
 
 **Response — `200`**
 
@@ -360,9 +360,9 @@ request using those methods gets `405` (BR-002).
 - **Errors:** `404` `NOT_FOUND` (unknown site).
 - **Notes:** read from the site's GMW history evidence item (`metrics` named `inside_mangrove_area_<year>` and `nearby_mangrove_area_<year>`). `years` is empty and `source` is null when GMW has not been ingested for the site. Context only: no status is derived (BR-001).
 
-### API-020 — `GET /api/v1/context/countries/{iso3}` — national mangrove extent and change
+### API-022 — `GET /api/v1/context/countries/{iso3}` — national mangrove extent and change
 
-- **Serves:** F-022 · **Implements:** US-016 · **Auth:** none
+- **Serves:** F-025 · **Implements:** US-017 · **Auth:** none
 
 **Response — `200`**
 
@@ -378,9 +378,9 @@ request using those methods gets `405` (BR-002).
 - **Errors:** `404` `NOT_FOUND` (no statistics shipped for that country; the demo ships `PHL`).
 - **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by Mangrove.
 
-### API-021 — `GET /api/v1/layers/gmw-extent` — Manila Bay mangrove extent for one year
+### API-023 — `GET /api/v1/layers/gmw-extent` — Manila Bay mangrove extent for one year
 
-- **Serves:** F-022 · **Implements:** US-016 · **Auth:** none
+- **Serves:** F-025 · **Implements:** US-017 · **Auth:** none
 
 | Parameter | In | Type | Required | Notes |
 |-----------|----|------|----------|-------|

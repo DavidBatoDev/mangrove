@@ -1,4 +1,4 @@
-"""Offline Global Mangrove Watch v4.1.12 ingest (DS-001, DS-007; ADR-044). Never runs at request time.
+"""Offline Global Mangrove Watch v4.1.12 ingest (DS-001, DS-007; ADR-045). Never runs at request time.
 
     data/ingest/.venv/Scripts/python data/ingest/gmw_ingest.py --target test \
         --stack-dir <dir with GMW_N15E120_v4112_mng_ext.tif> \

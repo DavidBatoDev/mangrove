@@ -55,4 +55,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-041](ADR-041-three-large-phases.md) | Accepted | Three large phases (P0 story end to end, P1 make it real, P2 demo-ready) replace ADR-039's six. |
 | [ADR-042](ADR-042-sentinel2-from-earth-search.md) | Accepted | Sentinel-2 L2A comes from Earth Search COGs (no account), not the Copernicus Statistical API. |
 | [ADR-043](ADR-043-adopt-brand-kit.md) | Accepted | The Mangrove brand kit (`brand/`) is the design system; its wording follows the PRD; red is for conflict only. |
-| [ADR-044](ADR-044-gmw-context-widgets.md) | Accepted | Mangrove context from GMW (site and nearby trend, bay layer, national card); the history answer stays honest. |
+| [ADR-045](ADR-045-gmw-context-widgets.md) | Accepted | Mangrove context from GMW (site and nearby trend, bay layer, national card); the history answer stays honest. |

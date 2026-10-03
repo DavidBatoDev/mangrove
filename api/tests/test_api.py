@@ -28,7 +28,7 @@ def test_sites(client):
 def test_dossier_provenance(client):
     body = client.get(f"/api/v1/sites/{SITE['E']}").json()
     assert body["site"]["is_demo"] is True
-    # History comes from the real GMW ingest (ADR-044): no mangrove inside E since 1985.
+    # History comes from the real GMW ingest (ADR-045): no mangrove inside E since 1985.
     assert [a["status"] for a in body["answers"]] == ["supported", "missing", "conflicting"]
     assert body["answers"][0]["finding"] == "no_mangrove_recorded"
     assert sorted(e["source_type"] for e in body["evidence"]) == ["field", "gmw", "proposal"]
@@ -125,10 +125,10 @@ def test_trigger_blocks_even_the_owner(owner_conn, statement):
         owner_conn.rollback()
 
 
-# --- TC-021 ------------------------------------------------------------------------------------------
+# --- TC-025 ------------------------------------------------------------------------------------------
 
 def test_gmw_context(client):
-    """TC-021: per-site GMW series, the Philippines card, and the bay extent layer (F-022, ADR-044)."""
+    """TC-025: per-site GMW series, the Philippines card, and the bay extent layer (F-025, ADR-045)."""
     t = client.get(f"/api/v1/sites/{SITE['B']}/gmw-timeline").json()
     assert [y["year"] for y in t["years"]] == list(range(1985, 2026))
     assert all(y["inside"]["eq_id"] == "EQ-002" and y["nearby"]["eq_id"] == "EQ-014" for y in t["years"])

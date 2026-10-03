@@ -103,15 +103,15 @@ export function submitEvidence(input: EvidenceInput): Promise<EvidenceResponse> 
   return http("/evidence", { method: "POST", body: form });
 }
 
-// API-019
+// API-021
 export const gmwTimeline = (siteId: string): Promise<GmwTimeline> =>
   USE_MOCKS ? mock().then((m) => m.gmwTimeline(siteId)) : http(`/sites/${encodeURIComponent(siteId)}/gmw-timeline`);
 
-// API-020
+// API-022
 export const countryContext = (iso3: string): Promise<CountryContext> =>
   USE_MOCKS ? mock().then((m) => m.countryContext(iso3)) : http(`/context/countries/${encodeURIComponent(iso3)}`);
 
-// API-021
+// API-023
 export const gmwExtent = (year?: number): Promise<GmwExtentLayer> =>
   USE_MOCKS ? mock().then((m) => m.gmwExtent(year)) : http(`/layers/gmw-extent${year ? `?year=${year}` : ""}`);
 

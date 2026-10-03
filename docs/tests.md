@@ -77,7 +77,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | F-012 | Record integrity check | Should | TC-015 | unit | planned | todo |
 | F-013 | Plain-language summary | Could | — | — | — | deferred — not in the demo; add TC when the story is started |
 | F-014 | Upload a candidate polygon | Could | — | — | — | deferred — no story yet; add US + TC when started |
-| F-022 | Mangrove context (GMW) | Should | TC-021 | integration | planned | todo |
+| F-025 | Mangrove context (GMW) | Should | TC-025 | integration | planned | todo |
 | F-015 | Success score | Won't | — | — | — | n/a — Won't |
 | F-016 | AlphaEarth | Won't | — | — | — | n/a — Won't |
 | F-017 | Live ODK | Won't | — | — | — | n/a — Won't |
@@ -91,7 +91,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | Test ID | Level/tool | Test path | Command | Trigger | Artifact/evidence |
 |---------|------------|-----------|---------|---------|-------------------|
 | TC-016 | unit / pytest | `api/tests/test_engine.py` | `pytest api/tests/test_engine.py` | local, before demo | pytest output |
-| TC-001–TC-013, TC-017, TC-021 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
+| TC-001–TC-013, TC-017, TC-025 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
 | TC-014 | contract / pytest | `api/tests/test_mcp.py` | `pytest api/tests/test_mcp.py` | local, before demo | pytest output |
 | TC-015 | unit / pytest | `api/tests/test_ledger.py` | `pytest api/tests/test_ledger.py` | local, before demo | pytest output |
 | TC-020 | e2e / Playwright | `web/e2e/demo.spec.ts` | `npm test` | local, before demo | HTML report on failure |
@@ -280,9 +280,9 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Expected:** Not written. US-015's criterion (a summary states no status or number absent from the dossier) is uncovered until F-013 is started.
 - **Automation:** manual — because the feature is deferred
 
-### TC-021 — GMW context: site series, national card, bay layer
+### TC-025 — GMW context: site series, national card, bay layer
 
-- **Covers:** F-022 · **Proves:** US-016
+- **Covers:** F-025 · **Proves:** US-017
 - **Level:** integration
 - **Preconditions / controlled data:** GMW history items ingested for the demo sites; the shipped PHL statistics and extent layers
 - **Steps:** `GET /api/v1/sites/{B}/gmw-timeline`; `GET /api/v1/context/countries/PHL`; `GET /api/v1/layers/gmw-extent?year=2025` and `?year=1987`
@@ -317,7 +317,7 @@ One Playwright spec, Chromium only, for TC-020: signed out, the map shows pins; 
 | US-013 | 2 | TC-013b, TC-014 | — |
 | US-014 | 1 | TC-015 | — |
 | US-015 | 1 | — | the summary criterion — F-013 is Could and deferred |
-| US-016 | 4 | TC-021 | the map-layer criterion is checked by eye in the demo rehearsal |
+| US-017 | 4 | TC-025 | the map-layer criterion is checked by eye in the demo rehearsal |
 
 ## 10. Regression Plan
 

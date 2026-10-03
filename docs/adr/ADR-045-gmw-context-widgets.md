@@ -1,9 +1,9 @@
-# ADR-044 — Mangrove context from Global Mangrove Watch: site and nearby trend, bay layer, national card
+# ADR-045 — Mangrove context from Global Mangrove Watch: site and nearby trend, bay layer, national card
 
 - **Date:** 2026-10-04
 - **Status:** Accepted
 - **Owners:** the team
-- **Related:** DEC-014, F-022, US-016, EQ-002, EQ-003, EQ-014, EQ-015, EQ-016, DS-001, DS-007, API-019, API-020, API-021, TC-021
+- **Related:** DEC-015, F-025, US-017, EQ-002, EQ-003, EQ-014, EQ-015, EQ-016, DS-001, DS-007, API-021, API-022, API-023, TC-025
 
 ### Context
 
@@ -32,13 +32,13 @@ before?" shows for every demo site. The widgets and the honest reading have to b
 
 ### Decision
 
-Option 1. F-022 (Should) adds:
+Option 1. F-025 (Should) adds:
 
-- **Per-site GMW series** (API-019): EQ-002 inside the site and EQ-014 within `NEARBY_BUFFER_M` of it, for
+- **Per-site GMW series** (API-021): EQ-002 inside the site and EQ-014 within `NEARBY_BUFFER_M` of it, for
   every year 1985–2025, stored as metrics on the site's single GMW history evidence item (no schema change).
-- **Bay extent layer** (API-021): GMW extent polygons for the Manila Bay demo area every 5 years (1985, 1990,
+- **Bay extent layer** (API-023): GMW extent polygons for the Manila Bay demo area every 5 years (1985, 1990,
   …, 2025), generated offline from the stack and served as GeoJSON.
-- **Philippines card** (API-020): national extent per year with GMW's 95% bounds (EQ-015) and year-on-year
+- **Philippines card** (API-022): national extent per year with GMW's 95% bounds (EQ-015) and year-on-year
   gain, loss and net change (EQ-016), read as published from DS-007.
 
 None of these numbers sets a status, finding or pin (BR-001); they are context. The history answer reads
@@ -53,7 +53,7 @@ whether mangroves are coming back next to a site, or disappearing.
 ### Overrides
 
 - **Prior ADRs:** none.
-- **Doc or plan truth:** adds F-022 to `idea.md` §7 and `docs/prd.md` §3, US-016 to `docs/prd.md`; EQ-014…EQ-016, DS-007 and `NEARBY_BUFFER_M` to `docs/methods.md`; API-019…API-021 to `docs/api.md`; TC-021 to `docs/tests.md`. Updated in the same change.
+- **Doc or plan truth:** adds F-025 to `idea.md` §7 and `docs/prd.md` §3, US-017 to `docs/prd.md`; EQ-014…EQ-016, DS-007 and `NEARBY_BUFFER_M` to `docs/methods.md`; API-021…API-023 to `docs/api.md`; TC-025 to `docs/tests.md`. Updated in the same change.
 - **Out of scope:** GMW Alerts and IUCN Red List widgets; global rankings; any change to EQ-003 or its threshold.
 
 ### Consequences

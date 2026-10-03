@@ -35,7 +35,7 @@ export interface MapViewProps {
   fitToSites?: boolean;
   onSiteClick?: (siteId: string) => void;
   highlightSiteIds?: string[];
-  /** GMW mangrove extent polygons for one year (API-021, F-022); drawn under the sites. */
+  /** GMW mangrove extent polygons for one year (API-023, F-025); drawn under the sites. */
   extent?: GeoJSON.FeatureCollection | null;
   basemap?: BasemapId;
   showSites?: boolean;
@@ -127,7 +127,7 @@ export default function MapView({
       const dark = basemapById(bm).ground === "dark";
       const outline = token(dark ? "--mg-tidal-lift" : "--mg-tidal");
       const selected = token(dark ? "--mg-mist" : "--mg-canopy");
-      // GMW mangrove extent (F-022): Prop Root, the evidence color, so it never reads as a status or a pin.
+      // GMW mangrove extent (F-025): Prop Root, the evidence color, so it never reads as a status or a pin.
       if (!map.getSource("gmw-extent")) map.addSource("gmw-extent", { type: "geojson", data: latest.current.extent ?? EMPTY });
       if (!map.getLayer("gmw-extent-fill"))
         map.addLayer({

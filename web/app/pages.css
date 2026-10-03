@@ -178,7 +178,7 @@ form.form--wide { max-width: 760px; }
 .record-item-pin svg { display: block; }
 .mg-btn svg { flex: none; }
 
-/* --- GMW context (F-022): charts per BRAND.md §8 — series Tidal then Root, Waterline baseline, Tideline grid, mono axes. */
+/* --- GMW context (F-025): charts per BRAND.md §8 — series Tidal then Root, Waterline baseline, Tideline grid, mono axes. */
 .gmw-card { display: flex; flex-direction: column; gap: var(--mg-space-3); }
 .gmw-card .card-head { margin-bottom: 0; }
 .gmw-duel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--mg-space-4); }
