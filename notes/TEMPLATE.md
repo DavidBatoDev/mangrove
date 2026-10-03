@@ -1,8 +1,8 @@
 ---
-from: david            # david | ethan
-to: ethan              # ethan | david
+from: david            # david | ethan | orchestrator
+to: ethan              # ethan | david | orchestrator | both
 sent: 2026-10-04T00:00+08:00
-phase: P1              # P0–P5, ADR-039
+phase: P0              # P0–P2, ADR-041
 branch: person/david @ <short sha>
 type: change           # change | request | question | heads-up | answer
 reply_to: none         # file name of the note this answers, or none

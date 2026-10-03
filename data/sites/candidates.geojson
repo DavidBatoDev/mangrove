@@ -1,0 +1,368 @@
+{
+  "type": "FeatureCollection",
+  "name": "mangrove-demo-candidate-sites",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              120.6378,
+              14.7882
+            ],
+            [
+              120.642,
+              14.7881
+            ],
+            [
+              120.6455,
+              14.788
+            ],
+            [
+              120.646,
+              14.789
+            ],
+            [
+              120.644,
+              14.7912
+            ],
+            [
+              120.641,
+              14.7926
+            ],
+            [
+              120.6385,
+              14.792
+            ],
+            [
+              120.6375,
+              14.7895
+            ],
+            [
+              120.6378,
+              14.7882
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000a0",
+        "site_id": "A",
+        "is_demo": true,
+        "name": "Macabebe bayfront ponds east of Bangkung Malapad",
+        "barangay": "Consuelo (per OSM/Nominatim; confirm)",
+        "municipality": "Macabebe",
+        "province": "Pampanga",
+        "area_ha": 33.5,
+        "centroid_lat": 14.78995,
+        "centroid_lon": 120.64141,
+        "candidate_type": "near-existing-mangrove",
+        "rationale_short": "Dike-enclosed bayfront pond compartments about 1.5 km east of the large mapped mangrove islets of the Sasmuan / Bangkung Malapad area (nearest is OSM relation/2540914; the OSM feature named 'Bangkong Malapad' is ~2.3 km W), with what looks like a narrow mangrove strip on the outer dike at the west edge (our imagery reading; not in OSM). Possible natural-regeneration / protection candidate if ponds are idle; pond status unknown.",
+        "status": "sketched for demo, not field-verified",
+        "basis": [
+          "OSM relation/2540972 (landuse=aquaculture; covers the site)",
+          "OSM relation/2540914 (wetland=mangrove, 49 ha, ~1.5 km W)",
+          "OSM relation/5514712 (wetland=mangrove 'Bangkong Malapad', ~2.3 km W)",
+          "OSM relation/16859126 (Sasmuan Pampanga Coastal Wetlands, ~2 km W; site is outside it)",
+          "https://philippines.wetlands.org/blog/true-thick-or-thin-validation-and-ground-truthing-activity-for-potential-mangrove-restoration-sites-in-manila-bay/",
+          "https://www.sunstar.com.ph/pampanga/local-news/bangkung-malapad-now-an-eco-tourism-area",
+          "https://www.philchm.ph/ramsar-sites-3/"
+        ],
+        "known_constraints": "Inside OSM-mapped aquaculture: active vs abandoned pond use, Fishpond Lease Agreement or title status, and owner/operator are unknown. R09 field checks in Macabebe/Sasmuan reported active fish pens, unresolved tenure and FLAs in the region (not site-specific). Pond water depth and dike condition unknown. The mangrove strip at the west edge is seen only in imagery, not in OSM or GMW yet. A cluster of mapped OSM buildings (use unknown; possibly homes or pond huts) sits on the bayfront dike about 60 m south of the polygon, with more nearby: restoration options must not assume anyone is moved, and community and tenure checks are outside the product scope but remain real constraints.",
+        "created_utc": "2026-10-03T11:51:00Z",
+        "revision_note": "2026-10-03 review: south edge moved north (45.2 ha -> about 33.5 ha) to keep the polygon >= 60 m from 10 mapped OSM buildings it had crossed. Done before any GMW/Sentinel-2 statistic was computed; not done to change a result.",
+        "area_ha_epsg32651": 33.49
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              120.8212,
+              14.76
+            ],
+            [
+              120.8226,
+              14.758
+            ],
+            [
+              120.825,
+              14.757
+            ],
+            [
+              120.8275,
+              14.7572
+            ],
+            [
+              120.8285,
+              14.7588
+            ],
+            [
+              120.8282,
+              14.7605
+            ],
+            [
+              120.8262,
+              14.7618
+            ],
+            [
+              120.823,
+              14.762
+            ],
+            [
+              120.8212,
+              14.76
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000b0",
+        "site_id": "B",
+        "is_demo": true,
+        "name": "Pamarawan breached-dike pond complex",
+        "barangay": "Pamarawan",
+        "municipality": "Malolos City",
+        "province": "Bulacan",
+        "area_ha": 31.9,
+        "centroid_lat": 14.75953,
+        "centroid_lon": 120.82504,
+        "candidate_type": "fishpond-conversion",
+        "rationale_short": "Bayfront pond complex where imagery appears to show broken outer dikes, tidal water inside, and lines of what look like mangrove along remnant dikes (our imagery reading). Wetlands International visited fishponds in Calero and Pamarawan (Malolos) and San Roque (Paombong) in Oct-Nov 2022 and describes fishponds lying abandoned, undeveloped, or underutilized; it does not say which ponds, so this block is not claimed to be one of them. Possible hydrological-repair / natural-regeneration candidate; high field-verification need.",
+        "status": "sketched for demo, not field-verified",
+        "basis": [
+          "OSM coastline ways (site is landward of the mapped coastline; no OSM aquaculture or mangrove polygon covers it)",
+          "OSM relation/2544790 (wetland=mangrove, 8.3 ha, ~1.1 km E)",
+          "OSM relation/17372795 (New Manila International Airport, bounding box ~1 km E)",
+          "https://philippines.wetlands.org/blog/bluer-forests-for-the-people-of-bulacans-intertidal-zones/",
+          "https://philippines.wetlands.org/blog/true-thick-or-thin-validation-and-ground-truthing-activity-for-potential-mangrove-restoration-sites-in-manila-bay/",
+          "https://feed.org.ph/media-centre/press-releases-2025/maybanks-mangrove-planting-in-bulacan-strengthening-coastal-protection-community-partnerships-for-climate-resilience/"
+        ],
+        "known_constraints": "Ponds are not mapped in OSM, so pond status is read from imagery only. Ownership, FLA status, and whether dikes were breached by storms or on purpose are unknown. WI (2023) names foreshore lease agreements (FLAs) between fishpond operators and the government among the legal and institutional challenges in Bulacan generally. The New Manila International Airport reclamation lies about 1 km east; its effect on local hydrology and sediment is unknown. Malolos fisherfolk (SKMM) took part in a 2025 FEED/Maybank planting; exact location unknown, may or may not be here.",
+        "created_utc": "2026-10-03T11:51:00Z",
+        "area_ha_epsg32651": 31.86
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              120.7432,
+              14.7625
+            ],
+            [
+              120.746,
+              14.7614
+            ],
+            [
+              120.7485,
+              14.7601
+            ],
+            [
+              120.7505,
+              14.7597
+            ],
+            [
+              120.751,
+              14.762
+            ],
+            [
+              120.7495,
+              14.7645
+            ],
+            [
+              120.7465,
+              14.7655
+            ],
+            [
+              120.7438,
+              14.7645
+            ],
+            [
+              120.7432,
+              14.7625
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000c0",
+        "site_id": "C",
+        "is_demo": true,
+        "name": "Hagonoy outer pond belt near Tibaguin",
+        "barangay": "unconfirmed (between Pugad and Tibaguin)",
+        "municipality": "Hagonoy",
+        "province": "Bulacan",
+        "area_ha": 33.3,
+        "centroid_lat": 14.76276,
+        "centroid_lon": 120.74739,
+        "candidate_type": "coastal-fringe-loss",
+        "rationale_short": "Outer belt of OSM-mapped ponds on the Hagonoy shoreline, about 1.3 km from Tibaguin village, where FEED reports 40,000 Rhizophora mucronata were planted along the coast in March 2017. Bulacan lost mangrove heavily in 1990-2002 (UP-TCAGP via Wetlands International). Imagery cannot tell intact ponds from permanently flooded former ponds here.",
+        "status": "sketched for demo, not field-verified",
+        "basis": [
+          "OSM relation/2555241 and relation/2555234 (landuse=aquaculture; together cover ~95% of the site)",
+          "OSM relation/2555221 (wetland=mangrove, 1.4 ha, ~2 km away)",
+          "https://feed.org.ph/media-centre/press-releases-2017/kailangan-lahat-tayo-40000-mangrove-trees-planted-in-bulacan-to-restore-a-critical-carbon-sink-flood-protection-system-livelihood-source/",
+          "https://feed.org.ph/media-centre/press-releases-2017/be-aware-act-believe-in-what-you-do-the-power-of-one-mangrove-reforestation-strengthens-community-resilience-in-hagonoy/",
+          "https://philippines.wetlands.org/blog/bluer-forests-for-the-people-of-bulacans-intertidal-zones/",
+          "https://philippines.wetlands.org/blog/true-thick-or-thin-validation-and-ground-truthing-activity-for-potential-mangrove-restoration-sites-in-manila-bay/"
+        ],
+        "known_constraints": "Both Sentinel-2 2025 mosaic and Esri imagery show a uniform water surface with faint dike lines: the area may be permanently inundated, which would weaken restoration potential and could disqualify it (needs elevation/tide check). Outcome and exact location of the 2017 planting are unknown. Pond use, FLA and tenure unknown; R09 field checks in Hagonoy reported tenure, FLA and active fish pen issues (regional, not site-specific).",
+        "created_utc": "2026-10-03T11:51:00Z",
+        "area_ha_epsg32651": 33.28
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              120.5515,
+              14.79505
+            ],
+            [
+              120.55175,
+              14.7938
+            ],
+            [
+              120.55315,
+              14.79245
+            ],
+            [
+              120.55462,
+              14.79042
+            ],
+            [
+              120.55583,
+              14.79089
+            ],
+            [
+              120.55486,
+              14.79278
+            ],
+            [
+              120.55365,
+              14.79395
+            ],
+            [
+              120.55316,
+              14.79607
+            ],
+            [
+              120.5515,
+              14.79505
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000d0",
+        "site_id": "D",
+        "is_demo": true,
+        "name": "Orani bayfront eroded pond enclosure",
+        "barangay": "unconfirmed",
+        "municipality": "Hermosa per OSM admin boundary (adjacent to Orani; confirm)",
+        "province": "Bataan",
+        "area_ha": 10.9,
+        "centroid_lat": 14.79319,
+        "centroid_lon": 120.55353,
+        "candidate_type": "coastal-fringe-loss",
+        "rationale_short": "Intertidal mudflat inside a seaward bulge of the OSM coastline off Orani, with remnant dike lines and mangrove patches on its edges in imagery. Reads as a former pond enclosure whose dikes have failed. Orani was a 2024 Wetlands International validation area. Possible natural-regeneration / assisted-regeneration candidate; exposure to waves unknown.",
+        "status": "sketched for demo, not field-verified",
+        "basis": [
+          "OSM coastline ways (seaward bulge enclosing the site; ~99% of the polygon is on the landward side per check_sites.py)",
+          "OSM relation/11289770 and relation/3417136 (wetland=mangrove, ~1.5-1.7 km away)",
+          "OSM relation/16859126 (Sasmuan Pampanga Coastal Wetlands, ~2.3 km E; site is outside it)",
+          "https://philippines.wetlands.org/blog/true-thick-or-thin-validation-and-ground-truthing-activity-for-potential-mangrove-restoration-sites-in-manila-bay/",
+          "https://philippines.wetlands.org/wetlands-international-philippines-and-bataan-peninsula-state-university-to-pilot-ama-in-the-province/",
+          "https://www.wetlands.org/case-study/scaling-science-based-mangrove-restoration-in-the-philippines/"
+        ],
+        "known_constraints": "The 'former pond enclosure' reading is a visual interpretation of imagery, not a source fact. Municipality is ambiguous (OSM boundary says Hermosa). Ownership/FLA unknown. Open-bay wave exposure and sediment level unknown; R01 documents historical failures from planting Rhizophora on exposed or low-intertidal sites, so planting here should not be assumed. R09 reported tenure and FLA issues in Orani/Samal area (not site-specific).",
+        "created_utc": "2026-10-03T11:51:00Z",
+        "revision_note": "2026-10-03 review: vertex order reversed to counter-clockwise (RFC 7946). Shape and area unchanged.",
+        "area_ha_epsg32651": 10.91
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              120.7745,
+              14.7605
+            ],
+            [
+              120.7765,
+              14.7593
+            ],
+            [
+              120.779,
+              14.759
+            ],
+            [
+              120.7815,
+              14.7591
+            ],
+            [
+              120.783,
+              14.76
+            ],
+            [
+              120.7825,
+              14.7625
+            ],
+            [
+              120.7795,
+              14.7635
+            ],
+            [
+              120.776,
+              14.763
+            ],
+            [
+              120.7745,
+              14.7605
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000e0",
+        "site_id": "E",
+        "is_demo": true,
+        "name": "Paombong (Masukol) coastal pond belt",
+        "barangay": "Masukol",
+        "municipality": "Paombong",
+        "province": "Bulacan",
+        "area_ha": 34.6,
+        "centroid_lat": 14.76114,
+        "centroid_lon": 120.77895,
+        "candidate_type": "fishpond-conversion",
+        "rationale_short": "Bayfront pond compartments with intact-looking dikes in the 2025 Sentinel-2 mosaic, fronting the bay with no visible mangrove fringe. Paombong was a 2024 Wetlands International validation area. A contrast case: if ponds are active, restoration potential may be blocked by use and tenure rather than by ecology.",
+        "status": "sketched for demo, not field-verified",
+        "basis": [
+          "OSM coastline ways (site is landward of the mapped coastline; ponds are visible in imagery but not mapped in OSM)",
+          "OSM relation/2552559 (wetland=mangrove, 0.7 ha, ~1.1 km E)",
+          "OSM ways 964716887 / 964716886 (landuse=residential, 0.2-0.5 km from the site)",
+          "https://philippines.wetlands.org/blog/true-thick-or-thin-validation-and-ground-truthing-activity-for-potential-mangrove-restoration-sites-in-manila-bay/",
+          "https://philippines.wetlands.org/blog/bluer-forests-for-the-people-of-bulacans-intertidal-zones/"
+        ],
+        "known_constraints": "Ponds are not mapped in OSM. Whether ponds are active, abandoned, leased (FLA) or titled is unknown; intact dikes in imagery suggest possible active use, which R09 lists as a constraint that can hamper restoration. Residential area within about 250 m.",
+        "created_utc": "2026-10-03T11:51:00Z",
+        "area_ha_epsg32651": 34.57
+      }
+    }
+  ]
+}

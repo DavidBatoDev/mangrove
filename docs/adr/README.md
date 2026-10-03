@@ -52,3 +52,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-038](ADR-038-parallel-frontend-backend.md) | Accepted | Frontend and backend are built in parallel; the UI starts on fixtures equal to `docs/api.md` and cuts over per screen. |
 | [ADR-039](ADR-039-person-branches-phase-integration.md) | Accepted | David and Ethan work on person branches; an orchestrator merges them into `master` per phase after checks. |
 | [ADR-040](ADR-040-notes-with-every-message.md) | Accepted | Every message between David and Ethan comes with a note in `notes/`, delivered to the recipient's branch. |
+| [ADR-041](ADR-041-three-large-phases.md) | Accepted | Three large phases (P0 story end to end, P1 make it real, P2 demo-ready) replace ADR-039's six. |

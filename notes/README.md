@@ -1,5 +1,7 @@
 # notes/ — messages between David and Ethan
 
+The orchestrator also uses notes (`from: orchestrator`) for phase kickoffs and integration results.
+
 Rule (ADR-040): **every message you send the other builder about a change, a request, a question or
 context comes with a note in this folder.** The note is the record; the chat message just points to it.
 

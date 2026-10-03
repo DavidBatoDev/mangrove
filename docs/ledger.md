@@ -41,6 +41,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-03 — Three large phases
+- **ID:** DEC-011
+- **Type:** zoom-out
+- **Change:** six small phases (ADR-039) → three large ones: P0 the story end to end (to 01:30), P1 make it real (to 05:00), P2 demo-ready (to 08:30)
+- **Why:** the team wants each phase to be a large, visible step.
+- **Invalidated:** the Phases table in ADR-039 (the rest of ADR-039 stands)
+- **Recorded as:** ADR-041
+
 ### 2026-10-03 — Every message between builders comes with a note
 - **ID:** DEC-010
 - **Type:** platform
@@ -138,7 +146,7 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 - Willingness to pay is unvalidated. Do not pitch it as fact.
 - Rubric weights and Grand Finals criteria come from the handbook PDF (`context.md` §1). The handbook says the submission structure may change; check the live form.
-- Five demo site polygons were sketched before the build from OSM and published sources (outside this repo); they must be reviewed by the team and seeded, labelled demo (BR-006). A Copernicus OAuth client exists; its credentials go in the host `.env`.
+- Five demo site polygons, sketched before the build from OSM and published sources, are in `data/sites/` with the demo cast and fixed ids; they are seeded labelled demo (BR-006). A Copernicus OAuth client exists; its credentials go in the host `.env`.
 - Amazon Quick MCP needs an Enterprise subscription. Confirm access at the venue before depending on a live Quick demo; the MCP contract tests do not need Quick.
 - The four thresholds in `docs/methods.md` §3.1 are assumptions. The data lead confirms or replaces them before the demo script freezes.
 - The Copernicus attribution line still needs a look at the source page (`docs/methods.md` §4). The GMW v4.1.12 licence is confirmed CC BY 4.0.

@@ -5,6 +5,8 @@ services:
   web:
     build: ../web
     env_file: ../.env
+    environment:
+      - API_INTERNAL_URL=http://api:8000
     restart: unless-stopped
     depends_on: [api]
 
