@@ -1,4 +1,4 @@
-"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-025, plus the BR-002 405s."""
+"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-025, 027, plus the BR-002 405s."""
 
 from __future__ import annotations
 
@@ -8,14 +8,20 @@ from typing import Any
 
 import anyio
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse, Response
 
-from . import gmw_tiles, reads
+from . import assistant, gmw_tiles, reads
 from .db import connection
 from .errors import envelope, not_found
 
 router = APIRouter(prefix="/api/v1")
+
+
+@router.post("/assistant/chat", summary="API-027 in-app assistant over the read-only MCP tools")
+async def assistant_chat(body: assistant.ChatRequest, request: Request) -> dict[str, Any]:
+    assistant.check_rate(request.headers.get("x-forwarded-for", request.client.host if request.client else "?").split(",")[0].strip())
+    return await assistant.chat(body)
 
 
 @router.get("/health", summary="API-016 liveness")

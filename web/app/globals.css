@@ -145,3 +145,55 @@ html.mg-fonts .mg-chip { font-weight: 600; }
 /* MapLibre without WebGL2 (MapView): a quiet note in the map's place, never a crashed page. */
 .map-unavailable { display: grid; place-items: center; padding: var(--mg-space-5); background: var(--mg-surface); border: 1px dashed var(--mg-brackish); color: var(--mg-text-muted); font-size: var(--mg-text-small); text-align: center; }
 .map-unavailable p { margin: 0; max-width: 36ch; }
+
+/* In-app assistant (API-027, ADR-062): app-bar button and a right side panel below the header. */
+.session .ask-btn { display: inline-flex; align-items: center; gap: 6px; }
+.assistant { position: fixed; z-index: 20; top: var(--header-h); right: 0; bottom: 0; width: min(420px, 100vw);
+  display: flex; flex-direction: column; background: var(--mg-surface); border-left: 1px solid var(--mg-border);
+  box-shadow: var(--mg-shadow); transform: translateX(100%); visibility: hidden;
+  transition: transform var(--mg-dur-ui) var(--mg-ease), visibility 0s linear var(--mg-dur-ui), width var(--mg-dur-ui) var(--mg-ease); }
+.assistant--open { transform: none; visibility: visible; transition: transform var(--mg-dur-ui) var(--mg-ease), width var(--mg-dur-ui) var(--mg-ease); }
+.assistant--wide { width: min(720px, 100vw); }
+.assistant-head { display: flex; align-items: center; gap: var(--mg-space-2); padding: var(--mg-space-3) var(--mg-space-4); border-bottom: 1px solid var(--mg-border); }
+.assistant-title { flex: 1; display: inline-flex; align-items: center; gap: var(--mg-space-2); font-weight: 600; color: var(--mg-heading); }
+.assistant-title svg { color: var(--mg-canopy); }
+.assistant-icon-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 8px;
+  border: 1px solid var(--mg-border); border-radius: var(--mg-radius-sm); background: transparent; color: var(--mg-text); font: inherit; font-size: var(--mg-text-small); cursor: pointer; }
+.assistant-icon-btn:hover { background: var(--mg-surface-sunk); }
+.assistant-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: var(--mg-space-4); }
+.assistant-empty { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--mg-space-2); }
+.assistant-art { width: 120px; height: 96px; margin-bottom: var(--mg-space-2); }
+.assistant-heading { margin: 0; font-size: var(--mg-text-h4, 1.25rem); color: var(--mg-heading); }
+.assistant-sub { margin: 0 0 var(--mg-space-3); color: var(--mg-text-muted); font-size: var(--mg-text-small); }
+.assistant-suggest { display: grid; grid-template-columns: 1fr 1fr; gap: var(--mg-space-3); width: 100%; }
+.assistant-card { display: flex; flex-direction: column; align-items: flex-start; gap: var(--mg-space-2); padding: var(--mg-space-3) var(--mg-space-4);
+  text-align: left; font: inherit; font-size: var(--mg-text-small); color: var(--mg-text); background: var(--mg-surface);
+  border: 1px solid var(--mg-border); border-radius: var(--mg-radius-md); box-shadow: var(--mg-shadow); cursor: pointer; }
+.assistant-card svg { color: var(--mg-canopy); }
+.assistant-card:hover { border-color: var(--mg-canopy); }
+.assistant-thread { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--mg-space-3); }
+.assistant-msg { font-size: var(--mg-text-small); line-height: 1.5; }
+.assistant-msg p { margin: 0 0 var(--mg-space-2); }
+.assistant-msg ul { margin: 0 0 var(--mg-space-2); padding-left: 1.2em; }
+.assistant-msg--user { align-self: flex-end; max-width: 85%; padding: var(--mg-space-2) var(--mg-space-3); border-radius: var(--mg-radius-md);
+  background: var(--mg-canopy); color: var(--mg-on-dark-text); }
+.assistant-msg--user p { margin: 0; white-space: pre-wrap; }
+.assistant-msg--assistant { align-self: stretch; }
+.assistant-msg .mg-table { font-size: var(--mg-text-small); margin-bottom: var(--mg-space-2); }
+.assistant-msg .mg-table th { font: 600 var(--mg-text-small)/1.3 var(--mg-font-body); text-transform: none; letter-spacing: 0; }
+.assistant-msg .mg-table th, .assistant-msg .mg-table td { padding: 6px 8px; vertical-align: top; }
+.assistant-msg code { font-size: 0.95em; word-break: normal; }
+.assistant-card svg { color: var(--mg-tidal); }
+.assistant-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--mg-space-2); }
+.assistant-tool { font: 500 var(--mg-text-label)/1 var(--mg-font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--mg-text-muted);
+  padding: 4px 8px; border: 1px solid var(--mg-border); border-radius: 999px; }
+.assistant-ai { display: block; font-size: var(--mg-text-label); color: var(--mg-text-muted); }
+.assistant-thinking { color: var(--mg-text-muted); font-style: italic; }
+.assistant-error { margin-top: var(--mg-space-3); }
+.assistant-input { display: flex; align-items: flex-end; gap: var(--mg-space-2); padding: var(--mg-space-3) var(--mg-space-4); border-top: 1px solid var(--mg-border); }
+.assistant-input textarea { flex: 1; resize: none; max-height: 140px; padding: 10px 14px; font: inherit; font-size: var(--mg-text-small);
+  color: var(--mg-text); background: var(--mg-surface-sunk); border: 1px solid var(--mg-border); border-radius: var(--mg-radius-md); field-sizing: content; }
+.assistant-send { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 0; border-radius: var(--mg-radius-md);
+  background: var(--mg-btn-primary-bg); color: var(--mg-btn-primary-fg); cursor: pointer; }
+.assistant-send:disabled { opacity: 0.4; cursor: default; }
+@media (max-width: 480px) { .assistant-suggest { grid-template-columns: 1fr; } }

@@ -48,6 +48,7 @@ carries `is_demo`. Errors use `{"error": {"code": "<CODE>", "message": "<human t
 | API-014 | `GET /api/v1/assets/{sha256}` | F-004 | **none — published evidence photos; metadata stripped** | stable |
 | API-015 | `POST /mcp` (MCP tools, §3) | F-011 | **none — read-only tools over public data; rate-limited** | stable |
 | API-016 | `GET /api/v1/health` | — | **none — returns no data** | stable |
+| API-027 | `POST /api/v1/assistant/chat` | F-026 | **none — read-only tools over public data; 20 questions / 10 min per IP** | beta |
 | API-017 | `POST /api/v1/sites` | F-014 | session, role `funder` | beta |
 | API-018 | `POST /api/v1/sites/{site_id}/summary` | F-013 | session (any role) — protects LLM cost | beta |
 | API-021 | `GET /api/v1/sites/{site_id}/gmw-timeline` | F-025 | **none — public data** | stable |
@@ -442,6 +443,14 @@ Clients add `?s=<style>` from the info response to bust caches when the look cha
 
 - **Errors:** `422` `VALIDATION_FAILED` (year not in `years`, or `z` outside 0–22, or `x`/`y` outside the zoom) · `503` `UPSTREAM_UNAVAILABLE` (the layer is not installed on this server).
 - **Notes:** rendered from the per-year GeoTIFFs built by `data/ingest/gmw_tiles.py` (DS-001, ADR-048); context only, it carries no number and sets no status.
+
+### API-027 — `POST /api/v1/assistant/chat` — in-app assistant
+
+- **Serves:** F-026 · **Implements:** US-018 · **Auth:** none — public, rate-limited 20 requests per 10 minutes per client IP (ADR-062).
+- **Request:** `{ "messages": [ { "role": "user" | "assistant", "content": "<text, 1–4000 chars>" } ] }` — 1 to 20 messages, the whole conversation; the server keeps no state.
+- **Response — `200`** `{ "reply": "<markdown>", "tool_calls": [ { "name": "<MCP tool>", "arguments": { … } } ], "generated_by": "AI", "model": "<id>" }`.
+- **Errors:** `422` (bad body) · `429` `RATE_LIMITED` · `503` `UPSTREAM_UNAVAILABLE` (no key, model error, or more than 6 tool rounds).
+- **Notes:** the agent's tools are exactly the API-015 MCP tools, called in-process; no write tool exists. Numbers in the reply come from tool output (BR-003); the reply is labelled AI-generated in the UI.
 
 ### API-025 — `GET /api/v1/layers/gmw-change/tiles…` — Philippines mangrove gain and loss as map tiles
 

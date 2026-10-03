@@ -8,3 +8,4 @@ argon2-cffi==25.1.0
 rfc8785==0.1.4
 python-dotenv==1.2.4
 rasterio==1.5.2
+openai==3.24.0

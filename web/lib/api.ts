@@ -160,3 +160,10 @@ export function mangroveOpacityAt(zoom: number, opacity: number): number {
 
 /** Demo boundary for site B; fixtures mode only. */
 export const demoBoundary = (): Promise<unknown> => mock().then((m) => m.demoBoundary());
+
+// API-027: in-app assistant over the read-only MCP tools (ADR-062). Always the live API, also in fixtures mode:
+// the agent reads the database through its own tools, so there is nothing to fake.
+export type AssistantMessage = { role: "user" | "assistant"; content: string };
+export type AssistantReply = { reply: string; tool_calls: { name: string; arguments: Record<string, unknown> }[]; generated_by: "AI"; model: string };
+export const assistantChat = (messages: AssistantMessage[]): Promise<AssistantReply> =>
+  http("/assistant/chat", json("POST", { messages }));
