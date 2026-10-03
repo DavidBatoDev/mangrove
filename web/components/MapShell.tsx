@@ -57,9 +57,11 @@ export interface MapShellProps extends Omit<MapViewProps, "basemap" | "showSites
   children: React.ReactNode;
   /** Which overlay toggles and legend rows apply on this page. */
   layers: { sites?: boolean; pins?: boolean };
+  /** Fly the map here (e.g. to a selected pin), keeping it clear of the side panel. */
+  focus?: { center: [number, number]; zoom?: number; key: string } | null;
 }
 
-export default function MapShell({ children, layers, ...mapProps }: MapShellProps) {
+export default function MapShell({ children, layers, focus, ...mapProps }: MapShellProps) {
   const shellRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<MlMap | null>(null);
   const [prefs, setPrefs] = useState<Prefs>({ basemap: DEFAULT_BASEMAP, showSites: true, showPins: true });
@@ -88,6 +90,18 @@ export default function MapShell({ children, layers, ...mapProps }: MapShellProp
       return next;
     });
   }, []);
+
+  useEffect(() => {
+    if (!map || !focus) return;
+    map.flyTo({
+      center: focus.center,
+      zoom: Math.max(map.getZoom(), focus.zoom ?? 12),
+      padding: wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20,
+      duration: 900,
+    });
+    // Only when the target (or a recenter request) changes, not on every render or panel toggle.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, focus?.key]);
 
   useEffect(() => {
     if (!settingsOpen) return;

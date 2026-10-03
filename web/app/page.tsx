@@ -1,7 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import MapShell from "@/components/MapShell";
+import PlaceCard from "@/components/PlaceCard";
 import { DemoLabel, Empty, ErrorBox, Loading, PinLabel } from "@/components/ui";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
@@ -9,39 +11,85 @@ import { formatDate } from "@/lib/format";
 import { pinSvg } from "@/lib/pin-icons";
 
 // Public map (US-009): one pin per published record, colored by BR-004 pin state.
-export default function PublicMapPage() {
+// Clicking a pin (or a list row) opens a place card in the panel; the record is one click further.
+// The selection lives in the URL (?record=) so a selected pin can be shared.
+function PublicMap() {
   const pins = useApi(() => api.listRecords(), []);
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const selectedId = params.get("record");
+  const [recenter, setRecenter] = useState(0);
+
+  const select = (id: string | null) => {
+    const q = new URLSearchParams(params.toString());
+    if (id) q.set("record", id);
+    else q.delete("record");
+    const qs = q.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  };
+
+  const selected = pins.data?.features.find((f) => f.properties.id === selectedId) ?? null;
+  const lonLat = selected ? (selected.geometry.coordinates as [number, number]) : null;
+  // A new object on each recenter request so the map flies again even to the same pin.
+  const focus = lonLat ? { center: lonLat, zoom: 12, key: `${selectedId}-${recenter}` } : null;
 
   return (
-    <MapShell pins={pins.data} layers={{ pins: true }}>
-      <h1>Mangrove funding promises</h1>
-      <p className="lede">Each pin is a promise made public before the money moved. Open one to see whether the evidence agrees.</p>
+    <MapShell
+      pins={pins.data}
+      layers={{ pins: true }}
+      onPinClick={(id) => select(id)}
+      selectedPinId={selectedId}
+      focus={focus}
+    >
+      {selected && lonLat ? (
+        <PlaceCard
+          key={selected.properties.id}
+          recordId={selected.properties.id}
+          lonLat={lonLat}
+          onBack={() => select(null)}
+          onRecenter={() => setRecenter((n) => n + 1)}
+        />
+      ) : (
+        <>
+          <h1>Mangrove funding promises</h1>
+          <p className="lede">Each pin is a promise made public before the money moved. Pick one to see whether the evidence agrees.</p>
 
-      <h2 className="panel-label">Published records</h2>
-      {pins.loading && <Loading what="Loading records" />}
-      <ErrorBox error={pins.error} onRetry={pins.reload} />
-      {pins.data && pins.data.features.length === 0 && <Empty>No promises have been published yet.</Empty>}
-      {pins.data && pins.data.features.length > 0 && (
-        <ul className="list">
-          {pins.data.features.map((f) => (
-            <li key={f.properties.id} className="record-item">
-              <span className="record-item-pin" dangerouslySetInnerHTML={{ __html: pinSvg(f.properties.pin_state, 28) }} />
-              <div>
-                <Link href={`/records/${f.properties.id}`}>
-                  <strong>{f.properties.site_name}</strong>
-                </Link>
-                <div className="meta">
-                  {f.properties.funder} · published {formatDate(f.properties.published_at)}
-                </div>
-                <div className="row" style={{ gap: "var(--mg-space-2)", marginTop: "var(--mg-space-1)" }}>
-                  <PinLabel state={f.properties.pin_state} />
-                  <DemoLabel show={f.properties.is_demo} />
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+          <h2 className="panel-label">Published records</h2>
+          {pins.loading && <Loading what="Loading records" />}
+          <ErrorBox error={pins.error} onRetry={pins.reload} />
+          {pins.data && pins.data.features.length === 0 && <Empty>No promises have been published yet.</Empty>}
+          {pins.data && pins.data.features.length > 0 && (
+            <ul className="list">
+              {pins.data.features.map((f) => (
+                <li key={f.properties.id} className="record-item">
+                  <button type="button" className="record-item-btn" onClick={() => select(f.properties.id)}>
+                    <span className="record-item-pin" dangerouslySetInnerHTML={{ __html: pinSvg(f.properties.pin_state, 28) }} />
+                    <span>
+                      <strong className="record-item-name">{f.properties.site_name}</strong>
+                      <span className="meta">
+                        {f.properties.funder} · published {formatDate(f.properties.published_at)}
+                      </span>
+                      <span className="row" style={{ gap: "var(--mg-space-2)", marginTop: "var(--mg-space-1)" }}>
+                        <PinLabel state={f.properties.pin_state} />
+                        <DemoLabel show={f.properties.is_demo} />
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
       )}
     </MapShell>
+  );
+}
+
+export default function PublicMapPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <PublicMap />
+    </Suspense>
   );
 }
