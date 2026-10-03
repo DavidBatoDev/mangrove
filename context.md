@@ -1,6 +1,6 @@
 ---
 # FMD context block — schema 1.1.0
-team_size: 4                # handbook PDF: maximum of 4 members per team [R38]
+team_size: 2                # David and Ethan (ADR-039); the handbook cap is 4 members per team [R38]
 mode: team
 build_type: hackathon
 time_budget: 12h

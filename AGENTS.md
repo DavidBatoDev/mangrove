@@ -45,16 +45,36 @@ Story priority on a product story is Must, Should, or Could. Won't is only for a
 
 Add `docs/adr/ADR-NNN-short-slug.md` when behavior, structure, security, or the plan changed, or when a later reader would ask why. Skip a trivial edit with no lasting why.
 
-The next free number is ADR-038. Never reuse a number. Never edit an Accepted ADR.
+The next free number is ADR-041. Never reuse a number. Never edit an Accepted ADR.
 
 Fill Context, Why now, Options (at least two), Decision, Why this option, Overrides, Consequences. Same change as the code or doc it records. Add a §3 entry to `docs/ledger.md` that cites the ADR in the same commit; the pre-commit hook blocks the commit otherwise.
 
 ## Pivot
 
 1. Write the new ADR. In Overrides, name the old ADR and the doc section it beats.
-2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-008.
+2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-011.
 3. If you can update the owning doc in this change, do that and do not add a §0.5 row. If you cannot, add one §0.5 row: the concern, the owning doc, the `DEC-###`, and the section it overrides.
 4. Leave the old ADR as it was.
+
+## Branches
+
+Two builders, David and Ethan, each on a personal branch: `person/david` and `person/ethan`. `master` is
+the integration branch and the deployed demo. Do not commit to `master` from a person branch's work. The
+orchestrator merges both branches into `master` at the end of each phase, after the checks pass, and then
+merges `master` back into both. The phases, the per-phase frontend/backend ownership, and the merge steps are
+in [ADR-039](docs/adr/ADR-039-person-branches-phase-integration.md). How the frontend uses mock fixtures
+before endpoints exist is in [ADR-038](docs/adr/ADR-038-parallel-frontend-backend.md).
+
+- Stay inside the layer you own this phase: `web/` for the frontend owner; `api/`, `db/`, `data/` for the backend owner. `infra/` is the orchestrator's.
+- A change to `docs/api.md`, `docs/data-model.md` or `docs/methods.md` goes to `master` (through the orchestrator) before code depends on it.
+- After every integration merge, take `master` into your branch before you continue.
+
+## Messages between builders
+
+Every message David or Ethan sends the other about a change, a request, a question or context comes with a
+note in [`notes/`](notes/README.md), written from `notes/TEMPLATE.md`, committed on its own, and delivered to
+the recipient's branch ([ADR-040](docs/adr/ADR-040-notes-with-every-message.md)). Before starting work on a
+person branch, read the newest notes addressed to that person. Never edit a sent note; reply with a new one.
 
 ## Commits
 

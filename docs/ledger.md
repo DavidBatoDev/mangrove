@@ -41,6 +41,30 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-03 — Every message between builders comes with a note
+- **ID:** DEC-010
+- **Type:** platform
+- **Change:** chat-only messages between David and Ethan → a note in `notes/` committed on its own and delivered to the recipient's branch, with the chat message pointing at it
+- **Why:** a message only matters if the other branch's code and agent can read it.
+- **Invalidated:** none
+- **Recorded as:** ADR-040
+
+### 2026-10-03 — Two builders on person branches, integrated per phase
+- **ID:** DEC-009
+- **Type:** platform
+- **Change:** an unassigned four-person build → David and Ethan on `person/david` and `person/ethan`, merged into `master` at the end of each phase (P0–P5) by an orchestrator that runs the checks and deploys; frontend/backend ownership decided at each phase start (P0–P1: David frontend, Ethan backend)
+- **Why:** two people building both halves of a feature group at once, with `master` only holding combinations that passed together.
+- **Invalidated:** `context.md` `team_size: 4` (now 2; updated in the same change)
+- **Recorded as:** ADR-039
+
+### 2026-10-03 — Frontend and backend run in parallel against the contract
+- **ID:** DEC-008
+- **Type:** platform
+- **Change:** an undecided build order → both halves from the first hour; `web/mocks/` fixtures equal `docs/api.md`, switched off per screen as endpoints land, and off entirely by code freeze
+- **Why:** two people, eleven hours, and a contract that already exists; Quick needs the real MCP server early.
+- **Invalidated:** none
+- **Recorded as:** ADR-038
+
 ### 2026-10-03 — Photos are stored in S3
 - **ID:** DEC-007
 - **Type:** platform

@@ -49,3 +49,6 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-035](ADR-035-kiro-coauthor-only.md) | Accepted | The only assistant co-author trailer on a commit is Kiro's. |
 | [ADR-036](ADR-036-neon-managed-postgis.md) | Accepted | The database is Neon Postgres + PostGIS, not a Compose container. Append-only triggers and grants stand. |
 | [ADR-037](ADR-037-s3-asset-store.md) | Accepted | Evidence photos live in a private S3 bucket through the instance role, not on a filesystem volume. |
+| [ADR-038](ADR-038-parallel-frontend-backend.md) | Accepted | Frontend and backend are built in parallel; the UI starts on fixtures equal to `docs/api.md` and cuts over per screen. |
+| [ADR-039](ADR-039-person-branches-phase-integration.md) | Accepted | David and Ethan work on person branches; an orchestrator merges them into `master` per phase after checks. |
+| [ADR-040](ADR-040-notes-with-every-message.md) | Accepted | Every message between David and Ethan comes with a note in `notes/`, delivered to the recipient's branch. |
