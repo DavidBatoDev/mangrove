@@ -41,6 +41,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Mangrove context from GMW; honest history
+- **ID:** DEC-014
+- **Type:** scope-add
+- **Change:** + F-022 (Should): per-site GMW mangrove area inside and near each site 1985–2025, a Manila Bay extent layer, and a Philippines extent and change card; the history answer keeps EQ-003's result (`no_mangrove_recorded` for the demo sites) with the 1985 limit shown
+- **Why:** real GMW v4.1.12 data shows no mangrove inside the demo polygons since 1985 but clear change right beside them.
+- **Invalidated:** nothing; adds EQ-014…EQ-016, DS-007, `NEARBY_BUFFER_M`, API-019…API-021, US-016, TC-021
+- **Recorded as:** ADR-044
+
 ### 2026-10-04 — The brand kit is the design system
 - **ID:** DEC-013
 - **Type:** zoom-in

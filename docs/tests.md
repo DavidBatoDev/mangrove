@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: tests
 owns: test intent and the traceability sink — which feature is proven by which case · the automation contract (path, command, trigger) · regression and exit criteria
 ---
@@ -77,6 +77,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | F-012 | Record integrity check | Should | TC-015 | unit | planned | todo |
 | F-013 | Plain-language summary | Could | — | — | — | deferred — not in the demo; add TC when the story is started |
 | F-014 | Upload a candidate polygon | Could | — | — | — | deferred — no story yet; add US + TC when started |
+| F-022 | Mangrove context (GMW) | Should | TC-021 | integration | planned | todo |
 | F-015 | Success score | Won't | — | — | — | n/a — Won't |
 | F-016 | AlphaEarth | Won't | — | — | — | n/a — Won't |
 | F-017 | Live ODK | Won't | — | — | — | n/a — Won't |
@@ -90,7 +91,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | Test ID | Level/tool | Test path | Command | Trigger | Artifact/evidence |
 |---------|------------|-----------|---------|---------|-------------------|
 | TC-016 | unit / pytest | `api/tests/test_engine.py` | `pytest api/tests/test_engine.py` | local, before demo | pytest output |
-| TC-001–TC-013, TC-017 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
+| TC-001–TC-013, TC-017, TC-021 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
 | TC-014 | contract / pytest | `api/tests/test_mcp.py` | `pytest api/tests/test_mcp.py` | local, before demo | pytest output |
 | TC-015 | unit / pytest | `api/tests/test_ledger.py` | `pytest api/tests/test_ledger.py` | local, before demo | pytest output |
 | TC-020 | e2e / Playwright | `web/e2e/demo.spec.ts` | `npm test` | local, before demo | HTML report on failure |
@@ -279,6 +280,15 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Expected:** Not written. US-015's criterion (a summary states no status or number absent from the dossier) is uncovered until F-013 is started.
 - **Automation:** manual — because the feature is deferred
 
+### TC-021 — GMW context: site series, national card, bay layer
+
+- **Covers:** F-022 · **Proves:** US-016
+- **Level:** integration
+- **Preconditions / controlled data:** GMW history items ingested for the demo sites; the shipped PHL statistics and extent layers
+- **Steps:** `GET /api/v1/sites/{B}/gmw-timeline`; `GET /api/v1/context/countries/PHL`; `GET /api/v1/layers/gmw-extent?year=2025` and `?year=1987`
+- **Expected:** Given a site with GMW ingested, when its series is requested, then 41 years are returned, each `inside` citing EQ-002 and each `nearby` citing EQ-014, with the 1985 limitation. Given the Philippines card, when it is requested, then each year's extent cites EQ-015 with lower ≤ value ≤ upper, and 1985 has no gain or loss. Given a layer year that is not offered, when it is requested, then `422` names the available years.
+- **Automation:** planned — `pytest api/tests/test_api.py::test_gmw_context`
+
 ## 8. Browser E2E with Playwright
 
 One Playwright spec, Chromium only, for TC-020: signed out, the map shows pins; sign in as the demo funder; open the comparison; the conflicting site shows the fishpond finding; lock is not clicked in the automated spec (locking is covered by TC-009, and the spec must not publish a new record on every run).
@@ -307,6 +317,7 @@ One Playwright spec, Chromium only, for TC-020: signed out, the map shows pins; 
 | US-013 | 2 | TC-013b, TC-014 | — |
 | US-014 | 1 | TC-015 | — |
 | US-015 | 1 | — | the summary criterion — F-013 is Could and deferred |
+| US-016 | 4 | TC-021 | the map-layer criterion is checked by eye in the demo rehearsal |
 
 ## 10. Regression Plan
 

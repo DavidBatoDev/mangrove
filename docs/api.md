@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: api
 owns: the operation contracts (API-###) the web app, Amazon Quick and other clients depend on — request and response shapes, per-operation auth requirement, error codes, rate limits, versioning
 ---
@@ -48,6 +48,9 @@ carries `is_demo`. Errors use `{"error": {"code": "<CODE>", "message": "<human t
 | API-016 | `GET /api/v1/health` | — | **none — returns no data** | stable |
 | API-017 | `POST /api/v1/sites` | F-014 | session, role `funder` | beta |
 | API-018 | `POST /api/v1/sites/{site_id}/summary` | F-013 | session (any role) — protects LLM cost | beta |
+| API-019 | `GET /api/v1/sites/{site_id}/gmw-timeline` | F-022 | **none — public data** | stable |
+| API-020 | `GET /api/v1/context/countries/{iso3}` | F-022 | **none — public data** | stable |
+| API-021 | `GET /api/v1/layers/gmw-extent` | F-022 | **none — public data** | stable |
 
 There is deliberately **no** `PUT`, `PATCH` or `DELETE` on sites' evidence, records or timeline entries. A
 request using those methods gets `405` (BR-002).
@@ -337,6 +340,57 @@ request using those methods gets `405` (BR-002).
 ### API-018 — `POST /api/v1/sites/{site_id}/summary` — plain-language summary (Could)
 
 - **Serves:** F-013 · **Implements:** US-015 · **Auth:** session. **Response — `200`** `{ "summary": "<text>", "generated_by": "AI", "source_evidence_ids": [ … ] }`; `503` `UPSTREAM_UNAVAILABLE` if the LLM fails. The prompt contains only the dossier; the response is labelled AI-generated (BR-003).
+
+### API-019 — `GET /api/v1/sites/{site_id}/gmw-timeline` — GMW mangrove area inside and near a site
+
+- **Serves:** F-022 · **Implements:** US-016 · **Auth:** none
+
+**Response — `200`**
+
+```json
+{ "site_id": "<uuid>", "is_demo": true,
+  "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "https://doi.org/10.5281/zenodo.21346457", "evidence_id": "<uuid>" },
+  "nearby_buffer": { "value": 1000, "unit": "m", "eq_id": null, "confidence": "high" },
+  "limitation": "GMW starts in 1985; ponds converted earlier are not visible. 30 m pixels.",
+  "years": [ { "year": 1985,
+               "inside": { "value": 0.0, "unit": "ha", "eq_id": "EQ-002", "confidence": "medium" },
+               "nearby": { "value": 5.6, "unit": "ha", "eq_id": "EQ-014", "confidence": "medium" } } ] }
+```
+
+- **Errors:** `404` `NOT_FOUND` (unknown site).
+- **Notes:** read from the site's GMW history evidence item (`metrics` named `inside_mangrove_area_<year>` and `nearby_mangrove_area_<year>`). `years` is empty and `source` is null when GMW has not been ingested for the site. Context only: no status is derived (BR-001).
+
+### API-020 — `GET /api/v1/context/countries/{iso3}` — national mangrove extent and change
+
+- **Serves:** F-022 · **Implements:** US-016 · **Auth:** none
+
+**Response — `200`**
+
+```json
+{ "iso3": "PHL", "name": "Philippines",
+  "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "https://doi.org/10.5281/zenodo.21346457" },
+  "years": [ { "year": 1986,
+               "extent": { "value": 256420.47, "lower": 239162.61, "upper": 281036.04, "unit": "ha", "eq_id": "EQ-015", "confidence": "medium" },
+               "gain": { "value": 35.9, "unit": "ha", "eq_id": "EQ-016", "confidence": "medium" },
+               "loss": { "…": "same shape" }, "net": { "…": "same shape" } } ] }
+```
+
+- **Errors:** `404` `NOT_FOUND` (no statistics shipped for that country; the demo ships `PHL`).
+- **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by Mangrove.
+
+### API-021 — `GET /api/v1/layers/gmw-extent` — Manila Bay mangrove extent for one year
+
+- **Serves:** F-022 · **Implements:** US-016 · **Auth:** none
+
+| Parameter | In | Type | Required | Notes |
+|-----------|----|------|----------|-------|
+| `year` | query | integer | no | One of `available_years`; default the latest |
+
+**Response — `200`** — GeoJSON `FeatureCollection` of mangrove polygons, with foreign members
+`{ "year": 2025, "available_years": [1985, 1990, …, 2025], "bbox": [w, s, e, n], "source": { … } }`.
+
+- **Errors:** `422` `VALIDATION_FAILED` when `year` is not in `available_years`.
+- **Notes:** generated offline from the GMW extent stack (DS-001) for the demo area; a display layer, it carries no number.
 
 ## 4. Error Codes
 

@@ -61,6 +61,9 @@ own. The UI shows the confidence of the items behind them.
 | EQ-010 | Field-mapped worked area (ha) | `ST_Area(location::geography) / 10000` for a partner-submitted boundary polygon | DS-004 | Medium | PostGIS `ST_Area` (geography); GPS accuracy of the partner's device is unknown |
 | EQ-011 | Content hash and timeline hash | `content_hash = SHA-256(UTF-8(JCS(payload)))`; `event_hash = SHA-256(prev_hash ‖ UTF-8(JCS(event_payload)))`, where `prev_hash` is the record's `content_hash` for `seq = 1`, else the previous `event_hash`. Verification recomputes all and reports the first mismatch | DS-006 | High | RFC 8785 (JSON Canonicalization Scheme); FIPS 180-4 (SHA-256) |
 | EQ-012 | "Did the mangroves come back?" finding from satellite | Only when `today ≥ outcome_check_after` and `expected_vegetated_ha` is set: `recovery_seen` if `EQ-008 ≥ expected_vegetated_ha × (1 − AREA_TOLERANCE)`, else `no_recovery_seen`. Before the date → "too early to tell" (no finding). | DS-002, DS-003, DS-006 | Low | Internal rule |
+| EQ-014 | Mangrove area near the site, per year y = 1985…2025 (ha) — context only, no status | EQ-002's sum over GMW pixels with DN=1 in band y whose centre lies inside `ST_Buffer(site::geography, NEARBY_BUFFER_M)` and outside the site polygon | DS-001, DS-003 | Medium | Internal rule (ADR-044) |
+| EQ-015 | National mangrove extent, per year (ha), with lower and upper 95% bounds — context only | Read as published: GMW v4.1.12 country statistics, "corrected" area (GMW applied an accuracy correction factor of 0.9775) | DS-007 | Medium | GMW v4.1.12 README [R31] |
+| EQ-016 | National mangrove gain, loss and net change between consecutive years (ha) — context only | `gain_y`, `loss_y` read as published from GMW's change matrix (base year y−1, target y); `net_y = gain_y − loss_y`. Net change between y1 and y2 is `EQ-015(y2) − EQ-015(y1)` | DS-007 | Medium | GMW v4.1.12 change statistics [R31] |
 | EQ-013 | Source count per question or check | Number of usable evidence items for that question (site) or check (record) | DS-001…DS-005 | High | Count |
 
 *Every constant inside a formula is either sourced (Δ from JAXA; R is the IUGG mean radius) or listed in
@@ -78,6 +81,7 @@ which threshold produced a finding.
 | `MIN_VALID_FRACTION` | 0.50 `[assumption]` | EQ-005 | No source sets a minimum cloud-free share for a polygon summary |
 | `S2_WINDOW_DAYS` | 90 `[assumption]` | EQ-005 | Trades freshness against the chance of a cloud-free acquisition in the wet season |
 | `AREA_TOLERANCE` | 0.20 `[assumption]` | EQ-009, EQ-012 | No restoration-reporting standard was found in the source register that sets an acceptable reported-vs-measured gap |
+| `NEARBY_BUFFER_M` | 1000 `[assumption]` | EQ-014 | No source sets how far around a site counts as its surroundings; 1 km shows the stands beside the demo sites without reaching across the bay |
 
 ### 3.2 Status rules (applied to the outputs above)
 
@@ -96,6 +100,7 @@ has inputs:
 - GMW (30 m) and SCL (20 m) cannot see seedlings; months after planting, satellite cannot confirm planting [ADR-006].
 - SCL "vegetation" does not distinguish mangrove from other vegetation; tide state at acquisition changes the water fraction.
 - An active fishpond and open water look alike from space; only ground evidence settles land use [R09].
+- GMW starts in 1985. Mangrove cut for ponds before 1985 is not visible, so `no_mangrove_recorded` does not mean the site was never mangrove (ADR-044).
 
 ## 4. Dataset Registry
 
@@ -106,11 +111,12 @@ has inputs:
 | DS-003 | Site polygons | Demo: drawn by the team on Manila Bay coastal areas `[assumption]`; later: proposer-supplied | Team-authored; public | High as the definition of the site (the polygon *is* the site) |
 | DS-004 | Partner field submissions: photo, GPS point, mapped boundary, finding | Field partners via the Submit evidence screen; demo items authored by the team and labelled demo (BR-006) | Submitted under the partner's account; public | Medium (observed, but self-reported; device GPS accuracy unknown) |
 | DS-005 | Project reports: claimed worked area, work date | Funder or implementing NGO via the Submit evidence screen | Submitted under the funder's account; public | Low (self-reported claim) |
+| DS-007 | GMW v4.1.12 country statistics: extent per country and year with lower/upper 95% bounds (`gmw_v4_timeseries_4112_gmw_country_stats_corr_area_formatted.xlsx`), and gain/loss change matrices per country (`gmw_mng_chng_stats_v4112_corrected.tar.gz`) | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 [R31]; mirrored to `s3://bon-mangrove-evidence-baf5cf/datasets/gmw/` | CC BY 4.0 (same record as DS-001) | Medium (GMW's own accuracy assessment: global F1 0.93; it varies locally) |
 | DS-006 | Promise record fields and timeline payloads | The record itself (planned area, expected vegetated area, dates) | Created by the Record ledger; public | High (they are the commitment, not a measurement) |
 
 ## 5. Traceability
 
-- Features that display numbers: F-001 (EQ-001), F-002/F-003 (EQ-002…EQ-007), F-005/F-006 (EQ-003, EQ-006, EQ-013), F-009/F-010 (EQ-008, EQ-009, EQ-010, EQ-012), F-012 (EQ-011).
+- Features that display numbers: F-001 (EQ-001), F-002/F-003 (EQ-002…EQ-007), F-005/F-006 (EQ-003, EQ-006, EQ-013), F-009/F-010 (EQ-008, EQ-009, EQ-010, EQ-012), F-012 (EQ-011), F-022 (EQ-002, EQ-003, EQ-014, EQ-015, EQ-016).
 - Every `EQ-###` uses only `DS-###` rows in §4, and every §4 row is used.
 - [`tests.md`](tests.md) has a case per equation family asserting the computed value and the rendered confidence (TC-016…TC-019).
 - Stored numbers name their `EQ-###` in `evidence_item.metrics` ([`data-model.md` §2](data-model.md)).
