@@ -77,7 +77,7 @@ export default function Site3DView({
           range: range * 12,
           tilt: 0,
           heading: 0,
-          mode: "SATELLITE",
+          mode: "HYBRID",
           defaultUIHidden: true, ...GLOBE_LIMITS,
         });
         map3d.style.width = "100%";

@@ -42,8 +42,9 @@ function PublicMap() {
 
   const selected = pins.data?.features.find((f) => f.properties.id === selectedId) ?? null;
   const lonLat = selected ? (selected.geometry.coordinates as [number, number]) : null;
+  // Zoom all the way in to the site (17 = closest zoom of the EOx imagery; Google goes further but 17 frames a site).
   // A new object on each recenter request so the map flies again even to the same pin.
-  const focus = lonLat ? { center: lonLat, zoom: 12, key: `${selectedId}-${recenter}` } : null;
+  const focus = lonLat ? { center: lonLat, zoom: 17, key: `${selectedId}-${recenter}` } : null;
 
   return (
     <MapShell

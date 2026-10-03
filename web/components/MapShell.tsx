@@ -101,11 +101,10 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
 
   useEffect(() => {
     if (!map || !focus) return;
-    if (useGlobe) {
-      // Google: fly into the site in 3D, close and tilted, like the preview in the side panel.
+    if (globeView) {
+      // 3D mode is on (the 3D button): fly there in 3D.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setGlobeView({ center: focus.center, zoom: 15 });
-      setIs3d(true);
       return;
     }
     map.flyTo(focus.center, focus.zoom ?? 12, wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20);
