@@ -102,7 +102,7 @@ has inputs:
 | `DS-###` | Input | Source | Access & licence | Confidence tier |
 |----------|-------|--------|------------------|-----------------|
 | DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once and clipped to Manila Bay by `data/ingest/`. CC BY 4.0, confirmed on the Zenodo record (10.5281/zenodo.21346457) — credit the authors and "© Global Mangrove Watch" | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
-| DS-002 | Sentinel-2 L2A Collection 1: SCL (20 m), B04 `red` and B08 `nir` (10 m) | Cloud-Optimized GeoTIFFs on public AWS S3, found with Element 84 Earth Search STAC `https://earth-search.aws.element84.com/v1`, collection `sentinel-2-c1-l2a` (ADR-042) | No account, no quota; HTTP range reads. Copernicus Sentinel data are free and open (Sentinel data legal notice); credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]`, distributed by Element 84 | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
+| DS-002 | Sentinel-2 L2A Collection 1: SCL (20 m), B04 `red` and B08 `nir` (10 m) | Cloud-Optimized GeoTIFFs on public AWS S3, found with Element 84 Earth Search STAC `https://earth-search.aws.element84.com/v1`, collection `sentinel-2-c1-l2a` (ADR-042) [R39] | No account, no quota; HTTP range reads. Copernicus Sentinel data are free and open (Sentinel data legal notice); credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]`, distributed by Element 84 | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
 | DS-003 | Site polygons | Demo: drawn by the team on Manila Bay coastal areas `[assumption]`; later: proposer-supplied | Team-authored; public | High as the definition of the site (the polygon *is* the site) |
 | DS-004 | Partner field submissions: photo, GPS point, mapped boundary, finding | Field partners via the Submit evidence screen; demo items authored by the team and labelled demo (BR-006) | Submitted under the partner's account; public | Medium (observed, but self-reported; device GPS accuracy unknown) |
 | DS-005 | Project reports: claimed worked area, work date | Funder or implementing NGO via the Submit evidence screen | Submitted under the funder's account; public | Low (self-reported claim) |
@@ -129,7 +129,7 @@ has inputs:
 
 ## References
 
-- [`context.md`](../context.md) §7 — R31 (GMW v4.1), R32 (Statistical API).
+- [`context.md`](../context.md) §7 — R31 (GMW v4.1), R39 (Earth Search / AWS Open Data Sentinel-2); R32 (Statistical API) is no longer used (ADR-042).
 - Sentinel-2 L2A band and SCL codelist: <https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/S2L2A.html>
 - Earth Search STAC (Sentinel-2 L2A Collection 1 COGs): <https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a>
 - GMW v4.1.12 timeseries: <https://zenodo.org/records/21346457>
