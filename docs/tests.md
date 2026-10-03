@@ -77,7 +77,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | F-012 | Record integrity check | Should | TC-015 | unit | planned | todo |
 | F-013 | Plain-language summary | Could | — | — | — | deferred — not in the demo; add TC when the story is started |
 | F-014 | Upload a candidate polygon | Could | — | — | — | deferred — no story yet; add US + TC when started |
-| F-025 | Mangrove context (GMW) | Should | TC-025, TC-027, TC-028 | integration | planned | todo |
+| F-025 | Mangrove context (GMW) | Should | TC-025, TC-027, TC-028, TC-029 | integration | planned | todo |
 | F-015 | Success score | Won't | — | — | — | n/a — Won't |
 | F-016 | AlphaEarth | Won't | — | — | — | n/a — Won't |
 | F-017 | Live ODK | Won't | — | — | — | n/a — Won't |
@@ -96,6 +96,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | TC-016 | unit / pytest | `api/tests/test_engine.py` | `pytest api/tests/test_engine.py` | local, before demo | pytest output |
 | TC-001–TC-013, TC-017, TC-025 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
 | TC-027 | integration / pytest | `api/tests/test_gmw_tiles.py` | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
+| TC-029 | integration / pytest | `api/tests/test_gmw_tiles.py` (disk cache, enlargement, prerender) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-028 | integration / pytest | `api/tests/test_gmw_tiles.py` (change tests) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-014 | contract / pytest | `api/tests/test_mcp.py` | `pytest api/tests/test_mcp.py` | local, before demo | pytest output |
 | TC-015 | unit / pytest | `api/tests/test_ledger.py` | `pytest api/tests/test_ledger.py` | local, before demo | pytest output |

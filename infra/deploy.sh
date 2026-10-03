@@ -25,6 +25,9 @@ for svc in web api; do
   fi
 done
 
+# Rendered map tiles live on the host so deploys keep them (ADR-051); the API runs as uid 999.
+sudo install -d -o 999 -g 999 /opt/bon/gmw-tile-cache
+
 # A failed build exits here (set -e) and the running containers are left untouched.
 compose build
 compose up -d
@@ -38,9 +41,8 @@ for _ in $(seq 1 30); do
   if healthy; then
     docker image prune -f >/dev/null 2>&1 || true
     echo "== deployed $SHA"
-    # Warm the zoomed-out GMW extent tiles (API-024, ADR-048) for the latest year in the background: they read
-    # many source files and take seconds each the first time; afterwards the API serves them from memory.
-    setsid nohup bash ./prewarm-tiles.sh "$DOMAIN" >/tmp/mangrove-prewarm.log 2>&1 </dev/null &
+    # Render any GMW map tiles not yet on disk (ADR-051), in the background at low priority.
+    setsid nohup bash ./prewarm-tiles.sh >/tmp/mangrove-prewarm.log 2>&1 </dev/null &
     exit 0
   fi
   sleep 5
