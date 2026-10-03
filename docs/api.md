@@ -1,0 +1,383 @@
+---
+schema_version: 2.1.0
+status: draft
+last_updated: 2026-10-03
+doc: api
+owns: the operation contracts (API-###) the web app, Amazon Quick and other clients depend on — request and response shapes, per-operation auth requirement, error codes, rate limits, versioning
+---
+
+# API — Mangrove
+
+> **Purpose:** what a caller must send, what it can rely on receiving, and what it must present. Two
+> surfaces: the REST API used by the web app, and the read-only MCP server used by Amazon Quick.
+> Traces back to: [`system-design.md`](system-design.md), [`data-model.md`](data-model.md). Traces forward
+> to: [`tests.md`](tests.md), client code.
+
+## 1. Overview & Machine-Readable Spec
+
+- **What this API serves:** the Mangrove web app (same origin, via the Next.js `/api/*` proxy) and Amazon Quick (MCP).
+- **Base URL / namespace:** REST at `/api/v1`; MCP at `/mcp`.
+- **Protocol style:** REST + JSON (multipart for uploads); MCP over streamable HTTP.
+- **Machine-readable spec:** `none` yet. Once the API is scaffolded, FastAPI's generated `/api/v1/openapi.json` becomes the source of truth for field shapes, and §3 below shrinks to semantics.
+- **Relationship to the code:** this doc is the contract until the OpenAPI file exists; after that, code-generated.
+- **Where it is validated:** contract tests in [`tests.md`](tests.md) (planned).
+
+**Common conventions:** UUIDs for ids; timestamps ISO 8601 UTC; areas in hectares; every number in a response
+is an object `{value, unit, eq_id, confidence}` (glass-box, [`methods.md` §1](methods.md)); every entity
+carries `is_demo`. Errors use `{"error": {"code": "<CODE>", "message": "<human text>"}}`.
+
+## 2. Operation Index
+
+| `API-###` | Operation | Serves | Auth | Status |
+|-----------|-----------|--------|------|--------|
+| API-001 | `POST /api/v1/auth/login` | F-003, F-004, F-007 | **none — it is the sign-in; rate-limited (§5)** | stable |
+| API-002 | `POST /api/v1/auth/logout` | F-007 | session | stable |
+| API-003 | `GET /api/v1/auth/me` | F-004, F-007 | session | stable |
+| API-004 | `GET /api/v1/sites` | F-001 | **none — public data** | stable |
+| API-005 | `GET /api/v1/sites/{site_id}` | F-002, F-003, F-005 | **none — public data** | stable |
+| API-006 | `GET /api/v1/compare` | F-006 | **none — public data** | stable |
+| API-007 | `POST /api/v1/sites/{site_id}/sentinel-refresh` | F-003 | session, role `funder` | stable |
+| API-008 | `POST /api/v1/evidence` | F-004, F-009, F-010 | session, role `partner` (field) or `funder` (project report) | stable |
+| API-009 | `POST /api/v1/records` | F-007 | session, role `funder` | stable |
+| API-010 | `GET /api/v1/records` | F-008, F-010 | **none — public data** | stable |
+| API-011 | `GET /api/v1/records/{record_id}` | F-007, F-009, F-010 | **none — public data** | stable |
+| API-012 | `POST /api/v1/records/{record_id}/corrections` | F-007 | session, role `funder`, same org as the record | stable |
+| API-013 | `GET /api/v1/records/{record_id}/verify` | F-012 | **none — public data** | stable |
+| API-014 | `GET /api/v1/assets/{sha256}` | F-004 | **none — published evidence photos; metadata stripped** | stable |
+| API-015 | `POST /mcp` (MCP tools, §3) | F-011 | **none — read-only tools over public data; rate-limited** | stable |
+| API-016 | `GET /api/v1/health` | — | **none — returns no data** | stable |
+| API-017 | `POST /api/v1/sites` | F-014 | session, role `funder` | beta |
+| API-018 | `POST /api/v1/sites/{site_id}/summary` | F-013 | session (any role) — protects LLM cost | beta |
+
+There is deliberately **no** `PUT`, `PATCH` or `DELETE` on sites' evidence, records or timeline entries. A
+request using those methods gets `405` (BR-002).
+
+## 3. Operations
+
+### API-001 — `POST /api/v1/auth/login` — sign in
+
+- **Serves:** F-003, F-004, F-007 · **Implements:** US-005, US-006, US-007
+- **Auth:** none — this is how a session is obtained.
+- **Idempotent:** yes (same credentials → a session).
+
+```json
+{ "email": "<email>", "password": "<password>" }
+```
+
+**Response — `200`** sets an `HttpOnly; Secure; SameSite=Lax` session cookie.
+
+```json
+{ "user": { "id": "<uuid>", "display_name": "<name>", "role": "funder", "org": { "id": "<uuid>", "name": "<org>", "is_demo": true } } }
+```
+
+- **Errors:** `401` `UNAUTHENTICATED` (wrong credentials, same message whether email or password is wrong) · `429` `RATE_LIMITED`.
+
+### API-002 — `POST /api/v1/auth/logout` — sign out
+
+- **Serves:** F-007 · **Auth:** session · **Idempotent:** yes. **Response — `204`**, cookie cleared.
+
+### API-003 — `GET /api/v1/auth/me` — current user
+
+- **Serves:** F-004, F-007 · **Auth:** session. **Response — `200`** same `user` object as API-001; `401` if no session.
+
+### API-004 — `GET /api/v1/sites` — list candidate sites
+
+- **Serves:** F-001 · **Implements:** US-001 · **Auth:** none · **Idempotent:** yes
+
+| Parameter | In | Type | Required | Notes |
+|-----------|----|------|----------|-------|
+| `region` | query | string | no | e.g. `Manila Bay`; omitted = all |
+
+**Response — `200`** — a GeoJSON `FeatureCollection`:
+
+```json
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "MultiPolygon", "coordinates": ["<…>"] },
+      "properties": {
+        "id": "<uuid>", "name": "<site name>", "region": "Manila Bay", "is_demo": true,
+        "area": { "value": "<ha>", "unit": "ha", "eq_id": "EQ-001", "confidence": "high" }
+      }
+    }
+  ]
+}
+```
+
+- **Notes:** ordered by `name`. An empty region returns an empty `features` array, not `404`. No pagination (demo has ≤5 sites).
+
+### API-005 — `GET /api/v1/sites/{site_id}` — site dossier
+
+- **Serves:** F-002, F-003, F-005 · **Implements:** US-002, US-003 · **Auth:** none
+
+**Response — `200`**
+
+```json
+{
+  "site": { "id": "<uuid>", "name": "<name>", "region": "Manila Bay", "is_demo": true,
+            "geometry": { "<GeoJSON>": "…" },
+            "area": { "value": "<ha>", "unit": "ha", "eq_id": "EQ-001", "confidence": "high" },
+            "proposal_summary": "<text or null>" },
+  "answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "supported",
+      "finding": "mangrove_recorded",
+      "source_count": { "value": 2, "unit": "items", "eq_id": "EQ-013", "confidence": "high" },
+      "evidence_ids": ["<uuid>", "<uuid>"],
+      "disagreeing_evidence_ids": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "<uuid>", "question": "current", "source_type": "sentinel2",
+      "source_name": "Copernicus Sentinel-2 L2A", "source_version": "<processing baseline or null>",
+      "observed_from": "<ts>", "observed_to": "<ts>", "retrieved_at": "<ts>",
+      "finding": "mostly_bare_soil", "usable": true, "unusable_reason": null,
+      "metrics": [ { "name": "valid_fraction", "value": "<0-1>", "unit": "fraction", "eq_id": "EQ-005", "confidence": "low" } ],
+      "method": "<one line incl. thresholds used>", "spatial_resolution_m": 20,
+      "limitation": "<text>", "provenance_url": "<url or null>",
+      "asset_url": null, "submitted_by_org": null, "is_demo": true, "content_hash": "<64 hex>"
+    }
+  ]
+}
+```
+
+- **Errors:** `404` `NOT_FOUND`.
+- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged).
+
+### API-006 — `GET /api/v1/compare` — side-by-side comparison
+
+- **Serves:** F-006 · **Implements:** US-004 · **Auth:** none
+
+| Parameter | In | Type | Required | Notes |
+|-----------|----|------|----------|-------|
+| `site_ids` | query | comma-separated UUIDs | yes | 2–5 ids |
+
+**Response — `200`** `{ "sites": [ { "site": {…}, "answers": [ … ] } ] }` — same `site` and `answers` shapes as API-005, without the full `evidence` list, **in the order requested**.
+
+- **Errors:** `422` `COMPARE_RANGE` (fewer than 2 or more than 5 ids) · `404` `NOT_FOUND` (any unknown id).
+
+### API-007 — `POST /api/v1/sites/{site_id}/sentinel-refresh` — pull current condition
+
+- **Serves:** F-003 · **Implements:** US-005 · **Auth:** session, role `funder`
+- **Idempotent:** no — each success appends a new evidence item; rate-limited per site (§5).
+
+**Response — `201`** `{ "evidence": { … one evidence item … }, "answers": [ … ] }`
+
+- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` · `429` `RATE_LIMITED` · `502` `UPSTREAM_UNAVAILABLE`.
+- **Notes:** on `502` nothing is written and the stored snapshot remains the site's latest Sentinel-2 item. An all-cloud result is a `201` with `usable: false`, not an error.
+
+### API-008 — `POST /api/v1/evidence` — submit evidence to a site or record
+
+- **Serves:** F-004, F-009, F-010 · **Implements:** US-006, US-010 · **Auth:** session; role rules below
+- **Idempotent:** no — each call appends one item.
+
+**Request — `multipart/form-data`**
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `site_id` | uuid | yes unless `record_id` | |
+| `record_id` | uuid | no | When set, the item is also appended to that record's timeline; `site_id` is taken from the record |
+| `source_type` | `field` \| `project_report` | yes | `field` requires role `partner`; `project_report` requires role `funder` |
+| `question` | `history` \| `current` \| `ground` \| `work` \| `outcome` | yes | `current` is rejected for human sources (satellite only) |
+| `finding` | string | yes | Must be in the question's vocabulary ([`prd.md` §4.1](prd.md)) |
+| `observed_at` | date | yes | Not in the future |
+| `point` | GeoJSON Point | `field`: yes | Where the observation was made |
+| `boundary` | GeoJSON Polygon | no | Mapped worked area → EQ-010 |
+| `reported_area_ha` | number > 0 | `project_report` + `work`: yes | The claimed area (DS-005) |
+| `note` | string ≤ 2,000 chars | no | No personal data ([`security.md` §6](security.md)) |
+| `photo` | file (JPEG/PNG) | no | ≤ 10 MB `[assumption]`; EXIF stripped before storage |
+
+**Response — `201`** `{ "evidence": { … }, "record_event": { "seq": 3, "event_hash": "<64 hex>" } | null }`
+
+- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` · `413` `PAYLOAD_TOO_LARGE` · `415` `UNSUPPORTED_MEDIA` · `422` `VALIDATION_FAILED` · `429`.
+- **Notes:** the evidence item and its record event are written in one transaction — both or neither.
+
+### API-009 — `POST /api/v1/records` — lock a promise
+
+- **Serves:** F-007 · **Implements:** US-007 · **Auth:** session, role `funder`
+- **Idempotent:** yes, via the required `Idempotency-Key` header (client-generated UUID).
+
+```json
+{
+  "site_id": "<uuid>",
+  "rationale": "<why this site>",
+  "planned_action": "natural_regeneration",
+  "planned_action_detail": "<what will be done>",
+  "planned_area_ha": 8.0,
+  "expected_outcome": "<what should happen>",
+  "expected_vegetated_ha": 6.0,
+  "work_check_after": "2027-04-01",
+  "outcome_check_after": "2029-10-01",
+  "known_unknowns": "<what we did not know yet>"
+}
+```
+
+*(Example values are illustrative.)*
+
+**Response — `201`**
+
+```json
+{ "id": "<uuid>", "url": "/records/<uuid>", "published_at": "<ts>", "content_hash": "<64 hex>", "is_demo": true }
+```
+
+- **Errors:** `401` · `403` `FORBIDDEN_ROLE` · `404` (site) · `409` `IDEMPOTENCY_CONFLICT` (same key, different body) · `422` `VALIDATION_FAILED` / `DATES_ORDER`.
+- **Notes:** a retry with the same key and body returns the original `201` body; no second record. The snapshot is computed server-side at lock time; the client cannot supply evidence or statuses.
+
+### API-010 — `GET /api/v1/records` — map pins
+
+- **Serves:** F-008, F-010 · **Implements:** US-009, US-012 · **Auth:** none
+
+**Response — `200`** — GeoJSON `FeatureCollection`, one Point feature per record (site centroid):
+
+```json
+{ "type": "Feature", "geometry": { "type": "Point", "coordinates": ["<lon>", "<lat>"] },
+  "properties": { "id": "<uuid>", "site_name": "<name>", "funder": "<org>", "published_at": "<ts>",
+                  "pin_state": "conflict", "is_demo": true } }
+```
+
+- **Notes:** `pin_state` ∈ `conflict | awaiting | on_track` (BR-004), derived at read time. Newest first. No pagination for the demo.
+
+### API-011 — `GET /api/v1/records/{record_id}` — read a record
+
+- **Serves:** F-007, F-009, F-010 · **Implements:** US-008, US-009, US-011, US-012 · **Auth:** none
+
+**Response — `200`**
+
+```json
+{
+  "record": { "id": "<uuid>", "funder": { "name": "<org>", "is_demo": true }, "published_at": "<ts>",
+              "rationale": "…", "planned_action": "…", "planned_action_detail": "…",
+              "planned_area_ha": { "value": 8.0, "unit": "ha", "eq_id": null, "confidence": "high" },
+              "expected_outcome": "…", "expected_vegetated_ha": null,
+              "work_check_after": "<date>", "outcome_check_after": "<date>",
+              "known_unknowns": "…", "snapshot": { "…": "as stored" }, "content_hash": "<64 hex>" },
+  "checks": [
+    { "check": "work", "label": "Did the work happen?", "status": "conflicting", "finding": null,
+      "reported_area": { "value": 8.0, "unit": "ha", "eq_id": null, "confidence": "low" },
+      "measured_area": { "value": 5.0, "unit": "ha", "eq_id": "EQ-010", "confidence": "medium" },
+      "area_conflict": { "value": true, "unit": "flag", "eq_id": "EQ-009", "confidence": "low" },
+      "evidence_ids": ["<uuid>"] },
+    { "check": "outcome", "label": "Did the mangroves come back?", "status": "too_early",
+      "checkable_from": "<date>", "finding": null, "evidence_ids": [] }
+  ],
+  "site_answers": [ "… three answers as in API-005, computed now …" ],
+  "timeline": [ { "seq": 1, "kind": "evidence_added", "created_at": "<ts>", "evidence": { "…": "…" }, "event_hash": "<64 hex>" } ],
+  "pin_state": "conflict",
+  "disclaimer": "This record is not a certification of restoration success or approval of funding."
+}
+```
+
+*(Values above are illustrative of the shape; `planned_area_ha` and `reported_area` are inputs, not computed, hence `eq_id: null`.)*
+
+- **Errors:** `404` `NOT_FOUND`.
+- **Notes:** `checks[].status` ∈ `supported | conflicting | missing | too_early` (`too_early` only for `outcome`). `timeline` ordered by `seq`.
+
+### API-012 — `POST /api/v1/records/{record_id}/corrections` — append a correction
+
+- **Serves:** F-007 · **Implements:** US-008 · **Auth:** session, role `funder`, user's org = record's funder
+- **Idempotent:** no
+
+`{ "field": "<record field name>", "text": "<correction>" }` → **`201`** `{ "seq": <n>, "event_hash": "<64 hex>" }`
+
+- **Errors:** `401` · `403` `FORBIDDEN_OWNER` · `404` · `422`.
+- **Notes:** the original field is never changed; the correction is a timeline entry.
+
+### API-013 — `GET /api/v1/records/{record_id}/verify` — integrity check
+
+- **Serves:** F-012 · **Implements:** US-014 · **Auth:** none
+
+**Response — `200`** `{ "intact": true, "content_hash": "<64 hex>", "events_checked": 3, "first_mismatch_seq": null }`
+
+- **Notes:** recomputes EQ-011 for the record and every event. `intact: false` names the first mismatching `seq` (`0` = the record itself).
+
+### API-014 — `GET /api/v1/assets/{sha256}` — evidence photo
+
+- **Serves:** F-004 · **Auth:** none. **Response — `200`** image bytes with the stored `Content-Type`; `404` if unknown. The hash in the URL is the file's SHA-256, so the bytes are self-verifying.
+
+### API-015 — `POST /mcp` — MCP server for Amazon Quick
+
+- **Serves:** F-011 · **Implements:** US-013
+- **Auth:** none — every tool is read-only and returns only data the public REST endpoints already return; rate-limited (§5).
+- **Transport:** MCP streamable HTTP. Tool `inputSchema`s are JSON Schema Draft 7 with `required` as a root-level array (Quick rejects Draft 3 style) [R35].
+
+| Tool | Input (required in **bold**) | Returns | Same data as |
+|------|------------------------------|---------|--------------|
+| `list_sites` | `region` | Sites with id, name, area, `is_demo` | API-004 |
+| `get_site_dossier` | **`site_id`** | Three answers + evidence items with provenance, `eq_id`, `confidence` | API-005 |
+| `compare_sites` | **`site_ids`** (2–5) | Per-site answers in request order, plus a list of questions whose findings differ between sites | API-006 |
+| `list_records` | — | Records with pin state | API-010 |
+| `get_record` | **`record_id`** | Promise, checks, timeline | API-011 |
+| `verify_record` | **`record_id`** | Integrity result | API-013 |
+
+- **Notes:** tool descriptions tell the agent that statuses mean source agreement (BR-001), that demo data is labelled, and that numbers must be quoted with their `eq_id`. Responses return in seconds from the database; no tool calls Copernicus (Quick's limit is 5 minutes). After changing tools, the connector owner presses **Sync** in Quick.
+
+### API-016 — `GET /api/v1/health` — liveness
+
+- **Auth:** none — returns no data. **Response — `200`** `{ "status": "ok" }`.
+
+### API-017 — `POST /api/v1/sites` — add a candidate site (Could)
+
+- **Serves:** F-014 · **Auth:** session, role `funder`. Body `{ "name", "region", "geometry": <GeoJSON Polygon|MultiPolygon> }` → `201` site. Errors `422` (invalid or self-intersecting geometry).
+
+### API-018 — `POST /api/v1/sites/{site_id}/summary` — plain-language summary (Could)
+
+- **Serves:** F-013 · **Implements:** US-015 · **Auth:** session. **Response — `200`** `{ "summary": "<text>", "generated_by": "AI", "source_evidence_ids": [ … ] }`; `503` `UPSTREAM_UNAVAILABLE` if the LLM fails. The prompt contains only the dossier; the response is labelled AI-generated (BR-003).
+
+## 4. Error Codes
+
+| Code | HTTP | Meaning | When it occurs |
+|------|------|---------|----------------|
+| `UNAUTHENTICATED` | 401 | No valid session, or wrong credentials | Any session-protected operation; API-001 |
+| `FORBIDDEN_ROLE` | 403 | Signed in, but the role may not do this | Partner locking a record; funder submitting `field` evidence |
+| `FORBIDDEN_OWNER` | 403 | Record belongs to another funder org | API-012 |
+| `NOT_FOUND` | 404 | Unknown id | Any `{id}` path; unknown id in `site_ids` |
+| `RECORD_IMMUTABLE` | 405 | Update/delete is not supported | Any `PUT`/`PATCH`/`DELETE` on evidence, records, timeline |
+| `IDEMPOTENCY_CONFLICT` | 409 | Same `Idempotency-Key`, different body | API-009 |
+| `PAYLOAD_TOO_LARGE` | 413 | Upload over the size limit | API-008 |
+| `UNSUPPORTED_MEDIA` | 415 | Photo is not JPEG/PNG by content | API-008 |
+| `VALIDATION_FAILED` | 422 | Missing/invalid field, finding outside vocabulary, future date | API-008, API-009, API-012, API-017 |
+| `COMPARE_RANGE` | 422 | Not 2–5 site ids | API-006, `compare_sites` |
+| `DATES_ORDER` | 422 | `outcome_check_after` before `work_check_after` | API-009 |
+| `RATE_LIMITED` | 429 | Limit in §5 exceeded; `Retry-After` set | Any limited operation |
+| `UPSTREAM_UNAVAILABLE` | 502 / 503 | Copernicus (502) or LLM (503) failed | API-007, API-018 |
+
+Error messages never include stack traces, SQL or internal hostnames ([`security.md` §5](security.md)).
+
+## 5. Rate Limits
+
+| Limit | Scope | Window | Behaviour on breach |
+|-------|-------|--------|---------------------|
+| 10 login attempts `[assumption]` | per IP | 1 minute | `429` + `Retry-After` |
+| 1 Sentinel-2 refresh `[assumption]` | per site | 10 minutes | `429`; protects the Copernicus quota (10,000 requests/month, 300/minute) |
+| 30 evidence submissions `[assumption]` | per user | 1 hour | `429` |
+| 120 requests `[assumption]` | per IP, across public GETs and `/mcp` | 1 minute | `429` |
+
+## 6. Versioning & Deprecation
+
+- **How versions are expressed:** URL path `/api/v1`; MCP tool names are stable identifiers.
+- **What counts as breaking:** removing or renaming a field or tool, narrowing a type, adding a required parameter, changing a status vocabulary.
+- **Deprecation notice period:** none during the hackathon — web app and API ship together; changing an MCP tool requires a Quick **Sync**.
+- **Currently deprecated:** none.
+
+## 7. Doc Integrity Check
+
+- [x] Every operation has an `API-###`.
+- [x] Every operation names its auth, including public ones with the reason.
+- [x] Every network-exposed operation has a row in [`security.md` §4](security.md).
+- [x] Every `Serves` names a real `F-###`; every Must/Should feature needing an API has one.
+- [x] No machine-readable spec yet, so §3 carries the shapes.
+- [x] No validation logic beyond the contract, no field types beyond the wire shape, no NFR numbers restated.
+- [ ] **Exists without a feature?** API-016 health only — infrastructure, returns nothing.
+
+## References
+
+- [`system-design.md`](system-design.md) — components and integration failure behaviour.
+- [`data-model.md`](data-model.md) — the entities these payloads project.
+- [`security.md`](security.md) — §4 how sessions are proven and enforced.
+- [`methods.md`](methods.md) — `EQ-###` behind every number.
+- Amazon Quick MCP integration: <https://docs.aws.amazon.com/quick/latest/userguide/mcp-integration.html>
