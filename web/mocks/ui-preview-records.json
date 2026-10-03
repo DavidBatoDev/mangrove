@@ -1,0 +1,4875 @@
+{
+  "_note": "UI preview only: fictional demo records across the Philippines so the map shows every pin state. Fixtures mode only (ADR-038).",
+  "dossiers": [
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001000",
+        "name": "Honda Bay fringe (fictional)",
+        "region": "Palawan",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  118.783767,
+                  9.8708
+                ],
+                [
+                  118.788233,
+                  9.8708
+                ],
+                [
+                  118.788233,
+                  9.8752
+                ],
+                [
+                  118.783767,
+                  9.8752
+                ],
+                [
+                  118.783767,
+                  9.8708
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 23.99,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Palawan, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002004"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002003"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002001",
+            "00000000-0000-4000-8000-000000002002"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-000000002001",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2026-06-12T00:00:00Z",
+          "observed_to": "2026-06-12T00:00:00Z",
+          "retrieved_at": "2026-06-12T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Island Foundation",
+          "is_demo": true,
+          "content_hash": "47f490edf2bd0a72b60ae14a5412ea62de4c96d930ceac3a10427938ba15c1d7"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002002",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2026-06-12T00:00:00Z",
+          "observed_to": "2026-06-12T00:00:00Z",
+          "retrieved_at": "2026-06-12T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "472ed494da62ab774bf75b696ad4725bd559ea51dd54eb6b8e04dfd9c089396c"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002003",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2026-06-12T00:00:00Z",
+          "observed_to": "2026-06-12T00:00:00Z",
+          "retrieved_at": "2026-06-12T12:00:00Z",
+          "finding": "mostly_water",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "95b5f37f0cbd9df8cc00e3df2ba99466524bfcf405ab5b1d3928bd8efa8608b6"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002004",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "f3b9b8749fd71d4dbb5b321baaa31e33bb555fd73217fb64562343cb51a37ccf"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001001",
+        "name": "Banacon channel edge (fictional)",
+        "region": "Bohol",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  124.1655,
+                  10.20254
+                ],
+                [
+                  124.1705,
+                  10.20254
+                ],
+                [
+                  124.1705,
+                  10.20746
+                ],
+                [
+                  124.1655,
+                  10.20746
+                ],
+                [
+                  124.1655,
+                  10.20254
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 30.0,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Bohol, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002008"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002007"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002005",
+            "00000000-0000-4000-8000-000000002006"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-00000000200a",
+          "question": "work",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2026-04-02T00:00:00Z",
+          "observed_to": "2026-04-02T00:00:00Z",
+          "retrieved_at": "2026-04-02T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 14.01,
+              "unit": "ha",
+              "eq_id": "EQ-010",
+              "confidence": "medium",
+              "name": "mapped_area"
+            }
+          ],
+          "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; device GPS accuracy unknown.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "reported_area_ha": null,
+          "boundary": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  124.166292,
+                  10.203319
+                ],
+                [
+                  124.169708,
+                  10.203319
+                ],
+                [
+                  124.169708,
+                  10.206681
+                ],
+                [
+                  124.166292,
+                  10.206681
+                ],
+                [
+                  124.166292,
+                  10.203319
+                ]
+              ]
+            ]
+          },
+          "content_hash": "181ec829411e7d45b6ec5e29423d382e81b68d519dcb5da7e0bc908a3f283dc9"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002009",
+          "question": "work",
+          "source_type": "project_report",
+          "source_name": "Project report (Demo Blue Carbon Trust)",
+          "source_version": null,
+          "observed_from": "2026-03-20T00:00:00Z",
+          "observed_to": "2026-03-20T00:00:00Z",
+          "retrieved_at": "2026-03-20T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 15,
+              "unit": "ha",
+              "eq_id": null,
+              "confidence": "low",
+              "name": "reported_area"
+            }
+          ],
+          "method": "Stated by the funder in a project report.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the funder; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Blue Carbon Trust",
+          "is_demo": true,
+          "reported_area_ha": 15,
+          "boundary": null,
+          "content_hash": "c661582a467bb4bc30a57ddea3b2bad3fd54a72bcf7a5af1e80c9b8eabe88f6e"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002005",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2025-03-04T00:00:00Z",
+          "observed_to": "2025-03-04T00:00:00Z",
+          "retrieved_at": "2025-03-04T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Blue Carbon Trust",
+          "is_demo": true,
+          "content_hash": "1bf01b58adbc9dbdc09d97f3fd305539796d40783b1a2c41eba589f20ec567db"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002006",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2025-03-04T00:00:00Z",
+          "observed_to": "2025-03-04T00:00:00Z",
+          "retrieved_at": "2025-03-04T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "3fe5fc5ba57804de657d84bae4366cae3766098be338832fcabeefafde8bcd9e"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002007",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2025-03-04T00:00:00Z",
+          "observed_to": "2025-03-04T00:00:00Z",
+          "retrieved_at": "2025-03-04T12:00:00Z",
+          "finding": "mostly_bare_soil",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "865d9b863030963da0495055a4250ee37050c839e931453bbf8a15c811243533"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002008",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "26086b740d6fb64167914a3b8c1aead6158a8aac87aecab244757cae8689e377"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001002",
+        "name": "Del Carmen backswamp (fictional)",
+        "region": "Siargao",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  126.025117,
+                  9.865159
+                ],
+                [
+                  126.030883,
+                  9.865159
+                ],
+                [
+                  126.030883,
+                  9.870841
+                ],
+                [
+                  126.025117,
+                  9.870841
+                ],
+                [
+                  126.025117,
+                  9.865159
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 40.0,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Siargao, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200e"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200d"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200b",
+            "00000000-0000-4000-8000-00000000200c"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-00000000200b",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2026-08-20T00:00:00Z",
+          "observed_to": "2026-08-20T00:00:00Z",
+          "retrieved_at": "2026-08-20T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Coastal Fund",
+          "is_demo": true,
+          "content_hash": "8eb2a4c952f017d6d8947c57c4a5e3a36b7258ffe0c4472fc5f108cefebee69b"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000200c",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2026-08-20T00:00:00Z",
+          "observed_to": "2026-08-20T00:00:00Z",
+          "retrieved_at": "2026-08-20T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "e7ba2267ecb02bc6f59edbb6b691e0efa92aed0367617a4eb505197f6d31ffce"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000200d",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2026-08-20T00:00:00Z",
+          "observed_to": "2026-08-20T00:00:00Z",
+          "retrieved_at": "2026-08-20T12:00:00Z",
+          "finding": "mostly_water",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "983280d0101ba49a4da63fd0a48db37200fc7311b8d91b79d3e9e4fb0dd4b5e9"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000200e",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "ff8f3f36d3eb3c0179c2d3aefbccb93e7f8c5aaec1d1df0f312f753d9ae85b83"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001003",
+        "name": "Guiuan lagoon margin (fictional)",
+        "region": "Eastern Samar",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  125.733058,
+                  11.033094
+                ],
+                [
+                  125.736942,
+                  11.033094
+                ],
+                [
+                  125.736942,
+                  11.036906
+                ],
+                [
+                  125.733058,
+                  11.036906
+                ],
+                [
+                  125.733058,
+                  11.033094
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 18.01,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Eastern Samar, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002012"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002011"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200f",
+            "00000000-0000-4000-8000-000000002010"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-000000002015",
+          "question": "outcome",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2024-02-01T00:00:00Z",
+          "observed_to": "2024-02-01T00:00:00Z",
+          "retrieved_at": "2024-02-01T12:00:00Z",
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field survey of seedling cover across the worked area.",
+          "spatial_resolution_m": null,
+          "limitation": "One survey; does not measure survival rate.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "b59e5ebfc2a2f5826e438c135645222c6832947fa5a3cf1ba1081d7d0fcb34da"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002013",
+          "question": "work",
+          "source_type": "project_report",
+          "source_name": "Project report (Demo Island Foundation)",
+          "source_version": null,
+          "observed_from": "2021-02-01T00:00:00Z",
+          "observed_to": "2021-02-01T00:00:00Z",
+          "retrieved_at": "2021-02-01T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 8,
+              "unit": "ha",
+              "eq_id": null,
+              "confidence": "low",
+              "name": "reported_area"
+            }
+          ],
+          "method": "Stated by the funder in a project report.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the funder; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Island Foundation",
+          "is_demo": true,
+          "reported_area_ha": 8,
+          "boundary": null,
+          "content_hash": "0a9e75915d7167a55d7890823e1e89537a9cb7d3cd341bcbe638321ad485e477"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002014",
+          "question": "work",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2021-02-01T00:00:00Z",
+          "observed_to": "2021-02-01T00:00:00Z",
+          "retrieved_at": "2021-02-01T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 7.4,
+              "unit": "ha",
+              "eq_id": "EQ-010",
+              "confidence": "medium",
+              "name": "mapped_area"
+            }
+          ],
+          "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; device GPS accuracy unknown.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "reported_area_ha": null,
+          "boundary": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  125.733755,
+                  11.033778
+                ],
+                [
+                  125.736245,
+                  11.033778
+                ],
+                [
+                  125.736245,
+                  11.036222
+                ],
+                [
+                  125.733755,
+                  11.036222
+                ],
+                [
+                  125.733755,
+                  11.033778
+                ]
+              ]
+            ]
+          },
+          "content_hash": "e016976bd82817bc1082d8592cb5f0a7f0463d972e7989711c66fb1fd7783c86"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002012",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "c1743ea639812df7fa393354546b61f6f42d6f0a40790d6e73ae4bf7f698a0a0"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000200f",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2020-02-10T00:00:00Z",
+          "observed_to": "2020-02-10T00:00:00Z",
+          "retrieved_at": "2020-02-10T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Island Foundation",
+          "is_demo": true,
+          "content_hash": "506bb778e098959f4bd56bca26aa16d868d7464525455815421d21b85ba4daf4"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002010",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2020-02-10T00:00:00Z",
+          "observed_to": "2020-02-10T00:00:00Z",
+          "retrieved_at": "2020-02-10T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "1392e28b50946160c88f838c1ae16a6bc50a9e9db62e9621e0efdda6c3effd58"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002011",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-02-10T00:00:00Z",
+          "observed_to": "2020-02-10T00:00:00Z",
+          "retrieved_at": "2020-02-10T12:00:00Z",
+          "finding": "mostly_bare_soil",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "160b48324b5e4f0fdccae3863cbd07c8818f546f693d8b5b3bcfa3d43811be93"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001004",
+        "name": "Bais bay mudflat (fictional)",
+        "region": "Negros Oriental",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  123.132863,
+                  9.582893
+                ],
+                [
+                  123.137137,
+                  9.582893
+                ],
+                [
+                  123.137137,
+                  9.587107
+                ],
+                [
+                  123.132863,
+                  9.587107
+                ],
+                [
+                  123.132863,
+                  9.582893
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 22.01,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Negros Oriental, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002019"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002018"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002016",
+            "00000000-0000-4000-8000-000000002017"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-00000000201c",
+          "question": "outcome",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2023-09-01T00:00:00Z",
+          "observed_to": "2023-09-01T00:00:00Z",
+          "retrieved_at": "2023-09-01T12:00:00Z",
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field survey of seedling cover across the worked area.",
+          "spatial_resolution_m": null,
+          "limitation": "One survey; does not measure survival rate.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "6e3334cf2d5dcc383b534855655a1b8acdc7eac4318b2ed4f2624285b4d651d3"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002019",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "d3d9955613ea313fbd487db7dcc1ffde2ed5aff989c4f10cbe82a5a41d72c3a5"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000201a",
+          "question": "work",
+          "source_type": "project_report",
+          "source_name": "Project report (Demo Blue Carbon Trust)",
+          "source_version": null,
+          "observed_from": "2020-09-01T00:00:00Z",
+          "observed_to": "2020-09-01T00:00:00Z",
+          "retrieved_at": "2020-09-01T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 10,
+              "unit": "ha",
+              "eq_id": null,
+              "confidence": "low",
+              "name": "reported_area"
+            }
+          ],
+          "method": "Stated by the funder in a project report.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the funder; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Blue Carbon Trust",
+          "is_demo": true,
+          "reported_area_ha": 10,
+          "boundary": null,
+          "content_hash": "dc8c787b672e41d13527b22441350f4889a048b95851c5b45443419e6fa532ec"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000201b",
+          "question": "work",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2020-09-01T00:00:00Z",
+          "observed_to": "2020-09-01T00:00:00Z",
+          "retrieved_at": "2020-09-01T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 9.4,
+              "unit": "ha",
+              "eq_id": "EQ-010",
+              "confidence": "medium",
+              "name": "mapped_area"
+            }
+          ],
+          "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; device GPS accuracy unknown.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "reported_area_ha": null,
+          "boundary": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  123.133603,
+                  9.583623
+                ],
+                [
+                  123.136397,
+                  9.583623
+                ],
+                [
+                  123.136397,
+                  9.586377
+                ],
+                [
+                  123.133603,
+                  9.586377
+                ],
+                [
+                  123.133603,
+                  9.583623
+                ]
+              ]
+            ]
+          },
+          "content_hash": "51aa6fa4ee7c8d649a7135a5938d8aeeefa01f4e9719858b750fa81e613b971f"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002016",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2019-09-15T00:00:00Z",
+          "observed_to": "2019-09-15T00:00:00Z",
+          "retrieved_at": "2019-09-15T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Blue Carbon Trust",
+          "is_demo": true,
+          "content_hash": "9d6d228daabf8826d43891a08339c2012847bdd0610291d947f890081ef41c91"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002017",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2019-09-15T00:00:00Z",
+          "observed_to": "2019-09-15T00:00:00Z",
+          "retrieved_at": "2019-09-15T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "8afb7f46d8dafe27659ba1ea9b1172da912fd6a61eec64e4538881c45ee33714"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002018",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2019-09-15T00:00:00Z",
+          "observed_to": "2019-09-15T00:00:00Z",
+          "retrieved_at": "2019-09-15T12:00:00Z",
+          "finding": "mostly_water",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "b6f5991383db886af143806b2c83e51d155ec4c7b97f670d8647a5c12a98173c"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001005",
+        "name": "Pagbilao estuary bank (fictional)",
+        "region": "Quezon",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  121.71964,
+                  13.95271
+                ],
+                [
+                  121.72436,
+                  13.95271
+                ],
+                [
+                  121.72436,
+                  13.95729
+                ],
+                [
+                  121.71964,
+                  13.95729
+                ],
+                [
+                  121.71964,
+                  13.95271
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 26.0,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Quezon, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002020"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000201f"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000201d",
+            "00000000-0000-4000-8000-00000000201e"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-000000002023",
+          "question": "outcome",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2025-05-01T00:00:00Z",
+          "observed_to": "2025-05-01T00:00:00Z",
+          "retrieved_at": "2025-05-01T12:00:00Z",
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field survey of seedling cover across the worked area.",
+          "spatial_resolution_m": null,
+          "limitation": "One survey; does not measure survival rate.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "ada3553cc5da40deb8ef99149489bb854d8b269782c6be1325b59d82c2650798"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002021",
+          "question": "work",
+          "source_type": "project_report",
+          "source_name": "Project report (Demo Coastal Fund)",
+          "source_version": null,
+          "observed_from": "2022-05-01T00:00:00Z",
+          "observed_to": "2022-05-01T00:00:00Z",
+          "retrieved_at": "2022-05-01T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 14,
+              "unit": "ha",
+              "eq_id": null,
+              "confidence": "low",
+              "name": "reported_area"
+            }
+          ],
+          "method": "Stated by the funder in a project report.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the funder; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Coastal Fund",
+          "is_demo": true,
+          "reported_area_ha": 14,
+          "boundary": null,
+          "content_hash": "cc6de6a062781af0cb0e3c0b7a6fc3559984e192fce986af3de6b478cf8bb2fb"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002022",
+          "question": "work",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2022-05-01T00:00:00Z",
+          "observed_to": "2022-05-01T00:00:00Z",
+          "retrieved_at": "2022-05-01T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 13.4,
+              "unit": "ha",
+              "eq_id": "EQ-010",
+              "confidence": "medium",
+              "name": "mapped_area"
+            }
+          ],
+          "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; device GPS accuracy unknown.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "reported_area_ha": null,
+          "boundary": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  121.720306,
+                  13.953356
+                ],
+                [
+                  121.723694,
+                  13.953356
+                ],
+                [
+                  121.723694,
+                  13.956644
+                ],
+                [
+                  121.720306,
+                  13.956644
+                ],
+                [
+                  121.720306,
+                  13.953356
+                ]
+              ]
+            ]
+          },
+          "content_hash": "66a03f7d970ff9ea1c7dd5042d4bc7a306cf020c38fdf69a423d8cdeac5d10bc"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000201d",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2021-05-02T00:00:00Z",
+          "observed_to": "2021-05-02T00:00:00Z",
+          "retrieved_at": "2021-05-02T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Coastal Fund",
+          "is_demo": true,
+          "content_hash": "b1e8df8a6c39e58365a2b19487244d7d23f88e6b26c74650a639a3d345a98ecd"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000201e",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2021-05-02T00:00:00Z",
+          "observed_to": "2021-05-02T00:00:00Z",
+          "retrieved_at": "2021-05-02T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "47c4c678bc74cf1a374d46cbe510c38904f0619cefbe71bda4f2279e3df25351"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000201f",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2021-05-02T00:00:00Z",
+          "observed_to": "2021-05-02T00:00:00Z",
+          "retrieved_at": "2021-05-02T12:00:00Z",
+          "finding": "mostly_bare_soil",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "b9baca6407ad21a308d60f6828c8f1cdaecd0da3427966449d6bd692d52f6d63"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002020",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "0fbddd9a999f3b67cceb3875025885315b8a48ff4e9e037e4a2862178d0f24fa"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001006",
+        "name": "Ibajay riverside ponds (fictional)",
+        "region": "Aklan",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  122.162572,
+                  11.819623
+                ],
+                [
+                  122.167428,
+                  11.819623
+                ],
+                [
+                  122.167428,
+                  11.824377
+                ],
+                [
+                  122.162572,
+                  11.824377
+                ],
+                [
+                  122.162572,
+                  11.819623
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 28.0,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Aklan, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002027"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002026"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002024",
+            "00000000-0000-4000-8000-000000002025"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-000000002029",
+          "question": "work",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2025-03-01T00:00:00Z",
+          "observed_to": "2025-03-01T00:00:00Z",
+          "retrieved_at": "2025-03-01T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 9.0,
+              "unit": "ha",
+              "eq_id": "EQ-010",
+              "confidence": "medium",
+              "name": "mapped_area"
+            }
+          ],
+          "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; device GPS accuracy unknown.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "reported_area_ha": null,
+          "boundary": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  122.163623,
+                  11.820653
+                ],
+                [
+                  122.166377,
+                  11.820653
+                ],
+                [
+                  122.166377,
+                  11.823347
+                ],
+                [
+                  122.163623,
+                  11.823347
+                ],
+                [
+                  122.163623,
+                  11.820653
+                ]
+              ]
+            ]
+          },
+          "content_hash": "b059a3ab8a3678fe1110de842a198b89ce469be5e473cdd8ac54a0623336654c"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002028",
+          "question": "work",
+          "source_type": "project_report",
+          "source_name": "Project report (Demo Coastal Fund)",
+          "source_version": null,
+          "observed_from": "2025-02-10T00:00:00Z",
+          "observed_to": "2025-02-10T00:00:00Z",
+          "retrieved_at": "2025-02-10T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 15,
+              "unit": "ha",
+              "eq_id": null,
+              "confidence": "low",
+              "name": "reported_area"
+            }
+          ],
+          "method": "Stated by the funder in a project report.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the funder; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Coastal Fund",
+          "is_demo": true,
+          "reported_area_ha": 15,
+          "boundary": null,
+          "content_hash": "ee5765289238fc94de7b2a37ce505f4318a88e8c69b51affacdf00edad43cb43"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002024",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2024-01-18T00:00:00Z",
+          "observed_to": "2024-01-18T00:00:00Z",
+          "retrieved_at": "2024-01-18T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Coastal Fund",
+          "is_demo": true,
+          "content_hash": "9cb05c474640a8bb0b498d024dfc189a57f0308e8b053815bea59e17b0913b0f"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002025",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2024-01-18T00:00:00Z",
+          "observed_to": "2024-01-18T00:00:00Z",
+          "retrieved_at": "2024-01-18T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "8d3329df8a495b0650f4c120e0697066698fb761ab529c3cb39b531ed7474e47"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002026",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2024-01-18T00:00:00Z",
+          "observed_to": "2024-01-18T00:00:00Z",
+          "retrieved_at": "2024-01-18T12:00:00Z",
+          "finding": "mostly_water",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "59a240adcc866854f0e1d252f60b3add0898f2df2de9872ea43b723da3c88576"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002027",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "b3df0ac88fa5fc53dffe5043892adcb48f63b253e1120211801639a4f66b0258"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001007",
+        "name": "Panabo coastal strip (fictional)",
+        "region": "Davao del Norte",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  125.692975,
+                  7.302991
+                ],
+                [
+                  125.697025,
+                  7.302991
+                ],
+                [
+                  125.697025,
+                  7.307009
+                ],
+                [
+                  125.692975,
+                  7.307009
+                ],
+                [
+                  125.692975,
+                  7.302991
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 20.0,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Davao del Norte, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202d"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202c"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202a",
+            "00000000-0000-4000-8000-00000000202b"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-00000000202f",
+          "question": "work",
+          "source_type": "field",
+          "source_name": "Partner field visit (Demo Shoreline Partners)",
+          "source_version": null,
+          "observed_from": "2025-08-02T00:00:00Z",
+          "observed_to": "2025-08-02T00:00:00Z",
+          "retrieved_at": "2025-08-02T12:00:00Z",
+          "finding": "no_work_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 9.5,
+              "unit": "ha",
+              "eq_id": "EQ-010",
+              "confidence": "medium",
+              "name": "mapped_area"
+            }
+          ],
+          "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; device GPS accuracy unknown.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "reported_area_ha": null,
+          "boundary": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  125.693604,
+                  7.303616
+                ],
+                [
+                  125.696396,
+                  7.303616
+                ],
+                [
+                  125.696396,
+                  7.306384
+                ],
+                [
+                  125.693604,
+                  7.306384
+                ],
+                [
+                  125.693604,
+                  7.303616
+                ]
+              ]
+            ]
+          },
+          "content_hash": "9931b2d369bf3d2322f7921ad9403c7f4bbbb19ad88115e82b1a841aed559c95"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000202e",
+          "question": "work",
+          "source_type": "project_report",
+          "source_name": "Project report (Demo Island Foundation)",
+          "source_version": null,
+          "observed_from": "2025-07-15T00:00:00Z",
+          "observed_to": "2025-07-15T00:00:00Z",
+          "retrieved_at": "2025-07-15T12:00:00Z",
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 10,
+              "unit": "ha",
+              "eq_id": null,
+              "confidence": "low",
+              "name": "reported_area"
+            }
+          ],
+          "method": "Stated by the funder in a project report.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the funder; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Island Foundation",
+          "is_demo": true,
+          "reported_area_ha": 10,
+          "boundary": null,
+          "content_hash": "e361c4c048b0ab67a303b7772a9534514ffe7b613d62e72f42ae2af8493be623"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000202a",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2024-07-09T00:00:00Z",
+          "observed_to": "2024-07-09T00:00:00Z",
+          "retrieved_at": "2024-07-09T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Island Foundation",
+          "is_demo": true,
+          "content_hash": "4c683362d37de790b6a23bb1bd4b1bff64aad866ed5acdcbb2c36d6d75db10aa"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000202b",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2024-07-09T00:00:00Z",
+          "observed_to": "2024-07-09T00:00:00Z",
+          "retrieved_at": "2024-07-09T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "ae673fcef6d57796379e7dbac3ddf6e0ebf91c62dcc059650fd9b880dc16c83f"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000202c",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2024-07-09T00:00:00Z",
+          "observed_to": "2024-07-09T00:00:00Z",
+          "retrieved_at": "2024-07-09T12:00:00Z",
+          "finding": "mostly_bare_soil",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "2bc2e100a12db079612015b9b556ae301b2b5acf3aa48494771d3a91731681d3"
+        },
+        {
+          "id": "00000000-0000-4000-8000-00000000202d",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "1bb6b82e1b14713184c6568d49bca920ffe1e0ff176157317628cecda230f775"
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-000000001008",
+        "name": "Talon-Talon shore ponds (fictional)",
+        "region": "Zamboanga",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  122.112738,
+                  6.909754
+                ],
+                [
+                  122.117262,
+                  6.909754
+                ],
+                [
+                  122.117262,
+                  6.914246
+                ],
+                [
+                  122.112738,
+                  6.914246
+                ],
+                [
+                  122.112738,
+                  6.909754
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 25.0,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Fictional demo site in Zamboanga, added only to preview the map's pin states. Not a real project or proposal."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002033"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002032"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "conflicting",
+          "finding": null,
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002030",
+            "00000000-0000-4000-8000-000000002031"
+          ],
+          "disagreeing_evidence_ids": [
+            "00000000-0000-4000-8000-000000002030"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "00000000-0000-4000-8000-000000002030",
+          "question": "ground",
+          "source_type": "proposal",
+          "source_name": "Site proposal (demo)",
+          "source_version": null,
+          "observed_from": "2026-04-22T00:00:00Z",
+          "observed_to": "2026-04-22T00:00:00Z",
+          "retrieved_at": "2026-04-22T12:00:00Z",
+          "finding": "open_for_restoration",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Stated by the proposing organization.",
+          "spatial_resolution_m": null,
+          "limitation": "Self-reported by the proposer; not independently checked.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Blue Carbon Trust",
+          "is_demo": true,
+          "content_hash": "1d6963bfc469f92483617b36904050ecdf7068db349bfaa20211c5d495538486"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002031",
+          "question": "ground",
+          "source_type": "field",
+          "source_name": "Partner field visit (demo)",
+          "source_version": null,
+          "observed_from": "2026-04-22T00:00:00Z",
+          "observed_to": "2026-04-22T00:00:00Z",
+          "retrieved_at": "2026-04-22T12:00:00Z",
+          "finding": "land_use_dispute_reported",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Field observation by a partner team.",
+          "spatial_resolution_m": null,
+          "limitation": "One visit; describes site conditions only.",
+          "provenance_url": null,
+          "asset_url": null,
+          "submitted_by_org": "Demo Shoreline Partners",
+          "is_demo": true,
+          "content_hash": "97edf829d4a74671a7bf74884a77f7d47180bc2fd122580efdc25e8242dd5641"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002032",
+          "question": "current",
+          "source_type": "sentinel2",
+          "source_name": "Copernicus Sentinel-2 L2A",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2026-04-22T00:00:00Z",
+          "observed_to": "2026-04-22T00:00:00Z",
+          "retrieved_at": "2026-04-22T12:00:00Z",
+          "finding": "mostly_water",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.68,
+              "unit": "fraction",
+              "eq_id": "EQ-005",
+              "confidence": "low"
+            }
+          ],
+          "method": "SCL classes 4/5/6 over the polygon; usable if valid fraction >= 0.50.",
+          "spatial_resolution_m": 20,
+          "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+          "provenance_url": "https://dataspace.copernicus.eu/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "43cfaa59a1fb94b8166550ba7855daaf69610c018066b2e5684204450d3554b6"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000002033",
+          "question": "history",
+          "source_type": "gmw",
+          "source_name": "Global Mangrove Watch v4.1.12",
+          "source_version": "fixture-placeholder",
+          "observed_from": "2020-12-31T00:00:00Z",
+          "observed_to": "2020-12-31T00:00:00Z",
+          "retrieved_at": "2020-12-31T12:00:00Z",
+          "finding": "mangrove_recorded",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "value": 0.35,
+              "unit": "fraction",
+              "eq_id": "EQ-003",
+              "confidence": "medium"
+            }
+          ],
+          "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+          "spatial_resolution_m": 25,
+          "limitation": "Placeholder value for UI building; not real GMW output.",
+          "provenance_url": "https://www.globalmangrovewatch.org/",
+          "asset_url": null,
+          "submitted_by_org": null,
+          "is_demo": true,
+          "content_hash": "5cb9058d09b4c4099ee37fa1ef48cb6fc9acd5d43ce764d04a205ca7a2c7e2da"
+        }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003000",
+        "funder": {
+          "name": "Demo Island Foundation",
+          "is_demo": true
+        },
+        "published_at": "2026-06-12T09:00:00Z",
+        "rationale": "Fictional demo promise in Palawan, for previewing the map. (Demo text.)",
+        "planned_action": "planting",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 12,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 9,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2027-06-01",
+        "outcome_check_after": "2030-06-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001000",
+          "site_name": "Honda Bay fringe (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002004"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_water",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002003"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002001",
+                "00000000-0000-4000-8000-000000002002"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002001",
+            "00000000-0000-4000-8000-000000002002",
+            "00000000-0000-4000-8000-000000002003",
+            "00000000-0000-4000-8000-000000002004"
+          ]
+        },
+        "content_hash": "9bd70cb7e4ef6b11ac7e02096b16842ee5513e5cf0bc72acd4291ec4cf70069c"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "missing",
+          "finding": null,
+          "reported_area": null,
+          "measured_area": null,
+          "area_conflict": null,
+          "evidence_ids": []
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "too_early",
+          "checkable_from": "2030-06-01",
+          "finding": null,
+          "evidence_ids": []
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002004"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002003"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002001",
+            "00000000-0000-4000-8000-000000002002"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [],
+      "pin_state": "awaiting",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003001",
+        "funder": {
+          "name": "Demo Blue Carbon Trust",
+          "is_demo": true
+        },
+        "published_at": "2025-03-04T09:00:00Z",
+        "rationale": "Fictional demo promise in Bohol, for previewing the map. (Demo text.)",
+        "planned_action": "natural_regeneration",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 15,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 11,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2026-03-01",
+        "outcome_check_after": "2028-09-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001001",
+          "site_name": "Banacon channel edge (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002008"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_bare_soil",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002007"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002005",
+                "00000000-0000-4000-8000-000000002006"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002005",
+            "00000000-0000-4000-8000-000000002006",
+            "00000000-0000-4000-8000-000000002007",
+            "00000000-0000-4000-8000-000000002008"
+          ]
+        },
+        "content_hash": "03d198bcf0cb81b714f5177da6405304b3830a70e08267079704ac0013fa07d2"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "supported",
+          "finding": "work_done",
+          "reported_area": {
+            "value": 15,
+            "unit": "ha",
+            "eq_id": null,
+            "confidence": "low"
+          },
+          "measured_area": {
+            "value": 14.01,
+            "unit": "ha",
+            "eq_id": "EQ-010",
+            "confidence": "medium"
+          },
+          "area_conflict": {
+            "value": false,
+            "unit": "flag",
+            "eq_id": "EQ-009",
+            "confidence": "low"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002009",
+            "00000000-0000-4000-8000-00000000200a"
+          ]
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "too_early",
+          "checkable_from": "2028-09-01",
+          "finding": null,
+          "evidence_ids": []
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002008"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002007"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002005",
+            "00000000-0000-4000-8000-000000002006"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [
+        {
+          "seq": 1,
+          "kind": "evidence_added",
+          "created_at": "2026-03-20T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002009",
+            "question": "work",
+            "source_type": "project_report",
+            "source_name": "Project report (Demo Blue Carbon Trust)",
+            "source_version": null,
+            "observed_from": "2026-03-20T00:00:00Z",
+            "observed_to": "2026-03-20T00:00:00Z",
+            "retrieved_at": "2026-03-20T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 15,
+                "unit": "ha",
+                "eq_id": null,
+                "confidence": "low",
+                "name": "reported_area"
+              }
+            ],
+            "method": "Stated by the funder in a project report.",
+            "spatial_resolution_m": null,
+            "limitation": "Self-reported by the funder; not independently checked.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Blue Carbon Trust",
+            "is_demo": true,
+            "reported_area_ha": 15,
+            "boundary": null,
+            "content_hash": "c661582a467bb4bc30a57ddea3b2bad3fd54a72bcf7a5af1e80c9b8eabe88f6e"
+          },
+          "event_hash": "e02f5f9af2f57f89440ffbaff92aa1525738392715fad4f20968e3522f4807f4"
+        },
+        {
+          "seq": 2,
+          "kind": "evidence_added",
+          "created_at": "2026-04-02T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-00000000200a",
+            "question": "work",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2026-04-02T00:00:00Z",
+            "observed_to": "2026-04-02T00:00:00Z",
+            "retrieved_at": "2026-04-02T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 14.01,
+                "unit": "ha",
+                "eq_id": "EQ-010",
+                "confidence": "medium",
+                "name": "mapped_area"
+              }
+            ],
+            "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+            "spatial_resolution_m": null,
+            "limitation": "One visit; device GPS accuracy unknown.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "reported_area_ha": null,
+            "boundary": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    124.166292,
+                    10.203319
+                  ],
+                  [
+                    124.169708,
+                    10.203319
+                  ],
+                  [
+                    124.169708,
+                    10.206681
+                  ],
+                  [
+                    124.166292,
+                    10.206681
+                  ],
+                  [
+                    124.166292,
+                    10.203319
+                  ]
+                ]
+              ]
+            },
+            "content_hash": "181ec829411e7d45b6ec5e29423d382e81b68d519dcb5da7e0bc908a3f283dc9"
+          },
+          "event_hash": "d7de9056e19d084b298fb15ef70db767e8833a347ec536a654020a83a20e4f19"
+        }
+      ],
+      "pin_state": "awaiting",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003002",
+        "funder": {
+          "name": "Demo Coastal Fund",
+          "is_demo": true
+        },
+        "published_at": "2026-08-20T09:00:00Z",
+        "rationale": "Fictional demo promise in Siargao, for previewing the map. (Demo text.)",
+        "planned_action": "hydrological_repair",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 20,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 14,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2027-08-01",
+        "outcome_check_after": "2030-02-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001002",
+          "site_name": "Del Carmen backswamp (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000200e"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_water",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000200d"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000200b",
+                "00000000-0000-4000-8000-00000000200c"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200b",
+            "00000000-0000-4000-8000-00000000200c",
+            "00000000-0000-4000-8000-00000000200d",
+            "00000000-0000-4000-8000-00000000200e"
+          ]
+        },
+        "content_hash": "37b4c317352d46dc982810ddcbfd2d5cd90d405bc541a1020278ba7ad83639fd"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "missing",
+          "finding": null,
+          "reported_area": null,
+          "measured_area": null,
+          "area_conflict": null,
+          "evidence_ids": []
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "too_early",
+          "checkable_from": "2030-02-01",
+          "finding": null,
+          "evidence_ids": []
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200e"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200d"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200b",
+            "00000000-0000-4000-8000-00000000200c"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [],
+      "pin_state": "awaiting",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003003",
+        "funder": {
+          "name": "Demo Island Foundation",
+          "is_demo": true
+        },
+        "published_at": "2020-02-10T09:00:00Z",
+        "rationale": "Fictional demo promise in Eastern Samar, for previewing the map. (Demo text.)",
+        "planned_action": "planting",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 8,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 6,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2021-02-01",
+        "outcome_check_after": "2024-02-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001003",
+          "site_name": "Guiuan lagoon margin (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002012"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_bare_soil",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002011"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000200f",
+                "00000000-0000-4000-8000-000000002010"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200f",
+            "00000000-0000-4000-8000-000000002010",
+            "00000000-0000-4000-8000-000000002011",
+            "00000000-0000-4000-8000-000000002012"
+          ]
+        },
+        "content_hash": "a02ec1a35c0a12dc51f7792d519ef9b8b9e20a782b8adbe3663ccbe94523f437"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "supported",
+          "finding": "work_done",
+          "reported_area": {
+            "value": 8,
+            "unit": "ha",
+            "eq_id": null,
+            "confidence": "low"
+          },
+          "measured_area": {
+            "value": 7.4,
+            "unit": "ha",
+            "eq_id": "EQ-010",
+            "confidence": "medium"
+          },
+          "area_conflict": {
+            "value": false,
+            "unit": "flag",
+            "eq_id": "EQ-009",
+            "confidence": "low"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002013",
+            "00000000-0000-4000-8000-000000002014"
+          ]
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "supported",
+          "checkable_from": "2024-02-01",
+          "finding": "recovery_seen",
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002015"
+          ]
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002012"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002011"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000200f",
+            "00000000-0000-4000-8000-000000002010"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [
+        {
+          "seq": 1,
+          "kind": "evidence_added",
+          "created_at": "2021-02-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002013",
+            "question": "work",
+            "source_type": "project_report",
+            "source_name": "Project report (Demo Island Foundation)",
+            "source_version": null,
+            "observed_from": "2021-02-01T00:00:00Z",
+            "observed_to": "2021-02-01T00:00:00Z",
+            "retrieved_at": "2021-02-01T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 8,
+                "unit": "ha",
+                "eq_id": null,
+                "confidence": "low",
+                "name": "reported_area"
+              }
+            ],
+            "method": "Stated by the funder in a project report.",
+            "spatial_resolution_m": null,
+            "limitation": "Self-reported by the funder; not independently checked.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Island Foundation",
+            "is_demo": true,
+            "reported_area_ha": 8,
+            "boundary": null,
+            "content_hash": "0a9e75915d7167a55d7890823e1e89537a9cb7d3cd341bcbe638321ad485e477"
+          },
+          "event_hash": "d5fe0bd3ecc2cd0ce85afd9b064d8565fb71b78dc026607a7cbdd0ed0fee24bb"
+        },
+        {
+          "seq": 2,
+          "kind": "evidence_added",
+          "created_at": "2021-02-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002014",
+            "question": "work",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2021-02-01T00:00:00Z",
+            "observed_to": "2021-02-01T00:00:00Z",
+            "retrieved_at": "2021-02-01T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 7.4,
+                "unit": "ha",
+                "eq_id": "EQ-010",
+                "confidence": "medium",
+                "name": "mapped_area"
+              }
+            ],
+            "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+            "spatial_resolution_m": null,
+            "limitation": "One visit; device GPS accuracy unknown.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "reported_area_ha": null,
+            "boundary": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    125.733755,
+                    11.033778
+                  ],
+                  [
+                    125.736245,
+                    11.033778
+                  ],
+                  [
+                    125.736245,
+                    11.036222
+                  ],
+                  [
+                    125.733755,
+                    11.036222
+                  ],
+                  [
+                    125.733755,
+                    11.033778
+                  ]
+                ]
+              ]
+            },
+            "content_hash": "e016976bd82817bc1082d8592cb5f0a7f0463d972e7989711c66fb1fd7783c86"
+          },
+          "event_hash": "9f60397cc030879bc2eea563afb13145ad56403ef8ea4afed08653eff2d3d7e7"
+        },
+        {
+          "seq": 3,
+          "kind": "evidence_added",
+          "created_at": "2024-02-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002015",
+            "question": "outcome",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2024-02-01T00:00:00Z",
+            "observed_to": "2024-02-01T00:00:00Z",
+            "retrieved_at": "2024-02-01T12:00:00Z",
+            "finding": "recovery_seen",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [],
+            "method": "Field survey of seedling cover across the worked area.",
+            "spatial_resolution_m": null,
+            "limitation": "One survey; does not measure survival rate.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "content_hash": "b59e5ebfc2a2f5826e438c135645222c6832947fa5a3cf1ba1081d7d0fcb34da"
+          },
+          "event_hash": "b797237d06181cae3d563eef879fa4e7cddd84c96cae0b9d1ca316fd9c71e235"
+        }
+      ],
+      "pin_state": "on_track",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003004",
+        "funder": {
+          "name": "Demo Blue Carbon Trust",
+          "is_demo": true
+        },
+        "published_at": "2019-09-15T09:00:00Z",
+        "rationale": "Fictional demo promise in Negros Oriental, for previewing the map. (Demo text.)",
+        "planned_action": "natural_regeneration",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 10,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 7,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2020-09-01",
+        "outcome_check_after": "2023-09-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001004",
+          "site_name": "Bais bay mudflat (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002019"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_water",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002018"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002016",
+                "00000000-0000-4000-8000-000000002017"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002016",
+            "00000000-0000-4000-8000-000000002017",
+            "00000000-0000-4000-8000-000000002018",
+            "00000000-0000-4000-8000-000000002019"
+          ]
+        },
+        "content_hash": "1e2bd17c8f9b1c73131c97a40df54a36ddc459836e9d98acaabb2e6bd318ff16"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "supported",
+          "finding": "work_done",
+          "reported_area": {
+            "value": 10,
+            "unit": "ha",
+            "eq_id": null,
+            "confidence": "low"
+          },
+          "measured_area": {
+            "value": 9.4,
+            "unit": "ha",
+            "eq_id": "EQ-010",
+            "confidence": "medium"
+          },
+          "area_conflict": {
+            "value": false,
+            "unit": "flag",
+            "eq_id": "EQ-009",
+            "confidence": "low"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000201a",
+            "00000000-0000-4000-8000-00000000201b"
+          ]
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "supported",
+          "checkable_from": "2023-09-01",
+          "finding": "recovery_seen",
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000201c"
+          ]
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002019"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002018"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002016",
+            "00000000-0000-4000-8000-000000002017"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [
+        {
+          "seq": 1,
+          "kind": "evidence_added",
+          "created_at": "2020-09-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-00000000201a",
+            "question": "work",
+            "source_type": "project_report",
+            "source_name": "Project report (Demo Blue Carbon Trust)",
+            "source_version": null,
+            "observed_from": "2020-09-01T00:00:00Z",
+            "observed_to": "2020-09-01T00:00:00Z",
+            "retrieved_at": "2020-09-01T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 10,
+                "unit": "ha",
+                "eq_id": null,
+                "confidence": "low",
+                "name": "reported_area"
+              }
+            ],
+            "method": "Stated by the funder in a project report.",
+            "spatial_resolution_m": null,
+            "limitation": "Self-reported by the funder; not independently checked.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Blue Carbon Trust",
+            "is_demo": true,
+            "reported_area_ha": 10,
+            "boundary": null,
+            "content_hash": "dc8c787b672e41d13527b22441350f4889a048b95851c5b45443419e6fa532ec"
+          },
+          "event_hash": "2a4aca578c57231952fa788e5454a4ab17de06759f6cf507510f0c862b222f3f"
+        },
+        {
+          "seq": 2,
+          "kind": "evidence_added",
+          "created_at": "2020-09-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-00000000201b",
+            "question": "work",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2020-09-01T00:00:00Z",
+            "observed_to": "2020-09-01T00:00:00Z",
+            "retrieved_at": "2020-09-01T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 9.4,
+                "unit": "ha",
+                "eq_id": "EQ-010",
+                "confidence": "medium",
+                "name": "mapped_area"
+              }
+            ],
+            "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+            "spatial_resolution_m": null,
+            "limitation": "One visit; device GPS accuracy unknown.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "reported_area_ha": null,
+            "boundary": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    123.133603,
+                    9.583623
+                  ],
+                  [
+                    123.136397,
+                    9.583623
+                  ],
+                  [
+                    123.136397,
+                    9.586377
+                  ],
+                  [
+                    123.133603,
+                    9.586377
+                  ],
+                  [
+                    123.133603,
+                    9.583623
+                  ]
+                ]
+              ]
+            },
+            "content_hash": "51aa6fa4ee7c8d649a7135a5938d8aeeefa01f4e9719858b750fa81e613b971f"
+          },
+          "event_hash": "2faa434f92e01ed91d2d31c64373c3a846ddeb4809d1fcddb49a4b4efd9ac798"
+        },
+        {
+          "seq": 3,
+          "kind": "evidence_added",
+          "created_at": "2023-09-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-00000000201c",
+            "question": "outcome",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2023-09-01T00:00:00Z",
+            "observed_to": "2023-09-01T00:00:00Z",
+            "retrieved_at": "2023-09-01T12:00:00Z",
+            "finding": "recovery_seen",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [],
+            "method": "Field survey of seedling cover across the worked area.",
+            "spatial_resolution_m": null,
+            "limitation": "One survey; does not measure survival rate.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "content_hash": "6e3334cf2d5dcc383b534855655a1b8acdc7eac4318b2ed4f2624285b4d651d3"
+          },
+          "event_hash": "5ded36ecc677a2b16bfe3478010856ce270c5dc44c04a71fda3386855519aab0"
+        }
+      ],
+      "pin_state": "on_track",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003005",
+        "funder": {
+          "name": "Demo Coastal Fund",
+          "is_demo": true
+        },
+        "published_at": "2021-05-02T09:00:00Z",
+        "rationale": "Fictional demo promise in Quezon, for previewing the map. (Demo text.)",
+        "planned_action": "protection",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 14,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 12,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2022-05-01",
+        "outcome_check_after": "2025-05-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001005",
+          "site_name": "Pagbilao estuary bank (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002020"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_bare_soil",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000201f"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000201d",
+                "00000000-0000-4000-8000-00000000201e"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000201d",
+            "00000000-0000-4000-8000-00000000201e",
+            "00000000-0000-4000-8000-00000000201f",
+            "00000000-0000-4000-8000-000000002020"
+          ]
+        },
+        "content_hash": "66821796d8b340f8c71cf24b513c59337876d8e35dbdc90549c4dc875d117d81"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "supported",
+          "finding": "work_done",
+          "reported_area": {
+            "value": 14,
+            "unit": "ha",
+            "eq_id": null,
+            "confidence": "low"
+          },
+          "measured_area": {
+            "value": 13.4,
+            "unit": "ha",
+            "eq_id": "EQ-010",
+            "confidence": "medium"
+          },
+          "area_conflict": {
+            "value": false,
+            "unit": "flag",
+            "eq_id": "EQ-009",
+            "confidence": "low"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002021",
+            "00000000-0000-4000-8000-000000002022"
+          ]
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "supported",
+          "checkable_from": "2025-05-01",
+          "finding": "recovery_seen",
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002023"
+          ]
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002020"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000201f"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000201d",
+            "00000000-0000-4000-8000-00000000201e"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [
+        {
+          "seq": 1,
+          "kind": "evidence_added",
+          "created_at": "2022-05-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002021",
+            "question": "work",
+            "source_type": "project_report",
+            "source_name": "Project report (Demo Coastal Fund)",
+            "source_version": null,
+            "observed_from": "2022-05-01T00:00:00Z",
+            "observed_to": "2022-05-01T00:00:00Z",
+            "retrieved_at": "2022-05-01T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 14,
+                "unit": "ha",
+                "eq_id": null,
+                "confidence": "low",
+                "name": "reported_area"
+              }
+            ],
+            "method": "Stated by the funder in a project report.",
+            "spatial_resolution_m": null,
+            "limitation": "Self-reported by the funder; not independently checked.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Coastal Fund",
+            "is_demo": true,
+            "reported_area_ha": 14,
+            "boundary": null,
+            "content_hash": "cc6de6a062781af0cb0e3c0b7a6fc3559984e192fce986af3de6b478cf8bb2fb"
+          },
+          "event_hash": "a4fa2b9d50c91d8f94f738c2ea9b0fec2dcf15ce484022dbe50147fb0acc76ad"
+        },
+        {
+          "seq": 2,
+          "kind": "evidence_added",
+          "created_at": "2022-05-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002022",
+            "question": "work",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2022-05-01T00:00:00Z",
+            "observed_to": "2022-05-01T00:00:00Z",
+            "retrieved_at": "2022-05-01T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 13.4,
+                "unit": "ha",
+                "eq_id": "EQ-010",
+                "confidence": "medium",
+                "name": "mapped_area"
+              }
+            ],
+            "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+            "spatial_resolution_m": null,
+            "limitation": "One visit; device GPS accuracy unknown.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "reported_area_ha": null,
+            "boundary": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    121.720306,
+                    13.953356
+                  ],
+                  [
+                    121.723694,
+                    13.953356
+                  ],
+                  [
+                    121.723694,
+                    13.956644
+                  ],
+                  [
+                    121.720306,
+                    13.956644
+                  ],
+                  [
+                    121.720306,
+                    13.953356
+                  ]
+                ]
+              ]
+            },
+            "content_hash": "66a03f7d970ff9ea1c7dd5042d4bc7a306cf020c38fdf69a423d8cdeac5d10bc"
+          },
+          "event_hash": "6f6d9de048a7bf4effa13b66eef19c0fcb109b38bdd27b9f5c515355427a0df6"
+        },
+        {
+          "seq": 3,
+          "kind": "evidence_added",
+          "created_at": "2025-05-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002023",
+            "question": "outcome",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2025-05-01T00:00:00Z",
+            "observed_to": "2025-05-01T00:00:00Z",
+            "retrieved_at": "2025-05-01T12:00:00Z",
+            "finding": "recovery_seen",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [],
+            "method": "Field survey of seedling cover across the worked area.",
+            "spatial_resolution_m": null,
+            "limitation": "One survey; does not measure survival rate.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "content_hash": "ada3553cc5da40deb8ef99149489bb854d8b269782c6be1325b59d82c2650798"
+          },
+          "event_hash": "49cfc4f7309e734fce600689509e58118860e98aea30ecb6f525fe01dd1c1bc7"
+        }
+      ],
+      "pin_state": "on_track",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003006",
+        "funder": {
+          "name": "Demo Coastal Fund",
+          "is_demo": true
+        },
+        "published_at": "2024-01-18T09:00:00Z",
+        "rationale": "Fictional demo promise in Aklan, for previewing the map. (Demo text.)",
+        "planned_action": "hydrological_repair",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 15,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 10,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2025-01-15",
+        "outcome_check_after": "2028-01-15",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001006",
+          "site_name": "Ibajay riverside ponds (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002027"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_water",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002026"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002024",
+                "00000000-0000-4000-8000-000000002025"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002024",
+            "00000000-0000-4000-8000-000000002025",
+            "00000000-0000-4000-8000-000000002026",
+            "00000000-0000-4000-8000-000000002027"
+          ]
+        },
+        "content_hash": "6ce948880f1528fae67bb70d7c0277bc4427fbfb5feead60e0f70f5fa7f15af9"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "conflicting",
+          "finding": null,
+          "reported_area": {
+            "value": 15,
+            "unit": "ha",
+            "eq_id": null,
+            "confidence": "low"
+          },
+          "measured_area": {
+            "value": 9.0,
+            "unit": "ha",
+            "eq_id": "EQ-010",
+            "confidence": "medium"
+          },
+          "area_conflict": {
+            "value": true,
+            "unit": "flag",
+            "eq_id": "EQ-009",
+            "confidence": "low"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002028",
+            "00000000-0000-4000-8000-000000002029"
+          ]
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "too_early",
+          "checkable_from": "2028-01-15",
+          "finding": null,
+          "evidence_ids": []
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002027"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002026"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002024",
+            "00000000-0000-4000-8000-000000002025"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [
+        {
+          "seq": 1,
+          "kind": "evidence_added",
+          "created_at": "2025-02-10T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002028",
+            "question": "work",
+            "source_type": "project_report",
+            "source_name": "Project report (Demo Coastal Fund)",
+            "source_version": null,
+            "observed_from": "2025-02-10T00:00:00Z",
+            "observed_to": "2025-02-10T00:00:00Z",
+            "retrieved_at": "2025-02-10T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 15,
+                "unit": "ha",
+                "eq_id": null,
+                "confidence": "low",
+                "name": "reported_area"
+              }
+            ],
+            "method": "Stated by the funder in a project report.",
+            "spatial_resolution_m": null,
+            "limitation": "Self-reported by the funder; not independently checked.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Coastal Fund",
+            "is_demo": true,
+            "reported_area_ha": 15,
+            "boundary": null,
+            "content_hash": "ee5765289238fc94de7b2a37ce505f4318a88e8c69b51affacdf00edad43cb43"
+          },
+          "event_hash": "83b323bf281650f1fce14d0b725ca65a334b5e9619d16db58eb57e95c6addd29"
+        },
+        {
+          "seq": 2,
+          "kind": "evidence_added",
+          "created_at": "2025-03-01T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-000000002029",
+            "question": "work",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2025-03-01T00:00:00Z",
+            "observed_to": "2025-03-01T00:00:00Z",
+            "retrieved_at": "2025-03-01T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 9.0,
+                "unit": "ha",
+                "eq_id": "EQ-010",
+                "confidence": "medium",
+                "name": "mapped_area"
+              }
+            ],
+            "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+            "spatial_resolution_m": null,
+            "limitation": "One visit; device GPS accuracy unknown.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "reported_area_ha": null,
+            "boundary": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    122.163623,
+                    11.820653
+                  ],
+                  [
+                    122.166377,
+                    11.820653
+                  ],
+                  [
+                    122.166377,
+                    11.823347
+                  ],
+                  [
+                    122.163623,
+                    11.823347
+                  ],
+                  [
+                    122.163623,
+                    11.820653
+                  ]
+                ]
+              ]
+            },
+            "content_hash": "b059a3ab8a3678fe1110de842a198b89ce469be5e473cdd8ac54a0623336654c"
+          },
+          "event_hash": "85e9685f69d522658e8d95815edb9176c5c9d8c8083f72058974359567403560"
+        }
+      ],
+      "pin_state": "conflict",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003007",
+        "funder": {
+          "name": "Demo Island Foundation",
+          "is_demo": true
+        },
+        "published_at": "2024-07-09T09:00:00Z",
+        "rationale": "Fictional demo promise in Davao del Norte, for previewing the map. (Demo text.)",
+        "planned_action": "planting",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 10,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 7,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2025-07-01",
+        "outcome_check_after": "2028-07-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001007",
+          "site_name": "Panabo coastal strip (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000202d"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_bare_soil",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000202c"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "supported",
+              "finding": "open_for_restoration",
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-00000000202a",
+                "00000000-0000-4000-8000-00000000202b"
+              ],
+              "disagreeing_evidence_ids": []
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202a",
+            "00000000-0000-4000-8000-00000000202b",
+            "00000000-0000-4000-8000-00000000202c",
+            "00000000-0000-4000-8000-00000000202d"
+          ]
+        },
+        "content_hash": "de77514d79600bd972a1f0e148cb56c0018cdafe0ff232c7b57d716b22f1fa11"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "conflicting",
+          "finding": null,
+          "reported_area": {
+            "value": 10,
+            "unit": "ha",
+            "eq_id": null,
+            "confidence": "low"
+          },
+          "measured_area": {
+            "value": 9.5,
+            "unit": "ha",
+            "eq_id": "EQ-010",
+            "confidence": "medium"
+          },
+          "area_conflict": {
+            "value": false,
+            "unit": "flag",
+            "eq_id": "EQ-009",
+            "confidence": "low"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202e",
+            "00000000-0000-4000-8000-00000000202f"
+          ]
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "too_early",
+          "checkable_from": "2028-07-01",
+          "finding": null,
+          "evidence_ids": []
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202d"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202c"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-00000000202a",
+            "00000000-0000-4000-8000-00000000202b"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "timeline": [
+        {
+          "seq": 1,
+          "kind": "evidence_added",
+          "created_at": "2025-07-15T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-00000000202e",
+            "question": "work",
+            "source_type": "project_report",
+            "source_name": "Project report (Demo Island Foundation)",
+            "source_version": null,
+            "observed_from": "2025-07-15T00:00:00Z",
+            "observed_to": "2025-07-15T00:00:00Z",
+            "retrieved_at": "2025-07-15T12:00:00Z",
+            "finding": "work_done",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 10,
+                "unit": "ha",
+                "eq_id": null,
+                "confidence": "low",
+                "name": "reported_area"
+              }
+            ],
+            "method": "Stated by the funder in a project report.",
+            "spatial_resolution_m": null,
+            "limitation": "Self-reported by the funder; not independently checked.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Island Foundation",
+            "is_demo": true,
+            "reported_area_ha": 10,
+            "boundary": null,
+            "content_hash": "e361c4c048b0ab67a303b7772a9534514ffe7b613d62e72f42ae2af8493be623"
+          },
+          "event_hash": "7ee7d2b84631ed74ddcd06eb8c6b3f6f70d076365c98918663772ae9115ae290"
+        },
+        {
+          "seq": 2,
+          "kind": "evidence_added",
+          "created_at": "2025-08-02T12:00:00Z",
+          "evidence": {
+            "id": "00000000-0000-4000-8000-00000000202f",
+            "question": "work",
+            "source_type": "field",
+            "source_name": "Partner field visit (Demo Shoreline Partners)",
+            "source_version": null,
+            "observed_from": "2025-08-02T00:00:00Z",
+            "observed_to": "2025-08-02T00:00:00Z",
+            "retrieved_at": "2025-08-02T12:00:00Z",
+            "finding": "no_work_seen",
+            "usable": true,
+            "unusable_reason": null,
+            "metrics": [
+              {
+                "value": 9.5,
+                "unit": "ha",
+                "eq_id": "EQ-010",
+                "confidence": "medium",
+                "name": "mapped_area"
+              }
+            ],
+            "method": "Field visit with GPS point; worked area from the partner's mapped boundary (EQ-010).",
+            "spatial_resolution_m": null,
+            "limitation": "One visit; device GPS accuracy unknown.",
+            "provenance_url": null,
+            "asset_url": null,
+            "submitted_by_org": "Demo Shoreline Partners",
+            "is_demo": true,
+            "reported_area_ha": null,
+            "boundary": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    125.693604,
+                    7.303616
+                  ],
+                  [
+                    125.696396,
+                    7.303616
+                  ],
+                  [
+                    125.696396,
+                    7.306384
+                  ],
+                  [
+                    125.693604,
+                    7.306384
+                  ],
+                  [
+                    125.693604,
+                    7.303616
+                  ]
+                ]
+              ]
+            },
+            "content_hash": "9931b2d369bf3d2322f7921ad9403c7f4bbbb19ad88115e82b1a841aed559c95"
+          },
+          "event_hash": "37ee7745947dc6fad8dad8c7754006ac8a4737a0d6d21f09234cefeff5e32f82"
+        }
+      ],
+      "pin_state": "conflict",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    },
+    {
+      "record": {
+        "id": "00000000-0000-4000-8000-000000003008",
+        "funder": {
+          "name": "Demo Blue Carbon Trust",
+          "is_demo": true
+        },
+        "published_at": "2026-04-22T09:00:00Z",
+        "rationale": "Fictional demo promise in Zamboanga, for previewing the map. (Demo text.)",
+        "planned_action": "natural_regeneration",
+        "planned_action_detail": "Demo action detail. (Demo text.)",
+        "planned_area_ha": {
+          "value": 12,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "expected_outcome": "Mangrove cover returns across the worked area. (Demo text.)",
+        "expected_vegetated_ha": {
+          "value": 8,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "high"
+        },
+        "work_check_after": "2027-04-01",
+        "outcome_check_after": "2029-10-01",
+        "known_unknowns": "Tenure and sediment supply. (Demo text.)",
+        "snapshot": {
+          "site_id": "00000000-0000-4000-8000-000000001008",
+          "site_name": "Talon-Talon shore ponds (fictional)",
+          "site_answers": [
+            {
+              "question": "history",
+              "label": "Was this mangrove before?",
+              "status": "supported",
+              "finding": "mangrove_recorded",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002033"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "current",
+              "label": "What's there now?",
+              "status": "supported",
+              "finding": "mostly_water",
+              "source_count": {
+                "value": 1,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002032"
+              ],
+              "disagreeing_evidence_ids": []
+            },
+            {
+              "question": "ground",
+              "label": "What do people on the ground say?",
+              "status": "conflicting",
+              "finding": null,
+              "source_count": {
+                "value": 2,
+                "unit": "items",
+                "eq_id": "EQ-013",
+                "confidence": "high"
+              },
+              "evidence_ids": [
+                "00000000-0000-4000-8000-000000002030",
+                "00000000-0000-4000-8000-000000002031"
+              ],
+              "disagreeing_evidence_ids": [
+                "00000000-0000-4000-8000-000000002030"
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002030",
+            "00000000-0000-4000-8000-000000002031",
+            "00000000-0000-4000-8000-000000002032",
+            "00000000-0000-4000-8000-000000002033"
+          ]
+        },
+        "content_hash": "e9e959fff6f2d537a9b93980f964ae1b7bc5817a9684d7b47c02fadda7ac4376"
+      },
+      "checks": [
+        {
+          "check": "work",
+          "label": "Did the work happen?",
+          "status": "missing",
+          "finding": null,
+          "reported_area": null,
+          "measured_area": null,
+          "area_conflict": null,
+          "evidence_ids": []
+        },
+        {
+          "check": "outcome",
+          "label": "Did the mangroves come back?",
+          "status": "too_early",
+          "checkable_from": "2029-10-01",
+          "finding": null,
+          "evidence_ids": []
+        }
+      ],
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002033"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002032"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "conflicting",
+          "finding": null,
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000002030",
+            "00000000-0000-4000-8000-000000002031"
+          ],
+          "disagreeing_evidence_ids": [
+            "00000000-0000-4000-8000-000000002030"
+          ]
+        }
+      ],
+      "timeline": [],
+      "pin_state": "conflict",
+      "disclaimer": "This record is not a certification of restoration success or approval of funding."
+    }
+  ],
+  "pins": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.786,
+          9.873
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003000",
+        "site_name": "Honda Bay fringe (fictional)",
+        "funder": "Demo Island Foundation",
+        "published_at": "2026-06-12T09:00:00Z",
+        "pin_state": "awaiting",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.168,
+          10.205
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003001",
+        "site_name": "Banacon channel edge (fictional)",
+        "funder": "Demo Blue Carbon Trust",
+        "published_at": "2025-03-04T09:00:00Z",
+        "pin_state": "awaiting",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.028,
+          9.868
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003002",
+        "site_name": "Del Carmen backswamp (fictional)",
+        "funder": "Demo Coastal Fund",
+        "published_at": "2026-08-20T09:00:00Z",
+        "pin_state": "awaiting",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.735,
+          11.035
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003003",
+        "site_name": "Guiuan lagoon margin (fictional)",
+        "funder": "Demo Island Foundation",
+        "published_at": "2020-02-10T09:00:00Z",
+        "pin_state": "on_track",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.135,
+          9.585
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003004",
+        "site_name": "Bais bay mudflat (fictional)",
+        "funder": "Demo Blue Carbon Trust",
+        "published_at": "2019-09-15T09:00:00Z",
+        "pin_state": "on_track",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.722,
+          13.955
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003005",
+        "site_name": "Pagbilao estuary bank (fictional)",
+        "funder": "Demo Coastal Fund",
+        "published_at": "2021-05-02T09:00:00Z",
+        "pin_state": "on_track",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.165,
+          11.822
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003006",
+        "site_name": "Ibajay riverside ponds (fictional)",
+        "funder": "Demo Coastal Fund",
+        "published_at": "2024-01-18T09:00:00Z",
+        "pin_state": "conflict",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.695,
+          7.305
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003007",
+        "site_name": "Panabo coastal strip (fictional)",
+        "funder": "Demo Island Foundation",
+        "published_at": "2024-07-09T09:00:00Z",
+        "pin_state": "conflict",
+        "is_demo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.115,
+          6.912
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-000000003008",
+        "site_name": "Talon-Talon shore ponds (fictional)",
+        "funder": "Demo Blue Carbon Trust",
+        "published_at": "2026-04-22T09:00:00Z",
+        "pin_state": "conflict",
+        "is_demo": true
+      }
+    }
+  ]
+}

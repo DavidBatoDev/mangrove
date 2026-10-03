@@ -1,0 +1,174 @@
+{
+  "site": {
+    "id": "00000000-0000-4000-8000-0000000000d0",
+    "name": "Orani bayfront eroded pond enclosure",
+    "region": "Manila Bay",
+    "is_demo": true,
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [
+              120.5515,
+              14.79505
+            ],
+            [
+              120.55175,
+              14.7938
+            ],
+            [
+              120.55315,
+              14.79245
+            ],
+            [
+              120.55462,
+              14.79042
+            ],
+            [
+              120.55583,
+              14.79089
+            ],
+            [
+              120.55486,
+              14.79278
+            ],
+            [
+              120.55365,
+              14.79395
+            ],
+            [
+              120.55316,
+              14.79607
+            ],
+            [
+              120.5515,
+              14.79505
+            ]
+          ]
+        ]
+      ]
+    },
+    "area": {
+      "value": 10.91,
+      "unit": "ha",
+      "eq_id": "EQ-001",
+      "confidence": "high"
+    },
+    "proposal_summary": "Intertidal mudflat inside a seaward bulge of the OSM coastline off Orani, with remnant dike lines and mangrove patches on its edges in imagery. Reads as a former pond enclosure whose dikes have failed. Orani was a 2024 Wetlands International validation area. Possible natural-regeneration / assisted-regeneration candidate; exposure to waves unknown."
+  },
+  "answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "supported",
+      "finding": "mangrove_recorded",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000131"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "current",
+      "label": "What's there now?",
+      "status": "supported",
+      "finding": "mostly_bare_soil",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000130"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "ground",
+      "label": "What do people on the ground say?",
+      "status": "missing",
+      "finding": null,
+      "source_count": {
+        "value": 0,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [],
+      "disagreeing_evidence_ids": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-000000000130",
+      "question": "current",
+      "source_type": "sentinel2",
+      "source_name": "Copernicus Sentinel-2 L2A",
+      "source_version": "fixture-placeholder",
+      "observed_from": "2026-07-01T00:00:00Z",
+      "observed_to": "2026-09-29T00:00:00Z",
+      "retrieved_at": "2026-10-03T12:00:00Z",
+      "finding": "mostly_bare_soil",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "value": 0.72,
+          "unit": "fraction",
+          "eq_id": "EQ-005",
+          "confidence": "low"
+        },
+        {
+          "value": 0.18,
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "confidence": "low"
+        }
+      ],
+      "method": "SCL classes 4/5/6 over the polygon, leastCC mosaic, 90-day window; usable if valid fraction >= 0.50.",
+      "spatial_resolution_m": 20,
+      "limitation": "Placeholder value for UI building; not real Sentinel-2 output.",
+      "provenance_url": "https://dataspace.copernicus.eu/",
+      "asset_url": null,
+      "submitted_by_org": null,
+      "is_demo": true,
+      "content_hash": "0f29576f4ad3f55fceff4e69310df90d436a5bd058327293eaac281de72d8451"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000131",
+      "question": "history",
+      "source_type": "gmw",
+      "source_name": "Global Mangrove Watch v4.1.12",
+      "source_version": "fixture-placeholder",
+      "observed_from": "1996-01-01T00:00:00Z",
+      "observed_to": "2020-12-31T00:00:00Z",
+      "retrieved_at": "2026-10-03T12:00:00Z",
+      "finding": "mangrove_recorded",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "value": 0.41,
+          "unit": "fraction",
+          "eq_id": "EQ-003",
+          "confidence": "medium"
+        }
+      ],
+      "method": "Maximum yearly GMW extent over the polygon divided by site area (EQ-003).",
+      "spatial_resolution_m": 25,
+      "limitation": "Placeholder value for UI building; not real GMW output.",
+      "provenance_url": "https://www.globalmangrovewatch.org/",
+      "asset_url": null,
+      "submitted_by_org": null,
+      "is_demo": true,
+      "content_hash": "283ff157c986eaa63b4627ddc0e64697881726aa6f14bb64d6155831a78ac47e"
+    }
+  ]
+}

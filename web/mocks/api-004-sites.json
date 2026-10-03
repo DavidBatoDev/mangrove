@@ -1,0 +1,305 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                120.7432,
+                14.7625
+              ],
+              [
+                120.746,
+                14.7614
+              ],
+              [
+                120.7485,
+                14.7601
+              ],
+              [
+                120.7505,
+                14.7597
+              ],
+              [
+                120.751,
+                14.762
+              ],
+              [
+                120.7495,
+                14.7645
+              ],
+              [
+                120.7465,
+                14.7655
+              ],
+              [
+                120.7438,
+                14.7645
+              ],
+              [
+                120.7432,
+                14.7625
+              ]
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000c0",
+        "name": "Hagonoy outer pond belt near Tibaguin",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "area": {
+          "value": 33.28,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                120.6378,
+                14.7882
+              ],
+              [
+                120.642,
+                14.7881
+              ],
+              [
+                120.6455,
+                14.788
+              ],
+              [
+                120.646,
+                14.789
+              ],
+              [
+                120.644,
+                14.7912
+              ],
+              [
+                120.641,
+                14.7926
+              ],
+              [
+                120.6385,
+                14.792
+              ],
+              [
+                120.6375,
+                14.7895
+              ],
+              [
+                120.6378,
+                14.7882
+              ]
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000a0",
+        "name": "Macabebe bayfront ponds east of Bangkung Malapad",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "area": {
+          "value": 33.49,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                120.5515,
+                14.79505
+              ],
+              [
+                120.55175,
+                14.7938
+              ],
+              [
+                120.55315,
+                14.79245
+              ],
+              [
+                120.55462,
+                14.79042
+              ],
+              [
+                120.55583,
+                14.79089
+              ],
+              [
+                120.55486,
+                14.79278
+              ],
+              [
+                120.55365,
+                14.79395
+              ],
+              [
+                120.55316,
+                14.79607
+              ],
+              [
+                120.5515,
+                14.79505
+              ]
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000d0",
+        "name": "Orani bayfront eroded pond enclosure",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "area": {
+          "value": 10.91,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                120.8212,
+                14.76
+              ],
+              [
+                120.8226,
+                14.758
+              ],
+              [
+                120.825,
+                14.757
+              ],
+              [
+                120.8275,
+                14.7572
+              ],
+              [
+                120.8285,
+                14.7588
+              ],
+              [
+                120.8282,
+                14.7605
+              ],
+              [
+                120.8262,
+                14.7618
+              ],
+              [
+                120.823,
+                14.762
+              ],
+              [
+                120.8212,
+                14.76
+              ]
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000b0",
+        "name": "Pamarawan breached-dike pond complex",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "area": {
+          "value": 31.86,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                120.7745,
+                14.7605
+              ],
+              [
+                120.7765,
+                14.7593
+              ],
+              [
+                120.779,
+                14.759
+              ],
+              [
+                120.7815,
+                14.7591
+              ],
+              [
+                120.783,
+                14.76
+              ],
+              [
+                120.7825,
+                14.7625
+              ],
+              [
+                120.7795,
+                14.7635
+              ],
+              [
+                120.776,
+                14.763
+              ],
+              [
+                120.7745,
+                14.7605
+              ]
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000000e0",
+        "name": "Paombong (Masukol) coastal pond belt",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "area": {
+          "value": 34.57,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        }
+      }
+    }
+  ]
+}

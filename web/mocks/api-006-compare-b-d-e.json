@@ -1,0 +1,336 @@
+{
+  "sites": [
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-0000000000b0",
+        "name": "Pamarawan breached-dike pond complex",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  120.8212,
+                  14.76
+                ],
+                [
+                  120.8226,
+                  14.758
+                ],
+                [
+                  120.825,
+                  14.757
+                ],
+                [
+                  120.8275,
+                  14.7572
+                ],
+                [
+                  120.8285,
+                  14.7588
+                ],
+                [
+                  120.8282,
+                  14.7605
+                ],
+                [
+                  120.8262,
+                  14.7618
+                ],
+                [
+                  120.823,
+                  14.762
+                ],
+                [
+                  120.8212,
+                  14.76
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 31.86,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Bayfront pond complex where imagery appears to show broken outer dikes, tidal water inside, and lines of what look like mangrove along remnant dikes (our imagery reading). Wetlands International visited fishponds in Calero and Pamarawan (Malolos) and San Roque (Paombong) in Oct-Nov 2022 and describes fishponds lying abandoned, undeveloped, or underutilized; it does not say which ponds, so this block is not claimed to be one of them. Possible hydrological-repair / natural-regeneration candidate; high field-verification need."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000113"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000112"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000111",
+            "00000000-0000-4000-8000-000000000110"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-0000000000d0",
+        "name": "Orani bayfront eroded pond enclosure",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  120.5515,
+                  14.79505
+                ],
+                [
+                  120.55175,
+                  14.7938
+                ],
+                [
+                  120.55315,
+                  14.79245
+                ],
+                [
+                  120.55462,
+                  14.79042
+                ],
+                [
+                  120.55583,
+                  14.79089
+                ],
+                [
+                  120.55486,
+                  14.79278
+                ],
+                [
+                  120.55365,
+                  14.79395
+                ],
+                [
+                  120.55316,
+                  14.79607
+                ],
+                [
+                  120.5515,
+                  14.79505
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 10.91,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Intertidal mudflat inside a seaward bulge of the OSM coastline off Orani, with remnant dike lines and mangrove patches on its edges in imagery. Reads as a former pond enclosure whose dikes have failed. Orani was a 2024 Wetlands International validation area. Possible natural-regeneration / assisted-regeneration candidate; exposure to waves unknown."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000131"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_bare_soil",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000130"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "missing",
+          "finding": null,
+          "source_count": {
+            "value": 0,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [],
+          "disagreeing_evidence_ids": []
+        }
+      ]
+    },
+    {
+      "site": {
+        "id": "00000000-0000-4000-8000-0000000000e0",
+        "name": "Paombong (Masukol) coastal pond belt",
+        "region": "Manila Bay",
+        "is_demo": true,
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [
+                  120.7745,
+                  14.7605
+                ],
+                [
+                  120.7765,
+                  14.7593
+                ],
+                [
+                  120.779,
+                  14.759
+                ],
+                [
+                  120.7815,
+                  14.7591
+                ],
+                [
+                  120.783,
+                  14.76
+                ],
+                [
+                  120.7825,
+                  14.7625
+                ],
+                [
+                  120.7795,
+                  14.7635
+                ],
+                [
+                  120.776,
+                  14.763
+                ],
+                [
+                  120.7745,
+                  14.7605
+                ]
+              ]
+            ]
+          ]
+        },
+        "area": {
+          "value": 34.57,
+          "unit": "ha",
+          "eq_id": "EQ-001",
+          "confidence": "high"
+        },
+        "proposal_summary": "Bayfront pond compartments with intact-looking dikes in the 2025 Sentinel-2 mosaic, fronting the bay with no visible mangrove fringe. Paombong was a 2024 Wetlands International validation area. A contrast case: if ponds are active, restoration potential may be blocked by use and tenure rather than by ecology."
+      },
+      "answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000143"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000142"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "conflicting",
+          "finding": null,
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000141",
+            "00000000-0000-4000-8000-000000000140"
+          ],
+          "disagreeing_evidence_ids": [
+            "00000000-0000-4000-8000-000000000141"
+          ]
+        }
+      ]
+    }
+  ]
+}
