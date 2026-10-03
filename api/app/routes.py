@@ -1,4 +1,4 @@
-"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-024, plus the BR-002 405s."""
+"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-025, plus the BR-002 405s."""
 
 from __future__ import annotations
 
@@ -83,6 +83,17 @@ def gmw_extent_tiles_info() -> JSONResponse:
 @router.get("/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", summary="API-024 one 256 px mangrove extent tile")
 def gmw_extent_tile(year: int, z: int, x: int, y: int) -> Response:
     png = gmw_tiles.tile_png(year, z, x, y)
+    return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800", **_TILE_CORS})
+
+
+@router.get("/layers/gmw-change/tiles", summary="API-025 Philippines mangrove change tiles: baselines, years, URL template")
+def gmw_change_tiles_info() -> JSONResponse:
+    return JSONResponse(gmw_tiles.change_info(), headers=_TILE_CORS)
+
+
+@router.get("/layers/gmw-change/tiles/{base}/{year}/{z}/{x}/{y}.png", summary="API-025 one 256 px mangrove gain/loss tile")
+def gmw_change_tile(base: int, year: int, z: int, x: int, y: int, only: str | None = Query(default=None)) -> Response:
+    png = gmw_tiles.change_tile_png(base, year, z, x, y, only)
     return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800", **_TILE_CORS})
 
 

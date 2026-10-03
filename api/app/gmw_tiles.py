@@ -1,4 +1,5 @@
-"""API-024: Global Mangrove Watch v4.1.12 mangrove extent as 256 px Web Mercator map tiles (ADR-048).
+"""API-024 / API-025: Global Mangrove Watch v4.1.12 mangrove extent, and change (gain / loss), as 256 px Web Mercator
+map tiles (ADR-048, ADR-049, ADR-050).
 
 Reads the per-year GeoTIFFs built offline by data/ingest/gmw_tiles.py (directory GMW_TILE_DIR, with index.json).
 Context only: a tile is a picture of GMW's classification. It sets no status and carries no number (BR-003).
@@ -29,13 +30,15 @@ from rasterio.vrt import WarpedVRT
 from .errors import ApiError
 
 TILE = 256
-MAX_ZOOM = 16
+MAX_ZOOM = 22  # past ~z16 GMW's 30 m pixels show as blocks, like GMW's own viewer; tiles never vanish when zoomed in
 WEB_MERCATOR = CRS.from_epsg(3857)
 HALF_WORLD = 20037508.342789244
 DATA_MANGROVE = (0x1F, 0xCF, 0xCF)  # brand --mg-data-mangrove (ADR-049)
 ALPHA_MIN, ALPHA_MAX = 215, 250
+DATA_GAIN = (0x9E, 0xD3, 0x3A)  # brand --mg-data-gain (ADR-050)
+DATA_LOSS = (0xE4, 0x47, 0x3A)  # brand --mg-data-loss: GMW-style red for loss, map data only (ADR-050)
 DILATE_MAX_ZOOM = 10
-STYLE = "cyan-1"  # bump when the look changes; clients put it in the tile URL to bust browser caches
+STYLE = "cyan-2"  # bump when the look changes; clients put it in the tile URL to bust browser caches
 
 
 def tile_dir() -> Path:
@@ -90,14 +93,13 @@ def _png(rgba: np.ndarray) -> bytes:
 EMPTY_PNG = _png(np.zeros((4, TILE, TILE), dtype="uint8"))
 
 
-@lru_cache(maxsize=4096)
-def _render(root: str, year: int, z: int, x: int, y: int, built_at: str) -> bytes:
-    ix = index()
+def _files_for(entries: list[dict], z: int, x: int, y: int) -> list[str]:
     w, s, e, n = _lonlat_bounds(z, x, y)
-    files = [t["file"] for t in ix["tiles"].get(str(year), [])
-             if t["bounds"][0] < e and t["bounds"][2] > w and t["bounds"][1] < n and t["bounds"][3] > s]
-    if not files:
-        return EMPTY_PNG
+    return [t["file"] for t in entries if t["bounds"][0] < e and t["bounds"][2] > w and t["bounds"][1] < n and t["bounds"][3] > s]
+
+
+def _warp_max(root: str, files: list[str], z: int, x: int, y: int, band: int) -> np.ndarray:
+    """One band of every file, reprojected to the web tile with max resampling, combined by max."""
     dst_transform = from_bounds(*_mercator_bounds(z, x, y), TILE, TILE)
     acc = np.zeros((TILE, TILE), dtype="uint8")
     for f in files:
@@ -105,21 +107,38 @@ def _render(root: str, year: int, z: int, x: int, y: int, built_at: str) -> byte
             src, crs=WEB_MERCATOR, transform=dst_transform, width=TILE, height=TILE,
             resampling=Resampling.max, src_nodata=None, nodata=None,
         ) as vrt:
-            np.maximum(acc, vrt.read(1), out=acc)
-    if not acc.any():
-        return EMPTY_PNG
-    core = acc > 0
+            np.maximum(acc, vrt.read(band), out=acc)
+    return acc
+
+
+def _grow(core: np.ndarray, z: int) -> np.ndarray:
+    """Zoomed out, grow by one pixel (4-neighbour) so thin coastal fringes stay visible."""
     shown = core.copy()
-    if z <= DILATE_MAX_ZOOM:  # grow by one pixel (4-neighbour) so thin fringes stay visible zoomed out
+    if z <= DILATE_MAX_ZOOM:
         shown[1:, :] |= core[:-1, :]
         shown[:-1, :] |= core[1:, :]
         shown[:, 1:] |= core[:, :-1]
         shown[:, :-1] |= core[:, 1:]
-    alpha = np.where(core, ALPHA_MIN + (acc.astype("uint16") * (ALPHA_MAX - ALPHA_MIN) // 255), np.where(shown, ALPHA_MIN, 0)).astype("uint8")
-    rgba = np.zeros((4, TILE, TILE), dtype="uint8")
-    for i, c in enumerate(DATA_MANGROVE):
+    return shown
+
+
+def _paint(rgba: np.ndarray, acc: np.ndarray, shown: np.ndarray, color: tuple[int, int, int]) -> None:
+    core = acc > 0
+    for i, c in enumerate(color):
         rgba[i][shown] = c
-    rgba[3] = alpha
+    rgba[3][shown] = np.where(core[shown], ALPHA_MIN + (acc[shown].astype("uint16") * (ALPHA_MAX - ALPHA_MIN) // 255), ALPHA_MIN)
+
+
+@lru_cache(maxsize=4096)
+def _render(root: str, year: int, z: int, x: int, y: int, built_at: str) -> bytes:
+    files = _files_for(index()["tiles"].get(str(year), []), z, x, y)
+    if not files:
+        return EMPTY_PNG
+    acc = _warp_max(root, files, z, x, y, 1)
+    if not acc.any():
+        return EMPTY_PNG
+    rgba = np.zeros((4, TILE, TILE), dtype="uint8")
+    _paint(rgba, acc, _grow(acc > 0, z), DATA_MANGROVE)
     return _png(rgba)
 
 
@@ -130,3 +149,58 @@ def tile_png(year: int, z: int, x: int, y: int) -> bytes:
     if not (0 <= z <= MAX_ZOOM and 0 <= x < (1 << z) and 0 <= y < (1 << z)):
         raise ApiError(422, "VALIDATION_FAILED", f"tile {z}/{x}/{y} is outside zoom 0-{MAX_ZOOM}")
     return _render(str(tile_dir()), year, z, x, y, ix.get("built_at", "") + STYLE)
+
+
+# --- API-025: change (gain / loss) against a GMW baseline year (ADR-050) ----------------------------------------
+
+
+@lru_cache(maxsize=1)
+def _change_index_for(path: str, mtime: float) -> dict:
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+def change_index() -> dict:
+    p = tile_dir() / "change_index.json"
+    if not p.is_file():
+        raise ApiError(503, "UPSTREAM_UNAVAILABLE", "The mangrove change layer is not installed on this server")
+    return _change_index_for(str(p), p.stat().st_mtime)
+
+
+def change_info() -> dict:
+    cx = change_index()
+    bases = {b: sorted(int(y) for y in ys) for b, ys in sorted(cx["bases"].items())}
+    return {"bases": bases, "default_base": min(int(b) for b in bases), "version": cx["version"], "bbox": cx["bbox"],
+            "max_zoom": MAX_ZOOM, "style": STYLE,
+            "tiles": "/api/v1/layers/gmw-change/tiles/{base}/{year}/{z}/{x}/{y}.png",
+            "classes": {"gain": "mangrove in the year, not in the baseline", "loss": "mangrove in the baseline, not in the year"},
+            "source": {"name": "Global Mangrove Watch", "version": cx["version"],
+                       "provenance_url": "https://doi.org/10.5281/zenodo.21346457"}}
+
+
+@lru_cache(maxsize=4096)
+def _render_change(root: str, base: int, year: int, z: int, x: int, y: int, only: str | None, built_at: str) -> bytes:
+    files = _files_for(change_index()["bases"].get(str(base), {}).get(str(year), []), z, x, y)
+    if not files:
+        return EMPTY_PNG
+    gain = _warp_max(root, files, z, x, y, 1) if only in (None, "gain") else np.zeros((TILE, TILE), dtype="uint8")
+    loss = _warp_max(root, files, z, x, y, 2) if only in (None, "loss") else np.zeros((TILE, TILE), dtype="uint8")
+    if not (gain.any() or loss.any()):
+        return EMPTY_PNG
+    rgba = np.zeros((4, TILE, TILE), dtype="uint8")
+    _paint(rgba, gain, _grow(gain > 0, z), DATA_GAIN)
+    _paint(rgba, loss, _grow(loss > 0, z), DATA_LOSS)  # loss drawn last: it wins where both show zoomed out
+    return _png(rgba)
+
+
+def change_tile_png(base: int, year: int, z: int, x: int, y: int, only: str | None = None) -> bytes:
+    cx = change_index()
+    years = cx["bases"].get(str(base))
+    if years is None:
+        raise ApiError(422, "VALIDATION_FAILED", f"base must be one of {sorted(int(b) for b in cx['bases'])}")
+    if str(year) not in years:
+        raise ApiError(422, "VALIDATION_FAILED", f"year must be one of {sorted(int(y) for y in years)} for base {base}")
+    if only not in (None, "gain", "loss"):
+        raise ApiError(422, "VALIDATION_FAILED", "only must be gain or loss")
+    if not (0 <= z <= MAX_ZOOM and 0 <= x < (1 << z) and 0 <= y < (1 << z)):
+        raise ApiError(422, "VALIDATION_FAILED", f"tile {z}/{x}/{y} is outside zoom 0-{MAX_ZOOM}")
+    return _render_change(str(tile_dir()), base, year, z, x, y, only, cx.get("built_at", "") + STYLE)

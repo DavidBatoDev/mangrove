@@ -433,13 +433,27 @@ request using those methods gets `405` (BR-002).
 `{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 16, "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
 
 `GET /api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png` → **`200`** `image/png`, 256 × 256 Web Mercator
-(XYZ, Google/OSM tiling). Mangrove pixels are data cyan (`--mg-data-mangrove`, ADR-049), near-opaque, grown by one pixel at
+(XYZ, Google/OSM tiling; zoom 0–22, ADR-050). Mangrove pixels are data cyan (`--mg-data-mangrove`, ADR-049), near-opaque, grown by one pixel at
 zoom ≤ 10; everything else is transparent. A tile with no mangrove is a transparent PNG, not `404`.
 `Cache-Control: public, max-age=604800`; `Access-Control-Allow-Origin: *` on both routes (public map data, ADR-049).
 Clients add `?s=<style>` from the info response to bust caches when the look changes; the server ignores it.
 
-- **Errors:** `422` `VALIDATION_FAILED` (year not in `years`, or `z` outside 0–16, or `x`/`y` outside the zoom) · `503` `UPSTREAM_UNAVAILABLE` (the layer is not installed on this server).
+- **Errors:** `422` `VALIDATION_FAILED` (year not in `years`, or `z` outside 0–22, or `x`/`y` outside the zoom) · `503` `UPSTREAM_UNAVAILABLE` (the layer is not installed on this server).
 - **Notes:** rendered from the per-year GeoTIFFs built by `data/ingest/gmw_tiles.py` (DS-001, ADR-048); context only, it carries no number and sets no status.
+
+### API-025 — `GET /api/v1/layers/gmw-change/tiles…` — Philippines mangrove gain and loss as map tiles
+
+- **Serves:** F-025 · **Implements:** US-017 · **Auth:** none · **Idempotent:** yes
+
+`GET /api/v1/layers/gmw-change/tiles` → **`200`**
+`{ "bases": { "1985": [1990, …, 2025], "1990": […], "2000": […], "2010": […] }, "default_base": 1985, "version": "v4.1.12", "max_zoom": 22, "tiles": "/api/v1/layers/gmw-change/tiles/{base}/{year}/{z}/{x}/{y}.png", "source": { … } }`
+
+`GET /api/v1/layers/gmw-change/tiles/{base}/{year}/{z}/{x}/{y}.png[?only=gain|loss]` → **`200`** `image/png`, 256 × 256 Web Mercator.
+Gain pixels (mangrove in `year`, not in `base`) are `--mg-data-gain`, loss pixels `--mg-data-loss` (ADR-050); `only` draws one of them.
+Same caching, CORS and cache-busting `?s=` as API-024.
+
+- **Errors:** `422` `VALIDATION_FAILED` (unknown `base`, `year` not after it, `only` not `gain`/`loss`, tile outside zoom 0–22) · `503` `UPSTREAM_UNAVAILABLE` (layer not installed).
+- **Notes:** rendered from GeoTIFFs built by `data/ingest/gmw_change_tiles.py` (DS-008); context only, no number, no status.
 
 ## 4. Error Codes
 

@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Mangrove gain and loss on the map; compact legend filters
+- **ID:** DEC-020
+- **Type:** scope-add
+- **Change:** extent-only mangrove layer with controls in map settings → GMW gain (green) and loss (red) layers since a chosen baseline (API-025), toggled from a compact legend that also filters pins by state; tiles to zoom 22, fading when zoomed far in
+- **Why:** the team asked for GMW's change view and a smaller legend that switches layers.
+- **Invalidated:** ADR-043's red-only-for-conflict rule for the map loss color; ADR-048's zoom-16 limit and settings controls
+- **Recorded as:** ADR-050
+
 ### 2026-10-04 — Mangrove layer in GMW-style cyan; tiles readable from any origin
 - **ID:** DEC-019
 - **Type:** zoom-in

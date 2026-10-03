@@ -15,7 +15,7 @@ import { useSession } from "@/components/session";
 import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
 import { BrandIcon, EmptyArt, ICON_PROPS, QuestionIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
-import { useGmwTileYears } from "@/hooks/useGmwTileYears";
+import { useGmwLayers } from "@/hooks/useGmwLayers";
 import * as api from "@/lib/api";
 import { QUESTION_LABELS } from "@/lib/format";
 import { resolveSiteId, siteLetter } from "@/lib/ids";
@@ -29,9 +29,23 @@ export default function SiteDossierPage() {
   const trend = useApi(() => api.gmwTimeline(siteId), [siteId]);
   // GMW mangrove extent on the map (API-024 tiles, ADR-048): on by default at the latest year; the trend
   // card's year buttons pick another year or turn it off. undefined = not chosen yet.
-  const tileYears = useGmwTileYears();
+  const gmw = useGmwLayers();
+  const tileYears = gmw.years;
   const [chosenYear, setChosenYear] = useState<number | null | undefined>(undefined);
   const layerYear = chosenYear === undefined ? (tileYears.at(-1) ?? null) : chosenYear;
+  // Extent plus gain/loss since the default baseline (ADR-050), when that year has change.
+  const base = gmw.defaultBase;
+  const mangrove =
+    layerYear === null
+      ? null
+      : {
+          extentYear: layerYear,
+          change:
+            base !== null && (gmw.changeBases[String(base)] ?? []).includes(layerYear)
+              ? { base, year: layerYear, gain: true, loss: true }
+              : null,
+          opacity: 1,
+        };
   const [view3d, setView3d] = useState(false);
 
   if (d.loading) return <Loading what="Loading site" />;
@@ -108,10 +122,10 @@ export default function SiteDossierPage() {
               tone={toneFromAnswers(answers.map((a) => a.status))}
               motion="flyin"
               label={`3D view of ${site.name}`}
-              fallback={<Map sites={fc} fitToSites basemap="satellite" extentYear={layerYear} className="map dossier-map" />}
+              fallback={<Map sites={fc} fitToSites basemap="satellite" mangrove={mangrove} className="map dossier-map" />}
             />
           ) : (
-            <Map sites={fc} fitToSites basemap="satellite" extentYear={layerYear} className="map dossier-map" />
+            <Map sites={fc} fitToSites basemap="satellite" mangrove={mangrove} className="map dossier-map" />
           )}
           <div className="dossier-map-toggle" role="group" aria-label="Map view">
             <button type="button" className="gmw-year" aria-pressed={!view3d} onClick={() => setView3d(false)}>
