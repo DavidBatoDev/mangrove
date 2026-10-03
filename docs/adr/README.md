@@ -68,3 +68,5 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-054](ADR-054-gmw-one-fixed-tile-level.md) | Accepted | The map draws GMW layers from one fixed zoom-10 tile set, scaled with the map, never reloaded per zoom. |
 | [ADR-055](ADR-055-google-gmw-overlay-back-to-tile-layers.md) | Accepted | Google map back to per-zoom GMW tile layers on the static tiles; ADR-054's fixed overlay felt laggy. |
 | [ADR-056](ADR-056-real-sourced-case-records.md) | Accepted | Four real, sourced Post-Yolanda records (`is_demo = false`) beside the demo cast; `public_report` evidence always links its source; real organizations only as cited parties, no individuals; reconstructed, not locked at the time. |
+| [ADR-059](ADR-059-real-records-corrected-and-reseeded.md) | Accepted | Real records corrected by resetting and reseeding the main database: Paraiso funded by Japan (not MBFDP), Naungan and Bungtod on track, Cancabato Bay awaiting. |
+| [ADR-060](ADR-060-sentinel2-pictures-served-from-repo.md) | Accepted | Sentinel-2 then/now chips are committed and served by API-014 from the repo; ADR-037's S3 store still holds partner photos. |

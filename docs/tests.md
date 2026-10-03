@@ -63,9 +63,9 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 
 | F-ID | Feature | Priority | Test case ID(s) | Lowest proving level | Automation | Status |
 |------|---------|----------|-----------------|----------------------|------------|--------|
-| F-001 | Candidate sites | Must | TC-001, TC-029, TC-030 | integration | planned | todo |
+| F-001 | Candidate sites | Must | TC-001, TC-029, TC-030, TC-031 | integration | planned | todo |
 | F-002 | Evidence dossier + provenance | Must | TC-002 | integration | planned | todo |
-| F-003 | GMW + Sentinel-2 adapters | Must | TC-003, TC-005 | integration | planned | todo |
+| F-003 | GMW + Sentinel-2 adapters | Must | TC-003, TC-005, TC-032 | integration | planned | todo |
 | F-004 | Field evidence submission | Must | TC-006 | integration | planned | todo |
 | F-005 | Three-question assessment | Must | TC-004 | unit | planned | todo |
 | F-006 | Side-by-side comparison | Must | TC-007 | integration | planned | todo |
@@ -94,7 +94,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | Test ID | Level/tool | Test path | Command | Trigger | Artifact/evidence |
 |---------|------------|-----------|---------|---------|-------------------|
 | TC-016 | unit / pytest | `api/tests/test_engine.py` | `pytest api/tests/test_engine.py` | local, before demo | pytest output |
-| TC-001–TC-013, TC-017, TC-025, TC-029, TC-030 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
+| TC-001–TC-013, TC-017, TC-025, TC-029, TC-030, TC-031, TC-032 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
 | TC-027 | integration / pytest | `api/tests/test_gmw_tiles.py` | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-029 | integration / pytest | `api/tests/test_gmw_tiles.py` (disk cache, enlargement, prerender) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-028 | integration / pytest | `api/tests/test_gmw_tiles.py` (change tests) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
@@ -333,12 +333,30 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 
 ### TC-030 — The four real Post-Yolanda records read as the sources say
 
-- **Covers:** F-001, F-008, F-009, F-010 · **Proves:** US-001, US-009 (ADR-056)
+- **Covers:** F-001, F-008, F-009, F-010 · **Proves:** US-001, US-009 (ADR-056, ADR-059)
 - **Level:** integration
 - **Preconditions / controlled data:** the real sites seeded (`data/sites/real/README.md`) and GMW ingested for them
 - **Steps:** `GET /api/v1/sites`; `GET /api/v1/records`; `GET /api/v1/records/{id}` and `/verify` for each real record
-- **Expected:** Given the seed, when sites are listed, then the four real sites appear with region "Eastern Visayas" and `is_demo = false` beside the five demo sites. Given the pins, when records are listed, then Paraiso is `on_track`, Cancabato Bay and Naungan are `awaiting`, and Bungtod is `conflict`. Given a real record, when it is read, then every `public_report` item has a `provenance_url`, "What's there now?" is `missing`, the disclaimer is present, and verify reports the chain intact.
+- **Expected:** Given the seed, when sites are listed, then the four real sites appear with region "Eastern Visayas" and `is_demo = false` beside the five demo sites. Given the pins, when records are listed, then Paraiso, Naungan and Bungtod are `on_track` and Cancabato Bay is `awaiting` (ADR-059); Paraiso's funder is the Ministry of Foreign Affairs of Japan. Given a real record, when it is read, then every `public_report` item has a `provenance_url`, "What's there now?" is `supported` by the site's Sentinel-2 item (TC-032), the disclaimer is present, and verify reports the chain intact.
 - **Automation:** `pytest api/tests/test_api.py`
+
+### TC-031 — The Post-Yolanda program card quotes the case study (API-026)
+
+- **Covers:** F-001, F-002 · **Proves:** US-001 (ADR-056)
+- **Level:** integration
+- **Preconditions / controlled data:** `api/app/context_data/program_mbfdp.json` and `docs/case-study-yolanda.md` as committed; no database rows read
+- **Steps:** `GET /api/v1/context/programs/mbfdp`; `GET /api/v1/context/programs/nope`; a path-traversal id
+- **Expected:** Given the shipped program, when it is requested, then the funder is DENR, `record_ids` are the MBFDP records only (Naungan and Bungtod, ADR-059), the figures are ₱1 billion, ₱400 million (5 Feb 2015), 50,417 ha, 13,633 ha, ₱16,500/ha, 78.3%, 100–200 ha and targets 27,400 → 41,694 → 50,000 ha, every figure is EQ-017 with confidence `low`, a `https` source and a `quote` found verbatim in the case study, every `not_found` item is verbatim from §11, and the word "corruption" does not appear. Given an unknown or traversal id, when it is requested, then `404`. The card on the record page and the callout on the map are checked by eye in the demo rehearsal.
+- **Automation:** `pytest api/tests/test_api.py::test_program_context_quotes_the_case_study`
+
+### TC-032 — Sentinel-2 "What's there now?" items and their pictures (API-014)
+
+- **Covers:** F-003, F-004 · **Proves:** US-002 (DS-002; EQ-005, EQ-006, EQ-007)
+- **Level:** integration
+- **Preconditions / controlled data:** `data/ingest/s2_ingest.py --target test` run once; the PNGs it wrote committed in `api/app/evidence_assets/`
+- **Steps:** `GET /api/v1/sites/{id}` for the five demo and four real sites; `GET` each `asset_url` and `asset_then_url`; `GET /api/v1/assets/{bad}` for an unknown hash, a non-hex id and a traversal id
+- **Expected:** Given the ingest, when a dossier is opened, then its `sentinel2` item is a `current` item with `is_demo = false`, a `provenance_url` to the STAC item, the Copernicus credit in `limitation`, and metrics citing EQ-005, EQ-006 or EQ-007 at confidence `low`. Given an asset URL, when it is fetched, then it is `image/png`, `immutable`, and the SHA-256 of the bytes equals the hash in the URL. Given an unknown or malformed hash, when it is fetched, then `404` `NOT_FOUND`. The pictures on the site and record pages are checked by eye in the demo rehearsal.
+- **Automation:** `pytest api/tests/test_api.py::test_evidence_assets_serve_the_sentinel2_pictures`
 
 ## 8. Browser E2E with Playwright
 
@@ -353,8 +371,8 @@ One Playwright spec, Chromium only, for TC-020: signed out, the map can show a s
 
 | `US-###` | Criteria count | Case(s) | Uncovered criterion |
 |----------|----------------|---------|---------------------|
-| US-001 | 3 | TC-001, TC-029, TC-030 | the "Real case · sourced" tag on screen is checked by eye in the demo rehearsal |
-| US-002 | 3 | TC-002, TC-003 | — |
+| US-001 | 3 | TC-001, TC-029, TC-030, TC-031 | the "Real case · sourced" tag on screen is checked by eye in the demo rehearsal |
+| US-002 | 3 | TC-002, TC-003, TC-032 | — |
 | US-003 | 3 | TC-004 | — |
 | US-004 | 2 | TC-007 | — |
 | US-005 | 2 | TC-005 | — |

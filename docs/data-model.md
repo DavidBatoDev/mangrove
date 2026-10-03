@@ -103,9 +103,9 @@ geometry and name are copied into the record snapshot at lock time.
 | `spatial_resolution_m` | `numeric` | yes | `null` | public | Pixel size for raster sources; null otherwise |
 | `limitation` | `text` | no | — | public | What this source cannot tell you |
 | `provenance_url` | `text` | yes | `null` | public | Link to the dataset, document or request record; required for `public_report` (`ck_evidence_public_report_cited`) |
-| `asset_sha256` | `char(64)` | yes | `null` | public | Uploaded photo or document; S3 key `assets/<sha256>` (ADR-037) |
+| `asset_sha256` | `char(64)` | yes | `null` | public | Uploaded photo or document; S3 key `assets/<sha256>` (ADR-037). Sentinel-2 `current` items: the true-colour PNG chip from `data/ingest/s2_ingest.py`, committed at `api/app/evidence_assets/<sha256>.png` and served by API-014 |
 | `asset_mime` | `text` | yes | `null` | public | `image/jpeg` or `image/png` |
-| `raw` | `jsonb` | yes | `null` | internal | Source response as received (e.g. Statistical API JSON), kept for audit |
+| `raw` | `jsonb` | yes | `null` | internal | Source response as received (e.g. Statistical API JSON), kept for audit. One key is public: `then_asset_sha256` (with `then_datetime`), the Sentinel-2 2016–2017 picture, exposed as `asset_then_url` / `asset_then_observed` (API-005) |
 | `usable` | `boolean` | no | — | public | False excludes it from statuses (BR-001) |
 | `unusable_reason` | `text` | yes | `null` | public | Required when `usable = false` |
 | `note` | `text` | yes | `null` | public | Submitter's free-text observation; must not contain personal data ([`security.md` §6](security.md)) |

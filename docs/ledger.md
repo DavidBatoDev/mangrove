@@ -42,6 +42,22 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Sentinel-2 then/now pictures served from the repo
+- **ID:** DEC-030
+- **Type:** pivot
+- **Change:** all evidence assets in S3 → Sentinel-2 chips committed at `api/app/evidence_assets/<sha256>.png` and served by API-014; partner photos stay in S3
+- **Why:** the builder machine has no AWS credentials, and the chips are small, public and content-addressed.
+- **Invalidated:** ADR-037, for satellite chips only
+- **Recorded as:** ADR-060
+
+### 2026-10-04 — Real records corrected by a reset and reseed
+- **ID:** DEC-029
+- **Type:** correction
+- **Change:** first real seed (Paraiso funded by DENR; Bungtod conflict) → main database reset and reseeded from the corrected case study: Paraiso on track with the Ministry of Foreign Affairs of Japan as funder and off the program card, Cancabato Bay awaiting, Naungan on track, Bungtod on track
+- **Why:** a verbatim source check found misattributions in the seeded rows, which are append-only.
+- **Invalidated:** ADR-056's Consequences pin list and its Paraiso funder
+- **Recorded as:** ADR-059
+
 ### 2026-10-04 — Real, sourced Post-Yolanda records beside the demo cast
 - **ID:** DEC-026
 - **Type:** scope-add
