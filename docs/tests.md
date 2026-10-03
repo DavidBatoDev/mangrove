@@ -77,6 +77,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | F-012 | Record integrity check | Should | TC-015 | unit | planned | todo |
 | F-013 | Plain-language summary | Could | — | — | — | deferred — not in the demo; add TC when the story is started |
 | F-014 | Upload a candidate polygon | Could | — | — | — | deferred — no story yet; add US + TC when started |
+| F-026 | In-app assistant | Should | TC-033 | integration | planned | todo |
 | F-025 | Mangrove context (GMW) | Should | TC-025, TC-027, TC-028, TC-029 | integration | planned | todo |
 | F-015 | Success score | Won't | — | — | — | n/a — Won't |
 | F-016 | AlphaEarth | Won't | — | — | — | n/a — Won't |
@@ -357,6 +358,15 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Steps:** `GET /api/v1/sites/{id}` for the five demo and four real sites; `GET` each `asset_url` and `asset_then_url`; `GET /api/v1/assets/{bad}` for an unknown hash, a non-hex id and a traversal id
 - **Expected:** Given the ingest, when a dossier is opened, then its `sentinel2` item is a `current` item with `is_demo = false`, a `provenance_url` to the STAC item, the Copernicus credit in `limitation`, and metrics citing EQ-005, EQ-006 or EQ-007 at confidence `low`. Given an asset URL, when it is fetched, then it is `image/png`, `immutable`, and the SHA-256 of the bytes equals the hash in the URL. Given an unknown or malformed hash, when it is fetched, then `404` `NOT_FOUND`. The pictures on the site and record pages are checked by eye in the demo rehearsal.
 - **Automation:** `pytest api/tests/test_api.py::test_evidence_assets_serve_the_sentinel2_pictures`
+
+### TC-033 — The in-app assistant uses only the MCP tools, and is labelled AI
+
+- **Covers:** F-026 · **Proves:** US-018 (ADR-062)
+- **Level:** integration (model stubbed), plus one manual question in the app
+- **Preconditions / controlled data:** test database; the OpenAI client replaced by a stub that calls `compare_sites` once and then replies
+- **Steps:** `POST /api/v1/assistant/chat` with "Why do sites B and D differ?"; read the tools offered to the model; send 21 requests from one IP; send with no `OPENAI_API_KEY`
+- **Expected:** Given the stub, when the chat runs, then the tools offered are exactly the six API-015 tools, the `compare_sites` result reaches the model, and the response has `generated_by = "AI"` and lists `compare_sites` in `tool_calls`. Given 20 requests in 10 minutes, when a 21st arrives, then `429 RATE_LIMITED`. Given no key, then `503 UPSTREAM_UNAVAILABLE`.
+- **Automation:** `pytest api/tests/test_assistant.py`. The live answer's wording is manual — because model text varies.
 
 ## 8. Browser E2E with Playwright
 

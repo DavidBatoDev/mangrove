@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — In-app assistant over the MCP tools
+- **ID:** DEC-031
+- **Type:** scope-add
+- **Change:** answers only through Amazon Quick → also an "Ask AIDE-M" side panel in the app, an OpenAI agent (API-027) calling the same six read-only MCP tools
+- **Why:** the team wants grounded answers inside the app, without depending on Quick at the venue.
+- **Invalidated:** PRD §7 "LLM provider TBD" for the assistant (provider: OpenAI)
+- **Recorded as:** ADR-062
+
 ### 2026-10-04 — Sentinel-2 then/now pictures served from the repo
 - **ID:** DEC-030
 - **Type:** pivot
