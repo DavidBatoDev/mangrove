@@ -15,7 +15,7 @@ router = APIRouter(prefix="/api/v1")
 
 
 @router.get("/health", summary="API-016 liveness")
-def health() -> dict[str, str]:
+async def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
@@ -76,7 +76,7 @@ _TILE_CORS = {"Access-Control-Allow-Origin": "*"}
 
 
 @router.get("/layers/gmw-extent/tiles", summary="API-024 Philippines mangrove extent tiles: years and URL template")
-def gmw_extent_tiles_info() -> JSONResponse:
+async def gmw_extent_tiles_info() -> JSONResponse:
     return JSONResponse(gmw_tiles.layer_info(), headers=_TILE_CORS)
 
 
@@ -87,7 +87,7 @@ def gmw_extent_tile(year: int, z: int, x: int, y: int) -> Response:
 
 
 @router.get("/layers/gmw-change/tiles", summary="API-025 Philippines mangrove change tiles: baselines, years, URL template")
-def gmw_change_tiles_info() -> JSONResponse:
+async def gmw_change_tiles_info() -> JSONResponse:
     return JSONResponse(gmw_tiles.change_info(), headers=_TILE_CORS)
 
 
