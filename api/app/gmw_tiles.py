@@ -98,10 +98,10 @@ def _files_for(entries: list[dict], z: int, x: int, y: int) -> list[str]:
     return [t["file"] for t in entries if t["bounds"][0] < e and t["bounds"][2] > w and t["bounds"][1] < n and t["bounds"][3] > s]
 
 
-def _warp_max(root: str, files: list[str], z: int, x: int, y: int, band: int) -> np.ndarray:
-    """One band of every file, reprojected to the web tile with max resampling, combined by max."""
+def _warp_max(root: str, files: list[str], z: int, x: int, y: int, band: int | list[int]) -> np.ndarray:
+    """Band(s) of every file, reprojected to the web tile with max resampling, combined by max."""
     dst_transform = from_bounds(*_mercator_bounds(z, x, y), TILE, TILE)
-    acc = np.zeros((TILE, TILE), dtype="uint8")
+    acc = np.zeros((TILE, TILE) if isinstance(band, int) else (len(band), TILE, TILE), dtype="uint8")
     for f in files:
         with rasterio.open(Path(root) / f) as src, WarpedVRT(
             src, crs=WEB_MERCATOR, transform=dst_transform, width=TILE, height=TILE,
@@ -177,13 +177,21 @@ def change_info() -> dict:
                        "provenance_url": "https://doi.org/10.5281/zenodo.21346457"}}
 
 
+@lru_cache(maxsize=512)
+def _change_bands(root: str, base: int, year: int, z: int, x: int, y: int, built_at: str) -> np.ndarray | None:
+    """Gain and loss for one tile, read in one pass; the gain-only and loss-only requests share it."""
+    files = _files_for(change_index()["bases"].get(str(base), {}).get(str(year), []), z, x, y)
+    return _warp_max(root, files, z, x, y, [1, 2]) if files else None
+
+
 @lru_cache(maxsize=4096)
 def _render_change(root: str, base: int, year: int, z: int, x: int, y: int, only: str | None, built_at: str) -> bytes:
-    files = _files_for(change_index()["bases"].get(str(base), {}).get(str(year), []), z, x, y)
-    if not files:
+    bands = _change_bands(root, base, year, z, x, y, built_at)
+    if bands is None:
         return EMPTY_PNG
-    gain = _warp_max(root, files, z, x, y, 1) if only in (None, "gain") else np.zeros((TILE, TILE), dtype="uint8")
-    loss = _warp_max(root, files, z, x, y, 2) if only in (None, "loss") else np.zeros((TILE, TILE), dtype="uint8")
+    none = np.zeros((TILE, TILE), dtype="uint8")
+    gain = bands[0] if only in (None, "gain") else none
+    loss = bands[1] if only in (None, "loss") else none
     if not (gain.any() or loss.any()):
         return EMPTY_PNG
     rgba = np.zeros((4, TILE, TILE), dtype="uint8")
