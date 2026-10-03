@@ -4,6 +4,7 @@
 - Evidence and the site-A record are written as the app role through the ledger, so the grants and the
   EQ-011 hashes are the real ones. Passwords are Argon2id hashes of DEMO_*_PASSWORD from the environment.
 - No satellite evidence: history and current stay "missing" until real GMW / Sentinel-2 ingest (P1).
+- Then the real, sourced Eastern Visayas records (db/seed_real.py, ADR-051).
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ import psycopg
 from argon2 import PasswordHasher
 from psycopg.rows import dict_row
 
+import seed_real
 from app.reads import site_dossier_raw
 from ledger.records import build_snapshot, create_record, insert_evidence
 
@@ -134,6 +136,11 @@ def _seed_evidence_and_record(conn: psycopg.Connection) -> None:
 
 
 def run(owner_url: str, app_url: str) -> None:
+    _run_demo(owner_url, app_url)
+    seed_real.run(owner_url, app_url)
+
+
+def _run_demo(owner_url: str, app_url: str) -> None:
     with psycopg.connect(owner_url, row_factory=dict_row) as conn:
         if conn.execute("SELECT 1 FROM site WHERE id = %s", (SITE["A"],)).fetchone():
             print("seed: demo sites already present, skipping")
