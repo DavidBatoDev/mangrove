@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Map draws GMW layers from one fixed tile level
+- **ID:** DEC-024
+- **Type:** zoom-in
+- **Change:** a new tile set per zoom → one zoom-10 set, placed once and scaled with the map
+- **Why:** the team saw a wait and a blurry swap on every zoom.
+- **Invalidated:** per-zoom Google overlays (ADR-048, ADR-050)
+- **Recorded as:** ADR-054
+
 ### 2026-10-04 — GMW tiles served as static files
 - **ID:** DEC-023
 - **Type:** zoom-in

@@ -258,6 +258,8 @@ export interface GmwExtentTiles {
   style?: string;
   /** Relative URL template with {year}, {z}, {x}, {y}. */
   tiles: string;
+  /** The tiles at one zoom that hold any mangrove data; the Google map draws only these, scaled (ADR-054). */
+  coverage?: { z: number; tiles: [number, number][] };
   source: GmwSource;
 }
 

@@ -65,3 +65,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-051](ADR-051-product-name-aide-m.md) | Accepted | The product is named AIDE-M (Accountability In Delivery & Evidence · Mangrove); the meaning shows only under the wordmark and at first mention. |
 | [ADR-052](ADR-052-gmw-tiles-cached-on-disk.md) | Accepted | GMW tiles render once into a disk cache, prerendered for the default view after deploy; above zoom 12 they are enlarged from the parent. |
 | [ADR-053](ADR-053-gmw-static-tile-tree.md) | Accepted | GMW tiles are a static tile tree at /tiles/gmw/… served by Caddy; the API only renders missing tiles. |
+| [ADR-054](ADR-054-gmw-one-fixed-tile-level.md) | Accepted | The map draws GMW layers from one fixed zoom-10 tile set, scaled with the map, never reloaded per zoom. |

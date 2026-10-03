@@ -430,7 +430,7 @@ request using those methods gets `405` (BR-002).
 - **Serves:** F-025 · **Implements:** US-017 · **Auth:** none · **Idempotent:** yes
 
 `GET /api/v1/layers/gmw-extent/tiles` → **`200`**
-`{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 16, "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
+`{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 22, "coverage": { "z": 10, "tiles": [[x, y], …] }, "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
 
 `GET /api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png` → **`200`** `image/png`, 256 × 256 Web Mercator
 (XYZ, Google/OSM tiling; zoom 0–22, ADR-050). Mangrove pixels are data cyan (`--mg-data-mangrove`, ADR-049), near-opaque, grown by one pixel at

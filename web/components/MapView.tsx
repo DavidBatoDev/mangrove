@@ -79,7 +79,7 @@ function applyMangrove(map: MlMap, m: MangroveLayers | null | undefined): void {
   const before = map.getLayer("sites-fill") ? "sites-fill" : undefined;
   for (const [id, url] of tiles) {
     if (!url) continue;
-    map.addSource(id, { type: "raster", tiles: [url], tileSize: 256, maxzoom: 18, attribution: GMW_ATTRIBUTION });
+    map.addSource(id, { type: "raster", tiles: [url], tileSize: 256, maxzoom: 10, attribution: GMW_ATTRIBUTION });
     map.addLayer({ id, type: "raster", source: id, paint: { "raster-opacity": opacityByZoom(m.opacity) } }, before);
   }
 }
