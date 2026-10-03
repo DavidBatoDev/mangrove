@@ -6,9 +6,9 @@ doc: system-design
 owns: component boundaries and responsibilities · system context · data flow · technology choices and their trade-offs · integration failure behaviour · deployment topology · scaling strategy
 ---
 
-# System Design — Mangrove
+# System Design — AIDE-M
 
-> **Purpose:** how Mangrove is put together — components, data flow, technology choices and what each costs.
+> **Purpose:** how AIDE-M is put together — components, data flow, technology choices and what each costs.
 > Traces back to: [`prd.md`](prd.md). Traces forward to: [`data-model.md`](data-model.md),
 > [`api.md`](api.md), [`methods.md`](methods.md), [`security.md`](security.md).
 
@@ -20,8 +20,8 @@ flowchart LR
   partner([Field partner<br/>submits field evidence])
   public([Public reader<br/>reads promises on the map])
   quick[Amazon Quick<br/>analyst agent]
-  subgraph boundary [Mangrove system boundary]
-    mangrove[Mangrove<br/>web app, API + MCP server]
+  subgraph boundary [AIDE-M system boundary]
+    mangrove[AIDE-M<br/>web app, API + MCP server]
   end
   cdse[Earth Search on AWS<br/>Sentinel-2 L2A COGs]
   tiles[Basemap tiles<br/>EOxCloudless 2016]
@@ -41,7 +41,7 @@ flowchart LR
 
 *Drawn as a flowchart rather than Mermaid's experimental `C4Context`, which most Markdown previewers do not render.*
 
-Mangrove's boundary contains the web app and the API (with the MCP server mounted in it). The database is
+AIDE-M's boundary contains the web app and the API (with the MCP server mounted in it). The database is
 a managed Neon project (ADR-036) and photos are in a private S3 bucket (ADR-037); both are ours but run
 outside the host. Copernicus, Amazon Quick and the tile provider are third parties. Every outside
 dependency's failure is handled in §5. Global Mangrove Watch is

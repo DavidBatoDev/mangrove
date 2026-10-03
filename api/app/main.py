@@ -1,4 +1,4 @@
-"""Mangrove evidence API: FastAPI under /api/v1 plus the MCP server at /mcp (docs/system-design.md §2)."""
+"""AIDE-M evidence API: FastAPI under /api/v1 plus the MCP server at /mcp (docs/system-design.md §2)."""
 
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="Mangrove evidence API",
+    title="AIDE-M evidence API",
     version="0.1.0",
     lifespan=lifespan,
     openapi_url="/api/v1/openapi.json",

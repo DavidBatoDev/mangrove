@@ -6,9 +6,9 @@ doc: data-model
 owns: entities and their relationships · per-field types, nullability and defaults · keys, constraints and indexes
 ---
 
-# Data Model — Mangrove
+# Data Model — AIDE-M
 
-> **Purpose:** the entities Mangrove stores, every field, and the constraints PostgreSQL itself enforces —
+> **Purpose:** the entities AIDE-M stores, every field, and the constraints PostgreSQL itself enforces —
 > including the append-only guarantee behind BR-002. Classification lives in
 > [`security.md` §3](security.md); each field here only names its category.
 > Traces back to: [`system-design.md`](system-design.md). Traces forward to: [`api.md`](api.md),
@@ -46,7 +46,7 @@ informs the site's three answers, which is intended.
 |-------|------|-------|---------|-------|-------------|
 | `id` | `uuid` | no | `gen_random_uuid()` | public | Stable identifier |
 | `name` | `text` | no | — | public | Organization name; fictional for demo orgs (BR-006) |
-| `kind` | `org_kind` (`funder` \| `partner`) | no | — | public | What the organization does in Mangrove |
+| `kind` | `org_kind` (`funder` \| `partner`) | no | — | public | What the organization does in AIDE-M |
 | `is_demo` | `boolean` | no | `true` | public | Shows the "Demo data" label (BR-006) |
 
 ### app_user
@@ -76,7 +76,7 @@ informs the site's three answers, which is intended.
 | `proposal_summary` | `text` | yes | `null` | public | The partner's benefit text, in their words; null until a partner proposes. Not a computed benefit |
 | `proposed_by_org_id` | `uuid` | yes | `null` | public | Partner organization that proposed; null for team-drawn demo polygons that have no proposal yet |
 | `is_demo` | `boolean` | no | `true` | public | BR-006 |
-| `created_at` | `timestamptz` | no | `now()` | public | When the site entered Mangrove |
+| `created_at` | `timestamptz` | no | `now()` | public | When the site entered AIDE-M |
 
 `site` is the one mutable table among the core entities. A record never depends on the live row: the
 geometry and name are copied into the record snapshot at lock time.
@@ -95,7 +95,7 @@ geometry and name are copied into the record snapshot at lock time.
 | `source_version` | `text` | yes | `null` | public | e.g. `v4.1.12`; null for field submissions |
 | `observed_from` | `timestamptz` | no | — | public | Start of the observation (equals `observed_to` for a single moment) |
 | `observed_to` | `timestamptz` | no | — | public | End of the observation window |
-| `retrieved_at` | `timestamptz` | no | `now()` | public | When Mangrove obtained it |
+| `retrieved_at` | `timestamptz` | no | `now()` | public | When AIDE-M obtained it |
 | `location` | `geometry(Geometry, 4326)` | yes | `null` | public | GPS point or mapped boundary; null when the item covers the whole site polygon |
 | `finding` | `text` | yes | `null` | public | One value from the question's vocabulary; null only when `usable = false` |
 | `metrics` | `jsonb` | no | `'[]'` | public | Array of `{name, value, unit, eq_id, confidence}` — every stored number names its `EQ-###` ([`methods.md`](methods.md)) |

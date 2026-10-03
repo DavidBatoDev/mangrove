@@ -1,4 +1,4 @@
-/* Mangrove components: the Figma deck look (T01–T08) as reusable web classes.
+/* AIDE-M components: the Figma deck look (T01–T08) as reusable web classes.
    Load after tokens.css. Reference page: brand/starter.html. Recipe: brand/WEB.md.
    Copy the whole brand/ folder into your public/static dir (e.g. public/brand/) so the
    relative texture URLs below keep working. Never restyle these per feature; extend here. */

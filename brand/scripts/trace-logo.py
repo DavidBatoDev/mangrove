@@ -120,7 +120,7 @@ def svg(pal):
     body += ''.join(f'<path d="{d}" stroke-linecap="butt" stroke-linejoin="round"/>' for d in root_d)
     body += '</g>'
     body += ''.join(f'<path d="{leaf_path(lf)}" fill="{pal[lf["role"]]}"/>' for lf in leaves)
-    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {side:.0f} {side:.0f}" fill="none" role="img" aria-label="Mangrove">{body}</svg>\n'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {side:.0f} {side:.0f}" fill="none" role="img" aria-label="AIDE-M">{body}</svg>\n'
 
 LIGHT = {'green':'#C8D545', 'red':'#2B8C86', 'amber':'#4DB3AB', 'orange':'#2B8C86', 'wood':'#173A2E'}
 DARK = dict(LIGHT, wood='#F4F7F5')

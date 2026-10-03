@@ -6,7 +6,7 @@ doc: api
 owns: the operation contracts (API-###) the web app, Amazon Quick and other clients depend on — request and response shapes, per-operation auth requirement, error codes, rate limits, versioning
 ---
 
-# API — Mangrove
+# API — AIDE-M
 
 > **Purpose:** what a caller must send, what it can rely on receiving, and what it must present. Two
 > surfaces: the REST API used by the web app, and the read-only MCP server used by Amazon Quick.
@@ -15,7 +15,7 @@ owns: the operation contracts (API-###) the web app, Amazon Quick and other clie
 
 ## 1. Overview & Machine-Readable Spec
 
-- **What this API serves:** the Mangrove web app (same origin, via the Next.js `/api/*` proxy) and Amazon Quick (MCP).
+- **What this API serves:** the AIDE-M web app (same origin, via the Next.js `/api/*` proxy) and Amazon Quick (MCP).
 - **Base URL / namespace:** REST at `/api/v1`; MCP at `/mcp`.
 - **Protocol style:** REST + JSON (multipart for uploads); MCP over streamable HTTP.
 - **Machine-readable spec:** `none` yet. Once the API is scaffolded, FastAPI's generated `/api/v1/openapi.json` becomes the source of truth for field shapes, and §3 below shrinks to semantics.
@@ -409,7 +409,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND` (no statistics shipped for that country; the demo ships `PHL`).
-- **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by Mangrove.
+- **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by AIDE-M.
 
 ### API-023 — `GET /api/v1/layers/gmw-extent` — Manila Bay mangrove extent for one year
 

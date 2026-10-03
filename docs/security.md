@@ -6,7 +6,7 @@ doc: security
 owns: threat model (T-###) · data classification · authn/authz model · secrets & audit policy · the pre-milestone go/no-go gate
 ---
 
-# Security — Mangrove
+# Security — AIDE-M
 
 > **Purpose:** data classification, who may call what, the threats against a public record that must stay
 > trustworthy, and the go/no-go gate before the demo.
@@ -70,7 +70,7 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 |---------|-----------------|--------|--------|------------|----------|
 | T-001 | Spoofing | Forged or stolen session cookie to lock a promise as a funder | False promise published under a real org's name, permanently | Signed cookie with server secret; `HttpOnly; Secure; SameSite=Lax`; seeded accounts only; session expiry | BR-002 |
 | T-002 | Tampering | Editing or deleting a record or evidence through the API | The public baseline silently changes | No update/delete routes; `BEFORE UPDATE OR DELETE` triggers; app DB role has `SELECT, INSERT` only | BR-002 |
-| T-003 | Tampering | Operator or database superuser rewrites rows and recomputes hashes | Same as T-002, done by us | Hash chain (EQ-011) shown publicly at publication so third parties can keep it; **residual risk accepted**: tamper-evident, not tamper-proof. Claim copy must say "cannot be edited through Mangrove; any change breaks the published hash", never "impossible to alter" | BR-002 |
+| T-003 | Tampering | Operator or database superuser rewrites rows and recomputes hashes | Same as T-002, done by us | Hash chain (EQ-011) shown publicly at publication so third parties can keep it; **residual risk accepted**: tamper-evident, not tamper-proof. Claim copy must say "cannot be edited through AIDE-M; any change breaks the published hash", never "impossible to alter" | BR-002 |
 | T-004 | Repudiation | A funder later denies making a promise | Accountability lost | `created_by_user_id`, `funder_org_id`, `published_at` inside the hashed payload | BR-002 |
 | T-005 | Information disclosure | Photo EXIF (device serial, exact capture metadata) or faces/names in photos and notes | Exposes partners or community members | EXIF stripped on upload; partners attest no identifiable people or personal data; notes guidance in the form | BR-005 |
 | T-006 | Information disclosure | Error bodies leak stack traces, SQL or hosts | Recon for further attacks | Uniform error envelope ([`api.md` §4](api.md)); debug off in the demo deployment | — |

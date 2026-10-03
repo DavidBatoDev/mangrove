@@ -1,4 +1,4 @@
-/* Mangrove design tokens. Import once at the app root.
+/* AIDE-M design tokens. Import once at the app root.
    Spec: brand/BRAND.md. Never use raw hex in components; use these. */
 
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=Schibsted+Grotesk:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap");

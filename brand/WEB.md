@@ -1,6 +1,6 @@
-# Mangrove on the web: build it like the deck
+# AIDE-M on the web: build it like the deck
 
-> The Figma deck is the visual target. A Mangrove website should look like the deck turned into a scrolling page: same grounds, same type scale, same waterline, same evidence styling.
+> The Figma deck is the visual target. An AIDE-M website should look like the deck turned into a scrolling page: same grounds, same type scale, same waterline, same evidence styling.
 > If you are an AI agent building any page, read this file after `BRAND.md`, **open the slide PNGs in `brand/slides/` and look at them**, then start from `brand/starter.html` + `brand/mangrove.css`.
 
 ---

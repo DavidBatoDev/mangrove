@@ -1,4 +1,4 @@
-/* App layout on the Mangrove brand kit (ADR-043). Tokens and component classes come from
+/* App layout on the AIDE-M brand kit (ADR-043). Tokens and component classes come from
    /brand/mangrove.css (linked in app/layout.tsx). Only --mg-* tokens here: no raw hex (BRAND.md §13).
    Red (--mg-conflict) is reserved for a conflict. */
 
@@ -29,6 +29,8 @@ code, .mono { font-family: var(--mg-font-mono); font-size: 0.85em; word-break: b
 .header a { color: var(--mg-on-dark-text); text-decoration: none; }
 .brand { display: inline-flex; align-items: center; gap: var(--mg-space-2); font: 700 1.4rem/1 var(--mg-font-display); color: var(--mg-on-dark-heading) !important; }
 .brand img { width: 28px; height: 28px; }
+.brand-name { display: inline-flex; flex-direction: column; gap: 3px; }
+.brand-meaning { font: 500 0.56rem/1 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-on-dark-muted); }
 .nav { display: flex; gap: var(--mg-space-5); flex: 1; font-size: var(--mg-text-small); }
 .nav a:hover { color: var(--mg-propagule); }
 .session { display: flex; align-items: center; gap: var(--mg-space-3); font-size: var(--mg-text-small); }

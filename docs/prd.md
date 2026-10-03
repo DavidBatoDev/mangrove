@@ -6,7 +6,7 @@ doc: prd
 owns: features (F-###) and their MoSCoW priority · personas · user stories (US-###) and their acceptance criteria · cross-cutting business rules (BR-###) · app flow, screen inventory & UX intent · instrumentation taxonomy
 ---
 
-# PRD — Mangrove
+# PRD — AIDE-M
 
 > **Purpose:** what we build, for whom, and how a user moves through it. The team's primary build
 > reference, and the doc to read first.
@@ -15,14 +15,14 @@ owns: features (F-###) and their MoSCoW priority · personas · user stories (US
 
 ## 1. Product Purpose & Value Proposition
 
-Mangrove is a public map of mangrove sites and funding commitments in the Philippines. A partner proposes
+AIDE-M (Accountability In Delivery & Evidence · Mangrove) is a public map of mangrove sites and funding commitments in the Philippines. A partner proposes
 a site, the benefit in their own words, a timeline and milestones. A funder commits to that proposal. Anyone
 can open a site before a commitment exists, and the map toggles between sites with a commitment and sites
 without one.
 
 Each site still shows three answers — was this mangrove before (Global Mangrove Watch), what's there now
 (Sentinel-2), what do people on the ground say — each marked supported, conflicting or missing, with no
-invented success score. The benefit on the proposal is the partner's sentence. Mangrove does not compute
+invented success score. The benefit on the proposal is the partner's sentence. AIDE-M does not compute
 an environmental benefit.
 
 After a funder commits, the public record keeps the partner's terms. An early milestone is checked with the
@@ -30,7 +30,7 @@ partner's photo, GPS and mapped area. The satellite line reads "not yet observab
 After the outcome date, both the partner's report and the Sentinel-2 vegetated area (EQ-012) are required.
 If they disagree, the record is flagged and the funder is notified. The product does not declare fraud, send
 an inspector, or apply a penalty, and it does not say the project was successful. The record footer says this
-is not a certification. Maps and trackers show data; Mangrove publishes the partner's terms when a funder
+is not a certification. Maps and trackers show data; AIDE-M publishes the partner's terms when a funder
 commits, then shows whether those terms and the later check agree.
 
 **Success is measured by** the targets in [`idea.md` §8](../idea.md) — not restated here.
@@ -181,7 +181,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 > As a **Funder**, I want to ask a Quick agent "why does Site A differ from Site B?" so that I get a
 > source-grounded explanation without reading every item.
 
-- Given the Mangrove MCP server is connected to Amazon Quick, when I ask why two named sites differ, then the agent's answer cites findings, statuses and evidence sources returned by the tools, and every number it repeats matches the tool output.
+- Given the AIDE-M MCP server is connected to Amazon Quick, when I ask why two named sites differ, then the agent's answer cites findings, statuses and evidence sources returned by the tools, and every number it repeats matches the tool output.
 - Given a tool is asked to change data, when Quick calls the server, then no write tool exists to call (the server is read-only).
 
 **US-014 — Verify a record is intact** *(F-012)* — Priority: Should
