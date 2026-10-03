@@ -196,3 +196,43 @@ export interface ApiErrorBody {
   code: string;
   message: string;
 }
+
+// --- GMW context (F-022, ADR-044; docs/api.md API-019..021) ---
+
+export interface GmwSource {
+  name: string;
+  version: string;
+  provenance_url: string;
+  evidence_id?: string;
+}
+
+/** API-019: GMW mangrove area inside (EQ-002) and near (EQ-014) a site, per year. */
+export interface GmwTimeline {
+  site_id: string;
+  is_demo: boolean;
+  source: GmwSource | null;
+  nearby_buffer: Measure | null;
+  limitation: string;
+  years: { year: number; inside: Measure; nearby: Measure }[];
+}
+
+export interface RangeMeasure extends Measure {
+  lower: number;
+  upper: number;
+}
+
+/** API-020: national extent (EQ-015) and gain/loss/net (EQ-016), as published by GMW. */
+export interface CountryContext {
+  iso3: string;
+  name: string;
+  source: GmwSource;
+  years: { year: number; extent: RangeMeasure; gain: Measure | null; loss: Measure | null; net: Measure | null }[];
+}
+
+/** API-021: GMW extent polygons for the Manila Bay demo area, one year. */
+export interface GmwExtentLayer extends GeoJSON.FeatureCollection {
+  year: number;
+  available_years: number[];
+  bbox?: GeoJSON.BBox;
+  source: GmwSource;
+}
