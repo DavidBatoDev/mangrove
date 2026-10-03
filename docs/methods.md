@@ -6,9 +6,9 @@ doc: methods
 owns: every computed number and derived finding the product emits — its equation (EQ-###), its input datasets (DS-###), and its computed confidence · the decision thresholds · the glass-box contract
 ---
 
-# Methods — Glass-Box Ledger — Mangrove
+# Methods — Glass-Box Ledger — AIDE-M
 
-> **Purpose:** the one home for every number Mangrove computes and every finding it derives from a number:
+> **Purpose:** the one home for every number AIDE-M computes and every finding it derives from a number:
 > areas, satellite class fractions, discrepancy checks, hashes. Each carries its equation, its inputs, and a
 > computed confidence.
 > Traces back to: [`system-design.md`](system-design.md), [`data-model.md`](data-model.md). Traces forward to:
@@ -16,7 +16,7 @@ owns: every computed number and derived finding the product emits — its equati
 
 ## 1. The Glass-Box Contract
 
-Every number Mangrove shows — on a page, in an API response, or through an MCP tool to Amazon Quick — must
+Every number AIDE-M shows — on a page, in an API response, or through an MCP tool to Amazon Quick — must
 resolve to:
 
 1. an **`EQ-###`** (§3), and
@@ -57,15 +57,15 @@ own. The UI shows the confidence of the items behind them.
 | EQ-006 | Sentinel-2 class fractions and the "What's there now?" finding | `f_veg = n(SCL=4)/n_valid`, `f_bare = n(SCL=5)/n_valid`, `f_water = n(SCL=6)/n_valid`. Finding = the class with the largest fraction → `mostly_vegetation` / `mostly_bare_soil` / `mostly_water`; an exact tie makes the item unusable ("no dominant class") | DS-002 | Low | Sen2Cor scene classification via S2L2A `SCL` band [R32] |
 | EQ-007 | Mean NDVI over non-water valid pixels — context only, no status | `mean((B08 − B04)/(B08 + B04))` over pixels with `SCL ∈ {4, 5}` and `B08 + B04 ≠ 0` | DS-002 | Low | Copernicus Statistical API NDVI example [R32] |
 | EQ-008 | Vegetated area detected by Sentinel-2 (ha) — outcome check only | `A_veg = f_veg × EQ-001` (assumes valid pixels represent the polygon) | DS-002, DS-003 | Low | Internal rule |
-| EQ-009 | Area discrepancy flag | `d = |A_reported − A_measured| / A_reported`; **conflict** iff `d > AREA_TOLERANCE`. Work check: `A_reported` = project report's claimed area, `A_measured` = EQ-010. Shown as both values plus "differs by more than the tolerance" | DS-005, DS-004 | Low | Internal rule |
+| EQ-009 | Area discrepancy flag | `d = |A_reported − A_measured| / A_reported`; **conflict** iff `d > AREA_TOLERANCE`. Work check: `A_reported` = the newest usable project report's (or public report's, DS-009) claimed `reported_area`, `A_measured` = EQ-010. Shown as both values plus "differs by more than the tolerance" | DS-005, DS-004 | Low | Internal rule |
 | EQ-010 | Field-mapped worked area (ha) | `ST_Area(location::geography) / 10000` for a partner-submitted boundary polygon | DS-004 | Medium | PostGIS `ST_Area` (geography); GPS accuracy of the partner's device is unknown |
-| EQ-011 | Content hash and timeline hash | `content_hash = SHA-256(UTF-8(JCS(payload)))`; `event_hash = SHA-256(prev_hash ‖ UTF-8(JCS(event_payload)))`, where `prev_hash` is the record's `content_hash` for `seq = 1`, else the previous `event_hash`. Verification recomputes all and reports the first mismatch | DS-008 | GMW change vs baseline 1985/1990/2000/2010, 30 m, DN 1 = gain, 2 = loss | Global Mangrove Watch v4.1.12 change stacks — Zenodo record 21346457 [R31]; mirrored to `s3://bon-mangrove-evidence-baf5cf/datasets/gmw/` | CC BY 4.0 (same record as DS-001). Kept as per-baseline, per-year GeoTIFFs over the Philippines for the API-025 map layer (`data/ingest/gmw_change_tiles.py`, ADR-050); a picture, never an input to an EQ | Medium (modelled change; small changes near the 30 m limit are uncertain) |
-| DS-006 | High | RFC 8785 (JSON Canonicalization Scheme); FIPS 180-4 (SHA-256) |
+| EQ-011 | Content hash and timeline hash | `content_hash = SHA-256(UTF-8(JCS(payload)))`; `event_hash = SHA-256(prev_hash ‖ UTF-8(JCS(event_payload)))`, where `prev_hash` is the record's `content_hash` for `seq = 1`, else the previous `event_hash`. Verification recomputes all and reports the first mismatch | DS-006 | High | RFC 8785 (JSON Canonicalization Scheme); FIPS 180-4 (SHA-256) |
 | EQ-012 | "Did the mangroves come back?" finding from satellite | Only when `today ≥ outcome_check_after` and `expected_vegetated_ha` is set: `recovery_seen` if `EQ-008 ≥ expected_vegetated_ha × (1 − AREA_TOLERANCE)`, else `no_recovery_seen`. Before the date, this equation is not evaluated. The satellite line reads "not yet observable" (§3.3), which is not a fail. | DS-002, DS-003, DS-006 | Low | Internal rule |
-| EQ-013 | Source count per question or check | Number of usable evidence items for that question (site) or check (record) | DS-001…DS-005 | High | Count |
+| EQ-013 | Source count per question or check | Number of usable evidence items for that question (site) or check (record) | DS-001…DS-005, DS-009 | High | Count |
 | EQ-014 | Mangrove area near the site, per year y = 1985…2025 (ha) — context only, no status | EQ-002's sum over GMW pixels with DN=1 in band y whose centre lies inside `ST_Buffer(site::geography, NEARBY_BUFFER_M)` and outside the site polygon | DS-001, DS-003 | Medium | Internal rule (ADR-045) |
 | EQ-015 | National mangrove extent, per year (ha), with lower and upper 95% bounds — context only | Read as published: GMW v4.1.12 country statistics, "corrected" area (GMW applied an accuracy correction factor of 0.9775) | DS-007 | Medium | GMW v4.1.12 README [R31] |
 | EQ-016 | National mangrove gain, loss and net change between consecutive years (ha) — context only | `gain_y`, `loss_y` read as published from GMW's change matrix (base year y−1, target y); `net_y = gain_y − loss_y`. Net change between y1 and y2 is `EQ-015(y2) − EQ-015(y1)` | DS-007 | Medium | GMW v4.1.12 change statistics [R31] |
+| EQ-017 | Figure quoted from a public report (ha, %, count) — shown as quoted, never a finding by itself | Read as published: value and unit copied from the cited source, with its reference number; nothing is computed. A quoted rate is never turned into a finding: a finding on a `public_report` item is chosen from the PRD §4.1 list only where the source's own words state it for the place the record covers (the site, or for a record that stands in for a province program, that province). Rates (program-wide, province-wide or site) are stored `usable = false` with the reason (ADR-056) | DS-009 | Low | The cited source (`provenance_url` on the item) |
 
 *Every constant inside a formula is either sourced (Δ from JAXA; R is the IUGG mean radius) or listed in
 §3.1 as an `[assumption]`.*
@@ -93,9 +93,9 @@ has inputs:
 |------------------|-------------------------------|----------------|
 | Was this mangrove before? | EQ-003 from GMW | Proposal or field item may assert either finding |
 | What's there now? | EQ-006 from Sentinel-2 | — |
-| What do people on the ground say? | — | Field and proposal items pick from the fixed list |
-| Did the work happen? | EQ-009 area check across a report and a field-mapped area. Not a satellite area (ADR-033). See §3.3 for which milestone may use it | Project report and field items: `work_done` / `no_work_seen` |
-| Did the mangroves come back? | EQ-012, and only after the outcome date, together with the partner's finding (§3.3) | Field items: `recovery_seen` / `no_recovery_seen` |
+| What do people on the ground say? | — | Field, proposal and public-report items pick from the fixed list |
+| Did the work happen? | EQ-009 area check across a report and a field-mapped area. Not a satellite area (ADR-033). See §3.3 for which milestone may use it | Project report, public report and field items: `work_done` / `no_work_seen` |
+| Did the mangroves come back? | EQ-012, and only after the outcome date, together with the partner's finding (§3.3) | Field and public-report items: `recovery_seen` / `no_recovery_seen` |
 
 **Known limits that the UI must show beside the finding:**
 - GMW (30 m) and SCL (20 m) cannot see seedlings; months after planting, satellite cannot confirm planting [ADR-006].
@@ -118,17 +118,19 @@ The partner's benefit text is displayed as written. It is not an equation and it
 
 | `DS-###` | Input | Source | Access & licence | Confidence tier |
 |----------|-------|--------|------------------|-----------------|
-| DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once. The 93 tiles over the Philippines (116–127°E, 4–22°N) are also kept as per-year GeoTIFFs for the API-024 map layer (`data/ingest/gmw_tiles.py`, ADR-048), a picture that is never an input to an EQ. For the site figures it is clipped to Manila Bay by `data/ingest/`. CC BY 4.0, confirmed on the Zenodo record (10.5281/zenodo.21346457) — credit the authors and "© Global Mangrove Watch" | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
-| DS-002 | Sentinel-2 L2A Collection 1: SCL (20 m), B04 `red` and B08 `nir` (10 m) | Cloud-Optimized GeoTIFFs on public AWS S3, found with Element 84 Earth Search STAC `https://earth-search.aws.element84.com/v1`, collection `sentinel-2-c1-l2a` (ADR-042) [R39] | No account, no quota; HTTP range reads. Copernicus Sentinel data are free and open (Sentinel data legal notice); credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]`, distributed by Element 84 | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
+| DS-001 | GMW annual mangrove extent, 41 bands 1985–2025, 30 m, DN=1 mangrove | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 / JAXA EORC [R31] | Downloaded once. The 93 tiles over the Philippines (116–127°E, 4–22°N) are also kept as per-year GeoTIFFs for the API-024 map layer (`data/ingest/gmw_tiles.py`, ADR-048), a picture that is never an input to an EQ. For the site figures `data/ingest/` reads tile N15E120 (Manila Bay demo sites) and tiles N12E124 and N12E125 (the real Eastern Visayas sites, ADR-056), mosaicking two tiles when a site and its buffer cross a tile edge. CC BY 4.0, confirmed on the Zenodo record (10.5281/zenodo.21346457) — credit the authors and "© Global Mangrove Watch" | Medium (modelled classification; GMW's own assessment found slight global overestimation) |
+| DS-002 | Sentinel-2 L2A Collection 1: SCL (20 m), B04 `red` and B08 `nir` (10 m) | Cloud-Optimized GeoTIFFs on public AWS S3, found with Element 84 Earth Search STAC `https://earth-search.aws.element84.com/v1`, collection `sentinel-2-c1-l2a` (ADR-042) [R39] | No account, no quota; HTTP range reads. Copernicus Sentinel data are free and open (Sentinel data legal notice); credit "Contains modified Copernicus Sentinel data <year>" `[assumption — confirm wording in the Copernicus legal notice]`, distributed by Element 84. Ingested offline by `data/ingest/s2_ingest.py`: one `current` item per site, `source_version` = the STAC item id. EQ-007 runs on the 10 m grid with SCL resampled nearest-neighbour to it. Pictures, never an input to an EQ: a true-colour chip from the scene's `visual` (TCI) asset, and a "then" chip of the same window from the earliest 2016–2017 scene whose polygon is fully covered and at least `MIN_VALID_FRACTION` clear. Collection 1 has no 2016–2017 scenes over the sites, so the "then" chip comes from the older Earth Search collection `sentinel-2-l2a` | Low (every Sentinel-2 output here depends on the 20 m Sen2Cor scene classification for masking or classes) |
 | DS-003 | Site polygons | Demo: drawn by the team on Manila Bay coastal areas `[assumption]`; later: proposer-supplied | Team-authored; public | High as the definition of the site (the polygon *is* the site) |
 | DS-004 | Partner field submissions: photo, GPS point, mapped boundary, finding | Field partners via the Submit evidence screen; demo items authored by the team and labelled demo (BR-006) | Submitted under the partner's account; public | Medium (observed, but self-reported; device GPS accuracy unknown) |
 | DS-005 | Project reports: claimed worked area, work date | Funder or implementing NGO via the Submit evidence screen | Submitted under the funder's account; public | Low (self-reported claim) |
 | DS-007 | GMW v4.1.12 country statistics: extent per country and year with lower/upper 95% bounds (`gmw_v4_timeseries_4112_gmw_country_stats_corr_area_formatted.xlsx`), and gain/loss change matrices per country (`gmw_mng_chng_stats_v4112_corrected.tar.gz`) | Global Mangrove Watch v4.1.12 — Zenodo record 21346457 [R31]; mirrored to `s3://bon-mangrove-evidence-baf5cf/datasets/gmw/` | CC BY 4.0 (same record as DS-001) | Medium (GMW's own accuracy assessment: global F1 0.93; it varies locally) |
+| DS-009 | Public reports cited in [`case-study-yolanda.md`](case-study-yolanda.md): news, conference proceedings, government statements | The numbered sources in that file; each item's `provenance_url` | Quoted with a link; never copied in full; public | Low (self-reported or secondary; methods often unpublished) |
+| DS-008 | GMW change vs baseline 1985/1990/2000/2010, 30 m, DN 1 = gain, 2 = loss | Global Mangrove Watch v4.1.12 change stacks — Zenodo record 21346457 [R31]; mirrored to `s3://bon-mangrove-evidence-baf5cf/datasets/gmw/` | CC BY 4.0 (same record as DS-001). Kept as per-baseline, per-year GeoTIFFs over the Philippines for the API-025 map layer (`data/ingest/gmw_change_tiles.py`, ADR-050); a picture, never an input to an EQ | Medium (modelled change; small changes near the 30 m limit are uncertain) |
 | DS-006 | Promise record fields and timeline payloads | The record itself (planned area, expected vegetated area, dates) | Created by the Record ledger; public | High (they are the commitment, not a measurement) |
 
 ## 5. Traceability
 
-- Features that display numbers: F-001 (EQ-001), F-002/F-003 (EQ-002…EQ-007), F-005/F-006 (EQ-003, EQ-006, EQ-013), F-009/F-010 (EQ-008, EQ-009, EQ-010, EQ-012), F-012 (EQ-011), F-025 (EQ-002, EQ-003, EQ-014, EQ-015, EQ-016).
+- Features that display numbers: F-001 (EQ-001), F-002/F-003 (EQ-002…EQ-007, EQ-017), F-005/F-006 (EQ-003, EQ-006, EQ-013), F-009/F-010 (EQ-008, EQ-009, EQ-010, EQ-012), F-012 (EQ-011), F-025 (EQ-002, EQ-003, EQ-014, EQ-015, EQ-016).
 - Every `EQ-###` uses only `DS-###` rows in §4, and every §4 row is used.
 - [`tests.md`](tests.md) has a case per equation family asserting the computed value and the rendered confidence (TC-016…TC-019).
 - Stored numbers name their `EQ-###` in `evidence_item.metrics` ([`data-model.md` §2](data-model.md)).

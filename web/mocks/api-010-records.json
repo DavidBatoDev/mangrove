@@ -18,6 +18,82 @@
         "pin_state": "awaiting",
         "is_demo": true
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.75138483333333,
+          11.01765
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f4",
+        "site_id": "00000000-0000-4000-8000-0000000000f4",
+        "site_name": "Bungtod mangrove, Guiuan",
+        "funder": "Department of Environment and Natural Resources (DENR)",
+        "published_at": "2026-10-03T22:31:04.772000Z",
+        "pin_state": "on_track",
+        "is_demo": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.59336025202653,
+          11.02152
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f3",
+        "site_id": "00000000-0000-4000-8000-0000000000f3",
+        "site_name": "Naungan coast, Ormoc",
+        "funder": "Department of Environment and Natural Resources (DENR)",
+        "published_at": "2026-10-03T22:31:03.595032Z",
+        "pin_state": "on_track",
+        "is_demo": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.01774168775205,
+          11.2016755
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f2",
+        "site_id": "00000000-0000-4000-8000-0000000000f2",
+        "site_name": "Cancabato Bay shore, Tacloban",
+        "funder": "Department of Environment and Natural Resources (DENR)",
+        "published_at": "2026-10-03T22:31:01.779731Z",
+        "pin_state": "awaiting",
+        "is_demo": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.01619303753958,
+          11.212052
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f1",
+        "site_id": "00000000-0000-4000-8000-0000000000f1",
+        "site_name": "Paraiso mangrove stand, Tacloban",
+        "funder": "Ministry of Foreign Affairs of Japan",
+        "published_at": "2026-10-03T22:31:00.312612Z",
+        "pin_state": "on_track",
+        "is_demo": false
+      }
     }
   ]
 }

@@ -1,4 +1,4 @@
-# Mangrove web (Next.js). Node.js runtime only.
+# AIDE-M web (Next.js). Node.js runtime only.
 FROM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./

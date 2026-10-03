@@ -1,0 +1,1202 @@
+{
+  "site": {
+    "id": "00000000-0000-4000-8000-0000000000f4",
+    "name": "Bungtod mangrove, Guiuan",
+    "region": "Eastern Visayas",
+    "is_demo": false,
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [
+              125.759364,
+              11.023983
+            ],
+            [
+              125.760172,
+              11.023713
+            ],
+            [
+              125.760172,
+              11.022905
+            ],
+            [
+              125.760711,
+              11.023444
+            ],
+            [
+              125.76152,
+              11.021019
+            ],
+            [
+              125.757747,
+              11.016168
+            ],
+            [
+              125.755591,
+              11.016168
+            ],
+            [
+              125.753705,
+              11.01536
+            ],
+            [
+              125.753705,
+              11.014551
+            ],
+            [
+              125.755591,
+              11.01509
+            ],
+            [
+              125.75613,
+              11.014282
+            ],
+            [
+              125.755861,
+              11.012665
+            ],
+            [
+              125.755053,
+              11.012396
+            ],
+            [
+              125.755322,
+              11.011048
+            ],
+            [
+              125.752088,
+              11.011318
+            ],
+            [
+              125.752897,
+              11.011587
+            ],
+            [
+              125.752627,
+              11.012396
+            ],
+            [
+              125.750472,
+              11.014551
+            ],
+            [
+              125.752088,
+              11.014551
+            ],
+            [
+              125.752358,
+              11.015899
+            ],
+            [
+              125.751549,
+              11.01509
+            ],
+            [
+              125.750472,
+              11.015899
+            ],
+            [
+              125.748855,
+              11.015629
+            ],
+            [
+              125.748046,
+              11.017246
+            ],
+            [
+              125.746968,
+              11.016707
+            ],
+            [
+              125.746699,
+              11.017515
+            ],
+            [
+              125.745082,
+              11.016438
+            ],
+            [
+              125.743735,
+              11.017785
+            ],
+            [
+              125.744543,
+              11.019941
+            ],
+            [
+              125.743465,
+              11.02048
+            ],
+            [
+              125.741849,
+              11.018593
+            ],
+            [
+              125.740771,
+              11.018863
+            ],
+            [
+              125.74104,
+              11.02021
+            ],
+            [
+              125.742657,
+              11.021827
+            ],
+            [
+              125.742926,
+              11.021288
+            ],
+            [
+              125.747238,
+              11.021288
+            ],
+            [
+              125.749124,
+              11.02021
+            ],
+            [
+              125.749933,
+              11.02021
+            ],
+            [
+              125.750202,
+              11.021288
+            ],
+            [
+              125.751011,
+              11.02048
+            ],
+            [
+              125.752088,
+              11.021019
+            ],
+            [
+              125.75613,
+              11.019941
+            ],
+            [
+              125.757478,
+              11.021827
+            ],
+            [
+              125.759364,
+              11.022905
+            ],
+            [
+              125.759364,
+              11.023983
+            ]
+          ]
+        ]
+      ]
+    },
+    "area": {
+      "value": 119.99,
+      "unit": "ha",
+      "eq_id": "EQ-001",
+      "confidence": "high"
+    },
+    "proposal_summary": "Eastern Samar: about 2,553 ha planted with DENR funding (Eastern Samar report, State of the Mangrove Summit 2019); the Guiuan protected area mapped 104.39 ha of recovered areas with planted seedlings by 2020 (Climate Tracker Asia, 2022). This patch stands in for the province program; it is not a published site boundary."
+  },
+  "answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "supported",
+      "finding": "mangrove_recorded",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "1653f14d-034d-4034-9879-e621db516d32"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "current",
+      "label": "What's there now?",
+      "status": "supported",
+      "finding": "mostly_vegetation",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "912968a4-d335-4427-9824-01b08f95a5a1"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "ground",
+      "label": "What do people on the ground say?",
+      "status": "supported",
+      "finding": "open_for_restoration",
+      "source_count": {
+        "value": 2,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-0000000ef402",
+        "00000000-0000-4000-8000-0000000ef401"
+      ],
+      "disagreeing_evidence_ids": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-0000000ef408",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Academia Journal of Biology 45(3):69–80, Guiuan mangrove study",
+      "source_version": "Published 2023 (case study source 40)",
+      "observed_from": "2022-01-01T00:00:00.000000Z",
+      "observed_to": "2022-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:06.504608Z",
+      "location": null,
+      "finding": "recovery_seen",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "mangrove_individuals_sampled_bungtod",
+          "unit": "trees",
+          "eq_id": "EQ-017",
+          "value": 454,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: a vegetation survey sampled 454 mangrove individuals at Bungtod.",
+      "spatial_resolution_m": null,
+      "limitation": "Plot survey reported before Jan 2023; plots are not this polygon and the count does not separate planted from natural trees.",
+      "provenance_url": "https://doi.org/10.15625/2615-9023/18041",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:06.504608Z",
+      "content_hash": "0006076a2125fe327b0eb04598535ac57b9341ddd6f8446c3c82c4032bbea428"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef407",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Climate Tracker Asia, “Guiuan coastal folks turn to mangroves, seawall for protection”",
+      "source_version": "Published 2022-11-10 (case study source 32)",
+      "observed_from": "2022-01-01T00:00:00.000000Z",
+      "observed_to": "2022-11-10T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:06.111071Z",
+      "location": null,
+      "finding": "recovery_seen",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: in Bungtod “Mangroves in areas severely damaged by the super typhoon are now recovering.”",
+      "spatial_resolution_m": null,
+      "limitation": "Journalistic account; recovery is described, not measured.",
+      "provenance_url": "https://climatetracker.asia/guiuan-coastal-folks-turn-to-mangroves-seawall-for-protection/",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:06.111071Z",
+      "content_hash": "020982646502d96f09a1ea3d711b09c71e9b5a639904036c6ca465caed7e325b",
+      "photos": [
+        {
+          "url": "https://climatetracker.asia/wp-content/uploads/2022/11/mangroves_ft-img-e1669013830455.jpg",
+          "credit": "Climate Tracker Asia, photo by Aprille Ann Yodico",
+          "caption": "Mangrove trees in Barangay Bungtod, Guiuan, Eastern Samar"
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef406",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Climate Tracker Asia, “Guiuan coastal folks turn to mangroves, seawall for protection”",
+      "source_version": "Published 2022-11-10 (case study source 32)",
+      "observed_from": "2020-01-01T00:00:00.000000Z",
+      "observed_to": "2020-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:05.777211Z",
+      "location": null,
+      "finding": "recovery_seen",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "recovered_planted_area_protected_area",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 104.39,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “104.39 hectares of recovered areas with planted seedlings have been mapped out as of 2020” by the protected area office of the Guiuan Marine Resource Protected Landscape and Seascape.",
+      "spatial_resolution_m": null,
+      "limitation": "Protected-area-wide figure, not Bungtod alone; the mapped areas are not published.",
+      "provenance_url": "https://climatetracker.asia/guiuan-coastal-folks-turn-to-mangroves-seawall-for-protection/",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:05.777211Z",
+      "content_hash": "428ac6232d9980dbacba8487ec924ec6e2db72088588a1bb6fc0868ddf20190e"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef405",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Proceedings of the 3rd National Mangrove Conference, Iloilo City",
+      "source_version": "Published 2018-04 (case study source 18)",
+      "observed_from": "2016-02-01T00:00:00.000000Z",
+      "observed_to": "2016-05-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:05.495087Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "Program-wide figure across 43 provinces with no published method; not measured at this site.",
+      "metrics": [
+        {
+          "name": "reported_survival_mangrove",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 78.3,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: DENR's survival check found 78.3% for mangrove and 76.3% for beach forest. No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "DENR's own figure, taken within months of planting, method unpublished.",
+      "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:05.495087Z",
+      "content_hash": "e5e08d53dd10625091e94e93ab9a0a87d3e86e9e789953beec05d9c6fd3c4d56"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef404",
+      "question": "work",
+      "source_type": "public_report",
+      "source_name": "Climate Tracker Asia, “Guiuan coastal folks turn to mangroves, seawall for protection”",
+      "source_version": "Published 2022-11-10 (case study source 32)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2022-11-10T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:05.154105Z",
+      "location": null,
+      "finding": "work_done",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: in Bungtod “community members have been planting and rehabilitating mangroves”, with activities organized by the environment office in Guiuan and non-governmental organizations.",
+      "spatial_resolution_m": null,
+      "limitation": "Journalistic account; it does not name MBFDP as the funder.",
+      "provenance_url": "https://climatetracker.asia/guiuan-coastal-folks-turn-to-mangroves-seawall-for-protection/",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:05.154105Z",
+      "content_hash": "cafeed36bc758bc142e0571d5b35fe21af02324327ddcce11ff37ac854bb3606",
+      "photos": [
+        {
+          "url": "https://climatetracker.asia/wp-content/uploads/2022/11/mangroves_ft-img-e1669013830455.jpg",
+          "credit": "Climate Tracker Asia, photo by Aprille Ann Yodico",
+          "caption": "Mangrove trees in Barangay Bungtod, Guiuan, Eastern Samar"
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef403",
+      "question": "work",
+      "source_type": "public_report",
+      "source_name": "State of the Mangrove Summit, “State of the Mangrove in Eastern Samar”",
+      "source_version": "Published 2019 (case study source 22)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2016-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:04.878066Z",
+      "location": null,
+      "finding": "work_done",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "reported_area_eastern_samar",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 2553,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: the project was funded by DENR and supervised by its research bureau, and “The province planted around 2,553 ha”.",
+      "spatial_resolution_m": null,
+      "limitation": "Province-level figure; this patch stands in for it and is not a published site boundary.",
+      "provenance_url": "https://www.academia.edu/87539309/State_of_the_Mangrove_in_Eastern_Samar",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:04.878066Z",
+      "content_hash": "e1c904489f28b98cf76b5fff9eda1e1ee21c0aa96f1c393e5de56d06b1a7d62a"
+    },
+    {
+      "id": "912968a4-d335-4427-9824-01b08f95a5a1",
+      "question": "current",
+      "source_type": "sentinel2",
+      "source_name": "Sentinel-2 L2A (Earth Search)",
+      "source_version": "S2A_T51PYN_20260919T021356_L2A",
+      "observed_from": "2026-09-19T02:14:41.975000Z",
+      "observed_to": "2026-09-19T02:14:41.975000Z",
+      "retrieved_at": "2026-10-03T22:29:04.583951Z",
+      "location": null,
+      "finding": "mostly_vegetation",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "valid_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-005",
+          "value": 0.9957,
+          "confidence": "low"
+        },
+        {
+          "name": "vegetation_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.9066,
+          "confidence": "low"
+        },
+        {
+          "name": "bare_soil_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0824,
+          "confidence": "low"
+        },
+        {
+          "name": "water_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0111,
+          "confidence": "low"
+        },
+        {
+          "name": "mean_ndvi",
+          "unit": "NDVI",
+          "eq_id": "EQ-007",
+          "value": 0.561,
+          "confidence": "low"
+        }
+      ],
+      "method": "EQ-005: over Sentinel-2 L2A SCL pixels (20 m) with centre inside the site, f_valid = n(SCL in {4,5,6}) / n(SCL != 0); the best of 46 scenes in [t - S2_WINDOW_DAYS 90 d, t = 2026-10-03]; usable iff f_valid >= MIN_VALID_FRACTION 0.5. EQ-006: finding = the largest of the SCL 4/5/6 fractions of valid pixels. EQ-007: mean NDVI (B08 - B04)/(B08 + B04) on 10 m pixels with centre inside and SCL (nearest to 10 m) in {4,5}, context only.",
+      "spatial_resolution_m": 20.0,
+      "limitation": "SCL \"vegetation\" does not tell mangrove from other vegetation; tide state at acquisition changes the water fraction; an active fishpond and open water look alike from space, so only ground evidence settles land use; 20 m pixels cannot see seedlings, and months after planting satellite cannot confirm planting. Pictures are true-colour (TCI) chips with the site outline drawn in. Contains modified Copernicus Sentinel data 2017 and 2026.",
+      "provenance_url": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a/items/S2A_T51PYN_20260919T021356_L2A",
+      "asset_url": "https://18-140-211-157.sslip.io/api/v1/assets/7958dea0350f8997fa99c8ff2e65b477671a5effe6c0b76dec7160898a28edf1",
+      "note": "Then picture: Sentinel-2 L2A scene S2B_51PYN_20170830_0_L2A (2017-08-30, collection sentinel-2-l2a), same window. A picture only; no number is computed from it.",
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:29:04.583954Z",
+      "content_hash": "327ad8e21a888aa9638e309ba6ce206037708862b95c99d749f45651f390bfca",
+      "asset_then_url": "https://18-140-211-157.sslip.io/api/v1/assets/62a8dd60068dcd071e01c62fdba509b22f52ab6f46a0979145839c2631a7a072",
+      "asset_then_observed": "2017-08-30"
+    },
+    {
+      "id": "1653f14d-034d-4034-9879-e621db516d32",
+      "question": "history",
+      "source_type": "gmw",
+      "source_name": "Global Mangrove Watch",
+      "source_version": "v4.1.12",
+      "observed_from": "1985-01-01T00:00:00.000000Z",
+      "observed_to": "2025-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:31.955053Z",
+      "location": null,
+      "finding": "mangrove_recorded",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "max_mangrove_area",
+          "unit": "ha",
+          "eq_id": "EQ-003",
+          "value": 114.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_year",
+          "unit": "year",
+          "eq_id": "EQ-003",
+          "value": 2022,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-003",
+          "value": 0.9548,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.15,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.24,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.68,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 90.95,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 92.71,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 94.21,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 94.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 99.67,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 100.73,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 101.26,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 102.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 103.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 105.05,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 107.87,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 108.48,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 110.25,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 111.66,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 112.8,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 113.24,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 112.89,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 111.57,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 109.45,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 106.99,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 105.49,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 104.78,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 103.11,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 103.37,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 105.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 108.75,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 114.12,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 114.56,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 114.39,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 114.39,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 113.42,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.14,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.49,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.49,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 77.29,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 77.46,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 77.46,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 78.08,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 79.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 78.87,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 78.7,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 79.05,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 80.2,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 81.87,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 83.1,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 84.25,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 85.48,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 86.89,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 82.49,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 83.28,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 81.69,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 80.28,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 78.43,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 76.49,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 77.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 79.31,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 82.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 85.57,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 90.95,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 100.73,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 106.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 108.22,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 109.28,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 114.39,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_buffer",
+          "unit": "m",
+          "eq_id": null,
+          "value": 1000,
+          "confidence": "high"
+        }
+      ],
+      "method": "EQ-002: sum of GMW v4.1.12 DN=1 pixel areas with centre inside the site, 41 annual bands 1985-2025; EQ-003: finding = mangrove_recorded iff max area / site area >= HISTORY_MIN_FRACTION 0.1; EQ-014: same sum within NEARBY_BUFFER_M 1000 m outside the site (context only).",
+      "spatial_resolution_m": 30.0,
+      "limitation": "GMW starts in 1985; ponds converted earlier are not visible, so no mangrove recorded does not mean the site was never mangrove. 30 m modelled classification: cannot see seedlings; accuracy varies locally (GMW global F1 0.93).",
+      "provenance_url": "https://doi.org/10.5281/zenodo.21346457",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:31.955053Z",
+      "content_hash": "0b12058af4d85b85c9ed929c4cee24fa1d35a13633659f2c8fabf5e6fa41d5b3"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef402",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "Academia Journal of Biology 45(3):69–80, Guiuan mangrove study",
+      "source_version": "Published 2023 (case study source 40)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2014-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:30.127167Z",
+      "location": null,
+      "finding": "open_for_restoration",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “The 206 ha plantation of mangroves in barangay Campoyong and Bungtod in Guiuan were unable to grow back six months after it was hit by the typhoon”.",
+      "spatial_resolution_m": null,
+      "limitation": "Peer-reviewed restatement of the 2014 assessment, not a new survey.",
+      "provenance_url": "https://doi.org/10.15625/2615-9023/18041",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:30.127167Z",
+      "content_hash": "375ebdf94c4be309f3623e43d02ecb571ce5e7f4fcddc677eb7a2ea8db59ec47"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef401",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "Inquirer, “Gov't study shows 'Yolanda' damage to mangroves bigger than reported”",
+      "source_version": "Published 2014-06-02 (case study source 10)",
+      "observed_from": "2014-04-20T00:00:00.000000Z",
+      "observed_to": "2014-05-03T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:30.079770Z",
+      "location": null,
+      "finding": "open_for_restoration",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "dead_plantation_campoyong_bungtod",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 206,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “mangroves in a 206-hectare plantation in the villages of Campoyong and Bungtod in Guian, Eastern Samar, failed to grow back its leaves six months after the typhoon struck… an indication that the trees had died”.",
+      "spatial_resolution_m": null,
+      "limitation": "Assessment by DENR's own research bureau; the 206 ha spans two villages and is not mapped.",
+      "provenance_url": "https://newsinfo.inquirer.net/607594/",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:30.079770Z",
+      "content_hash": "b5e8e5e2eda03ec75f34e7b6c19d5b616cc8e26dcac74a099df2590147813f53"
+    }
+  ]
+}

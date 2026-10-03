@@ -13,6 +13,12 @@ export function DemoLabel({ show = true }: { show?: boolean }) {
   return <span className="mg-demo">Demo data</span>;
 }
 
+/** Real, sourced case record (is_demo = false; ADR-056): every figure cites a public report. Never red. */
+export function RealCaseLabel({ show = true }: { show?: boolean }) {
+  if (!show) return null;
+  return <span className="real-case">Real case · sourced</span>;
+}
+
 export function StatusBadge({ status }: { status: CheckStatus }) {
   return <span className={`mg-chip mg-chip--${kebab(status)}`}>{STATUS_WORDS[status]}</span>;
 }

@@ -6,7 +6,7 @@ doc: design-brief
 owns: the brief a teammate uses to write docs/design.md · not routes, tokens, or components (those belong to design.md once it exists)
 ---
 
-# Design brief — Mangrove
+# Design brief — AIDE-M
 
 > **Purpose:** what the design doc has to decide, and the constraints it cannot reopen.
 > The teammate who owns design writes `docs/design.md` from this. This file is not that doc.
@@ -63,7 +63,7 @@ overclaim ships first.
 - Do not write "the satellite shows 5 hectares" for a recent planting. The work-check comparison is the
   reported area against the mapped area (ADR-033).
 - Do not write "tamper-proof" or "impossible to alter". The honest line is that the record cannot be edited
-  through Mangrove and that any change breaks the published hash (ADR-034).
+  through AIDE-M and that any change breaks the published hash (ADR-034).
 - Do not write "80–90% of projects fail" or "nobody monitors survival".
 - Prefer "sources agree", "sources disagree", and "no evidence yet" over "good site" and "bad site".
 - Every record page shows: "This record is not a certification of restoration success or approval of funding."

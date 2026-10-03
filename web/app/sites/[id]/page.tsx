@@ -12,7 +12,7 @@ import { SiteTrendCard } from "@/components/GmwContext";
 import Map from "@/components/Map";
 import Site3DView, { toneFromAnswers } from "@/components/Site3DView";
 import { useSession } from "@/components/session";
-import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
+import { DemoLabel, ErrorBox, Loading, RealCaseLabel } from "@/components/ui";
 import { BrandIcon, EmptyArt, ICON_PROPS, QuestionIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
 import { useGmwLayers } from "@/hooks/useGmwLayers";
@@ -31,21 +31,10 @@ export default function SiteDossierPage() {
   // card's year buttons pick another year or turn it off. undefined = not chosen yet.
   const gmw = useGmwLayers();
   const tileYears = gmw.years;
-  const [chosenYear, setChosenYear] = useState<number | null | undefined>(undefined);
-  const layerYear = chosenYear === undefined ? (tileYears.at(-1) ?? null) : chosenYear;
-  // Extent plus gain/loss since the default baseline (ADR-050), when that year has change.
-  const base = gmw.defaultBase;
-  const mangrove =
-    layerYear === null
-      ? null
-      : {
-          extentYear: layerYear,
-          change:
-            base !== null && (gmw.changeBases[String(base)] ?? []).includes(layerYear)
-              ? { base, year: layerYear, gain: true, loss: true }
-              : null,
-          opacity: 1,
-        };
+  // Always the latest GMW year (2025); no year picker (ADR-057).
+  const layerYear = tileYears.at(-1) ?? null;
+  // Extent only; gain and loss are switched on from the national card on the map pages (ADR-057).
+  const mangrove = layerYear === null ? null : { extentYear: layerYear, change: null, opacity: 1 };
   const [view3d, setView3d] = useState(false);
 
   if (d.loading) return <Loading what="Loading site" />;
@@ -69,7 +58,7 @@ export default function SiteDossierPage() {
         <Link href="/sites">← Candidate sites</Link>
       </p>
       <span className="mg-eyebrow">
-        Site{letter ? ` ${letter}` : ""} · {site.region} <DemoLabel show={site.is_demo} />
+        Site{letter ? ` ${letter}` : ""} · {site.region} <DemoLabel show={site.is_demo} /> <RealCaseLabel show={!site.is_demo} />
       </span>
       <div className="page-head">
         <h1>{site.name}</h1>
@@ -111,7 +100,7 @@ export default function SiteDossierPage() {
           </section>
           {trend.error && <p className="mg-alert">Global Mangrove Watch did not respond. Try again later.</p>}
           {trend.data && (
-            <SiteTrendCard t={trend.data} layerYears={tileYears} layerYear={layerYear} onLayerYear={setChosenYear} />
+            <SiteTrendCard t={trend.data} layerYears={[]} layerYear={layerYear} onLayerYear={() => {}} />
           )}
         </div>
         <div className="dossier-mapbox">
@@ -153,7 +142,7 @@ export default function SiteDossierPage() {
             </h3>
             <div className="evidence-grid">
               {g.items.map((e) => (
-                <EvidenceCard key={e.id} e={e} />
+                <EvidenceCard key={e.id} e={e} siteName={site.name} />
               ))}
             </div>
           </section>

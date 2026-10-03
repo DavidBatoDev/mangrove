@@ -86,7 +86,8 @@
         "00000000-0000-4000-8000-000000000103"
       ]
     },
-    "content_hash": "a47bcd735b5d4183d4f11d31e953f0b40b15534de5173fcdd54d59ecbe56954f"
+    "content_hash": "a47bcd735b5d4183d4f11d31e953f0b40b15534de5173fcdd54d59ecbe56954f",
+    "is_demo": true
   },
   "checks": [
     {

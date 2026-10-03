@@ -60,7 +60,7 @@ export default function Globe3D({
         for (const f of pins?.features ?? []) {
           const p = f.properties;
           const [plng, plat] = f.geometry.coordinates;
-          const m = new Marker3DInteractiveElement({ position: { lat: plat, lng: plng }, label: `${PIN_WORDS[p.pin_state]}${p.is_demo ? " · Demo" : ""}` });
+          const m = new Marker3DInteractiveElement({ position: { lat: plat, lng: plng }, label: `${PIN_WORDS[p.pin_state]}${p.is_demo ? " · Demo" : " · Real case"}` });
           const color = tok(PIN_TOKENS[p.pin_state]);
           m.append(new PinElement({ background: color, borderColor: tok("--mg-mist"), glyphColor: tok("--mg-mist") }));
           m.addEventListener("gmp-click", () => clickRef.current?.(p.id));

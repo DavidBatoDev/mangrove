@@ -1,0 +1,2213 @@
+{
+  "site": {
+    "id": "00000000-0000-4000-8000-0000000000f2",
+    "name": "Cancabato Bay shore, Tacloban",
+    "region": "Eastern Visayas",
+    "is_demo": false,
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [
+              125.007369,
+              11.194792
+            ],
+            [
+              125.007899,
+              11.194985
+            ],
+            [
+              125.008183,
+              11.195275
+            ],
+            [
+              125.008614,
+              11.195711
+            ],
+            [
+              125.009045,
+              11.195288
+            ],
+            [
+              125.009415,
+              11.194864
+            ],
+            [
+              125.008984,
+              11.19455
+            ],
+            [
+              125.008281,
+              11.193728
+            ],
+            [
+              125.00769,
+              11.19403
+            ],
+            [
+              125.00716,
+              11.194453
+            ],
+            [
+              125.00716,
+              11.194647
+            ],
+            [
+              125.007369,
+              11.194792
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              125.013342,
+              11.19707
+            ],
+            [
+              125.013919,
+              11.197912
+            ],
+            [
+              125.014226,
+              11.197997
+            ],
+            [
+              125.014569,
+              11.198153
+            ],
+            [
+              125.014999,
+              11.19843
+            ],
+            [
+              125.015097,
+              11.198972
+            ],
+            [
+              125.014495,
+              11.19914
+            ],
+            [
+              125.015085,
+              11.199634
+            ],
+            [
+              125.0156,
+              11.200344
+            ],
+            [
+              125.015858,
+              11.200212
+            ],
+            [
+              125.016471,
+              11.199718
+            ],
+            [
+              125.017097,
+              11.199104
+            ],
+            [
+              125.016754,
+              11.198786
+            ],
+            [
+              125.016962,
+              11.198647
+            ],
+            [
+              125.017097,
+              11.19831
+            ],
+            [
+              125.016937,
+              11.197973
+            ],
+            [
+              125.016397,
+              11.197636
+            ],
+            [
+              125.015759,
+              11.197431
+            ],
+            [
+              125.01533,
+              11.197371
+            ],
+            [
+              125.014937,
+              11.19766
+            ],
+            [
+              125.014275,
+              11.197238
+            ],
+            [
+              125.013587,
+              11.196576
+            ],
+            [
+              125.013303,
+              11.195787
+            ],
+            [
+              125.012788,
+              11.195539
+            ],
+            [
+              125.011693,
+              11.19445
+            ],
+            [
+              125.011538,
+              11.19485
+            ],
+            [
+              125.011489,
+              11.194916
+            ],
+            [
+              125.011693,
+              11.196129
+            ],
+            [
+              125.011988,
+              11.196376
+            ],
+            [
+              125.012144,
+              11.196534
+            ],
+            [
+              125.012815,
+              11.196418
+            ],
+            [
+              125.013125,
+              11.196478
+            ],
+            [
+              125.013342,
+              11.19707
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              125.000836,
+              11.1985
+            ],
+            [
+              125.000831,
+              11.198533
+            ],
+            [
+              125.001595,
+              11.199014
+            ],
+            [
+              125.001846,
+              11.198983
+            ],
+            [
+              125.001987,
+              11.198756
+            ],
+            [
+              125.002177,
+              11.198678
+            ],
+            [
+              125.002376,
+              11.198454
+            ],
+            [
+              125.002276,
+              11.198327
+            ],
+            [
+              125.002635,
+              11.197911
+            ],
+            [
+              125.002394,
+              11.197707
+            ],
+            [
+              125.002451,
+              11.197407
+            ],
+            [
+              125.001959,
+              11.197294
+            ],
+            [
+              125.001548,
+              11.197263
+            ],
+            [
+              125.001161,
+              11.197926
+            ],
+            [
+              125.001137,
+              11.197968
+            ],
+            [
+              125.000978,
+              11.198082
+            ],
+            [
+              125.000609,
+              11.197557
+            ],
+            [
+              125.00032,
+              11.197592
+            ],
+            [
+              125.000444,
+              11.197616
+            ],
+            [
+              125.000455,
+              11.197733
+            ],
+            [
+              125.000865,
+              11.198333
+            ],
+            [
+              125.00085,
+              11.198418
+            ],
+            [
+              125.000836,
+              11.1985
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              125.018536,
+              11.202837
+            ],
+            [
+              125.019007,
+              11.202614
+            ],
+            [
+              125.0193,
+              11.202502
+            ],
+            [
+              125.019772,
+              11.202008
+            ],
+            [
+              125.019959,
+              11.201888
+            ],
+            [
+              125.019243,
+              11.20117
+            ],
+            [
+              125.01904,
+              11.200851
+            ],
+            [
+              125.019137,
+              11.200652
+            ],
+            [
+              125.018967,
+              11.200468
+            ],
+            [
+              125.018389,
+              11.200795
+            ],
+            [
+              125.018121,
+              11.201035
+            ],
+            [
+              125.017958,
+              11.200875
+            ],
+            [
+              125.017934,
+              11.200644
+            ],
+            [
+              125.017853,
+              11.200596
+            ],
+            [
+              125.01756,
+              11.200843
+            ],
+            [
+              125.017357,
+              11.200787
+            ],
+            [
+              125.017194,
+              11.200572
+            ],
+            [
+              125.017192,
+              11.20043
+            ],
+            [
+              125.017318,
+              11.200271
+            ],
+            [
+              125.017994,
+              11.199744
+            ],
+            [
+              125.01836,
+              11.199554
+            ],
+            [
+              125.018466,
+              11.199546
+            ],
+            [
+              125.018546,
+              11.199621
+            ],
+            [
+              125.018652,
+              11.199761
+            ],
+            [
+              125.018766,
+              11.199878
+            ],
+            [
+              125.018738,
+              11.199954
+            ],
+            [
+              125.018609,
+              11.200008
+            ],
+            [
+              125.018521,
+              11.20006
+            ],
+            [
+              125.018446,
+              11.20013
+            ],
+            [
+              125.018529,
+              11.200226
+            ],
+            [
+              125.018994,
+              11.199854
+            ],
+            [
+              125.01894,
+              11.199566
+            ],
+            [
+              125.018788,
+              11.199462
+            ],
+            [
+              125.018634,
+              11.199311
+            ],
+            [
+              125.018532,
+              11.199242
+            ],
+            [
+              125.018184,
+              11.199407
+            ],
+            [
+              125.017598,
+              11.1997
+            ],
+            [
+              125.017176,
+              11.199994
+            ],
+            [
+              125.016822,
+              11.199907
+            ],
+            [
+              125.016558,
+              11.20013
+            ],
+            [
+              125.0166,
+              11.200324
+            ],
+            [
+              125.016266,
+              11.20062
+            ],
+            [
+              125.016365,
+              11.200741
+            ],
+            [
+              125.016293,
+              11.200843
+            ],
+            [
+              125.016019,
+              11.201302
+            ],
+            [
+              125.015865,
+              11.20156
+            ],
+            [
+              125.015417,
+              11.201962
+            ],
+            [
+              125.015675,
+              11.202274
+            ],
+            [
+              125.015793,
+              11.202177
+            ],
+            [
+              125.015721,
+              11.202083
+            ],
+            [
+              125.015745,
+              11.201958
+            ],
+            [
+              125.015917,
+              11.201791
+            ],
+            [
+              125.016088,
+              11.20195
+            ],
+            [
+              125.016078,
+              11.202027
+            ],
+            [
+              125.015996,
+              11.202079
+            ],
+            [
+              125.015948,
+              11.202124
+            ],
+            [
+              125.016084,
+              11.202242
+            ],
+            [
+              125.016252,
+              11.202434
+            ],
+            [
+              125.016089,
+              11.202539
+            ],
+            [
+              125.016195,
+              11.202693
+            ],
+            [
+              125.016319,
+              11.202688
+            ],
+            [
+              125.016527,
+              11.202522
+            ],
+            [
+              125.016651,
+              11.202485
+            ],
+            [
+              125.01699,
+              11.202654
+            ],
+            [
+              125.017175,
+              11.20256
+            ],
+            [
+              125.017312,
+              11.202569
+            ],
+            [
+              125.017568,
+              11.202944
+            ],
+            [
+              125.017556,
+              11.203027
+            ],
+            [
+              125.017434,
+              11.203168
+            ],
+            [
+              125.017289,
+              11.203152
+            ],
+            [
+              125.017188,
+              11.20316
+            ],
+            [
+              125.016994,
+              11.20334
+            ],
+            [
+              125.017148,
+              11.203492
+            ],
+            [
+              125.017246,
+              11.20348
+            ],
+            [
+              125.0173,
+              11.203508
+            ],
+            [
+              125.017305,
+              11.203589
+            ],
+            [
+              125.01725,
+              11.203634
+            ],
+            [
+              125.017196,
+              11.203721
+            ],
+            [
+              125.017275,
+              11.203801
+            ],
+            [
+              125.017525,
+              11.203951
+            ],
+            [
+              125.01756,
+              11.204029
+            ],
+            [
+              125.017438,
+              11.204138
+            ],
+            [
+              125.017592,
+              11.204283
+            ],
+            [
+              125.017749,
+              11.20413
+            ],
+            [
+              125.017827,
+              11.204045
+            ],
+            [
+              125.017812,
+              11.203976
+            ],
+            [
+              125.017697,
+              11.20388
+            ],
+            [
+              125.017449,
+              11.203617
+            ],
+            [
+              125.017384,
+              11.203524
+            ],
+            [
+              125.017482,
+              11.203437
+            ],
+            [
+              125.017571,
+              11.203434
+            ],
+            [
+              125.017683,
+              11.203561
+            ],
+            [
+              125.017674,
+              11.203616
+            ],
+            [
+              125.01775,
+              11.20373
+            ],
+            [
+              125.017805,
+              11.203799
+            ],
+            [
+              125.018124,
+              11.204043
+            ],
+            [
+              125.018284,
+              11.204081
+            ],
+            [
+              125.018625,
+              11.20377
+            ],
+            [
+              125.018292,
+              11.203236
+            ],
+            [
+              125.018536,
+              11.202837
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              125.013665,
+              11.205678
+            ],
+            [
+              125.013488,
+              11.205311
+            ],
+            [
+              125.013532,
+              11.205212
+            ],
+            [
+              125.013189,
+              11.205096
+            ],
+            [
+              125.013184,
+              11.204819
+            ],
+            [
+              125.012758,
+              11.204349
+            ],
+            [
+              125.01275,
+              11.203026
+            ],
+            [
+              125.012489,
+              11.202274
+            ],
+            [
+              125.01232,
+              11.201844
+            ],
+            [
+              125.011981,
+              11.201546
+            ],
+            [
+              125.011881,
+              11.201574
+            ],
+            [
+              125.010937,
+              11.200841
+            ],
+            [
+              125.008654,
+              11.198151
+            ],
+            [
+              125.008582,
+              11.1982
+            ],
+            [
+              125.011209,
+              11.201674
+            ],
+            [
+              125.011465,
+              11.201845
+            ],
+            [
+              125.011663,
+              11.201817
+            ],
+            [
+              125.011976,
+              11.201654
+            ],
+            [
+              125.012277,
+              11.201887
+            ],
+            [
+              125.012279,
+              11.20265
+            ],
+            [
+              125.012282,
+              11.202818
+            ],
+            [
+              125.01234,
+              11.202983
+            ],
+            [
+              125.012067,
+              11.203246
+            ],
+            [
+              125.011907,
+              11.203615
+            ],
+            [
+              125.011884,
+              11.20394
+            ],
+            [
+              125.011894,
+              11.204199
+            ],
+            [
+              125.011946,
+              11.204327
+            ],
+            [
+              125.012026,
+              11.204378
+            ],
+            [
+              125.012221,
+              11.204337
+            ],
+            [
+              125.012387,
+              11.204435
+            ],
+            [
+              125.012489,
+              11.204554
+            ],
+            [
+              125.012681,
+              11.204784
+            ],
+            [
+              125.012818,
+              11.204993
+            ],
+            [
+              125.012955,
+              11.205202
+            ],
+            [
+              125.013058,
+              11.20538
+            ],
+            [
+              125.013197,
+              11.205613
+            ],
+            [
+              125.013308,
+              11.205752
+            ],
+            [
+              125.013337,
+              11.205839
+            ],
+            [
+              125.0134,
+              11.205907
+            ],
+            [
+              125.013438,
+              11.205945
+            ],
+            [
+              125.013487,
+              11.205977
+            ],
+            [
+              125.013558,
+              11.206001
+            ],
+            [
+              125.013646,
+              11.206039
+            ],
+            [
+              125.013762,
+              11.206114
+            ],
+            [
+              125.013885,
+              11.206267
+            ],
+            [
+              125.014027,
+              11.206541
+            ],
+            [
+              125.014052,
+              11.206594
+            ],
+            [
+              125.014081,
+              11.206644
+            ],
+            [
+              125.014118,
+              11.206706
+            ],
+            [
+              125.014123,
+              11.206762
+            ],
+            [
+              125.014266,
+              11.206567
+            ],
+            [
+              125.013758,
+              11.205982
+            ],
+            [
+              125.01371,
+              11.205801
+            ],
+            [
+              125.013665,
+              11.205678
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              125.003398,
+              11.199801
+            ],
+            [
+              125.003204,
+              11.19968
+            ],
+            [
+              125.002855,
+              11.199731
+            ],
+            [
+              125.002737,
+              11.199602
+            ],
+            [
+              125.002501,
+              11.19968
+            ],
+            [
+              125.002638,
+              11.200005
+            ],
+            [
+              125.002893,
+              11.200496
+            ],
+            [
+              125.002723,
+              11.200848
+            ],
+            [
+              125.002378,
+              11.201116
+            ],
+            [
+              125.002156,
+              11.201116
+            ],
+            [
+              125.001963,
+              11.201033
+            ],
+            [
+              125.00175,
+              11.201334
+            ],
+            [
+              125.002038,
+              11.201515
+            ],
+            [
+              125.002024,
+              11.201795
+            ],
+            [
+              125.00192,
+              11.202237
+            ],
+            [
+              125.001712,
+              11.202233
+            ],
+            [
+              125.001377,
+              11.202427
+            ],
+            [
+              125.001094,
+              11.202483
+            ],
+            [
+              125.001127,
+              11.202673
+            ],
+            [
+              125.001604,
+              11.202835
+            ],
+            [
+              125.001906,
+              11.202929
+            ],
+            [
+              125.002052,
+              11.203011
+            ],
+            [
+              125.002099,
+              11.203409
+            ],
+            [
+              125.00167,
+              11.203423
+            ],
+            [
+              125.001405,
+              11.203386
+            ],
+            [
+              125.001292,
+              11.203627
+            ],
+            [
+              125.001311,
+              11.20378
+            ],
+            [
+              125.001004,
+              11.203794
+            ],
+            [
+              125.000862,
+              11.203761
+            ],
+            [
+              125.000787,
+              11.203978
+            ],
+            [
+              125.000636,
+              11.204414
+            ],
+            [
+              125.000305,
+              11.204697
+            ],
+            [
+              124.999608,
+              11.206044
+            ],
+            [
+              124.999422,
+              11.206451
+            ],
+            [
+              124.999523,
+              11.207028
+            ],
+            [
+              124.999606,
+              11.207438
+            ],
+            [
+              125.000071,
+              11.207217
+            ],
+            [
+              125.000275,
+              11.207686
+            ],
+            [
+              124.999677,
+              11.207902
+            ],
+            [
+              124.999732,
+              11.208069
+            ],
+            [
+              125.000052,
+              11.207902
+            ],
+            [
+              125.000149,
+              11.207947
+            ],
+            [
+              125.000084,
+              11.208483
+            ],
+            [
+              125.000256,
+              11.20871
+            ],
+            [
+              125.000725,
+              11.208716
+            ],
+            [
+              125.000801,
+              11.208034
+            ],
+            [
+              125.001228,
+              11.208085
+            ],
+            [
+              125.001507,
+              11.207811
+            ],
+            [
+              125.001027,
+              11.206825
+            ],
+            [
+              125.001244,
+              11.205953
+            ],
+            [
+              125.002313,
+              11.204547
+            ],
+            [
+              125.00318,
+              11.204095
+            ],
+            [
+              125.003827,
+              11.204304
+            ],
+            [
+              125.003676,
+              11.203875
+            ],
+            [
+              125.003906,
+              11.203515
+            ],
+            [
+              125.003542,
+              11.203326
+            ],
+            [
+              125.003308,
+              11.202484
+            ],
+            [
+              125.003545,
+              11.201385
+            ],
+            [
+              125.00423,
+              11.201333
+            ],
+            [
+              125.004398,
+              11.201015
+            ],
+            [
+              125.004554,
+              11.199921
+            ],
+            [
+              125.004626,
+              11.19925
+            ],
+            [
+              125.004498,
+              11.199224
+            ],
+            [
+              125.004257,
+              11.199208
+            ],
+            [
+              125.003974,
+              11.199602
+            ],
+            [
+              125.003658,
+              11.199722
+            ],
+            [
+              125.003398,
+              11.199801
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              125.024663,
+              11.216085
+            ],
+            [
+              125.02474,
+              11.216546
+            ],
+            [
+              125.02471,
+              11.216782
+            ],
+            [
+              125.024472,
+              11.21699
+            ],
+            [
+              125.024435,
+              11.217381
+            ],
+            [
+              125.02418,
+              11.217608
+            ],
+            [
+              125.024499,
+              11.218095
+            ],
+            [
+              125.025394,
+              11.217108
+            ],
+            [
+              125.025709,
+              11.216861
+            ],
+            [
+              125.026018,
+              11.216411
+            ],
+            [
+              125.026232,
+              11.215312
+            ],
+            [
+              125.026548,
+              11.215138
+            ],
+            [
+              125.026461,
+              11.213784
+            ],
+            [
+              125.026191,
+              11.213769
+            ],
+            [
+              125.025936,
+              11.213723
+            ],
+            [
+              125.025899,
+              11.213713
+            ],
+            [
+              125.025679,
+              11.214523
+            ],
+            [
+              125.025475,
+              11.214719
+            ],
+            [
+              125.025395,
+              11.215019
+            ],
+            [
+              125.024895,
+              11.21496
+            ],
+            [
+              125.024422,
+              11.215917
+            ],
+            [
+              125.024663,
+              11.216085
+            ]
+          ]
+        ]
+      ]
+    },
+    "area": {
+      "value": 54.93,
+      "unit": "ha",
+      "eq_id": "EQ-001",
+      "confidence": "high"
+    },
+    "proposal_summary": "Cancabato Bay: a 70 ha provincial rehabilitation project, Sep 2017-Nov 2018, paid from the DENR Region 8 budget (Leyte report, State of the Mangrove Summit 2019). The 70 ha boundary is not published."
+  },
+  "answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "supported",
+      "finding": "no_mangrove_recorded",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "d790c61e-68e8-4b3f-8a01-2234763b8b15"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "current",
+      "label": "What's there now?",
+      "status": "supported",
+      "finding": "mostly_vegetation",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "445b6006-0235-46f8-aa3c-911c07f21673"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "ground",
+      "label": "What do people on the ground say?",
+      "status": "supported",
+      "finding": "existing_mangrove",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-0000000ef201"
+      ],
+      "disagreeing_evidence_ids": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-0000000ef205",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "State of the Mangrove Summit, “Synthesis”",
+      "source_version": "Published 2019 (case study source 23)",
+      "observed_from": "2019-01-01T00:00:00.000000Z",
+      "observed_to": "2019-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:03.140324Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "Province-wide range that spans both outcomes; the source says the figures need field validation.",
+      "metrics": [
+        {
+          "name": "reported_survival_leyte_min",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 0,
+          "confidence": "low"
+        },
+        {
+          "name": "reported_survival_leyte_max",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 100,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: survival in Leyte ranged from 0% to 100%, with “no standard monitoring protocol”. No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "Not limited to this project; the source says the figures “need field validation”.",
+      "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/6.-synthesis.pdf",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:03.140324Z",
+      "content_hash": "8f41c5d6a115d78e732b753808fbc9ad2917bd9e6b42a719a4cf54acad512577"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef204",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Carbon Research 4, “Understanding blue carbon management strategies”",
+      "source_version": "Published 2025 (case study source 26)",
+      "observed_from": "2023-01-01T00:00:00.000000Z",
+      "observed_to": "2023-03-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:02.524244Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "Names no planting programme, so it is not evidence about the 70 ha project.",
+      "metrics": [
+        {
+          "name": "mangrove_cover_burayan",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 4.28,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: two stations along Cancabato Bay, Brgy. Burayan and Brgy. Paraiso, had 4.28 ha and 5.18 ha of mangrove cover, and “There are reforested stands in both barangays.” No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "Peer-reviewed field survey; the reforested stands are not tied to any programme or year.",
+      "provenance_url": "https://link.springer.com/article/10.1007/s44246-025-00216-6",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:02.524244Z",
+      "content_hash": "41e90b6c0c1007bb21a15eaaf6007cf68a1670111b1d1c8b979f16d64100ccdd"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef203",
+      "question": "outcome",
+      "source_type": "public_report",
+      "source_name": "Proceedings of the 3rd National Mangrove Conference, Iloilo City (p. 40)",
+      "source_version": "Published 2018-04 (case study source 44)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2018-04-01T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:02.105841Z",
+      "location": null,
+      "finding": null,
+      "usable": false,
+      "unusable_reason": "City-level remark that names no programme or planting; not this project.",
+      "metrics": [
+        {
+          "name": "reported_survival_tacloban",
+          "unit": "%",
+          "eq_id": "EQ-017",
+          "value": 0,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: “There was a survival rate of 98% in some parts of Quezon and 0% in Tacloban which was damaged by the typhoon.” No finding is taken from it.",
+      "spatial_resolution_m": null,
+      "limitation": "Remark at a national conference; city-level, the programme and planting are not named.",
+      "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:02.105841Z",
+      "content_hash": "5466779dd71be947be2d1eba237de0eba21a9abbecc901fbe04b5551ceee2efe"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef202",
+      "question": "work",
+      "source_type": "public_report",
+      "source_name": "State of the Mangrove Summit, “State of the Mangrove in Leyte”",
+      "source_version": "Published 2019 (case study source 21)",
+      "observed_from": "2017-09-01T00:00:00.000000Z",
+      "observed_to": "2018-11-30T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:31:01.827188Z",
+      "location": null,
+      "finding": "work_done",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "reported_area",
+          "unit": "ha",
+          "eq_id": "EQ-017",
+          "value": 70,
+          "confidence": "low"
+        },
+        {
+          "name": "reported_budget",
+          "unit": "million PHP",
+          "eq_id": "EQ-017",
+          "value": 28.8,
+          "confidence": "low"
+        }
+      ],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: the provincial government implements its own mangrove rehabilitation project in Cancabato Bay, 70 hectares over 14 months, with ₱28.8 million from the budget of DENR Region 8 in partnership with the fisheries bureau and the Environmental Management Bureau.",
+      "spatial_resolution_m": null,
+      "limitation": "Government-reported activity in a summit chapter; the 70 ha boundary is not published.",
+      "provenance_url": "https://www.academia.edu/87539308/State_of_the_Mangrove_in_Leyte",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:31:01.827188Z",
+      "content_hash": "8a79adce962f8252d98c06d6834fb9804070a567da4a84d3a0ad0e601503d6d2"
+    },
+    {
+      "id": "445b6006-0235-46f8-aa3c-911c07f21673",
+      "question": "current",
+      "source_type": "sentinel2",
+      "source_name": "Sentinel-2 L2A (Earth Search)",
+      "source_version": "S2C_T51PYN_20260729T021211_L2A",
+      "observed_from": "2026-07-29T02:14:30.184000Z",
+      "observed_to": "2026-07-29T02:14:30.184000Z",
+      "retrieved_at": "2026-10-03T22:29:23.539902Z",
+      "location": null,
+      "finding": "mostly_vegetation",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "valid_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-005",
+          "value": 0.9985,
+          "confidence": "low"
+        },
+        {
+          "name": "vegetation_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.9745,
+          "confidence": "low"
+        },
+        {
+          "name": "bare_soil_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0255,
+          "confidence": "low"
+        },
+        {
+          "name": "water_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-006",
+          "value": 0.0,
+          "confidence": "low"
+        },
+        {
+          "name": "mean_ndvi",
+          "unit": "NDVI",
+          "eq_id": "EQ-007",
+          "value": 0.789,
+          "confidence": "low"
+        }
+      ],
+      "method": "EQ-005: over Sentinel-2 L2A SCL pixels (20 m) with centre inside the site, f_valid = n(SCL in {4,5,6}) / n(SCL != 0); the best of 23 scenes in [t - S2_WINDOW_DAYS 90 d, t = 2026-10-03]; usable iff f_valid >= MIN_VALID_FRACTION 0.5. EQ-006: finding = the largest of the SCL 4/5/6 fractions of valid pixels. EQ-007: mean NDVI (B08 - B04)/(B08 + B04) on 10 m pixels with centre inside and SCL (nearest to 10 m) in {4,5}, context only.",
+      "spatial_resolution_m": 20.0,
+      "limitation": "SCL \"vegetation\" does not tell mangrove from other vegetation; tide state at acquisition changes the water fraction; an active fishpond and open water look alike from space, so only ground evidence settles land use; 20 m pixels cannot see seedlings, and months after planting satellite cannot confirm planting. Pictures are true-colour (TCI) chips with the site outline drawn in. Contains modified Copernicus Sentinel data 2017 and 2026.",
+      "provenance_url": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a/items/S2C_T51PYN_20260729T021211_L2A",
+      "asset_url": "https://18-140-211-157.sslip.io/api/v1/assets/b3e35c54fd1fbf5aa906fbcdb7b2ab7b93f6fae58174d603f04fa72f30503a78",
+      "note": "Then picture: Sentinel-2 L2A scene S2A_51PYN_20170417_0_L2A (2017-04-17, collection sentinel-2-l2a), same window. A picture only; no number is computed from it.",
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:29:23.539905Z",
+      "content_hash": "eaf8d545931ebed1a90eb33757692cab6b5907b0ca46a084347d51ca75cb5355",
+      "asset_then_url": "https://18-140-211-157.sslip.io/api/v1/assets/e5431f8f72a2e16108537854c13df61fbf0341c2df2bba1b47b670a5ac4c482d",
+      "asset_then_observed": "2017-04-17"
+    },
+    {
+      "id": "d790c61e-68e8-4b3f-8a01-2234763b8b15",
+      "question": "history",
+      "source_type": "gmw",
+      "source_name": "Global Mangrove Watch",
+      "source_version": "v4.1.12",
+      "observed_from": "1985-01-01T00:00:00.000000Z",
+      "observed_to": "2025-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:31.955053Z",
+      "location": null,
+      "finding": "no_mangrove_recorded",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [
+        {
+          "name": "max_mangrove_area",
+          "unit": "ha",
+          "eq_id": "EQ-003",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_year",
+          "unit": "year",
+          "eq_id": "EQ-003",
+          "value": 1985,
+          "confidence": "medium"
+        },
+        {
+          "name": "max_mangrove_fraction",
+          "unit": "fraction",
+          "eq_id": "EQ-003",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "inside_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-002",
+          "value": 0.0,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1985",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1986",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1987",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1988",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.64,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1989",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.46,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1990",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.46,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1991",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.37,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1992",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.28,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1993",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1994",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.58,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1995",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.58,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1996",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1997",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1998",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.02,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_1999",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2000",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2001",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2002",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.23,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2003",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.23,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2004",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.76,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2005",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.67,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2006",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.76,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2007",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.2,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2008",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.55,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2009",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.9,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2010",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.9,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2011",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 5.37,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2012",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.67,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2013",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 3.96,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2014",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 3.96,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2015",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.32,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2016",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.4,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2017",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 4.76,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2018",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 6.87,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2019",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 6.52,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2020",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 6.96,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2021",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 7.93,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2022",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 8.45,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2023",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 8.72,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2024",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 8.81,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_mangrove_area_2025",
+          "unit": "ha",
+          "eq_id": "EQ-014",
+          "value": 9.25,
+          "confidence": "medium"
+        },
+        {
+          "name": "nearby_buffer",
+          "unit": "m",
+          "eq_id": null,
+          "value": 1000,
+          "confidence": "high"
+        }
+      ],
+      "method": "EQ-002: sum of GMW v4.1.12 DN=1 pixel areas with centre inside the site, 41 annual bands 1985-2025; EQ-003: finding = mangrove_recorded iff max area / site area >= HISTORY_MIN_FRACTION 0.1; EQ-014: same sum within NEARBY_BUFFER_M 1000 m outside the site (context only).",
+      "spatial_resolution_m": 30.0,
+      "limitation": "GMW starts in 1985; ponds converted earlier are not visible, so no mangrove recorded does not mean the site was never mangrove. 30 m modelled classification: cannot see seedlings; accuracy varies locally (GMW global F1 0.93).",
+      "provenance_url": "https://doi.org/10.5281/zenodo.21346457",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:31.955053Z",
+      "content_hash": "5a3ed3ab795de996438bc4e490c9e6923ff7c7e23fcc53916cb35480c44120a9"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef201",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "BIODIVERS 2(2), “Natural Regrowth of Mangrove Five Years After a Large-Scale Disturbance”",
+      "source_version": "Published 2023 (case study source 42)",
+      "observed_from": "2014-01-01T00:00:00.000000Z",
+      "observed_to": "2019-12-31T00:00:00.000000Z",
+      "retrieved_at": "2026-10-03T22:28:29.931095Z",
+      "location": null,
+      "finding": "existing_mangrove",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “Mangrove survived along San Juanico Strait, Anibong Bay, and Cancabato Bay exhibiting regeneration”.",
+      "spatial_resolution_m": null,
+      "limitation": "Bay-level statement from plots surveyed one and five years after the typhoon; the plots are not this polygon.",
+      "provenance_url": "https://doi.org/10.56060/bdv.2023.2.2.2099",
+      "asset_url": null,
+      "note": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "created_at": "2026-10-03T22:28:29.931095Z",
+      "content_hash": "324b864257bb7f62f6376c942f35a0054e68ce49aee17dde4a756e5d72de48d8",
+      "photos": [
+        {
+          "url": "https://imgs.mongabay.com/wp-content/uploads/sites/20/2023/12/21123915/Cancabato-Bay.jpg",
+          "credit": "Bagoto via Wikimedia Commons (CC BY-SA 4.0), via Mongabay",
+          "caption": "Cancabato Bay, Tacloban"
+        }
+      ]
+    }
+  ]
+}

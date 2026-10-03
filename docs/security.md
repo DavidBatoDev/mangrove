@@ -6,7 +6,7 @@ doc: security
 owns: threat model (T-###) · data classification · authn/authz model · secrets & audit policy · the pre-milestone go/no-go gate
 ---
 
-# Security — Mangrove
+# Security — AIDE-M
 
 > **Purpose:** data classification, who may call what, the threats against a public record that must stay
 > trustworthy, and the go/no-go gate before the demo.
@@ -56,6 +56,7 @@ forgotten in one handler.
 | `POST /records/{id}/corrections` (API-012) | role `funder` of the record's org | Session cookie | API dependency (session + role + org match) |
 | `POST /sites` (API-017), `POST /sites/{id}/summary` (API-018) | `funder` / any signed-in | Session cookie | API dependency |
 | `POST /mcp` (API-015) | public — read-only tools returning the public subset only. No contract text. No funder notice | — (Amazon Quick supports unauthenticated MCP servers [R35]) | No write tools are registered; rate limit; response models exclude confidential and internal notice fields |
+| `POST /assistant/chat` (API-027) | public — an AI agent over the API-015 read-only tools; sees only what `/mcp` returns | — | Same six read-only tools (no write tool); OpenAI key server-side only; 20 questions / 10 min per IP; ≤ 20 messages × 4,000 chars; ≤ 6 tool rounds (ADR-062) |
 | `GET /layers/gmw-extent/tiles…` (API-024) | public — map tiles of public GMW data; no record or user data | — | Read-only route; the response is a PNG of GMW's classification only; `Access-Control-Allow-Origin: *` is safe because no credential or private data is involved (ADR-049); browser and in-memory caching bound the load |
 | `GET /layers/gmw-change/tiles…` (API-025) | public — map tiles of public GMW data; no record or user data | — | Read-only route; the response is a PNG of GMW's classification only; `Access-Control-Allow-Origin: *` is safe because no credential or private data is involved (ADR-050); browser and in-memory caching bound the load |
 | `GET /health` (API-016) | public — returns no data | — | — |
@@ -70,7 +71,7 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 |---------|-----------------|--------|--------|------------|----------|
 | T-001 | Spoofing | Forged or stolen session cookie to lock a promise as a funder | False promise published under a real org's name, permanently | Signed cookie with server secret; `HttpOnly; Secure; SameSite=Lax`; seeded accounts only; session expiry | BR-002 |
 | T-002 | Tampering | Editing or deleting a record or evidence through the API | The public baseline silently changes | No update/delete routes; `BEFORE UPDATE OR DELETE` triggers; app DB role has `SELECT, INSERT` only | BR-002 |
-| T-003 | Tampering | Operator or database superuser rewrites rows and recomputes hashes | Same as T-002, done by us | Hash chain (EQ-011) shown publicly at publication so third parties can keep it; **residual risk accepted**: tamper-evident, not tamper-proof. Claim copy must say "cannot be edited through Mangrove; any change breaks the published hash", never "impossible to alter" | BR-002 |
+| T-003 | Tampering | Operator or database superuser rewrites rows and recomputes hashes | Same as T-002, done by us | Hash chain (EQ-011) shown publicly at publication so third parties can keep it; **residual risk accepted**: tamper-evident, not tamper-proof. Claim copy must say "cannot be edited through AIDE-M; any change breaks the published hash", never "impossible to alter" | BR-002 |
 | T-004 | Repudiation | A funder later denies making a promise | Accountability lost | `created_by_user_id`, `funder_org_id`, `published_at` inside the hashed payload | BR-002 |
 | T-005 | Information disclosure | Photo EXIF (device serial, exact capture metadata) or faces/names in photos and notes | Exposes partners or community members | EXIF stripped on upload; partners attest no identifiable people or personal data; notes guidance in the form | BR-005 |
 | T-006 | Information disclosure | Error bodies leak stack traces, SQL or hosts | Recon for further attacks | Uniform error envelope ([`api.md` §4](api.md)); debug off in the demo deployment | — |
@@ -79,7 +80,7 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 | T-009 | Tampering | SQL injection through query or form fields | Data corruption/disclosure | Parameterized queries only; typed request models | — |
 | T-010 | Denial of service | Flooding public GETs, `/mcp`, or Sentinel-2 refresh | Demo unavailable; Copernicus quota exhausted | Rate limits in [`api.md` §5](api.md); refresh is funder-only and per-site throttled | — |
 | T-011 | Elevation of privilege | Partner calling funder-only operations, or funder correcting another org's record | Unauthorized promises/corrections | Role and org checks in shared dependencies; tests TC-021, TC-022 | BR-002 |
-| T-012 | Tampering (prompt injection) | Evidence notes crafted to steer Amazon Quick or the F-013 summarizer | Misleading narrative | Statuses and numbers come from the engine only (BR-003); tool output marks notes as untrusted quoted data; MCP has no write tools, so injection cannot cause actions | BR-003 |
+| T-012 | Tampering (prompt injection) | Evidence notes crafted to steer Amazon Quick, the in-app assistant (API-027) or the F-013 summarizer | Misleading narrative | Statuses and numbers come from the engine only (BR-003); tool output marks notes as untrusted quoted data; MCP has no write tools, so injection cannot cause actions | BR-003 |
 | T-013 | Spoofing | Credential stuffing on the login | Account takeover | Login rate limit; strong per-event demo passwords; same error for wrong email or password | — |
 | T-014 | Information disclosure | Contract text or consequence clauses copied into a public GET or an MCP tool | The private agreement becomes public, and Quick can repeat it | No public or MCP schema includes the contract. The flag notice goes to the funder account and carries the flag, not the clauses. TC-024 | — |
 | T-015 | Elevation of privilege | Anyone able to push or force-push `master` (or edit the workflow on `master`) runs commands on the demo host through the deploy pipeline | Arbitrary code on the host; secrets in the host `.env` exposed | The IAM role trusts only pushes to `master` of this repo and may only send commands to the demo instance; no SSH key or AWS key is stored in GitHub; only the orchestrator merges to `master` (ADR-039); **residual:** branch protection on `master` is not yet enabled | — |
@@ -92,6 +93,7 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 | A funder treats "supported" or a GMW layer as certification and greenwashes | The public, other funders, communities expecting restoration | Funder quotes the record in marketing | BR-001 wording ("sources agree", not "good"); BR-007 (no "successful", no certificate); disclaimer on every record; GMW is history, not a completion check; banned overclaiming copy (see [`design-brief.md`](design-brief.md)) |
 | Partners submit flattering evidence to make a project look good | Funders and the public | Incentive to show success | Provenance and submitter on every item; nothing can be deleted; conflicts surface automatically; never reward "successful" observations [ADR-014] |
 | Demo data mistaken for real Philippine projects or organizations | Real NGOs/companies; judges; the public | Screenshots or the live demo | `is_demo` on every entity, a visible "Demo data" label, fictional organization names (BR-006) |
+| A real, sourced record (ADR-056) is read as an accusation against a real organization or person | The cited organizations (DENR, the Ministry of Foreign Affairs of Japan, the Barangay Local Government of Paraiso (Barangay 83), the Provincial Government of Leyte, the Naungan-San Juan Mangrove Planters Association; ADR-059), named officials and scientists | The Post-Yolanda records are public and name real parties | Real organizations appear only as cited parties in `is_demo = false` rows, every item links its source, no individual is named in any row, copy says the system could not detect misuse (never "corruption" or "nothing survived"), gaps go in `known_unknowns`; the rows are written by a team seeder account that cannot sign in |
 | Personal data published by mistake cannot be removed | The person in the photo or note | Append-only storage | Pre-publication guard (attestation, EXIF strip). **Residual risk:** after the event, an operator-level redaction procedure would be needed; out of scope for the hackathon and recorded in [`prd.md` §7](prd.md)'s open questions |
 
 ## 7. Secrets, Audit & Compliance
@@ -122,7 +124,7 @@ Milestone: the live demo / submission (Build Over Nights 2026, October 4). A fai
       *Why: the product's whole claim is an uneditable promise. Authority: product judgment (BR-002), the team's core mechanism [ADR-024].*
 - [ ] The MCP server SHALL NEVER expose a write tool: `tools/list` returns only the six read tools in [`api.md`](api.md) API-015. — 2026-10-04
       *Why: the endpoint is unauthenticated. Authority: product judgment, relying on Amazon Quick's documented unauthenticated mode [R35].*
-- [ ] Every demo entity shows "Demo data", and no real organization is named as a funder or partner in demo content. — 2026-10-04
+- [ ] Every demo entity shows "Demo data", and no real organization is named as a funder or partner in demo content. Real organizations appear only in `is_demo = false` sourced records, as cited parties, with no individual named (ADR-056). — 2026-10-04
       *Why: misattributing promises to real organizations harms them and misleads judges. Authority: product judgment (BR-006).*
 - [ ] Every `T-###` mitigation is implemented, not planned (T-003's residual risk stated in the copy). — 2026-10-04
       *Why: a planned mitigation stops nothing. Authority: §5 of this doc.*

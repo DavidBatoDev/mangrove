@@ -1,3 +1,4 @@
+import { EvidencePictures } from "@/components/SatellitePictures";
 import { DemoLabel, MeasureText } from "@/components/ui";
 import { IconBadge, SourceIcon } from "@/components/visual";
 import { EQ_LABELS, findingLabel, formatDate, QUESTION_LABELS, shortHash } from "@/lib/format";
@@ -5,7 +6,7 @@ import type { Evidence } from "@/lib/types";
 
 // One evidence item with its full provenance (BR-005), in the brand's evidence look:
 // copper rule, mono "source · observed date" meta, the finding as the sentence (brand/WEB.md §3).
-export default function EvidenceCard({ e }: { e: Evidence }) {
+export default function EvidenceCard({ e, siteName }: { e: Evidence; siteName?: string }) {
   const range =
     e.observed_from === e.observed_to ? formatDate(e.observed_from) : `${formatDate(e.observed_from)} – ${formatDate(e.observed_to)}`;
   return (
@@ -27,6 +28,33 @@ export default function EvidenceCard({ e }: { e: Evidence }) {
         </div>
       </div>
 
+      {e.source_type === "public_report" && e.provenance_url && (
+        <p className="evidence-source">
+          <a href={e.provenance_url} target="_blank" rel="noopener noreferrer">
+            Read the source
+          </a>
+          {e.source_version ? <span className="mg-mono"> · {e.source_version}</span> : null}
+        </p>
+      )}
+
+      <EvidencePictures e={e} siteName={siteName} />
+
+      {e.photos && e.photos.length > 0 && (
+        <div className="evidence-photos">
+          {e.photos.map((ph) => (
+            <figure key={ph.url}>
+              <a href={ph.url} target="_blank" rel="noopener noreferrer">
+                {/* eslint-disable-next-line @next/next/no-img-element -- publisher's image, linked not rehosted */}
+                <img src={ph.url} alt={ph.caption} loading="lazy" referrerPolicy="no-referrer" />
+              </a>
+              <figcaption>
+                {ph.caption} · <span className="mg-mono">{ph.credit}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
+
       {e.metrics.length > 0 && (
         <div className="evidence-metrics">
           {e.metrics.map((m, i) => (
@@ -44,7 +72,7 @@ export default function EvidenceCard({ e }: { e: Evidence }) {
           <dt>Source</dt>
           <dd>
             {e.source_type}
-            {e.submitted_by_org ? ` · ${e.submitted_by_org}` : ""}
+            {e.submitted_by_org ? ` · ${e.submitted_by_org.name}` : ""}
           </dd>
           <dt>Version</dt>
           <dd>{e.source_version ?? "—"}</dd>
@@ -65,7 +93,7 @@ export default function EvidenceCard({ e }: { e: Evidence }) {
                 {e.provenance_url}
               </a>
             ) : e.asset_url ? (
-              <a href={e.asset_url}>Photo</a>
+              <a href={e.asset_url}>{e.source_type === "sentinel2" ? "Picture" : "Photo"}</a>
             ) : (
               "—"
             )}

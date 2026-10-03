@@ -32,6 +32,7 @@ import rasterio
 from dotenv import load_dotenv
 from psycopg.rows import dict_row
 from rasterio.features import geometry_mask, shapes
+from rasterio.merge import merge
 from rasterio.windows import Window, from_bounds
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -68,6 +69,42 @@ def tile_for(stack_dir: str, lon: float, lat: float) -> str:
     return hits[0]
 
 
+def _read_window(paths: list[str], xs: list[float], ys: list[float]):
+    """GMW stack over the bounds plus a one-pixel margin, on the GMW grid. Two or more tiles are mosaicked."""
+    if len(paths) == 1:
+        with rasterio.open(paths[0]) as ds:
+            w = from_bounds(min(xs), min(ys), max(xs), max(ys), ds.transform).round_offsets().round_lengths()
+            w = Window(w.col_off - 1, w.row_off - 1, w.width + 2, w.height + 2)
+            return ds.read(window=w), ds.window_transform(w)
+    sources = [rasterio.open(p) for p in paths]
+    try:
+        t = sources[0].transform  # all GMW tiles share one global grid, so snapping to the first one fits all
+        col0 = math.floor((min(xs) - t.c) / t.a) - 1
+        col1 = math.ceil((max(xs) - t.c) / t.a) + 1
+        row0 = math.floor((max(ys) - t.f) / t.e) - 1
+        row1 = math.ceil((min(ys) - t.f) / t.e) + 1
+        bounds = (t.c + col0 * t.a, t.f + row1 * t.e, t.c + col1 * t.a, t.f + row0 * t.e)
+        return merge(sources, bounds=bounds, res=(t.a, -t.e), nodata=0)
+    finally:
+        for src in sources:
+            src.close()
+
+
+def site_tiles(stack_dir: str, geom: dict) -> list[str]:
+    """Every GMW tile the geometry's bounding box touches (one, or two to four at a tile edge)."""
+    xs, ys = [], []
+
+    def walk(c):
+        if isinstance(c[0], (int, float)):
+            xs.append(c[0]); ys.append(c[1])
+        else:
+            for x in c:
+                walk(x)
+
+    walk(geom["coordinates"])
+    return sorted({tile_for(stack_dir, x, y) for x in (min(xs), max(xs)) for y in (min(ys), max(ys))})
+
+
 def site_series(stack_dir: str, site_geom: dict, ring_geom: dict) -> tuple[list[float], list[float]]:
     """(inside, nearby) hectares per year: pixel centres inside the site / inside the buffer ring."""
     xs, ys = [], []
@@ -81,15 +118,7 @@ def site_series(stack_dir: str, site_geom: dict, ring_geom: dict) -> tuple[list[
 
     walk(ring_geom["coordinates"])
     walk(site_geom["coordinates"])
-    path = tile_for(stack_dir, (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2)
-    with rasterio.open(path) as ds:
-        b = ds.bounds
-        if not (b.left <= min(xs) and max(xs) <= b.right and b.bottom <= min(ys) and max(ys) <= b.top):
-            sys.exit("site plus buffer crosses a GMW tile edge; not handled")
-        w = from_bounds(min(xs), min(ys), max(xs), max(ys), ds.transform).round_offsets().round_lengths()
-        w = Window(w.col_off - 1, w.row_off - 1, w.width + 2, w.height + 2)
-        stack = ds.read(window=w)
-        tr = ds.window_transform(w)
+    stack, tr = _read_window(site_tiles(stack_dir, ring_geom), xs, ys)
     shape = stack.shape[1:]
     inside = ~geometry_mask([site_geom], out_shape=shape, transform=tr, all_touched=False)
     ring = ~geometry_mask([ring_geom], out_shape=shape, transform=tr, all_touched=False) & ~inside
@@ -137,7 +166,7 @@ def ingest_sites(stack_dir: str, owner_url: str, app_url: str) -> None:
                                f"HISTORY_MIN_FRACTION {C.HISTORY_MIN_FRACTION}; EQ-014: same sum within "
                                f"NEARBY_BUFFER_M {C.NEARBY_BUFFER_M} m outside the site (context only)."),
                     "spatial_resolution_m": 30, "limitation": LIMITATION, "provenance_url": DOI,
-                    "raw": {"tile": os.path.basename(tile_for(stack_dir, s["geom"]["coordinates"][0][0][0][0], s["geom"]["coordinates"][0][0][0][1]))},
+                    "raw": {"tiles": [os.path.basename(t) for t in site_tiles(stack_dir, s["ring"])]},
                     "is_demo": False,  # real GMW data; the site itself carries the demo label
                 })
             print(f"ok {s['name']}: {hist['finding']}, max inside {hist['a_max']:.2f} ha ({hist['y_max']}), "

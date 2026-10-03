@@ -1,0 +1,6105 @@
+[
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f1",
+      "site_id": "00000000-0000-4000-8000-0000000000f1",
+      "funder": {
+        "name": "Ministry of Foreign Affairs of Japan",
+        "is_demo": false
+      },
+      "published_at": "2026-10-03T22:31:00.312612Z",
+      "rationale": "Barangay 83 (Paraiso) was one of three places where a 2014 independent survey found total mangrove mortality (Inquirer Opinion, Jun 2014). A DENR-assisted planting in early 2014 was killed by Typhoons Ruby and Seniang that December (UP Open University study, 2022); the community replanted with funding from Japan's Ministry of Foreign Affairs (Journal of Environmental Management, 2025).",
+      "planned_action": "planting",
+      "planned_action_detail": "About 30,000 seedlings on 4 ha, 2015-2018 (Journal of Environmental Management, 2025); OISCA paid about 15 workers ₱8 per seedling potted and ₱7 per seedling outplanted (UP Open University study, 2022).",
+      "planned_area_ha": {
+        "value": 4.0,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "Restore the mangrove fringe that protected the barangay before the typhoon (Journal of Environmental Management, 2025). No numeric target was published.",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2019-01-01",
+      "outcome_check_after": "2022-01-01",
+      "known_unknowns": "This is not an MBFDP site: no source ties Paraiso to the ₱1 billion program. A resident says the planting was done “without a single cent of support from the government” (Mongabay, 2023), while DENR assisted the failed 2014 planting (UP Open University study, 2022). The polygon is the OpenStreetMap mangrove stand in Barangay 83, not the planted boundary. Reconstructed on 2026-10-04 from public sources; this record was not locked at the time, so its hash proves only that the reconstruction has not changed since.",
+      "snapshot": {
+        "site": {
+          "id": "00000000-0000-4000-8000-0000000000f1",
+          "area": {
+            "unit": "ha",
+            "eq_id": "EQ-001",
+            "value": 2.53,
+            "confidence": "high"
+          },
+          "name": "Paraiso mangrove stand, Tacloban",
+          "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [
+                    125.015745,
+                    11.212015
+                  ],
+                  [
+                    125.015698,
+                    11.212082
+                  ],
+                  [
+                    125.015742,
+                    11.212138
+                  ],
+                  [
+                    125.015775,
+                    11.212196
+                  ],
+                  [
+                    125.015768,
+                    11.212376
+                  ],
+                  [
+                    125.01567,
+                    11.212521
+                  ],
+                  [
+                    125.015657,
+                    11.212577
+                  ],
+                  [
+                    125.015689,
+                    11.212597
+                  ],
+                  [
+                    125.015672,
+                    11.212675
+                  ],
+                  [
+                    125.015631,
+                    11.212684
+                  ],
+                  [
+                    125.015629,
+                    11.212806
+                  ],
+                  [
+                    125.015589,
+                    11.212967
+                  ],
+                  [
+                    125.015634,
+                    11.213072
+                  ],
+                  [
+                    125.015655,
+                    11.213256
+                  ],
+                  [
+                    125.01573,
+                    11.213448
+                  ],
+                  [
+                    125.015828,
+                    11.213437
+                  ],
+                  [
+                    125.015973,
+                    11.213344
+                  ],
+                  [
+                    125.015929,
+                    11.213199
+                  ],
+                  [
+                    125.016074,
+                    11.213174
+                  ],
+                  [
+                    125.016068,
+                    11.213129
+                  ],
+                  [
+                    125.016155,
+                    11.213129
+                  ],
+                  [
+                    125.016219,
+                    11.213042
+                  ],
+                  [
+                    125.016398,
+                    11.212757
+                  ],
+                  [
+                    125.016486,
+                    11.212687
+                  ],
+                  [
+                    125.016547,
+                    11.212573
+                  ],
+                  [
+                    125.01658,
+                    11.212459
+                  ],
+                  [
+                    125.016537,
+                    11.21234
+                  ],
+                  [
+                    125.016515,
+                    11.212248
+                  ],
+                  [
+                    125.016611,
+                    11.212221
+                  ],
+                  [
+                    125.016674,
+                    11.212121
+                  ],
+                  [
+                    125.016664,
+                    11.212022
+                  ],
+                  [
+                    125.016618,
+                    11.211929
+                  ],
+                  [
+                    125.016633,
+                    11.211888
+                  ],
+                  [
+                    125.016733,
+                    11.211797
+                  ],
+                  [
+                    125.01643,
+                    11.211683
+                  ],
+                  [
+                    125.016297,
+                    11.21164
+                  ],
+                  [
+                    125.01606,
+                    11.211501
+                  ],
+                  [
+                    125.016018,
+                    11.211476
+                  ],
+                  [
+                    125.015947,
+                    11.211416
+                  ],
+                  [
+                    125.015461,
+                    11.211001
+                  ],
+                  [
+                    125.015319,
+                    11.210814
+                  ],
+                  [
+                    125.015143,
+                    11.210648
+                  ],
+                  [
+                    125.014903,
+                    11.210614
+                  ],
+                  [
+                    125.014753,
+                    11.210609
+                  ],
+                  [
+                    125.014733,
+                    11.210692
+                  ],
+                  [
+                    125.014701,
+                    11.210753
+                  ],
+                  [
+                    125.014666,
+                    11.210836
+                  ],
+                  [
+                    125.014661,
+                    11.211001
+                  ],
+                  [
+                    125.014693,
+                    11.211133
+                  ],
+                  [
+                    125.014753,
+                    11.211177
+                  ],
+                  [
+                    125.014876,
+                    11.211208
+                  ],
+                  [
+                    125.014918,
+                    11.211267
+                  ],
+                  [
+                    125.01512,
+                    11.211355
+                  ],
+                  [
+                    125.015235,
+                    11.211429
+                  ],
+                  [
+                    125.015324,
+                    11.211481
+                  ],
+                  [
+                    125.015351,
+                    11.211542
+                  ],
+                  [
+                    125.015398,
+                    11.21155
+                  ],
+                  [
+                    125.015412,
+                    11.211592
+                  ],
+                  [
+                    125.015472,
+                    11.211633
+                  ],
+                  [
+                    125.015514,
+                    11.211591
+                  ],
+                  [
+                    125.01554,
+                    11.211681
+                  ],
+                  [
+                    125.015553,
+                    11.211794
+                  ],
+                  [
+                    125.01552,
+                    11.211833
+                  ],
+                  [
+                    125.015607,
+                    11.211947
+                  ],
+                  [
+                    125.015654,
+                    11.211952
+                  ],
+                  [
+                    125.015686,
+                    11.212005
+                  ],
+                  [
+                    125.015745,
+                    11.212015
+                  ]
+                ]
+              ]
+            ]
+          }
+        },
+        "answers": [
+          {
+            "label": "Was this mangrove before?",
+            "status": "supported",
+            "finding": "mangrove_recorded",
+            "question": "history",
+            "evidence_ids": [
+              "d548b2dd-76ea-480c-a368-c7779386bc14"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What's there now?",
+            "status": "supported",
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "evidence_ids": [
+              "8afcdae2-2d77-4f6e-90fe-b76c6ab25f7f"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What do people on the ground say?",
+            "status": "supported",
+            "finding": "open_for_restoration",
+            "question": "ground",
+            "evidence_ids": [
+              "00000000-0000-4000-8000-0000000ef101"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          }
+        ],
+        "evidence": [
+          {
+            "id": "8afcdae2-2d77-4f6e-90fe-b76c6ab25f7f",
+            "usable": true,
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "content_hash": "26395333db8fb66b9bd914ae6fcb3a4e2b69c4ec4ee874f4a873cd1fbd0ed68c"
+          },
+          {
+            "id": "d548b2dd-76ea-480c-a368-c7779386bc14",
+            "usable": true,
+            "finding": "mangrove_recorded",
+            "question": "history",
+            "content_hash": "b34c0c6866bd4b5e94e6020db7110bb66846fc7e8837c23cf20bcde7f7b4d559"
+          },
+          {
+            "id": "00000000-0000-4000-8000-0000000ef101",
+            "usable": true,
+            "finding": "open_for_restoration",
+            "question": "ground",
+            "content_hash": "4cec4791492b517572789296f604b0e73b0d5ea3e9c42c91547a423838bf3ea9"
+          }
+        ]
+      },
+      "is_demo": false,
+      "content_hash": "cda62f5cc17793e18ee38eddbaaeb3172f9ef5a46f6381476d8caa73dae1cac6"
+    },
+    "site": {
+      "id": "00000000-0000-4000-8000-0000000000f1",
+      "name": "Paraiso mangrove stand, Tacloban",
+      "region": "Eastern Visayas",
+      "is_demo": false,
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                125.015745,
+                11.212015
+              ],
+              [
+                125.015698,
+                11.212082
+              ],
+              [
+                125.015742,
+                11.212138
+              ],
+              [
+                125.015775,
+                11.212196
+              ],
+              [
+                125.015768,
+                11.212376
+              ],
+              [
+                125.01567,
+                11.212521
+              ],
+              [
+                125.015657,
+                11.212577
+              ],
+              [
+                125.015689,
+                11.212597
+              ],
+              [
+                125.015672,
+                11.212675
+              ],
+              [
+                125.015631,
+                11.212684
+              ],
+              [
+                125.015629,
+                11.212806
+              ],
+              [
+                125.015589,
+                11.212967
+              ],
+              [
+                125.015634,
+                11.213072
+              ],
+              [
+                125.015655,
+                11.213256
+              ],
+              [
+                125.01573,
+                11.213448
+              ],
+              [
+                125.015828,
+                11.213437
+              ],
+              [
+                125.015973,
+                11.213344
+              ],
+              [
+                125.015929,
+                11.213199
+              ],
+              [
+                125.016074,
+                11.213174
+              ],
+              [
+                125.016068,
+                11.213129
+              ],
+              [
+                125.016155,
+                11.213129
+              ],
+              [
+                125.016219,
+                11.213042
+              ],
+              [
+                125.016398,
+                11.212757
+              ],
+              [
+                125.016486,
+                11.212687
+              ],
+              [
+                125.016547,
+                11.212573
+              ],
+              [
+                125.01658,
+                11.212459
+              ],
+              [
+                125.016537,
+                11.21234
+              ],
+              [
+                125.016515,
+                11.212248
+              ],
+              [
+                125.016611,
+                11.212221
+              ],
+              [
+                125.016674,
+                11.212121
+              ],
+              [
+                125.016664,
+                11.212022
+              ],
+              [
+                125.016618,
+                11.211929
+              ],
+              [
+                125.016633,
+                11.211888
+              ],
+              [
+                125.016733,
+                11.211797
+              ],
+              [
+                125.01643,
+                11.211683
+              ],
+              [
+                125.016297,
+                11.21164
+              ],
+              [
+                125.01606,
+                11.211501
+              ],
+              [
+                125.016018,
+                11.211476
+              ],
+              [
+                125.015947,
+                11.211416
+              ],
+              [
+                125.015461,
+                11.211001
+              ],
+              [
+                125.015319,
+                11.210814
+              ],
+              [
+                125.015143,
+                11.210648
+              ],
+              [
+                125.014903,
+                11.210614
+              ],
+              [
+                125.014753,
+                11.210609
+              ],
+              [
+                125.014733,
+                11.210692
+              ],
+              [
+                125.014701,
+                11.210753
+              ],
+              [
+                125.014666,
+                11.210836
+              ],
+              [
+                125.014661,
+                11.211001
+              ],
+              [
+                125.014693,
+                11.211133
+              ],
+              [
+                125.014753,
+                11.211177
+              ],
+              [
+                125.014876,
+                11.211208
+              ],
+              [
+                125.014918,
+                11.211267
+              ],
+              [
+                125.01512,
+                11.211355
+              ],
+              [
+                125.015235,
+                11.211429
+              ],
+              [
+                125.015324,
+                11.211481
+              ],
+              [
+                125.015351,
+                11.211542
+              ],
+              [
+                125.015398,
+                11.21155
+              ],
+              [
+                125.015412,
+                11.211592
+              ],
+              [
+                125.015472,
+                11.211633
+              ],
+              [
+                125.015514,
+                11.211591
+              ],
+              [
+                125.01554,
+                11.211681
+              ],
+              [
+                125.015553,
+                11.211794
+              ],
+              [
+                125.01552,
+                11.211833
+              ],
+              [
+                125.015607,
+                11.211947
+              ],
+              [
+                125.015654,
+                11.211952
+              ],
+              [
+                125.015686,
+                11.212005
+              ],
+              [
+                125.015745,
+                11.212015
+              ]
+            ]
+          ]
+        ]
+      },
+      "area": {
+        "value": 2.53,
+        "unit": "ha",
+        "eq_id": "EQ-001",
+        "confidence": "high"
+      },
+      "proposal_summary": "Paraiso planting: about 30,000 seedlings on 4 ha, 2015-2018, funded by Japan's Ministry of Foreign Affairs (Journal of Environmental Management, 2025); community-led after a DENR-assisted 2014 planting was lost (UP Open University study, 2022). The planted boundary is not published."
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "source_count": {
+          "value": 2,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "reported_area": {
+          "value": 4.0,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "low"
+        },
+        "measured_area": null,
+        "area_conflict": null,
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef102",
+          "00000000-0000-4000-8000-0000000ef103"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "checkable_from": "2022-01-01",
+        "status": "supported",
+        "finding": "recovery_seen",
+        "source_count": {
+          "value": 2,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef104",
+          "00000000-0000-4000-8000-0000000ef105"
+        ],
+        "disagreeing_evidence_ids": [],
+        "vegetated_area": null
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "supported",
+        "finding": "mangrove_recorded",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "d548b2dd-76ea-480c-a368-c7779386bc14"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "supported",
+        "finding": "mostly_vegetation",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "8afcdae2-2d77-4f6e-90fe-b76c6ab25f7f"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "supported",
+        "finding": "open_for_restoration",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef101"
+        ],
+        "disagreeing_evidence_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:00.681718Z",
+        "prev_hash": "cda62f5cc17793e18ee38eddbaaeb3172f9ef5a46f6381476d8caa73dae1cac6",
+        "event_hash": "f6185b2f3053f1080f7ccd19b3df93e0e7421ab1015f689a09dd5eacd23f0850",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef102",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "Journal of Environmental Management 395:127840, Paraiso mangrove recovery study",
+          "source_version": "Published 2025 (case study source 37)",
+          "observed_from": "2015-01-01T00:00:00.000000Z",
+          "observed_to": "2018-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:00.362762Z",
+          "location": null,
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_area",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 4,
+              "confidence": "low"
+            },
+            {
+              "name": "seedlings_planted",
+              "unit": "seedlings",
+              "eq_id": "EQ-017",
+              "value": 30000,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “between 2015 and 2018, approximately 30,000 mangrove seedlings were planted across 4 ha of land, with funding provided by the Japanese Ministry of Foreign Affairs”.",
+          "spatial_resolution_m": null,
+          "limitation": "Reported figures in a peer-reviewed study; the planted boundary is not published.",
+          "provenance_url": "https://doi.org/10.1016/j.jenvman.2025.127840",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:00.362762Z",
+          "content_hash": "d8553aef497b8f67b32df3958e461a1cc6d66e401339d844a966e30e8141cb0a"
+        }
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:00.970761Z",
+        "prev_hash": "f6185b2f3053f1080f7ccd19b3df93e0e7421ab1015f689a09dd5eacd23f0850",
+        "event_hash": "2e4cbaa223a92260ad749d8376580376efce0491bf4c0e1e1bd5d480423f93ef",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef103",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "UP Open University special problem on community mangrove rehabilitation (Zenodo)",
+          "source_version": "Published 2022 (case study source 38)",
+          "observed_from": "2016-01-01T00:00:00.000000Z",
+          "observed_to": "2016-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:00.732495Z",
+          "location": null,
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "seedlings_planted_2016",
+              "unit": "seedlings",
+              "eq_id": "EQ-017",
+              "value": 10000,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “OISCA paid the members Php 8.00/plant for seedling potting and Php 7.00/plant for outplanting. An average of 15 persons worked for this project” and “10,000 mangrove seedlings planted in 2016”.",
+          "spatial_resolution_m": null,
+          "limitation": "Student report from interviews; pay and headcount as reported, not audited.",
+          "provenance_url": "https://doi.org/10.5281/zenodo.6975985",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:00.732495Z",
+          "content_hash": "a701b467a1655897526eee533b574ec11bd0ca0c4426c0f934cc9b32e4f967e4"
+        }
+      },
+      {
+        "seq": 3,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:01.297502Z",
+        "prev_hash": "2e4cbaa223a92260ad749d8376580376efce0491bf4c0e1e1bd5d480423f93ef",
+        "event_hash": "6892fc6ea3062528872d0c343af8db5820b6a34318b8f82cdd401a60b45b2ec0",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef104",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Journal of Environmental Management 395:127840, Paraiso mangrove recovery study",
+          "source_version": "Published 2025 (case study source 37)",
+          "observed_from": "2013-11-01T00:00:00.000000Z",
+          "observed_to": "2023-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:01.015521Z",
+          "location": null,
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "mangrove_cover_2023",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 3.6,
+              "confidence": "low"
+            },
+            {
+              "name": "fringe_change_vs_pre_typhoon",
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "value": 80,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: no significant recovery at 16 months and 3.6 years after the typhoon, then by the 10th anniversary the stand “expanded to an estimated 3.6 ha” and “the mangrove forest fringe increased by an impressive 80 % compared to pre-disaster levels, clearly demonstrating successful recovery”.",
+          "spatial_resolution_m": null,
+          "limitation": "Satellite NDVI and Google Earth imagery analysed by the study; 3.6 ha is 40 Sentinel-2 pixels.",
+          "provenance_url": "https://doi.org/10.1016/j.jenvman.2025.127840",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:01.015521Z",
+          "content_hash": "9e7f48298a8816625b0fd2efb545d35652716fb4c5d3e4190819d8f59739807d",
+          "photos": [
+            {
+              "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0301479725038162-gr2.jpg",
+              "credit": "Journal of Environmental Management 2025, Fig. 2 (CC BY-NC 4.0)",
+              "caption": "Paraiso shoreline before and after, Google Earth imagery"
+            },
+            {
+              "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0301479725038162-gr9.jpg",
+              "credit": "Journal of Environmental Management 2025, Fig. 9 (CC BY-NC 4.0)",
+              "caption": "Paraiso planted mangroves, field photos"
+            }
+          ]
+        }
+      },
+      {
+        "seq": 4,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:01.575293Z",
+        "prev_hash": "6892fc6ea3062528872d0c343af8db5820b6a34318b8f82cdd401a60b45b2ec0",
+        "event_hash": "5536a7d52c20e4f9dce8f1c1fc81e14a99abbc388b234b59996aa28785c92101",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef105",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Mongabay, “Philippine mangroves survived a typhoon, but now confront a human-made challenge”",
+          "source_version": "Published 2025-12 (case study source 31)",
+          "observed_from": "2023-01-01T00:00:00.000000Z",
+          "observed_to": "2023-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:01.343479Z",
+          "location": null,
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "mangrove_cover_2023",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 3.6,
+              "confidence": "low"
+            },
+            {
+              "name": "mangrove_cover_before_typhoon",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 1.9,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: Paraiso's mangrove cover reached 3.6 ha by 2023, above the 1.9 ha before the typhoon.",
+          "spatial_resolution_m": null,
+          "limitation": "News report of the same study; not an independent measurement.",
+          "provenance_url": "https://news.mongabay.com/2025/12/philippine-mangroves-survived-a-typhoon-but-now-confront-a-human-made-challenge/",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:01.343479Z",
+          "content_hash": "8191b3b22f9c4e1405161edc8ef17bc5f4107286508ed25964247e57ad2b48a5",
+          "photos": [
+            {
+              "url": "https://imgs.mongabay.com/wp-content/uploads/sites/20/2025/12/04131402/d.-Paraiso_Mangrove_Eco_Learning_Park_boardwalk_floating_cottage_Tacloban_Leyte__09-09-2022.jpg",
+              "credit": "Patrickroque01 via Wikimedia Commons (CC BY-SA 4.0), via Mongabay",
+              "caption": "Paraiso Mangrove Eco-Learning Park boardwalk, 2022"
+            }
+          ]
+        }
+      }
+    ],
+    "pin_state": "on_track",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  },
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f2",
+      "site_id": "00000000-0000-4000-8000-0000000000f2",
+      "funder": {
+        "name": "Department of Environment and Natural Resources (DENR)",
+        "is_demo": false
+      },
+      "published_at": "2026-10-03T22:31:01.779731Z",
+      "rationale": "The provincial government implements a 70 ha mangrove rehabilitation project in Cancabato Bay, paid from the DENR Region 8 budget with the fisheries bureau and the Environmental Management Bureau (Leyte report, State of the Mangrove Summit 2019). The source does not call it MBFDP.",
+      "planned_action": "planting",
+      "planned_action_detail": "70 ha over 14 months, Sep 2017-Nov 2018, with ₱28.8 million (Leyte report, State of the Mangrove Summit 2019).",
+      "planned_area_ha": {
+        "value": 70.0,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "DENR's stated goals for the Post-Yolanda program: a “coastal greenbelt” that would also support fishing and ecotourism, with 80% of funds going to cash-for-work for typhoon survivors (Inquirer, Nov 2013), and storm protection (Inquirer, Nov 2013). No site-level target was published.",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2018-12-01",
+      "outcome_check_after": "2021-12-01",
+      "known_unknowns": "No source states the survival of the 70 ha. The 70 ha boundary is not published; the polygon is the OpenStreetMap-mapped wetland on the bay shore. Not published: the MBFDP agreement text, daily wage and any survival condition on payment; per-site survival for Eastern Visayas MBFDP plots; an independent program-wide survival rate. Reconstructed on 2026-10-04 from public sources; this record was not locked at the time, so its hash proves only that the reconstruction has not changed since.",
+      "snapshot": {
+        "site": {
+          "id": "00000000-0000-4000-8000-0000000000f2",
+          "area": {
+            "unit": "ha",
+            "eq_id": "EQ-001",
+            "value": 54.93,
+            "confidence": "high"
+          },
+          "name": "Cancabato Bay shore, Tacloban",
+          "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [
+                    125.007369,
+                    11.194792
+                  ],
+                  [
+                    125.007899,
+                    11.194985
+                  ],
+                  [
+                    125.008183,
+                    11.195275
+                  ],
+                  [
+                    125.008614,
+                    11.195711
+                  ],
+                  [
+                    125.009045,
+                    11.195288
+                  ],
+                  [
+                    125.009415,
+                    11.194864
+                  ],
+                  [
+                    125.008984,
+                    11.19455
+                  ],
+                  [
+                    125.008281,
+                    11.193728
+                  ],
+                  [
+                    125.00769,
+                    11.19403
+                  ],
+                  [
+                    125.00716,
+                    11.194453
+                  ],
+                  [
+                    125.00716,
+                    11.194647
+                  ],
+                  [
+                    125.007369,
+                    11.194792
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    125.013342,
+                    11.19707
+                  ],
+                  [
+                    125.013919,
+                    11.197912
+                  ],
+                  [
+                    125.014226,
+                    11.197997
+                  ],
+                  [
+                    125.014569,
+                    11.198153
+                  ],
+                  [
+                    125.014999,
+                    11.19843
+                  ],
+                  [
+                    125.015097,
+                    11.198972
+                  ],
+                  [
+                    125.014495,
+                    11.19914
+                  ],
+                  [
+                    125.015085,
+                    11.199634
+                  ],
+                  [
+                    125.0156,
+                    11.200344
+                  ],
+                  [
+                    125.015858,
+                    11.200212
+                  ],
+                  [
+                    125.016471,
+                    11.199718
+                  ],
+                  [
+                    125.017097,
+                    11.199104
+                  ],
+                  [
+                    125.016754,
+                    11.198786
+                  ],
+                  [
+                    125.016962,
+                    11.198647
+                  ],
+                  [
+                    125.017097,
+                    11.19831
+                  ],
+                  [
+                    125.016937,
+                    11.197973
+                  ],
+                  [
+                    125.016397,
+                    11.197636
+                  ],
+                  [
+                    125.015759,
+                    11.197431
+                  ],
+                  [
+                    125.01533,
+                    11.197371
+                  ],
+                  [
+                    125.014937,
+                    11.19766
+                  ],
+                  [
+                    125.014275,
+                    11.197238
+                  ],
+                  [
+                    125.013587,
+                    11.196576
+                  ],
+                  [
+                    125.013303,
+                    11.195787
+                  ],
+                  [
+                    125.012788,
+                    11.195539
+                  ],
+                  [
+                    125.011693,
+                    11.19445
+                  ],
+                  [
+                    125.011538,
+                    11.19485
+                  ],
+                  [
+                    125.011489,
+                    11.194916
+                  ],
+                  [
+                    125.011693,
+                    11.196129
+                  ],
+                  [
+                    125.011988,
+                    11.196376
+                  ],
+                  [
+                    125.012144,
+                    11.196534
+                  ],
+                  [
+                    125.012815,
+                    11.196418
+                  ],
+                  [
+                    125.013125,
+                    11.196478
+                  ],
+                  [
+                    125.013342,
+                    11.19707
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    125.000836,
+                    11.1985
+                  ],
+                  [
+                    125.000831,
+                    11.198533
+                  ],
+                  [
+                    125.001595,
+                    11.199014
+                  ],
+                  [
+                    125.001846,
+                    11.198983
+                  ],
+                  [
+                    125.001987,
+                    11.198756
+                  ],
+                  [
+                    125.002177,
+                    11.198678
+                  ],
+                  [
+                    125.002376,
+                    11.198454
+                  ],
+                  [
+                    125.002276,
+                    11.198327
+                  ],
+                  [
+                    125.002635,
+                    11.197911
+                  ],
+                  [
+                    125.002394,
+                    11.197707
+                  ],
+                  [
+                    125.002451,
+                    11.197407
+                  ],
+                  [
+                    125.001959,
+                    11.197294
+                  ],
+                  [
+                    125.001548,
+                    11.197263
+                  ],
+                  [
+                    125.001161,
+                    11.197926
+                  ],
+                  [
+                    125.001137,
+                    11.197968
+                  ],
+                  [
+                    125.000978,
+                    11.198082
+                  ],
+                  [
+                    125.000609,
+                    11.197557
+                  ],
+                  [
+                    125.00032,
+                    11.197592
+                  ],
+                  [
+                    125.000444,
+                    11.197616
+                  ],
+                  [
+                    125.000455,
+                    11.197733
+                  ],
+                  [
+                    125.000865,
+                    11.198333
+                  ],
+                  [
+                    125.00085,
+                    11.198418
+                  ],
+                  [
+                    125.000836,
+                    11.1985
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    125.018536,
+                    11.202837
+                  ],
+                  [
+                    125.019007,
+                    11.202614
+                  ],
+                  [
+                    125.0193,
+                    11.202502
+                  ],
+                  [
+                    125.019772,
+                    11.202008
+                  ],
+                  [
+                    125.019959,
+                    11.201888
+                  ],
+                  [
+                    125.019243,
+                    11.20117
+                  ],
+                  [
+                    125.01904,
+                    11.200851
+                  ],
+                  [
+                    125.019137,
+                    11.200652
+                  ],
+                  [
+                    125.018967,
+                    11.200468
+                  ],
+                  [
+                    125.018389,
+                    11.200795
+                  ],
+                  [
+                    125.018121,
+                    11.201035
+                  ],
+                  [
+                    125.017958,
+                    11.200875
+                  ],
+                  [
+                    125.017934,
+                    11.200644
+                  ],
+                  [
+                    125.017853,
+                    11.200596
+                  ],
+                  [
+                    125.01756,
+                    11.200843
+                  ],
+                  [
+                    125.017357,
+                    11.200787
+                  ],
+                  [
+                    125.017194,
+                    11.200572
+                  ],
+                  [
+                    125.017192,
+                    11.20043
+                  ],
+                  [
+                    125.017318,
+                    11.200271
+                  ],
+                  [
+                    125.017994,
+                    11.199744
+                  ],
+                  [
+                    125.01836,
+                    11.199554
+                  ],
+                  [
+                    125.018466,
+                    11.199546
+                  ],
+                  [
+                    125.018546,
+                    11.199621
+                  ],
+                  [
+                    125.018652,
+                    11.199761
+                  ],
+                  [
+                    125.018766,
+                    11.199878
+                  ],
+                  [
+                    125.018738,
+                    11.199954
+                  ],
+                  [
+                    125.018609,
+                    11.200008
+                  ],
+                  [
+                    125.018521,
+                    11.20006
+                  ],
+                  [
+                    125.018446,
+                    11.20013
+                  ],
+                  [
+                    125.018529,
+                    11.200226
+                  ],
+                  [
+                    125.018994,
+                    11.199854
+                  ],
+                  [
+                    125.01894,
+                    11.199566
+                  ],
+                  [
+                    125.018788,
+                    11.199462
+                  ],
+                  [
+                    125.018634,
+                    11.199311
+                  ],
+                  [
+                    125.018532,
+                    11.199242
+                  ],
+                  [
+                    125.018184,
+                    11.199407
+                  ],
+                  [
+                    125.017598,
+                    11.1997
+                  ],
+                  [
+                    125.017176,
+                    11.199994
+                  ],
+                  [
+                    125.016822,
+                    11.199907
+                  ],
+                  [
+                    125.016558,
+                    11.20013
+                  ],
+                  [
+                    125.0166,
+                    11.200324
+                  ],
+                  [
+                    125.016266,
+                    11.20062
+                  ],
+                  [
+                    125.016365,
+                    11.200741
+                  ],
+                  [
+                    125.016293,
+                    11.200843
+                  ],
+                  [
+                    125.016019,
+                    11.201302
+                  ],
+                  [
+                    125.015865,
+                    11.20156
+                  ],
+                  [
+                    125.015417,
+                    11.201962
+                  ],
+                  [
+                    125.015675,
+                    11.202274
+                  ],
+                  [
+                    125.015793,
+                    11.202177
+                  ],
+                  [
+                    125.015721,
+                    11.202083
+                  ],
+                  [
+                    125.015745,
+                    11.201958
+                  ],
+                  [
+                    125.015917,
+                    11.201791
+                  ],
+                  [
+                    125.016088,
+                    11.20195
+                  ],
+                  [
+                    125.016078,
+                    11.202027
+                  ],
+                  [
+                    125.015996,
+                    11.202079
+                  ],
+                  [
+                    125.015948,
+                    11.202124
+                  ],
+                  [
+                    125.016084,
+                    11.202242
+                  ],
+                  [
+                    125.016252,
+                    11.202434
+                  ],
+                  [
+                    125.016089,
+                    11.202539
+                  ],
+                  [
+                    125.016195,
+                    11.202693
+                  ],
+                  [
+                    125.016319,
+                    11.202688
+                  ],
+                  [
+                    125.016527,
+                    11.202522
+                  ],
+                  [
+                    125.016651,
+                    11.202485
+                  ],
+                  [
+                    125.01699,
+                    11.202654
+                  ],
+                  [
+                    125.017175,
+                    11.20256
+                  ],
+                  [
+                    125.017312,
+                    11.202569
+                  ],
+                  [
+                    125.017568,
+                    11.202944
+                  ],
+                  [
+                    125.017556,
+                    11.203027
+                  ],
+                  [
+                    125.017434,
+                    11.203168
+                  ],
+                  [
+                    125.017289,
+                    11.203152
+                  ],
+                  [
+                    125.017188,
+                    11.20316
+                  ],
+                  [
+                    125.016994,
+                    11.20334
+                  ],
+                  [
+                    125.017148,
+                    11.203492
+                  ],
+                  [
+                    125.017246,
+                    11.20348
+                  ],
+                  [
+                    125.0173,
+                    11.203508
+                  ],
+                  [
+                    125.017305,
+                    11.203589
+                  ],
+                  [
+                    125.01725,
+                    11.203634
+                  ],
+                  [
+                    125.017196,
+                    11.203721
+                  ],
+                  [
+                    125.017275,
+                    11.203801
+                  ],
+                  [
+                    125.017525,
+                    11.203951
+                  ],
+                  [
+                    125.01756,
+                    11.204029
+                  ],
+                  [
+                    125.017438,
+                    11.204138
+                  ],
+                  [
+                    125.017592,
+                    11.204283
+                  ],
+                  [
+                    125.017749,
+                    11.20413
+                  ],
+                  [
+                    125.017827,
+                    11.204045
+                  ],
+                  [
+                    125.017812,
+                    11.203976
+                  ],
+                  [
+                    125.017697,
+                    11.20388
+                  ],
+                  [
+                    125.017449,
+                    11.203617
+                  ],
+                  [
+                    125.017384,
+                    11.203524
+                  ],
+                  [
+                    125.017482,
+                    11.203437
+                  ],
+                  [
+                    125.017571,
+                    11.203434
+                  ],
+                  [
+                    125.017683,
+                    11.203561
+                  ],
+                  [
+                    125.017674,
+                    11.203616
+                  ],
+                  [
+                    125.01775,
+                    11.20373
+                  ],
+                  [
+                    125.017805,
+                    11.203799
+                  ],
+                  [
+                    125.018124,
+                    11.204043
+                  ],
+                  [
+                    125.018284,
+                    11.204081
+                  ],
+                  [
+                    125.018625,
+                    11.20377
+                  ],
+                  [
+                    125.018292,
+                    11.203236
+                  ],
+                  [
+                    125.018536,
+                    11.202837
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    125.013665,
+                    11.205678
+                  ],
+                  [
+                    125.013488,
+                    11.205311
+                  ],
+                  [
+                    125.013532,
+                    11.205212
+                  ],
+                  [
+                    125.013189,
+                    11.205096
+                  ],
+                  [
+                    125.013184,
+                    11.204819
+                  ],
+                  [
+                    125.012758,
+                    11.204349
+                  ],
+                  [
+                    125.01275,
+                    11.203026
+                  ],
+                  [
+                    125.012489,
+                    11.202274
+                  ],
+                  [
+                    125.01232,
+                    11.201844
+                  ],
+                  [
+                    125.011981,
+                    11.201546
+                  ],
+                  [
+                    125.011881,
+                    11.201574
+                  ],
+                  [
+                    125.010937,
+                    11.200841
+                  ],
+                  [
+                    125.008654,
+                    11.198151
+                  ],
+                  [
+                    125.008582,
+                    11.1982
+                  ],
+                  [
+                    125.011209,
+                    11.201674
+                  ],
+                  [
+                    125.011465,
+                    11.201845
+                  ],
+                  [
+                    125.011663,
+                    11.201817
+                  ],
+                  [
+                    125.011976,
+                    11.201654
+                  ],
+                  [
+                    125.012277,
+                    11.201887
+                  ],
+                  [
+                    125.012279,
+                    11.20265
+                  ],
+                  [
+                    125.012282,
+                    11.202818
+                  ],
+                  [
+                    125.01234,
+                    11.202983
+                  ],
+                  [
+                    125.012067,
+                    11.203246
+                  ],
+                  [
+                    125.011907,
+                    11.203615
+                  ],
+                  [
+                    125.011884,
+                    11.20394
+                  ],
+                  [
+                    125.011894,
+                    11.204199
+                  ],
+                  [
+                    125.011946,
+                    11.204327
+                  ],
+                  [
+                    125.012026,
+                    11.204378
+                  ],
+                  [
+                    125.012221,
+                    11.204337
+                  ],
+                  [
+                    125.012387,
+                    11.204435
+                  ],
+                  [
+                    125.012489,
+                    11.204554
+                  ],
+                  [
+                    125.012681,
+                    11.204784
+                  ],
+                  [
+                    125.012818,
+                    11.204993
+                  ],
+                  [
+                    125.012955,
+                    11.205202
+                  ],
+                  [
+                    125.013058,
+                    11.20538
+                  ],
+                  [
+                    125.013197,
+                    11.205613
+                  ],
+                  [
+                    125.013308,
+                    11.205752
+                  ],
+                  [
+                    125.013337,
+                    11.205839
+                  ],
+                  [
+                    125.0134,
+                    11.205907
+                  ],
+                  [
+                    125.013438,
+                    11.205945
+                  ],
+                  [
+                    125.013487,
+                    11.205977
+                  ],
+                  [
+                    125.013558,
+                    11.206001
+                  ],
+                  [
+                    125.013646,
+                    11.206039
+                  ],
+                  [
+                    125.013762,
+                    11.206114
+                  ],
+                  [
+                    125.013885,
+                    11.206267
+                  ],
+                  [
+                    125.014027,
+                    11.206541
+                  ],
+                  [
+                    125.014052,
+                    11.206594
+                  ],
+                  [
+                    125.014081,
+                    11.206644
+                  ],
+                  [
+                    125.014118,
+                    11.206706
+                  ],
+                  [
+                    125.014123,
+                    11.206762
+                  ],
+                  [
+                    125.014266,
+                    11.206567
+                  ],
+                  [
+                    125.013758,
+                    11.205982
+                  ],
+                  [
+                    125.01371,
+                    11.205801
+                  ],
+                  [
+                    125.013665,
+                    11.205678
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    125.003398,
+                    11.199801
+                  ],
+                  [
+                    125.003204,
+                    11.19968
+                  ],
+                  [
+                    125.002855,
+                    11.199731
+                  ],
+                  [
+                    125.002737,
+                    11.199602
+                  ],
+                  [
+                    125.002501,
+                    11.19968
+                  ],
+                  [
+                    125.002638,
+                    11.200005
+                  ],
+                  [
+                    125.002893,
+                    11.200496
+                  ],
+                  [
+                    125.002723,
+                    11.200848
+                  ],
+                  [
+                    125.002378,
+                    11.201116
+                  ],
+                  [
+                    125.002156,
+                    11.201116
+                  ],
+                  [
+                    125.001963,
+                    11.201033
+                  ],
+                  [
+                    125.00175,
+                    11.201334
+                  ],
+                  [
+                    125.002038,
+                    11.201515
+                  ],
+                  [
+                    125.002024,
+                    11.201795
+                  ],
+                  [
+                    125.00192,
+                    11.202237
+                  ],
+                  [
+                    125.001712,
+                    11.202233
+                  ],
+                  [
+                    125.001377,
+                    11.202427
+                  ],
+                  [
+                    125.001094,
+                    11.202483
+                  ],
+                  [
+                    125.001127,
+                    11.202673
+                  ],
+                  [
+                    125.001604,
+                    11.202835
+                  ],
+                  [
+                    125.001906,
+                    11.202929
+                  ],
+                  [
+                    125.002052,
+                    11.203011
+                  ],
+                  [
+                    125.002099,
+                    11.203409
+                  ],
+                  [
+                    125.00167,
+                    11.203423
+                  ],
+                  [
+                    125.001405,
+                    11.203386
+                  ],
+                  [
+                    125.001292,
+                    11.203627
+                  ],
+                  [
+                    125.001311,
+                    11.20378
+                  ],
+                  [
+                    125.001004,
+                    11.203794
+                  ],
+                  [
+                    125.000862,
+                    11.203761
+                  ],
+                  [
+                    125.000787,
+                    11.203978
+                  ],
+                  [
+                    125.000636,
+                    11.204414
+                  ],
+                  [
+                    125.000305,
+                    11.204697
+                  ],
+                  [
+                    124.999608,
+                    11.206044
+                  ],
+                  [
+                    124.999422,
+                    11.206451
+                  ],
+                  [
+                    124.999523,
+                    11.207028
+                  ],
+                  [
+                    124.999606,
+                    11.207438
+                  ],
+                  [
+                    125.000071,
+                    11.207217
+                  ],
+                  [
+                    125.000275,
+                    11.207686
+                  ],
+                  [
+                    124.999677,
+                    11.207902
+                  ],
+                  [
+                    124.999732,
+                    11.208069
+                  ],
+                  [
+                    125.000052,
+                    11.207902
+                  ],
+                  [
+                    125.000149,
+                    11.207947
+                  ],
+                  [
+                    125.000084,
+                    11.208483
+                  ],
+                  [
+                    125.000256,
+                    11.20871
+                  ],
+                  [
+                    125.000725,
+                    11.208716
+                  ],
+                  [
+                    125.000801,
+                    11.208034
+                  ],
+                  [
+                    125.001228,
+                    11.208085
+                  ],
+                  [
+                    125.001507,
+                    11.207811
+                  ],
+                  [
+                    125.001027,
+                    11.206825
+                  ],
+                  [
+                    125.001244,
+                    11.205953
+                  ],
+                  [
+                    125.002313,
+                    11.204547
+                  ],
+                  [
+                    125.00318,
+                    11.204095
+                  ],
+                  [
+                    125.003827,
+                    11.204304
+                  ],
+                  [
+                    125.003676,
+                    11.203875
+                  ],
+                  [
+                    125.003906,
+                    11.203515
+                  ],
+                  [
+                    125.003542,
+                    11.203326
+                  ],
+                  [
+                    125.003308,
+                    11.202484
+                  ],
+                  [
+                    125.003545,
+                    11.201385
+                  ],
+                  [
+                    125.00423,
+                    11.201333
+                  ],
+                  [
+                    125.004398,
+                    11.201015
+                  ],
+                  [
+                    125.004554,
+                    11.199921
+                  ],
+                  [
+                    125.004626,
+                    11.19925
+                  ],
+                  [
+                    125.004498,
+                    11.199224
+                  ],
+                  [
+                    125.004257,
+                    11.199208
+                  ],
+                  [
+                    125.003974,
+                    11.199602
+                  ],
+                  [
+                    125.003658,
+                    11.199722
+                  ],
+                  [
+                    125.003398,
+                    11.199801
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    125.024663,
+                    11.216085
+                  ],
+                  [
+                    125.02474,
+                    11.216546
+                  ],
+                  [
+                    125.02471,
+                    11.216782
+                  ],
+                  [
+                    125.024472,
+                    11.21699
+                  ],
+                  [
+                    125.024435,
+                    11.217381
+                  ],
+                  [
+                    125.02418,
+                    11.217608
+                  ],
+                  [
+                    125.024499,
+                    11.218095
+                  ],
+                  [
+                    125.025394,
+                    11.217108
+                  ],
+                  [
+                    125.025709,
+                    11.216861
+                  ],
+                  [
+                    125.026018,
+                    11.216411
+                  ],
+                  [
+                    125.026232,
+                    11.215312
+                  ],
+                  [
+                    125.026548,
+                    11.215138
+                  ],
+                  [
+                    125.026461,
+                    11.213784
+                  ],
+                  [
+                    125.026191,
+                    11.213769
+                  ],
+                  [
+                    125.025936,
+                    11.213723
+                  ],
+                  [
+                    125.025899,
+                    11.213713
+                  ],
+                  [
+                    125.025679,
+                    11.214523
+                  ],
+                  [
+                    125.025475,
+                    11.214719
+                  ],
+                  [
+                    125.025395,
+                    11.215019
+                  ],
+                  [
+                    125.024895,
+                    11.21496
+                  ],
+                  [
+                    125.024422,
+                    11.215917
+                  ],
+                  [
+                    125.024663,
+                    11.216085
+                  ]
+                ]
+              ]
+            ]
+          }
+        },
+        "answers": [
+          {
+            "label": "Was this mangrove before?",
+            "status": "supported",
+            "finding": "no_mangrove_recorded",
+            "question": "history",
+            "evidence_ids": [
+              "d790c61e-68e8-4b3f-8a01-2234763b8b15"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What's there now?",
+            "status": "supported",
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "evidence_ids": [
+              "445b6006-0235-46f8-aa3c-911c07f21673"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What do people on the ground say?",
+            "status": "supported",
+            "finding": "existing_mangrove",
+            "question": "ground",
+            "evidence_ids": [
+              "00000000-0000-4000-8000-0000000ef201"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          }
+        ],
+        "evidence": [
+          {
+            "id": "445b6006-0235-46f8-aa3c-911c07f21673",
+            "usable": true,
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "content_hash": "eaf8d545931ebed1a90eb33757692cab6b5907b0ca46a084347d51ca75cb5355"
+          },
+          {
+            "id": "d790c61e-68e8-4b3f-8a01-2234763b8b15",
+            "usable": true,
+            "finding": "no_mangrove_recorded",
+            "question": "history",
+            "content_hash": "5a3ed3ab795de996438bc4e490c9e6923ff7c7e23fcc53916cb35480c44120a9"
+          },
+          {
+            "id": "00000000-0000-4000-8000-0000000ef201",
+            "usable": true,
+            "finding": "existing_mangrove",
+            "question": "ground",
+            "content_hash": "324b864257bb7f62f6376c942f35a0054e68ce49aee17dde4a756e5d72de48d8"
+          }
+        ]
+      },
+      "is_demo": false,
+      "content_hash": "8660aa6117d07db52187665aa05dfd77d1acda2b600cc9391f92a33ac2ade5ac"
+    },
+    "site": {
+      "id": "00000000-0000-4000-8000-0000000000f2",
+      "name": "Cancabato Bay shore, Tacloban",
+      "region": "Eastern Visayas",
+      "is_demo": false,
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                125.007369,
+                11.194792
+              ],
+              [
+                125.007899,
+                11.194985
+              ],
+              [
+                125.008183,
+                11.195275
+              ],
+              [
+                125.008614,
+                11.195711
+              ],
+              [
+                125.009045,
+                11.195288
+              ],
+              [
+                125.009415,
+                11.194864
+              ],
+              [
+                125.008984,
+                11.19455
+              ],
+              [
+                125.008281,
+                11.193728
+              ],
+              [
+                125.00769,
+                11.19403
+              ],
+              [
+                125.00716,
+                11.194453
+              ],
+              [
+                125.00716,
+                11.194647
+              ],
+              [
+                125.007369,
+                11.194792
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                125.013342,
+                11.19707
+              ],
+              [
+                125.013919,
+                11.197912
+              ],
+              [
+                125.014226,
+                11.197997
+              ],
+              [
+                125.014569,
+                11.198153
+              ],
+              [
+                125.014999,
+                11.19843
+              ],
+              [
+                125.015097,
+                11.198972
+              ],
+              [
+                125.014495,
+                11.19914
+              ],
+              [
+                125.015085,
+                11.199634
+              ],
+              [
+                125.0156,
+                11.200344
+              ],
+              [
+                125.015858,
+                11.200212
+              ],
+              [
+                125.016471,
+                11.199718
+              ],
+              [
+                125.017097,
+                11.199104
+              ],
+              [
+                125.016754,
+                11.198786
+              ],
+              [
+                125.016962,
+                11.198647
+              ],
+              [
+                125.017097,
+                11.19831
+              ],
+              [
+                125.016937,
+                11.197973
+              ],
+              [
+                125.016397,
+                11.197636
+              ],
+              [
+                125.015759,
+                11.197431
+              ],
+              [
+                125.01533,
+                11.197371
+              ],
+              [
+                125.014937,
+                11.19766
+              ],
+              [
+                125.014275,
+                11.197238
+              ],
+              [
+                125.013587,
+                11.196576
+              ],
+              [
+                125.013303,
+                11.195787
+              ],
+              [
+                125.012788,
+                11.195539
+              ],
+              [
+                125.011693,
+                11.19445
+              ],
+              [
+                125.011538,
+                11.19485
+              ],
+              [
+                125.011489,
+                11.194916
+              ],
+              [
+                125.011693,
+                11.196129
+              ],
+              [
+                125.011988,
+                11.196376
+              ],
+              [
+                125.012144,
+                11.196534
+              ],
+              [
+                125.012815,
+                11.196418
+              ],
+              [
+                125.013125,
+                11.196478
+              ],
+              [
+                125.013342,
+                11.19707
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                125.000836,
+                11.1985
+              ],
+              [
+                125.000831,
+                11.198533
+              ],
+              [
+                125.001595,
+                11.199014
+              ],
+              [
+                125.001846,
+                11.198983
+              ],
+              [
+                125.001987,
+                11.198756
+              ],
+              [
+                125.002177,
+                11.198678
+              ],
+              [
+                125.002376,
+                11.198454
+              ],
+              [
+                125.002276,
+                11.198327
+              ],
+              [
+                125.002635,
+                11.197911
+              ],
+              [
+                125.002394,
+                11.197707
+              ],
+              [
+                125.002451,
+                11.197407
+              ],
+              [
+                125.001959,
+                11.197294
+              ],
+              [
+                125.001548,
+                11.197263
+              ],
+              [
+                125.001161,
+                11.197926
+              ],
+              [
+                125.001137,
+                11.197968
+              ],
+              [
+                125.000978,
+                11.198082
+              ],
+              [
+                125.000609,
+                11.197557
+              ],
+              [
+                125.00032,
+                11.197592
+              ],
+              [
+                125.000444,
+                11.197616
+              ],
+              [
+                125.000455,
+                11.197733
+              ],
+              [
+                125.000865,
+                11.198333
+              ],
+              [
+                125.00085,
+                11.198418
+              ],
+              [
+                125.000836,
+                11.1985
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                125.018536,
+                11.202837
+              ],
+              [
+                125.019007,
+                11.202614
+              ],
+              [
+                125.0193,
+                11.202502
+              ],
+              [
+                125.019772,
+                11.202008
+              ],
+              [
+                125.019959,
+                11.201888
+              ],
+              [
+                125.019243,
+                11.20117
+              ],
+              [
+                125.01904,
+                11.200851
+              ],
+              [
+                125.019137,
+                11.200652
+              ],
+              [
+                125.018967,
+                11.200468
+              ],
+              [
+                125.018389,
+                11.200795
+              ],
+              [
+                125.018121,
+                11.201035
+              ],
+              [
+                125.017958,
+                11.200875
+              ],
+              [
+                125.017934,
+                11.200644
+              ],
+              [
+                125.017853,
+                11.200596
+              ],
+              [
+                125.01756,
+                11.200843
+              ],
+              [
+                125.017357,
+                11.200787
+              ],
+              [
+                125.017194,
+                11.200572
+              ],
+              [
+                125.017192,
+                11.20043
+              ],
+              [
+                125.017318,
+                11.200271
+              ],
+              [
+                125.017994,
+                11.199744
+              ],
+              [
+                125.01836,
+                11.199554
+              ],
+              [
+                125.018466,
+                11.199546
+              ],
+              [
+                125.018546,
+                11.199621
+              ],
+              [
+                125.018652,
+                11.199761
+              ],
+              [
+                125.018766,
+                11.199878
+              ],
+              [
+                125.018738,
+                11.199954
+              ],
+              [
+                125.018609,
+                11.200008
+              ],
+              [
+                125.018521,
+                11.20006
+              ],
+              [
+                125.018446,
+                11.20013
+              ],
+              [
+                125.018529,
+                11.200226
+              ],
+              [
+                125.018994,
+                11.199854
+              ],
+              [
+                125.01894,
+                11.199566
+              ],
+              [
+                125.018788,
+                11.199462
+              ],
+              [
+                125.018634,
+                11.199311
+              ],
+              [
+                125.018532,
+                11.199242
+              ],
+              [
+                125.018184,
+                11.199407
+              ],
+              [
+                125.017598,
+                11.1997
+              ],
+              [
+                125.017176,
+                11.199994
+              ],
+              [
+                125.016822,
+                11.199907
+              ],
+              [
+                125.016558,
+                11.20013
+              ],
+              [
+                125.0166,
+                11.200324
+              ],
+              [
+                125.016266,
+                11.20062
+              ],
+              [
+                125.016365,
+                11.200741
+              ],
+              [
+                125.016293,
+                11.200843
+              ],
+              [
+                125.016019,
+                11.201302
+              ],
+              [
+                125.015865,
+                11.20156
+              ],
+              [
+                125.015417,
+                11.201962
+              ],
+              [
+                125.015675,
+                11.202274
+              ],
+              [
+                125.015793,
+                11.202177
+              ],
+              [
+                125.015721,
+                11.202083
+              ],
+              [
+                125.015745,
+                11.201958
+              ],
+              [
+                125.015917,
+                11.201791
+              ],
+              [
+                125.016088,
+                11.20195
+              ],
+              [
+                125.016078,
+                11.202027
+              ],
+              [
+                125.015996,
+                11.202079
+              ],
+              [
+                125.015948,
+                11.202124
+              ],
+              [
+                125.016084,
+                11.202242
+              ],
+              [
+                125.016252,
+                11.202434
+              ],
+              [
+                125.016089,
+                11.202539
+              ],
+              [
+                125.016195,
+                11.202693
+              ],
+              [
+                125.016319,
+                11.202688
+              ],
+              [
+                125.016527,
+                11.202522
+              ],
+              [
+                125.016651,
+                11.202485
+              ],
+              [
+                125.01699,
+                11.202654
+              ],
+              [
+                125.017175,
+                11.20256
+              ],
+              [
+                125.017312,
+                11.202569
+              ],
+              [
+                125.017568,
+                11.202944
+              ],
+              [
+                125.017556,
+                11.203027
+              ],
+              [
+                125.017434,
+                11.203168
+              ],
+              [
+                125.017289,
+                11.203152
+              ],
+              [
+                125.017188,
+                11.20316
+              ],
+              [
+                125.016994,
+                11.20334
+              ],
+              [
+                125.017148,
+                11.203492
+              ],
+              [
+                125.017246,
+                11.20348
+              ],
+              [
+                125.0173,
+                11.203508
+              ],
+              [
+                125.017305,
+                11.203589
+              ],
+              [
+                125.01725,
+                11.203634
+              ],
+              [
+                125.017196,
+                11.203721
+              ],
+              [
+                125.017275,
+                11.203801
+              ],
+              [
+                125.017525,
+                11.203951
+              ],
+              [
+                125.01756,
+                11.204029
+              ],
+              [
+                125.017438,
+                11.204138
+              ],
+              [
+                125.017592,
+                11.204283
+              ],
+              [
+                125.017749,
+                11.20413
+              ],
+              [
+                125.017827,
+                11.204045
+              ],
+              [
+                125.017812,
+                11.203976
+              ],
+              [
+                125.017697,
+                11.20388
+              ],
+              [
+                125.017449,
+                11.203617
+              ],
+              [
+                125.017384,
+                11.203524
+              ],
+              [
+                125.017482,
+                11.203437
+              ],
+              [
+                125.017571,
+                11.203434
+              ],
+              [
+                125.017683,
+                11.203561
+              ],
+              [
+                125.017674,
+                11.203616
+              ],
+              [
+                125.01775,
+                11.20373
+              ],
+              [
+                125.017805,
+                11.203799
+              ],
+              [
+                125.018124,
+                11.204043
+              ],
+              [
+                125.018284,
+                11.204081
+              ],
+              [
+                125.018625,
+                11.20377
+              ],
+              [
+                125.018292,
+                11.203236
+              ],
+              [
+                125.018536,
+                11.202837
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                125.013665,
+                11.205678
+              ],
+              [
+                125.013488,
+                11.205311
+              ],
+              [
+                125.013532,
+                11.205212
+              ],
+              [
+                125.013189,
+                11.205096
+              ],
+              [
+                125.013184,
+                11.204819
+              ],
+              [
+                125.012758,
+                11.204349
+              ],
+              [
+                125.01275,
+                11.203026
+              ],
+              [
+                125.012489,
+                11.202274
+              ],
+              [
+                125.01232,
+                11.201844
+              ],
+              [
+                125.011981,
+                11.201546
+              ],
+              [
+                125.011881,
+                11.201574
+              ],
+              [
+                125.010937,
+                11.200841
+              ],
+              [
+                125.008654,
+                11.198151
+              ],
+              [
+                125.008582,
+                11.1982
+              ],
+              [
+                125.011209,
+                11.201674
+              ],
+              [
+                125.011465,
+                11.201845
+              ],
+              [
+                125.011663,
+                11.201817
+              ],
+              [
+                125.011976,
+                11.201654
+              ],
+              [
+                125.012277,
+                11.201887
+              ],
+              [
+                125.012279,
+                11.20265
+              ],
+              [
+                125.012282,
+                11.202818
+              ],
+              [
+                125.01234,
+                11.202983
+              ],
+              [
+                125.012067,
+                11.203246
+              ],
+              [
+                125.011907,
+                11.203615
+              ],
+              [
+                125.011884,
+                11.20394
+              ],
+              [
+                125.011894,
+                11.204199
+              ],
+              [
+                125.011946,
+                11.204327
+              ],
+              [
+                125.012026,
+                11.204378
+              ],
+              [
+                125.012221,
+                11.204337
+              ],
+              [
+                125.012387,
+                11.204435
+              ],
+              [
+                125.012489,
+                11.204554
+              ],
+              [
+                125.012681,
+                11.204784
+              ],
+              [
+                125.012818,
+                11.204993
+              ],
+              [
+                125.012955,
+                11.205202
+              ],
+              [
+                125.013058,
+                11.20538
+              ],
+              [
+                125.013197,
+                11.205613
+              ],
+              [
+                125.013308,
+                11.205752
+              ],
+              [
+                125.013337,
+                11.205839
+              ],
+              [
+                125.0134,
+                11.205907
+              ],
+              [
+                125.013438,
+                11.205945
+              ],
+              [
+                125.013487,
+                11.205977
+              ],
+              [
+                125.013558,
+                11.206001
+              ],
+              [
+                125.013646,
+                11.206039
+              ],
+              [
+                125.013762,
+                11.206114
+              ],
+              [
+                125.013885,
+                11.206267
+              ],
+              [
+                125.014027,
+                11.206541
+              ],
+              [
+                125.014052,
+                11.206594
+              ],
+              [
+                125.014081,
+                11.206644
+              ],
+              [
+                125.014118,
+                11.206706
+              ],
+              [
+                125.014123,
+                11.206762
+              ],
+              [
+                125.014266,
+                11.206567
+              ],
+              [
+                125.013758,
+                11.205982
+              ],
+              [
+                125.01371,
+                11.205801
+              ],
+              [
+                125.013665,
+                11.205678
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                125.003398,
+                11.199801
+              ],
+              [
+                125.003204,
+                11.19968
+              ],
+              [
+                125.002855,
+                11.199731
+              ],
+              [
+                125.002737,
+                11.199602
+              ],
+              [
+                125.002501,
+                11.19968
+              ],
+              [
+                125.002638,
+                11.200005
+              ],
+              [
+                125.002893,
+                11.200496
+              ],
+              [
+                125.002723,
+                11.200848
+              ],
+              [
+                125.002378,
+                11.201116
+              ],
+              [
+                125.002156,
+                11.201116
+              ],
+              [
+                125.001963,
+                11.201033
+              ],
+              [
+                125.00175,
+                11.201334
+              ],
+              [
+                125.002038,
+                11.201515
+              ],
+              [
+                125.002024,
+                11.201795
+              ],
+              [
+                125.00192,
+                11.202237
+              ],
+              [
+                125.001712,
+                11.202233
+              ],
+              [
+                125.001377,
+                11.202427
+              ],
+              [
+                125.001094,
+                11.202483
+              ],
+              [
+                125.001127,
+                11.202673
+              ],
+              [
+                125.001604,
+                11.202835
+              ],
+              [
+                125.001906,
+                11.202929
+              ],
+              [
+                125.002052,
+                11.203011
+              ],
+              [
+                125.002099,
+                11.203409
+              ],
+              [
+                125.00167,
+                11.203423
+              ],
+              [
+                125.001405,
+                11.203386
+              ],
+              [
+                125.001292,
+                11.203627
+              ],
+              [
+                125.001311,
+                11.20378
+              ],
+              [
+                125.001004,
+                11.203794
+              ],
+              [
+                125.000862,
+                11.203761
+              ],
+              [
+                125.000787,
+                11.203978
+              ],
+              [
+                125.000636,
+                11.204414
+              ],
+              [
+                125.000305,
+                11.204697
+              ],
+              [
+                124.999608,
+                11.206044
+              ],
+              [
+                124.999422,
+                11.206451
+              ],
+              [
+                124.999523,
+                11.207028
+              ],
+              [
+                124.999606,
+                11.207438
+              ],
+              [
+                125.000071,
+                11.207217
+              ],
+              [
+                125.000275,
+                11.207686
+              ],
+              [
+                124.999677,
+                11.207902
+              ],
+              [
+                124.999732,
+                11.208069
+              ],
+              [
+                125.000052,
+                11.207902
+              ],
+              [
+                125.000149,
+                11.207947
+              ],
+              [
+                125.000084,
+                11.208483
+              ],
+              [
+                125.000256,
+                11.20871
+              ],
+              [
+                125.000725,
+                11.208716
+              ],
+              [
+                125.000801,
+                11.208034
+              ],
+              [
+                125.001228,
+                11.208085
+              ],
+              [
+                125.001507,
+                11.207811
+              ],
+              [
+                125.001027,
+                11.206825
+              ],
+              [
+                125.001244,
+                11.205953
+              ],
+              [
+                125.002313,
+                11.204547
+              ],
+              [
+                125.00318,
+                11.204095
+              ],
+              [
+                125.003827,
+                11.204304
+              ],
+              [
+                125.003676,
+                11.203875
+              ],
+              [
+                125.003906,
+                11.203515
+              ],
+              [
+                125.003542,
+                11.203326
+              ],
+              [
+                125.003308,
+                11.202484
+              ],
+              [
+                125.003545,
+                11.201385
+              ],
+              [
+                125.00423,
+                11.201333
+              ],
+              [
+                125.004398,
+                11.201015
+              ],
+              [
+                125.004554,
+                11.199921
+              ],
+              [
+                125.004626,
+                11.19925
+              ],
+              [
+                125.004498,
+                11.199224
+              ],
+              [
+                125.004257,
+                11.199208
+              ],
+              [
+                125.003974,
+                11.199602
+              ],
+              [
+                125.003658,
+                11.199722
+              ],
+              [
+                125.003398,
+                11.199801
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                125.024663,
+                11.216085
+              ],
+              [
+                125.02474,
+                11.216546
+              ],
+              [
+                125.02471,
+                11.216782
+              ],
+              [
+                125.024472,
+                11.21699
+              ],
+              [
+                125.024435,
+                11.217381
+              ],
+              [
+                125.02418,
+                11.217608
+              ],
+              [
+                125.024499,
+                11.218095
+              ],
+              [
+                125.025394,
+                11.217108
+              ],
+              [
+                125.025709,
+                11.216861
+              ],
+              [
+                125.026018,
+                11.216411
+              ],
+              [
+                125.026232,
+                11.215312
+              ],
+              [
+                125.026548,
+                11.215138
+              ],
+              [
+                125.026461,
+                11.213784
+              ],
+              [
+                125.026191,
+                11.213769
+              ],
+              [
+                125.025936,
+                11.213723
+              ],
+              [
+                125.025899,
+                11.213713
+              ],
+              [
+                125.025679,
+                11.214523
+              ],
+              [
+                125.025475,
+                11.214719
+              ],
+              [
+                125.025395,
+                11.215019
+              ],
+              [
+                125.024895,
+                11.21496
+              ],
+              [
+                125.024422,
+                11.215917
+              ],
+              [
+                125.024663,
+                11.216085
+              ]
+            ]
+          ]
+        ]
+      },
+      "area": {
+        "value": 54.93,
+        "unit": "ha",
+        "eq_id": "EQ-001",
+        "confidence": "high"
+      },
+      "proposal_summary": "Cancabato Bay: a 70 ha provincial rehabilitation project, Sep 2017-Nov 2018, paid from the DENR Region 8 budget (Leyte report, State of the Mangrove Summit 2019). The 70 ha boundary is not published."
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "reported_area": {
+          "value": 70.0,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "low"
+        },
+        "measured_area": null,
+        "area_conflict": null,
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef202"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "checkable_from": "2021-12-01",
+        "status": "missing",
+        "finding": null,
+        "source_count": {
+          "value": 0,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [],
+        "disagreeing_evidence_ids": [],
+        "vegetated_area": null
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "supported",
+        "finding": "no_mangrove_recorded",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "d790c61e-68e8-4b3f-8a01-2234763b8b15"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "supported",
+        "finding": "mostly_vegetation",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "445b6006-0235-46f8-aa3c-911c07f21673"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "supported",
+        "finding": "existing_mangrove",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef201"
+        ],
+        "disagreeing_evidence_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:02.060362Z",
+        "prev_hash": "8660aa6117d07db52187665aa05dfd77d1acda2b600cc9391f92a33ac2ade5ac",
+        "event_hash": "4baf5513071e0e84bbb988c99c9ec7bcaa3e77e9fe3b204ca981b9dcd30536e0",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef202",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove Summit, “State of the Mangrove in Leyte”",
+          "source_version": "Published 2019 (case study source 21)",
+          "observed_from": "2017-09-01T00:00:00.000000Z",
+          "observed_to": "2018-11-30T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:01.827188Z",
+          "location": null,
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_area",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 70,
+              "confidence": "low"
+            },
+            {
+              "name": "reported_budget",
+              "unit": "million PHP",
+              "eq_id": "EQ-017",
+              "value": 28.8,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: the provincial government implements its own mangrove rehabilitation project in Cancabato Bay, 70 hectares over 14 months, with ₱28.8 million from the budget of DENR Region 8 in partnership with the fisheries bureau and the Environmental Management Bureau.",
+          "spatial_resolution_m": null,
+          "limitation": "Government-reported activity in a summit chapter; the 70 ha boundary is not published.",
+          "provenance_url": "https://www.academia.edu/87539308/State_of_the_Mangrove_in_Leyte",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:01.827188Z",
+          "content_hash": "8a79adce962f8252d98c06d6834fb9804070a567da4a84d3a0ad0e601503d6d2"
+        }
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:02.478080Z",
+        "prev_hash": "4baf5513071e0e84bbb988c99c9ec7bcaa3e77e9fe3b204ca981b9dcd30536e0",
+        "event_hash": "855a85aa72ed534c36e00223f355be485292cd08d790c2199e4ce83fe06144a2",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef203",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Proceedings of the 3rd National Mangrove Conference, Iloilo City (p. 40)",
+          "source_version": "Published 2018-04 (case study source 44)",
+          "observed_from": "2014-01-01T00:00:00.000000Z",
+          "observed_to": "2018-04-01T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:02.105841Z",
+          "location": null,
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "City-level remark that names no programme or planting; not this project.",
+          "metrics": [
+            {
+              "name": "reported_survival_tacloban",
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "value": 0,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: “There was a survival rate of 98% in some parts of Quezon and 0% in Tacloban which was damaged by the typhoon.” No finding is taken from it.",
+          "spatial_resolution_m": null,
+          "limitation": "Remark at a national conference; city-level, the programme and planting are not named.",
+          "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:02.105841Z",
+          "content_hash": "5466779dd71be947be2d1eba237de0eba21a9abbecc901fbe04b5551ceee2efe"
+        }
+      },
+      {
+        "seq": 3,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:03.095339Z",
+        "prev_hash": "855a85aa72ed534c36e00223f355be485292cd08d790c2199e4ce83fe06144a2",
+        "event_hash": "1264b288a51001b909a179825f5c1dd07cb38f23ac10d8529be35550018ba934",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef204",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Carbon Research 4, “Understanding blue carbon management strategies”",
+          "source_version": "Published 2025 (case study source 26)",
+          "observed_from": "2023-01-01T00:00:00.000000Z",
+          "observed_to": "2023-03-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:02.524244Z",
+          "location": null,
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "Names no planting programme, so it is not evidence about the 70 ha project.",
+          "metrics": [
+            {
+              "name": "mangrove_cover_burayan",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 4.28,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: two stations along Cancabato Bay, Brgy. Burayan and Brgy. Paraiso, had 4.28 ha and 5.18 ha of mangrove cover, and “There are reforested stands in both barangays.” No finding is taken from it.",
+          "spatial_resolution_m": null,
+          "limitation": "Peer-reviewed field survey; the reforested stands are not tied to any programme or year.",
+          "provenance_url": "https://link.springer.com/article/10.1007/s44246-025-00216-6",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:02.524244Z",
+          "content_hash": "41e90b6c0c1007bb21a15eaaf6007cf68a1670111b1d1c8b979f16d64100ccdd"
+        }
+      },
+      {
+        "seq": 4,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:03.448870Z",
+        "prev_hash": "1264b288a51001b909a179825f5c1dd07cb38f23ac10d8529be35550018ba934",
+        "event_hash": "f2aefc6e12e3094f4799b12cf577542ad4f5318f69a9e9f7b1555c76d74be749",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef205",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove Summit, “Synthesis”",
+          "source_version": "Published 2019 (case study source 23)",
+          "observed_from": "2019-01-01T00:00:00.000000Z",
+          "observed_to": "2019-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:03.140324Z",
+          "location": null,
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "Province-wide range that spans both outcomes; the source says the figures need field validation.",
+          "metrics": [
+            {
+              "name": "reported_survival_leyte_min",
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "value": 0,
+              "confidence": "low"
+            },
+            {
+              "name": "reported_survival_leyte_max",
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "value": 100,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: survival in Leyte ranged from 0% to 100%, with “no standard monitoring protocol”. No finding is taken from it.",
+          "spatial_resolution_m": null,
+          "limitation": "Not limited to this project; the source says the figures “need field validation”.",
+          "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/6.-synthesis.pdf",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:03.140324Z",
+          "content_hash": "8f41c5d6a115d78e732b753808fbc9ad2917bd9e6b42a719a4cf54acad512577"
+        }
+      }
+    ],
+    "pin_state": "awaiting",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  },
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f3",
+      "site_id": "00000000-0000-4000-8000-0000000000f3",
+      "funder": {
+        "name": "Department of Environment and Natural Resources (DENR)",
+        "is_demo": false
+      },
+      "published_at": "2026-10-03T22:31:03.595032Z",
+      "rationale": "Ormoc's 2019 mangrove report lists an MBFDP grant of 105 ha in 8 parcels, 2015-2017, in the history table of the Naungan-San Juan Mangrove Planters Association (Ormoc report, State of the Mangrove Summit 2019).",
+      "planned_action": "planting",
+      "planned_action_detail": "Planting, maintenance and protection across 8 parcels; the species switched from Rhizophora to Avicennia and Sonneratia (Ormoc report, State of the Mangrove Summit 2019).",
+      "planned_area_ha": {
+        "value": 105.0,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "DENR's stated goals for the Post-Yolanda program: a “coastal greenbelt” that would also support fishing and ecotourism, with 80% of funds going to cash-for-work for typhoon survivors (Inquirer, Nov 2013), and storm protection (Inquirer, Nov 2013). No site-level target was published.",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2018-01-01",
+      "outcome_check_after": "2021-01-01",
+      "known_unknowns": "The 8 parcel locations are not published; the polygon is OpenStreetMap-mapped mangrove at Naungan. No source gives survival for the 105 ha; the outcome item is an afforested stand the association manages in the next barangay (Carbon Research, 2025). Not published: the MBFDP agreement text, daily wage and any survival condition on payment; per-site survival for Eastern Visayas MBFDP plots; an independent program-wide survival rate. Reconstructed on 2026-10-04 from public sources; this record was not locked at the time, so its hash proves only that the reconstruction has not changed since.",
+      "snapshot": {
+        "site": {
+          "id": "00000000-0000-4000-8000-0000000000f3",
+          "area": {
+            "unit": "ha",
+            "eq_id": "EQ-001",
+            "value": 11.36,
+            "confidence": "high"
+          },
+          "name": "Naungan coast, Ormoc",
+          "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [
+                    124.580767,
+                    11.014872
+                  ],
+                  [
+                    124.581727,
+                    11.014724
+                  ],
+                  [
+                    124.581673,
+                    11.014563
+                  ],
+                  [
+                    124.581764,
+                    11.014357
+                  ],
+                  [
+                    124.581767,
+                    11.014286
+                  ],
+                  [
+                    124.581778,
+                    11.01406
+                  ],
+                  [
+                    124.581707,
+                    11.01392
+                  ],
+                  [
+                    124.581404,
+                    11.013909
+                  ],
+                  [
+                    124.580721,
+                    11.014791
+                  ],
+                  [
+                    124.580767,
+                    11.014872
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    124.576403,
+                    11.015331
+                  ],
+                  [
+                    124.577072,
+                    11.015025
+                  ],
+                  [
+                    124.576794,
+                    11.014574
+                  ],
+                  [
+                    124.577134,
+                    11.014307
+                  ],
+                  [
+                    124.576964,
+                    11.013501
+                  ],
+                  [
+                    124.576097,
+                    11.013595
+                  ],
+                  [
+                    124.575734,
+                    11.014608
+                  ],
+                  [
+                    124.576403,
+                    11.015331
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    124.591777,
+                    11.023021
+                  ],
+                  [
+                    124.591915,
+                    11.023119
+                  ],
+                  [
+                    124.592107,
+                    11.023292
+                  ],
+                  [
+                    124.592141,
+                    11.023445
+                  ],
+                  [
+                    124.592303,
+                    11.023609
+                  ],
+                  [
+                    124.592407,
+                    11.023635
+                  ],
+                  [
+                    124.592545,
+                    11.023758
+                  ],
+                  [
+                    124.592644,
+                    11.023969
+                  ],
+                  [
+                    124.592696,
+                    11.024117
+                  ],
+                  [
+                    124.592849,
+                    11.024215
+                  ],
+                  [
+                    124.592838,
+                    11.023853
+                  ],
+                  [
+                    124.592879,
+                    11.023781
+                  ],
+                  [
+                    124.59312,
+                    11.02359
+                  ],
+                  [
+                    124.59326,
+                    11.02366
+                  ],
+                  [
+                    124.593375,
+                    11.023451
+                  ],
+                  [
+                    124.593209,
+                    11.023326
+                  ],
+                  [
+                    124.593273,
+                    11.023136
+                  ],
+                  [
+                    124.593515,
+                    11.023288
+                  ],
+                  [
+                    124.593629,
+                    11.023161
+                  ],
+                  [
+                    124.593543,
+                    11.023159
+                  ],
+                  [
+                    124.593319,
+                    11.02297
+                  ],
+                  [
+                    124.593437,
+                    11.022714
+                  ],
+                  [
+                    124.593638,
+                    11.02264
+                  ],
+                  [
+                    124.593657,
+                    11.022492
+                  ],
+                  [
+                    124.593726,
+                    11.022488
+                  ],
+                  [
+                    124.593812,
+                    11.021925
+                  ],
+                  [
+                    124.593937,
+                    11.021959
+                  ],
+                  [
+                    124.593978,
+                    11.022031
+                  ],
+                  [
+                    124.593985,
+                    11.021821
+                  ],
+                  [
+                    124.593911,
+                    11.021868
+                  ],
+                  [
+                    124.593644,
+                    11.021752
+                  ],
+                  [
+                    124.593668,
+                    11.02166
+                  ],
+                  [
+                    124.593758,
+                    11.02166
+                  ],
+                  [
+                    124.593961,
+                    11.021593
+                  ],
+                  [
+                    124.594051,
+                    11.021475
+                  ],
+                  [
+                    124.593352,
+                    11.021336
+                  ],
+                  [
+                    124.593236,
+                    11.021308
+                  ],
+                  [
+                    124.59321,
+                    11.021262
+                  ],
+                  [
+                    124.593322,
+                    11.021133
+                  ],
+                  [
+                    124.593449,
+                    11.021133
+                  ],
+                  [
+                    124.593667,
+                    11.021105
+                  ],
+                  [
+                    124.593753,
+                    11.020957
+                  ],
+                  [
+                    124.59388,
+                    11.021001
+                  ],
+                  [
+                    124.594053,
+                    11.020942
+                  ],
+                  [
+                    124.594081,
+                    11.020794
+                  ],
+                  [
+                    124.594221,
+                    11.020775
+                  ],
+                  [
+                    124.594269,
+                    11.02054
+                  ],
+                  [
+                    124.59439,
+                    11.019785
+                  ],
+                  [
+                    124.594408,
+                    11.019386
+                  ],
+                  [
+                    124.5943,
+                    11.019392
+                  ],
+                  [
+                    124.594227,
+                    11.019102
+                  ],
+                  [
+                    124.594155,
+                    11.018844
+                  ],
+                  [
+                    124.594121,
+                    11.018914
+                  ],
+                  [
+                    124.593881,
+                    11.018966
+                  ],
+                  [
+                    124.593782,
+                    11.018954
+                  ],
+                  [
+                    124.593666,
+                    11.018933
+                  ],
+                  [
+                    124.593556,
+                    11.018969
+                  ],
+                  [
+                    124.59339,
+                    11.019168
+                  ],
+                  [
+                    124.59325,
+                    11.019216
+                  ],
+                  [
+                    124.593174,
+                    11.019358
+                  ],
+                  [
+                    124.592827,
+                    11.019282
+                  ],
+                  [
+                    124.59254,
+                    11.019119
+                  ],
+                  [
+                    124.592461,
+                    11.019206
+                  ],
+                  [
+                    124.592545,
+                    11.019375
+                  ],
+                  [
+                    124.592286,
+                    11.019584
+                  ],
+                  [
+                    124.592385,
+                    11.019764
+                  ],
+                  [
+                    124.592303,
+                    11.019849
+                  ],
+                  [
+                    124.59242,
+                    11.020088
+                  ],
+                  [
+                    124.592208,
+                    11.020249
+                  ],
+                  [
+                    124.592118,
+                    11.020397
+                  ],
+                  [
+                    124.592053,
+                    11.020437
+                  ],
+                  [
+                    124.591971,
+                    11.020388
+                  ],
+                  [
+                    124.591708,
+                    11.020429
+                  ],
+                  [
+                    124.591858,
+                    11.02049
+                  ],
+                  [
+                    124.591771,
+                    11.020558
+                  ],
+                  [
+                    124.592193,
+                    11.020643
+                  ],
+                  [
+                    124.592248,
+                    11.02072
+                  ],
+                  [
+                    124.592063,
+                    11.020677
+                  ],
+                  [
+                    124.592015,
+                    11.020786
+                  ],
+                  [
+                    124.592155,
+                    11.0209
+                  ],
+                  [
+                    124.592157,
+                    11.020985
+                  ],
+                  [
+                    124.592299,
+                    11.021019
+                  ],
+                  [
+                    124.592345,
+                    11.020885
+                  ],
+                  [
+                    124.592344,
+                    11.020762
+                  ],
+                  [
+                    124.592512,
+                    11.020569
+                  ],
+                  [
+                    124.593131,
+                    11.020316
+                  ],
+                  [
+                    124.593351,
+                    11.020557
+                  ],
+                  [
+                    124.592985,
+                    11.020959
+                  ],
+                  [
+                    124.592942,
+                    11.021105
+                  ],
+                  [
+                    124.592678,
+                    11.021565
+                  ],
+                  [
+                    124.592615,
+                    11.021777
+                  ],
+                  [
+                    124.592501,
+                    11.021895
+                  ],
+                  [
+                    124.592313,
+                    11.021902
+                  ],
+                  [
+                    124.592266,
+                    11.021993
+                  ],
+                  [
+                    124.592104,
+                    11.02205
+                  ],
+                  [
+                    124.591792,
+                    11.022255
+                  ],
+                  [
+                    124.591878,
+                    11.022484
+                  ],
+                  [
+                    124.591958,
+                    11.0227
+                  ],
+                  [
+                    124.591853,
+                    11.022856
+                  ],
+                  [
+                    124.591777,
+                    11.023021
+                  ]
+                ]
+              ]
+            ]
+          }
+        },
+        "answers": [
+          {
+            "label": "Was this mangrove before?",
+            "status": "supported",
+            "finding": "mangrove_recorded",
+            "question": "history",
+            "evidence_ids": [
+              "65122563-164f-4461-b840-ac5ddf6016ea"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What's there now?",
+            "status": "supported",
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "evidence_ids": [
+              "4423d673-59cc-447b-af16-503689bc8c6e"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What do people on the ground say?",
+            "status": "supported",
+            "finding": "existing_mangrove",
+            "question": "ground",
+            "evidence_ids": [
+              "00000000-0000-4000-8000-0000000ef302",
+              "00000000-0000-4000-8000-0000000ef301"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 2,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          }
+        ],
+        "evidence": [
+          {
+            "id": "4423d673-59cc-447b-af16-503689bc8c6e",
+            "usable": true,
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "content_hash": "1c07142fe322dd034025cc30204e59bf803188f3a9e48cd5c912f410c75df5a4"
+          },
+          {
+            "id": "65122563-164f-4461-b840-ac5ddf6016ea",
+            "usable": true,
+            "finding": "mangrove_recorded",
+            "question": "history",
+            "content_hash": "0e26a77234ae8c59b55be553876751e0b2781bb72ff5a008b720deaed4ec79f1"
+          },
+          {
+            "id": "00000000-0000-4000-8000-0000000ef302",
+            "usable": true,
+            "finding": "existing_mangrove",
+            "question": "ground",
+            "content_hash": "cb74e235af39c26796fa549c9d81376134a4324ddcf0170ac4d250803d4caea9"
+          },
+          {
+            "id": "00000000-0000-4000-8000-0000000ef301",
+            "usable": true,
+            "finding": "existing_mangrove",
+            "question": "ground",
+            "content_hash": "ef349181a6cacb45579ba0551753b850c95c4291a33fbba305102e608fce437c"
+          }
+        ]
+      },
+      "is_demo": false,
+      "content_hash": "0c42363f712cf0c02e0000b7b80f18de528b4d75cfe1880eb8c29b6d15cebad9"
+    },
+    "site": {
+      "id": "00000000-0000-4000-8000-0000000000f3",
+      "name": "Naungan coast, Ormoc",
+      "region": "Eastern Visayas",
+      "is_demo": false,
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                124.580767,
+                11.014872
+              ],
+              [
+                124.581727,
+                11.014724
+              ],
+              [
+                124.581673,
+                11.014563
+              ],
+              [
+                124.581764,
+                11.014357
+              ],
+              [
+                124.581767,
+                11.014286
+              ],
+              [
+                124.581778,
+                11.01406
+              ],
+              [
+                124.581707,
+                11.01392
+              ],
+              [
+                124.581404,
+                11.013909
+              ],
+              [
+                124.580721,
+                11.014791
+              ],
+              [
+                124.580767,
+                11.014872
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                124.576403,
+                11.015331
+              ],
+              [
+                124.577072,
+                11.015025
+              ],
+              [
+                124.576794,
+                11.014574
+              ],
+              [
+                124.577134,
+                11.014307
+              ],
+              [
+                124.576964,
+                11.013501
+              ],
+              [
+                124.576097,
+                11.013595
+              ],
+              [
+                124.575734,
+                11.014608
+              ],
+              [
+                124.576403,
+                11.015331
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                124.591777,
+                11.023021
+              ],
+              [
+                124.591915,
+                11.023119
+              ],
+              [
+                124.592107,
+                11.023292
+              ],
+              [
+                124.592141,
+                11.023445
+              ],
+              [
+                124.592303,
+                11.023609
+              ],
+              [
+                124.592407,
+                11.023635
+              ],
+              [
+                124.592545,
+                11.023758
+              ],
+              [
+                124.592644,
+                11.023969
+              ],
+              [
+                124.592696,
+                11.024117
+              ],
+              [
+                124.592849,
+                11.024215
+              ],
+              [
+                124.592838,
+                11.023853
+              ],
+              [
+                124.592879,
+                11.023781
+              ],
+              [
+                124.59312,
+                11.02359
+              ],
+              [
+                124.59326,
+                11.02366
+              ],
+              [
+                124.593375,
+                11.023451
+              ],
+              [
+                124.593209,
+                11.023326
+              ],
+              [
+                124.593273,
+                11.023136
+              ],
+              [
+                124.593515,
+                11.023288
+              ],
+              [
+                124.593629,
+                11.023161
+              ],
+              [
+                124.593543,
+                11.023159
+              ],
+              [
+                124.593319,
+                11.02297
+              ],
+              [
+                124.593437,
+                11.022714
+              ],
+              [
+                124.593638,
+                11.02264
+              ],
+              [
+                124.593657,
+                11.022492
+              ],
+              [
+                124.593726,
+                11.022488
+              ],
+              [
+                124.593812,
+                11.021925
+              ],
+              [
+                124.593937,
+                11.021959
+              ],
+              [
+                124.593978,
+                11.022031
+              ],
+              [
+                124.593985,
+                11.021821
+              ],
+              [
+                124.593911,
+                11.021868
+              ],
+              [
+                124.593644,
+                11.021752
+              ],
+              [
+                124.593668,
+                11.02166
+              ],
+              [
+                124.593758,
+                11.02166
+              ],
+              [
+                124.593961,
+                11.021593
+              ],
+              [
+                124.594051,
+                11.021475
+              ],
+              [
+                124.593352,
+                11.021336
+              ],
+              [
+                124.593236,
+                11.021308
+              ],
+              [
+                124.59321,
+                11.021262
+              ],
+              [
+                124.593322,
+                11.021133
+              ],
+              [
+                124.593449,
+                11.021133
+              ],
+              [
+                124.593667,
+                11.021105
+              ],
+              [
+                124.593753,
+                11.020957
+              ],
+              [
+                124.59388,
+                11.021001
+              ],
+              [
+                124.594053,
+                11.020942
+              ],
+              [
+                124.594081,
+                11.020794
+              ],
+              [
+                124.594221,
+                11.020775
+              ],
+              [
+                124.594269,
+                11.02054
+              ],
+              [
+                124.59439,
+                11.019785
+              ],
+              [
+                124.594408,
+                11.019386
+              ],
+              [
+                124.5943,
+                11.019392
+              ],
+              [
+                124.594227,
+                11.019102
+              ],
+              [
+                124.594155,
+                11.018844
+              ],
+              [
+                124.594121,
+                11.018914
+              ],
+              [
+                124.593881,
+                11.018966
+              ],
+              [
+                124.593782,
+                11.018954
+              ],
+              [
+                124.593666,
+                11.018933
+              ],
+              [
+                124.593556,
+                11.018969
+              ],
+              [
+                124.59339,
+                11.019168
+              ],
+              [
+                124.59325,
+                11.019216
+              ],
+              [
+                124.593174,
+                11.019358
+              ],
+              [
+                124.592827,
+                11.019282
+              ],
+              [
+                124.59254,
+                11.019119
+              ],
+              [
+                124.592461,
+                11.019206
+              ],
+              [
+                124.592545,
+                11.019375
+              ],
+              [
+                124.592286,
+                11.019584
+              ],
+              [
+                124.592385,
+                11.019764
+              ],
+              [
+                124.592303,
+                11.019849
+              ],
+              [
+                124.59242,
+                11.020088
+              ],
+              [
+                124.592208,
+                11.020249
+              ],
+              [
+                124.592118,
+                11.020397
+              ],
+              [
+                124.592053,
+                11.020437
+              ],
+              [
+                124.591971,
+                11.020388
+              ],
+              [
+                124.591708,
+                11.020429
+              ],
+              [
+                124.591858,
+                11.02049
+              ],
+              [
+                124.591771,
+                11.020558
+              ],
+              [
+                124.592193,
+                11.020643
+              ],
+              [
+                124.592248,
+                11.02072
+              ],
+              [
+                124.592063,
+                11.020677
+              ],
+              [
+                124.592015,
+                11.020786
+              ],
+              [
+                124.592155,
+                11.0209
+              ],
+              [
+                124.592157,
+                11.020985
+              ],
+              [
+                124.592299,
+                11.021019
+              ],
+              [
+                124.592345,
+                11.020885
+              ],
+              [
+                124.592344,
+                11.020762
+              ],
+              [
+                124.592512,
+                11.020569
+              ],
+              [
+                124.593131,
+                11.020316
+              ],
+              [
+                124.593351,
+                11.020557
+              ],
+              [
+                124.592985,
+                11.020959
+              ],
+              [
+                124.592942,
+                11.021105
+              ],
+              [
+                124.592678,
+                11.021565
+              ],
+              [
+                124.592615,
+                11.021777
+              ],
+              [
+                124.592501,
+                11.021895
+              ],
+              [
+                124.592313,
+                11.021902
+              ],
+              [
+                124.592266,
+                11.021993
+              ],
+              [
+                124.592104,
+                11.02205
+              ],
+              [
+                124.591792,
+                11.022255
+              ],
+              [
+                124.591878,
+                11.022484
+              ],
+              [
+                124.591958,
+                11.0227
+              ],
+              [
+                124.591853,
+                11.022856
+              ],
+              [
+                124.591777,
+                11.023021
+              ]
+            ]
+          ]
+        ]
+      },
+      "area": {
+        "value": 11.36,
+        "unit": "ha",
+        "eq_id": "EQ-001",
+        "confidence": "high"
+      },
+      "proposal_summary": "Ormoc MBFDP site: 105 ha in 8 parcels, 2015-2017 (Ormoc report, State of the Mangrove Summit 2019). Parcel locations are not published; Naungan is shown because the same report names the Naungan-San Juan Mangrove Planters Association."
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "reported_area": {
+          "value": 105.0,
+          "unit": "ha",
+          "eq_id": null,
+          "confidence": "low"
+        },
+        "measured_area": null,
+        "area_conflict": null,
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef303"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "checkable_from": "2021-01-01",
+        "status": "supported",
+        "finding": "recovery_seen",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef305"
+        ],
+        "disagreeing_evidence_ids": [],
+        "vegetated_area": null
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "supported",
+        "finding": "mangrove_recorded",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "65122563-164f-4461-b840-ac5ddf6016ea"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "supported",
+        "finding": "mostly_vegetation",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "4423d673-59cc-447b-af16-503689bc8c6e"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "supported",
+        "finding": "existing_mangrove",
+        "source_count": {
+          "value": 2,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef302",
+          "00000000-0000-4000-8000-0000000ef301"
+        ],
+        "disagreeing_evidence_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:03.961240Z",
+        "prev_hash": "0c42363f712cf0c02e0000b7b80f18de528b4d75cfe1880eb8c29b6d15cebad9",
+        "event_hash": "4a1fdcb45cc793b3699777916d201d9d678f52b6651973b370ed0149754b4cb1",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef303",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove Summit, “State of the Mangrove in Ormoc City”",
+          "source_version": "Published 2019 (case study source 20)",
+          "observed_from": "2015-01-01T00:00:00.000000Z",
+          "observed_to": "2017-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:03.643144Z",
+          "location": null,
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_area",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 105,
+              "confidence": "low"
+            },
+            {
+              "name": "reported_parcels",
+              "unit": "parcels",
+              "eq_id": "EQ-017",
+              "value": 8,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: the planters' association's history table lists “2015–2017 MBFDP Project: Granted 105 ha for mangrove plantation comprising of 8 parcels; maintenance and protection activity; changed Rhizophora to Avicennia/Sonneratia”.",
+          "spatial_resolution_m": null,
+          "limitation": "Summit proceedings; parcel locations are not published, so the polygon is a stand-in.",
+          "provenance_url": "https://mangroveecology.com/wp-content/uploads/2019/03/3.-state-of-the-mangrove.pdf",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:03.643144Z",
+          "content_hash": "6fb91aee79eb0d8fbb47fea4c6218d95c3ec2d8cc984e4255ddcda36c54bbfc4"
+        }
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:04.351729Z",
+        "prev_hash": "4a1fdcb45cc793b3699777916d201d9d678f52b6651973b370ed0149754b4cb1",
+        "event_hash": "a96b1570473b13bd7737916d0bd08e80c9a67a331a5366609c547b3f821d4246",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef304",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Proceedings of the 3rd National Mangrove Conference, Iloilo City",
+          "source_version": "Published 2018-04 (case study source 18)",
+          "observed_from": "2016-02-01T00:00:00.000000Z",
+          "observed_to": "2016-05-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:04.006752Z",
+          "location": null,
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "Program-wide figure across 43 provinces with no published method; not measured at this site.",
+          "metrics": [
+            {
+              "name": "reported_survival_mangrove",
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "value": 78.3,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: DENR's survival check found 78.3% for mangrove and 76.3% for beach forest. No finding is taken from it.",
+          "spatial_resolution_m": null,
+          "limitation": "DENR's own figure, taken within months of planting, method unpublished.",
+          "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:04.006752Z",
+          "content_hash": "138b6472dd26656a6a8e3f434decb54d041291a5b4f6d04508f069e4ee7ef3a8"
+        }
+      },
+      {
+        "seq": 3,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:04.628718Z",
+        "prev_hash": "a96b1570473b13bd7737916d0bd08e80c9a67a331a5366609c547b3f821d4246",
+        "event_hash": "e4a22d5324cc270475382f1946805c8c06c2ef3968b52071f7b87cad4e277547",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef305",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Carbon Research 4, “Understanding blue carbon management strategies”",
+          "source_version": "Published 2025 (case study source 26)",
+          "observed_from": "2023-01-01T00:00:00.000000Z",
+          "observed_to": "2023-03-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:04.397280Z",
+          "location": null,
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “The natural stand is in Brgy. San Juan, while afforested stand is established in Brgy. Lao. The mangroves are managed by the Naungan San Juan Mangrove Planters Association (NSJMPA)… a Mangrove Eco Park was established in 2023”.",
+          "spatial_resolution_m": null,
+          "limitation": "Peer-reviewed field survey; it does not state the planting year or programme of the Lao stand, and Brgy. Lao borders this polygon rather than lying inside it.",
+          "provenance_url": "https://link.springer.com/article/10.1007/s44246-025-00216-6",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:04.397280Z",
+          "content_hash": "0906ba14fcfc8009c69918598742b1bc2b61f1face12fa544d6c7a528fde28ef"
+        }
+      }
+    ],
+    "pin_state": "on_track",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  },
+  {
+    "record": {
+      "id": "00000000-0000-4000-8000-0000000001f4",
+      "site_id": "00000000-0000-4000-8000-0000000000f4",
+      "funder": {
+        "name": "Department of Environment and Natural Resources (DENR)",
+        "is_demo": false
+      },
+      "published_at": "2026-10-03T22:31:04.772000Z",
+      "rationale": "DENR's research bureau found the 206 ha mangrove plantation in Campoyong and Bungtod dead six months after the typhoon (Inquirer, Jun 2014). Eastern Samar then received about 2,553 ha of DENR-funded planting (Eastern Samar report, State of the Mangrove Summit 2019), and Bungtod residents replanted (Climate Tracker Asia, 2022).",
+      "planned_action": "planting",
+      "planned_action_detail": "Planting and monitoring by local community or people's organization members (Eastern Samar report, State of the Mangrove Summit 2019). The area shown is the protected area's mapped recovered area with planted seedlings (104.39 ha) (Climate Tracker Asia, 2022); no per-site planned area was published.",
+      "planned_area_ha": {
+        "value": 104.39,
+        "unit": "ha",
+        "eq_id": null,
+        "confidence": "high"
+      },
+      "expected_outcome": "DENR's stated goals for the Post-Yolanda program: a “coastal greenbelt” that would also support fishing and ecotourism, with 80% of funds going to cash-for-work for typhoon survivors (Inquirer, Nov 2013), and storm protection (Inquirer, Nov 2013). No site-level target was published.",
+      "expected_vegetated_ha": null,
+      "work_check_after": "2016-02-01",
+      "outcome_check_after": "2019-02-01",
+      "known_unknowns": "Whether the Bungtod replanting was paid from MBFDP money is not stated (Climate Tracker Asia, 2022). The polygon is the 2010 Global Mangrove Watch patch south of Bungtod, a stand-in for the province program. Not published: the MBFDP agreement text, daily wage and any survival condition on payment; per-site survival for Eastern Visayas MBFDP plots; an independent program-wide survival rate. Reconstructed on 2026-10-04 from public sources; this record was not locked at the time, so its hash proves only that the reconstruction has not changed since.",
+      "snapshot": {
+        "site": {
+          "id": "00000000-0000-4000-8000-0000000000f4",
+          "area": {
+            "unit": "ha",
+            "eq_id": "EQ-001",
+            "value": 119.99,
+            "confidence": "high"
+          },
+          "name": "Bungtod mangrove, Guiuan",
+          "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [
+                    125.759364,
+                    11.023983
+                  ],
+                  [
+                    125.760172,
+                    11.023713
+                  ],
+                  [
+                    125.760172,
+                    11.022905
+                  ],
+                  [
+                    125.760711,
+                    11.023444
+                  ],
+                  [
+                    125.76152,
+                    11.021019
+                  ],
+                  [
+                    125.757747,
+                    11.016168
+                  ],
+                  [
+                    125.755591,
+                    11.016168
+                  ],
+                  [
+                    125.753705,
+                    11.01536
+                  ],
+                  [
+                    125.753705,
+                    11.014551
+                  ],
+                  [
+                    125.755591,
+                    11.01509
+                  ],
+                  [
+                    125.75613,
+                    11.014282
+                  ],
+                  [
+                    125.755861,
+                    11.012665
+                  ],
+                  [
+                    125.755053,
+                    11.012396
+                  ],
+                  [
+                    125.755322,
+                    11.011048
+                  ],
+                  [
+                    125.752088,
+                    11.011318
+                  ],
+                  [
+                    125.752897,
+                    11.011587
+                  ],
+                  [
+                    125.752627,
+                    11.012396
+                  ],
+                  [
+                    125.750472,
+                    11.014551
+                  ],
+                  [
+                    125.752088,
+                    11.014551
+                  ],
+                  [
+                    125.752358,
+                    11.015899
+                  ],
+                  [
+                    125.751549,
+                    11.01509
+                  ],
+                  [
+                    125.750472,
+                    11.015899
+                  ],
+                  [
+                    125.748855,
+                    11.015629
+                  ],
+                  [
+                    125.748046,
+                    11.017246
+                  ],
+                  [
+                    125.746968,
+                    11.016707
+                  ],
+                  [
+                    125.746699,
+                    11.017515
+                  ],
+                  [
+                    125.745082,
+                    11.016438
+                  ],
+                  [
+                    125.743735,
+                    11.017785
+                  ],
+                  [
+                    125.744543,
+                    11.019941
+                  ],
+                  [
+                    125.743465,
+                    11.02048
+                  ],
+                  [
+                    125.741849,
+                    11.018593
+                  ],
+                  [
+                    125.740771,
+                    11.018863
+                  ],
+                  [
+                    125.74104,
+                    11.02021
+                  ],
+                  [
+                    125.742657,
+                    11.021827
+                  ],
+                  [
+                    125.742926,
+                    11.021288
+                  ],
+                  [
+                    125.747238,
+                    11.021288
+                  ],
+                  [
+                    125.749124,
+                    11.02021
+                  ],
+                  [
+                    125.749933,
+                    11.02021
+                  ],
+                  [
+                    125.750202,
+                    11.021288
+                  ],
+                  [
+                    125.751011,
+                    11.02048
+                  ],
+                  [
+                    125.752088,
+                    11.021019
+                  ],
+                  [
+                    125.75613,
+                    11.019941
+                  ],
+                  [
+                    125.757478,
+                    11.021827
+                  ],
+                  [
+                    125.759364,
+                    11.022905
+                  ],
+                  [
+                    125.759364,
+                    11.023983
+                  ]
+                ]
+              ]
+            ]
+          }
+        },
+        "answers": [
+          {
+            "label": "Was this mangrove before?",
+            "status": "supported",
+            "finding": "mangrove_recorded",
+            "question": "history",
+            "evidence_ids": [
+              "1653f14d-034d-4034-9879-e621db516d32"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What's there now?",
+            "status": "supported",
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "evidence_ids": [
+              "912968a4-d335-4427-9824-01b08f95a5a1"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 1,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          },
+          {
+            "label": "What do people on the ground say?",
+            "status": "supported",
+            "finding": "open_for_restoration",
+            "question": "ground",
+            "evidence_ids": [
+              "00000000-0000-4000-8000-0000000ef402",
+              "00000000-0000-4000-8000-0000000ef401"
+            ],
+            "source_count": {
+              "unit": "items",
+              "eq_id": "EQ-013",
+              "value": 2,
+              "confidence": "high"
+            },
+            "disagreeing_evidence_ids": []
+          }
+        ],
+        "evidence": [
+          {
+            "id": "912968a4-d335-4427-9824-01b08f95a5a1",
+            "usable": true,
+            "finding": "mostly_vegetation",
+            "question": "current",
+            "content_hash": "327ad8e21a888aa9638e309ba6ce206037708862b95c99d749f45651f390bfca"
+          },
+          {
+            "id": "1653f14d-034d-4034-9879-e621db516d32",
+            "usable": true,
+            "finding": "mangrove_recorded",
+            "question": "history",
+            "content_hash": "0b12058af4d85b85c9ed929c4cee24fa1d35a13633659f2c8fabf5e6fa41d5b3"
+          },
+          {
+            "id": "00000000-0000-4000-8000-0000000ef402",
+            "usable": true,
+            "finding": "open_for_restoration",
+            "question": "ground",
+            "content_hash": "375ebdf94c4be309f3623e43d02ecb571ce5e7f4fcddc677eb7a2ea8db59ec47"
+          },
+          {
+            "id": "00000000-0000-4000-8000-0000000ef401",
+            "usable": true,
+            "finding": "open_for_restoration",
+            "question": "ground",
+            "content_hash": "b5e8e5e2eda03ec75f34e7b6c19d5b616cc8e26dcac74a099df2590147813f53"
+          }
+        ]
+      },
+      "is_demo": false,
+      "content_hash": "e5849953f48eddb1cbc619763f893877b97208dd9a28302c14036985a810cc8e"
+    },
+    "site": {
+      "id": "00000000-0000-4000-8000-0000000000f4",
+      "name": "Bungtod mangrove, Guiuan",
+      "region": "Eastern Visayas",
+      "is_demo": false,
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                125.759364,
+                11.023983
+              ],
+              [
+                125.760172,
+                11.023713
+              ],
+              [
+                125.760172,
+                11.022905
+              ],
+              [
+                125.760711,
+                11.023444
+              ],
+              [
+                125.76152,
+                11.021019
+              ],
+              [
+                125.757747,
+                11.016168
+              ],
+              [
+                125.755591,
+                11.016168
+              ],
+              [
+                125.753705,
+                11.01536
+              ],
+              [
+                125.753705,
+                11.014551
+              ],
+              [
+                125.755591,
+                11.01509
+              ],
+              [
+                125.75613,
+                11.014282
+              ],
+              [
+                125.755861,
+                11.012665
+              ],
+              [
+                125.755053,
+                11.012396
+              ],
+              [
+                125.755322,
+                11.011048
+              ],
+              [
+                125.752088,
+                11.011318
+              ],
+              [
+                125.752897,
+                11.011587
+              ],
+              [
+                125.752627,
+                11.012396
+              ],
+              [
+                125.750472,
+                11.014551
+              ],
+              [
+                125.752088,
+                11.014551
+              ],
+              [
+                125.752358,
+                11.015899
+              ],
+              [
+                125.751549,
+                11.01509
+              ],
+              [
+                125.750472,
+                11.015899
+              ],
+              [
+                125.748855,
+                11.015629
+              ],
+              [
+                125.748046,
+                11.017246
+              ],
+              [
+                125.746968,
+                11.016707
+              ],
+              [
+                125.746699,
+                11.017515
+              ],
+              [
+                125.745082,
+                11.016438
+              ],
+              [
+                125.743735,
+                11.017785
+              ],
+              [
+                125.744543,
+                11.019941
+              ],
+              [
+                125.743465,
+                11.02048
+              ],
+              [
+                125.741849,
+                11.018593
+              ],
+              [
+                125.740771,
+                11.018863
+              ],
+              [
+                125.74104,
+                11.02021
+              ],
+              [
+                125.742657,
+                11.021827
+              ],
+              [
+                125.742926,
+                11.021288
+              ],
+              [
+                125.747238,
+                11.021288
+              ],
+              [
+                125.749124,
+                11.02021
+              ],
+              [
+                125.749933,
+                11.02021
+              ],
+              [
+                125.750202,
+                11.021288
+              ],
+              [
+                125.751011,
+                11.02048
+              ],
+              [
+                125.752088,
+                11.021019
+              ],
+              [
+                125.75613,
+                11.019941
+              ],
+              [
+                125.757478,
+                11.021827
+              ],
+              [
+                125.759364,
+                11.022905
+              ],
+              [
+                125.759364,
+                11.023983
+              ]
+            ]
+          ]
+        ]
+      },
+      "area": {
+        "value": 119.99,
+        "unit": "ha",
+        "eq_id": "EQ-001",
+        "confidence": "high"
+      },
+      "proposal_summary": "Eastern Samar: about 2,553 ha planted with DENR funding (Eastern Samar report, State of the Mangrove Summit 2019); the Guiuan protected area mapped 104.39 ha of recovered areas with planted seedlings by 2020 (Climate Tracker Asia, 2022). This patch stands in for the province program; it is not a published site boundary."
+    },
+    "checks": [
+      {
+        "check": "work",
+        "label": "Did the work happen?",
+        "status": "supported",
+        "finding": "work_done",
+        "source_count": {
+          "value": 2,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "reported_area": null,
+        "measured_area": null,
+        "area_conflict": null,
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef403",
+          "00000000-0000-4000-8000-0000000ef404"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "check": "outcome",
+        "label": "Did the mangroves come back?",
+        "checkable_from": "2019-02-01",
+        "status": "supported",
+        "finding": "recovery_seen",
+        "source_count": {
+          "value": 3,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef406",
+          "00000000-0000-4000-8000-0000000ef407",
+          "00000000-0000-4000-8000-0000000ef408"
+        ],
+        "disagreeing_evidence_ids": [],
+        "vegetated_area": null
+      }
+    ],
+    "site_answers": [
+      {
+        "question": "history",
+        "label": "Was this mangrove before?",
+        "status": "supported",
+        "finding": "mangrove_recorded",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "1653f14d-034d-4034-9879-e621db516d32"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "current",
+        "label": "What's there now?",
+        "status": "supported",
+        "finding": "mostly_vegetation",
+        "source_count": {
+          "value": 1,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "912968a4-d335-4427-9824-01b08f95a5a1"
+        ],
+        "disagreeing_evidence_ids": []
+      },
+      {
+        "question": "ground",
+        "label": "What do people on the ground say?",
+        "status": "supported",
+        "finding": "open_for_restoration",
+        "source_count": {
+          "value": 2,
+          "unit": "items",
+          "eq_id": "EQ-013",
+          "confidence": "high"
+        },
+        "evidence_ids": [
+          "00000000-0000-4000-8000-0000000ef402",
+          "00000000-0000-4000-8000-0000000ef401"
+        ],
+        "disagreeing_evidence_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "seq": 1,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:05.108722Z",
+        "prev_hash": "e5849953f48eddb1cbc619763f893877b97208dd9a28302c14036985a810cc8e",
+        "event_hash": "770b98d133a99e74d5bc227966479d65565edfe562ac2b541449cd915652cd37",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef403",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "State of the Mangrove Summit, “State of the Mangrove in Eastern Samar”",
+          "source_version": "Published 2019 (case study source 22)",
+          "observed_from": "2014-01-01T00:00:00.000000Z",
+          "observed_to": "2016-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:04.878066Z",
+          "location": null,
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "reported_area_eastern_samar",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 2553,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: the project was funded by DENR and supervised by its research bureau, and “The province planted around 2,553 ha”.",
+          "spatial_resolution_m": null,
+          "limitation": "Province-level figure; this patch stands in for it and is not a published site boundary.",
+          "provenance_url": "https://www.academia.edu/87539309/State_of_the_Mangrove_in_Eastern_Samar",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:04.878066Z",
+          "content_hash": "e1c904489f28b98cf76b5fff9eda1e1ee21c0aa96f1c393e5de56d06b1a7d62a"
+        }
+      },
+      {
+        "seq": 2,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:05.448999Z",
+        "prev_hash": "770b98d133a99e74d5bc227966479d65565edfe562ac2b541449cd915652cd37",
+        "event_hash": "435affff4ade298bd3858b8feb30f266ff4e324e8e1d70437ad664b064a49cd4",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef404",
+          "question": "work",
+          "source_type": "public_report",
+          "source_name": "Climate Tracker Asia, “Guiuan coastal folks turn to mangroves, seawall for protection”",
+          "source_version": "Published 2022-11-10 (case study source 32)",
+          "observed_from": "2014-01-01T00:00:00.000000Z",
+          "observed_to": "2022-11-10T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:05.154105Z",
+          "location": null,
+          "finding": "work_done",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: in Bungtod “community members have been planting and rehabilitating mangroves”, with activities organized by the environment office in Guiuan and non-governmental organizations.",
+          "spatial_resolution_m": null,
+          "limitation": "Journalistic account; it does not name MBFDP as the funder.",
+          "provenance_url": "https://climatetracker.asia/guiuan-coastal-folks-turn-to-mangroves-seawall-for-protection/",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:05.154105Z",
+          "content_hash": "cafeed36bc758bc142e0571d5b35fe21af02324327ddcce11ff37ac854bb3606",
+          "photos": [
+            {
+              "url": "https://climatetracker.asia/wp-content/uploads/2022/11/mangroves_ft-img-e1669013830455.jpg",
+              "credit": "Climate Tracker Asia, photo by Aprille Ann Yodico",
+              "caption": "Mangrove trees in Barangay Bungtod, Guiuan, Eastern Samar"
+            }
+          ]
+        }
+      },
+      {
+        "seq": 3,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:05.730053Z",
+        "prev_hash": "435affff4ade298bd3858b8feb30f266ff4e324e8e1d70437ad664b064a49cd4",
+        "event_hash": "78bd64654894d07c31ee9f7ab576316c7d81fb4c119e4e438fa11efd711d713c",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef405",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Proceedings of the 3rd National Mangrove Conference, Iloilo City",
+          "source_version": "Published 2018-04 (case study source 18)",
+          "observed_from": "2016-02-01T00:00:00.000000Z",
+          "observed_to": "2016-05-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:05.495087Z",
+          "location": null,
+          "finding": null,
+          "usable": false,
+          "unusable_reason": "Program-wide figure across 43 provinces with no published method; not measured at this site.",
+          "metrics": [
+            {
+              "name": "reported_survival_mangrove",
+              "unit": "%",
+              "eq_id": "EQ-017",
+              "value": 78.3,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). The source says: DENR's survival check found 78.3% for mangrove and 76.3% for beach forest. No finding is taken from it.",
+          "spatial_resolution_m": null,
+          "limitation": "DENR's own figure, taken within months of planting, method unpublished.",
+          "provenance_url": "https://cms.zsl.org/sites/default/files/2023-02/15%20Proceedings%20NATMANCON%203%202018.pdf",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:05.495087Z",
+          "content_hash": "e5e08d53dd10625091e94e93ab9a0a87d3e86e9e789953beec05d9c6fd3c4d56"
+        }
+      },
+      {
+        "seq": 4,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:06.063075Z",
+        "prev_hash": "78bd64654894d07c31ee9f7ab576316c7d81fb4c119e4e438fa11efd711d713c",
+        "event_hash": "b8b8aee1c809f40508b734b6a1d7eda0218e4367befb900f437b5e719493ee8c",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef406",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Climate Tracker Asia, “Guiuan coastal folks turn to mangroves, seawall for protection”",
+          "source_version": "Published 2022-11-10 (case study source 32)",
+          "observed_from": "2020-01-01T00:00:00.000000Z",
+          "observed_to": "2020-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:05.777211Z",
+          "location": null,
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "recovered_planted_area_protected_area",
+              "unit": "ha",
+              "eq_id": "EQ-017",
+              "value": 104.39,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: “104.39 hectares of recovered areas with planted seedlings have been mapped out as of 2020” by the protected area office of the Guiuan Marine Resource Protected Landscape and Seascape.",
+          "spatial_resolution_m": null,
+          "limitation": "Protected-area-wide figure, not Bungtod alone; the mapped areas are not published.",
+          "provenance_url": "https://climatetracker.asia/guiuan-coastal-folks-turn-to-mangroves-seawall-for-protection/",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:05.777211Z",
+          "content_hash": "428ac6232d9980dbacba8487ec924ec6e2db72088588a1bb6fc0868ddf20190e"
+        }
+      },
+      {
+        "seq": 5,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:06.450238Z",
+        "prev_hash": "b8b8aee1c809f40508b734b6a1d7eda0218e4367befb900f437b5e719493ee8c",
+        "event_hash": "d2eaab8d15c196e73f1579fbfb86aa03d7939ffb28b2374c1059230f6e0fec28",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef407",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Climate Tracker Asia, “Guiuan coastal folks turn to mangroves, seawall for protection”",
+          "source_version": "Published 2022-11-10 (case study source 32)",
+          "observed_from": "2022-01-01T00:00:00.000000Z",
+          "observed_to": "2022-11-10T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:06.111071Z",
+          "location": null,
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: in Bungtod “Mangroves in areas severely damaged by the super typhoon are now recovering.”",
+          "spatial_resolution_m": null,
+          "limitation": "Journalistic account; recovery is described, not measured.",
+          "provenance_url": "https://climatetracker.asia/guiuan-coastal-folks-turn-to-mangroves-seawall-for-protection/",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:06.111071Z",
+          "content_hash": "020982646502d96f09a1ea3d711b09c71e9b5a639904036c6ca465caed7e325b",
+          "photos": [
+            {
+              "url": "https://climatetracker.asia/wp-content/uploads/2022/11/mangroves_ft-img-e1669013830455.jpg",
+              "credit": "Climate Tracker Asia, photo by Aprille Ann Yodico",
+              "caption": "Mangrove trees in Barangay Bungtod, Guiuan, Eastern Samar"
+            }
+          ]
+        }
+      },
+      {
+        "seq": 6,
+        "kind": "evidence_added",
+        "created_at": "2026-10-03T22:31:06.734188Z",
+        "prev_hash": "d2eaab8d15c196e73f1579fbfb86aa03d7939ffb28b2374c1059230f6e0fec28",
+        "event_hash": "4bc08c932765d8c14b7397fd02b9997bf13d52ec2024d2e9e89b31bd747820ee",
+        "evidence": {
+          "id": "00000000-0000-4000-8000-0000000ef408",
+          "question": "outcome",
+          "source_type": "public_report",
+          "source_name": "Academia Journal of Biology 45(3):69–80, Guiuan mangrove study",
+          "source_version": "Published 2023 (case study source 40)",
+          "observed_from": "2022-01-01T00:00:00.000000Z",
+          "observed_to": "2022-12-31T00:00:00.000000Z",
+          "retrieved_at": "2026-10-03T22:31:06.504608Z",
+          "location": null,
+          "finding": "recovery_seen",
+          "usable": true,
+          "unusable_reason": null,
+          "metrics": [
+            {
+              "name": "mangrove_individuals_sampled_bungtod",
+              "unit": "trees",
+              "eq_id": "EQ-017",
+              "value": 454,
+              "confidence": "low"
+            }
+          ],
+          "method": "Quoted from a public report, not measured by AIDE-M (EQ-017, DS-009). Finding picked from the fixed list (PRD §4.1) because the source says: a vegetation survey sampled 454 mangrove individuals at Bungtod.",
+          "spatial_resolution_m": null,
+          "limitation": "Plot survey reported before Jan 2023; plots are not this polygon and the count does not separate planted from natural trees.",
+          "provenance_url": "https://doi.org/10.15625/2615-9023/18041",
+          "asset_url": null,
+          "note": null,
+          "submitted_by_org": null,
+          "is_demo": false,
+          "created_at": "2026-10-03T22:31:06.504608Z",
+          "content_hash": "0006076a2125fe327b0eb04598535ac57b9341ddd6f8446c3c82c4032bbea428"
+        }
+      }
+    ],
+    "pin_state": "on_track",
+    "disclaimer": "This record is not a certification of restoration success or approval of funding."
+  }
+]

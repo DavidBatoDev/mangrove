@@ -227,7 +227,7 @@ export default function LockPage() {
           <hr className="mg-waterline" />
           <h2 id="confirm-title">This can never be edited or deleted.</h2>
           <p style={{ margin: 0 }}>
-            Once published, this promise is public and cannot be changed through Mangrove. Any later change would break its published hash.
+            Once published, this promise is public and cannot be changed through AIDE-M. Any later change would break its published hash.
             Corrections are added to its timeline; the original stays.
           </p>
           {error && <p className="mg-alert" role="alert">{error}</p>}

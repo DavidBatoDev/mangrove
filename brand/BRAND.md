@@ -1,8 +1,8 @@
-# Mangrove Brand
+# AIDE-M Brand
 
 > Single source of truth for how the product looks, sounds and names things.
 > If you are an AI agent and someone said **"use our branding"**, read this whole file, then `brand/tokens.css`, then `brand/IMAGERY.md` if you are making images. Building screens? Then `brand/WEB.md`.
-> **Mangrove** is the public product name (`docs/ledger.md` §1). Product behaviour lives in `docs/prd.md`; when this file and the PRD disagree about what the product does, the PRD wins and this file gets fixed. Why the product has a brand at all: ADR-043.
+> **AIDE-M** is the public product name (`docs/ledger.md` §1, ADR-051). It stands for *Accountability In Delivery & Evidence · Mangrove*; that line appears only in small type under the wordmark and at a document's first mention. "Mangrove" in this kit otherwise means the ecosystem. Product behaviour lives in `docs/prd.md`; when this file and the PRD disagree about what the product does, the PRD wins and this file gets fixed. Why the product has a brand at all: ADR-043.
 
 ---
 
@@ -65,7 +65,7 @@ A mangrove only stands because of what you can't see from the boat: prop roots a
 - **One sentence (pitch, about page):** Companies fund mangrove restoration and announce the planting. We make the promise public before the money moves, then show everyone whether it came true.
 - **Descriptor (under the logo, meta descriptions):** A public map of mangrove restoration promises in the Philippines. See the evidence before the money moves, then check whether the promise came true.
 - **What we are:** a public record of mangrove restoration funding promises, with the evidence beside each one.
-- **What we are not:** a certifier, a funding approver, a success score or ranking, a marketplace, a carbon-credit verifier, or proof of land title or permits. Never describe us as any of those. And never "just a map": maps show data; Mangrove locks a promise before the money moves and checks it afterwards.
+- **What we are not:** a certifier, a funding approver, a success score or ranking, a marketplace, a carbon-credit verifier, or proof of land title or permits. Never describe us as any of those. And never "just a map": maps show data; AIDE-M locks a promise before the money moves and checks it afterwards.
 
 The brand motif everything comes back to is **the Waterline**: a single horizontal rule that splits a composition into *promise* (above) and *evidence* (below). Use it in heroes, slide layouts, section dividers, charts (the baseline), and the record page.
 
@@ -75,13 +75,13 @@ The brand motif everything comes back to is **the Waterline**: a single horizont
 
 These are our vocabulary. Use these exact words in UI, copy and decks. Each one is tied to a real part of the product (`docs/prd.md`); the last column is what the data model calls it.
 
-| # | Keyword | Means (in Mangrove) | Say it like | Don't swap for | Product / code |
+| # | Keyword | Means (in AIDE-M) | Say it like | Don't swap for | Product / code |
 |---|---|---|---|---|---|
 | 1 | **Restoration** | What the money is for: bringing mangroves back to a site in Manila Bay, by natural regeneration, hydrological repair or planting. The reason everything else exists. | "A restoration promise for 8 ha at Pamarawan." | reforestation, tree planting, greening, offsetting | `planned_action`: `natural_regeneration`, `hydrological_repair`… |
 | 2 | **Evidence** | A dated item with its source, version, method, resolution and limitation: Global Mangrove Watch history, Sentinel-2 condition, a field partner's photo and mapped area, a project report. | "3 evidence items. Latest observed 28 Sep 2026." | data, info, proof, insights | `evidence_item`, evidence dossier |
 | 3 | **Traceable** | Every finding, status and number links back to its evidence items, and every number to its `EQ-###` and confidence. Nothing appears that a source didn't say. | "Every status is traceable to its sources." | transparent, verified, trusted | BR-005 provenance, BR-003 |
 | 4 | **Baseline** | What was known when the promise was locked: the site geometry, every evidence item and every status, frozen in the record's snapshot. Later evidence is read against it. | "Baseline locked 4 Oct 2026 with 4 evidence items." | starting point, before | the record's snapshot (US-007) |
-| 5 | **Promise** | What the funder commits to before the money moves: why this site, planned action, planned area, expected outcome, check dates, known unknowns. Locked in public; it cannot be edited through Mangrove. | "The promise: 8 ha of hydrological repair, work check after 1 Apr 2027." | goal, KPI, target, pledge | `promise_record`, `/records/{id}` |
+| 5 | **Promise** | What the funder commits to before the money moves: why this site, planned action, planned area, expected outcome, check dates, known unknowns. Locked in public; it cannot be edited through AIDE-M. | "The promise: 8 ha of hydrological repair, work check after 1 Apr 2027." | goal, KPI, target, pledge | `promise_record`, `/records/{id}` |
 | 6 | **Confidence** | How exact a *number* can be shown: **High** (point value), **Medium** ("approximate", limitation shown), **Low** (direction only). Statuses don't have a confidence; the evidence behind them does. | "Mapped area 5.0 ha, high confidence." | certainty, accuracy, score, rating | `docs/methods.md` §2 |
 | 7 | **Follow-through** | The two later checks on a record: **Did the work happen?** and **Did the mangroves come back?** The second reads "Too early to tell" until its check date. | "Follow-through: work check after 1 Apr 2027." | monitoring, audit, impact report | `work_check_after`, `outcome_check_after` (US-011) |
 
@@ -98,7 +98,7 @@ These are our vocabulary. Use these exact words in UI, copy and decks. Each one 
 
 | Use | Not | Why |
 |---|---|---|
-| candidate site, site | opportunity, project, listing, deal | The 3–5 Manila Bay sites a funder compares (US-001). |
+| candidate site, site | opportunity, project, listing, deal | The Manila Bay demo sites a funder compares (US-001), and the real Eastern Visayas case sites (ADR-056). |
 | record | decision record, report, dossier, case file | The locked, public promise and its timeline (`/records/{id}`). |
 | evidence dossier | data room, profile | Everything known about one site (US-002). |
 | evidence item | dataset, input, evidence source | One piece of evidence with its provenance. |
@@ -107,11 +107,12 @@ These are our vocabulary. Use these exact words in UI, copy and decks. Each one 
 | funder · field partner · public reader | investor, buyer, client, user, NGO user | The three personas (PRD §2). |
 | mapped area | "the satellite shows N ha" | The work check compares reported and mapped hectares (ADR-033). |
 | known unknowns | risks, caveats | What nobody knew when the promise was locked. |
-| locked | sealed, certified, tamper-proof | "Cannot be edited through Mangrove; any change breaks the published hash" (ADR-034). |
+| locked | sealed, certified, tamper-proof | "Cannot be edited through AIDE-M; any change breaks the published hash" (ADR-034). |
 | limitation | caveat, disclaimer | Every evidence item has one; show it. |
 | rationale | reason, notes | Why the funder picked this site. |
-| the funder decides | we recommend, approved, decides | Humans decide. Mangrove never approves funding. |
+| the funder decides | we recommend, approved, decides | Humans decide. AIDE-M never approves funding. |
 | Demo data | sample, example, test | Mandatory label on every seeded site, record, organization and pin (BR-006). |
+| Real case · sourced | verified, certified, real data | Tag on a real record rebuilt from cited public reports (`is_demo = false`, ADR-056). Mono, solid neutral outline; never red. |
 
 **Banned outright:** guarantee, certified, verified (unless a named third party verified it), verified restoration, approved, investment-ready, will succeed, qualified (for a remotely screened site), offset, carbon-neutral, impact (as a vague noun), any score / rank / percent chance / "impact score", "the satellite shows N hectares" for a recent planting, tamper-proof, impossible to alter, "80–90% of projects fail", "nobody monitors survival", good site / bad site / best site, revolutionary, AI-powered (as a headline), "save the planet", "game-changer", "seamless", "unlock". Source: `docs/design-brief.md` §4 and `idea.md` §9.
 
@@ -153,7 +154,7 @@ Five voice rules:
 | "Too early to tell. Checkable from 1 Oct 2029." | "The project failed." |
 | "Locked 4 Oct 2026." | "Recently updated." |
 | "8 ha reported, 5 ha mapped." | "The satellite shows 5 hectares." |
-| "This record cannot be edited through Mangrove." | "Tamper-proof." |
+| "This record cannot be edited through AIDE-M." | "Tamper-proof." |
 | "We help funders compare evidence before they commit." | "We're revolutionising blue finance." |
 
 **Mechanics**
@@ -304,7 +305,9 @@ Reference: Figma slide T05 "Compare · Root profile" and the compare section of 
 
 ## 7. Logo
 
-Files: `brand/logo/mangrove-mark.svg`, `brand/logo/mangrove-mark-dark.svg`, `brand/logo/mangrove-lockup.svg`.
+Files: `brand/logo/mangrove-mark.svg`, `brand/logo/mangrove-mark-dark.svg`, `brand/logo/mangrove-lockup.svg` (file names predate the name AIDE-M and stay).
+
+**Name and wordmark (ADR-051).** The name is **AIDE-M**: capitals, one hyphen, set in Newsreader 500. In the lockup, the site header and the deck cover, the meaning sits directly under it in IBM Plex Mono, small and Brackish: `ACCOUNTABILITY IN DELIVERY & EVIDENCE · MANGROVE` (uppercase eyebrow style), or in sentence-style capitals in running text the first time the name appears. Nowhere else: after the first mention it is AIDE-M alone. Never "Aide-M", "AIDEM" or "Aide M".
 
 The mark: a young mangrove. Five pointed leaves climb a single trunk (top and lower-left in Propagule `#C8D545`, upper-left and lower-right in Tidal `#2B8C86`, upper-right in light Tidal `#4DB3AB`), and six prop roots arch from the trunk into the ground, all in Canopy `#173A2E`. New growth above is the promise; the roots holding it up are the evidence. Readable at 20px.
 
@@ -372,7 +375,7 @@ Full generation prompts and rules: **`brand/IMAGERY.md`**. Summary:
 
 ## 11. Decks (PPT / Slides)
 
-**Figma template:** https://www.figma.com/design/tk6Ja5pTo6eFjC25uHHawB/Mangrove (page "Mangrove deck": Brand guidelines G01–G12, Deck template T01–T08, Assets panel with components, textures, paint and text styles). Duplicate a T-slide; never restyle from scratch.
+**Figma template:** https://www.figma.com/design/tk6Ja5pTo6eFjC25uHHawB/Mangrove (page "AIDE-M deck": Brand guidelines G01–G12, Deck template T01–T08, Assets panel with components, textures, paint and text styles). Duplicate a T-slide; never restyle from scratch.
 
 16:9, 1920×1080. Eight templates, all built on the Waterline. PNG exports live in `brand/slides/` so agents without Figma access can see them; re-export when Figma changes.
 

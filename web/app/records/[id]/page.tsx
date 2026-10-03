@@ -3,21 +3,23 @@
 // Record (US-008, US-011, US-012, US-014), laid out like deck slide T07 "Follow-through":
 // the promise above the waterline, the two checks below it, then integrity, baseline and timeline.
 
-import { CalendarClock, History, Lock, Plus, ShieldCheck } from "lucide-react";
+import { CalendarClock, History, Lock, Plus, ShieldCheck, FileText } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import AnswerBlock from "@/components/AnswerBlock";
 import EvidenceCard from "@/components/EvidenceCard";
+import ProgramCard from "@/components/ProgramCard";
+import { SiteNowPictures } from "@/components/SatellitePictures";
 import SiteHero3D from "@/components/SiteHero3D";
 import { toneFromPin } from "@/components/Site3DView";
 import { useSession } from "@/components/session";
-import { DemoLabel, Disclaimer, ErrorBox, Loading, PinLabel, StatusBadge } from "@/components/ui";
+import { DemoLabel, Disclaimer, RealCaseLabel, ErrorBox, Loading, PinLabel, StatusBadge } from "@/components/ui";
 import { AreaBar, BrandIcon, CheckTimeline, EmptyArt, ICON_PROPS, IconBadge, QuestionIcon, SourceIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
 import type { ApiError } from "@/lib/api-error";
-import { ACTION_LABELS, findingLabel, formatDate, formatMeasure, shortHash } from "@/lib/format";
+import { ACTION_LABELS, findingLabel, formatDate, formatMeasure, shortHash, snapshotSite } from "@/lib/format";
 import type { Check, Evidence, Measure, VerifyResponse } from "@/lib/types";
 
 function WorkCheck({ c, from, evidence }: { c: Check; from: string; evidence: Evidence[] }) {
@@ -35,6 +37,8 @@ function WorkCheck({ c, from, evidence }: { c: Check; from: string; evidence: Ev
       </div>
       {c.measured_area ? (
         <p className="check-figure">{formatMeasure(c.measured_area)} mapped</p>
+      ) : c.evidence_ids.length > 0 && c.finding ? (
+        <p className="check-figure">{findingLabel(c.finding)}</p>
       ) : (
         <p className="check-figure check-figure--muted">No work evidence yet</p>
       )}
@@ -99,6 +103,8 @@ export default function RecordPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useSession();
   const r = useApi(() => api.getRecord(id), [id]);
+  // The real Post-Yolanda records belong to a public program (API-026); its card sits above the promise.
+  const program = useApi(() => api.programContext("mbfdp"), []);
   const [verify, setVerify] = useState<VerifyResponse | null>(null);
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
@@ -107,7 +113,8 @@ export default function RecordPage() {
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
   if (!r.data) return null;
   const { record, checks, site_answers, timeline, pin_state, disclaimer } = r.data;
-  const snap = record.snapshot as { site_id?: string; site_name?: string; evidence_ids?: string[] };
+  const lockedSite = snapshotSite(record);
+  const snap = { site_id: lockedSite.id, site_name: lockedSite.name };
   const work = checks.find((c) => c.check === "work");
   const outcome = checks.find((c) => c.check === "outcome");
   // Usable sources behind the three site answers when the promise was locked (sum of EQ-013 counts).
@@ -122,6 +129,7 @@ export default function RecordPage() {
     record.work_check_after > today
       ? { date: record.work_check_after, label: "Did the work happen?" }
       : { date: record.outcome_check_after, label: "Did the mangroves come back?" };
+  const checksPast = record.outcome_check_after <= today;
   const action = ACTION_LABELS[record.planned_action] ?? record.planned_action;
 
   async function runVerify() {
@@ -144,14 +152,29 @@ export default function RecordPage() {
 
       {snap.site_id && <SiteHero3D siteId={snap.site_id} tone={toneFromPin(pin_state)} motion="orbit" />}
 
+      {program.data?.record_ids.includes(record.id) && <ProgramCard p={program.data} />}
+
       {/* Above the waterline: the promise */}
       <span className="mg-eyebrow">
-        Record · {snap.site_name ?? "Site"} <DemoLabel show={record.funder.is_demo} />
+        Record · {snap.site_name ?? "Site"} <DemoLabel show={record.funder.is_demo} /> <RealCaseLabel show={!record.is_demo} />
       </span>
+      {!record.is_demo && (
+        <p className="meta">
+          Reconstructed {formatDate(record.published_at)} from cited public reports. Not locked before the money moved.
+        </p>
+      )}
       <div className="record-hero">
         <div>
           <span className="mg-eyebrow mg-label--promise">
-            <Lock {...ICON_PROPS} size={14} /> Promise · locked {formatDate(record.published_at)} by {record.funder.name}
+            {record.is_demo ? (
+              <>
+                <Lock {...ICON_PROPS} size={14} /> Promise · locked {formatDate(record.published_at)} by {record.funder.name}
+              </>
+            ) : (
+              <>
+                <FileText {...ICON_PROPS} size={14} /> Promise of {record.funder.name} · reconstructed {formatDate(record.published_at)}
+              </>
+            )}
           </span>
           <h1 className="record-title">
             {formatMeasure(record.planned_area_ha)} of <em>{action.toLowerCase()}</em>
@@ -168,10 +191,15 @@ export default function RecordPage() {
         <StatTile icon={<BrandIcon name="promise" />} label="Planned area" m={record.planned_area_ha} />
         <StatTile icon={<QuestionIcon q="outcome" />} label="Expected vegetated" m={record.expected_vegetated_ha} />
         <StatTile icon={<BrandIcon name="baseline" />} label="Sources at lock" m={baselineSources} />
-        <StatTile icon={<CalendarClock {...ICON_PROPS} />} label="Next check" value={formatDate(nextCheck.date)} note={nextCheck.label} />
+        <StatTile icon={<CalendarClock {...ICON_PROPS} />} label={checksPast ? "Outcome check was due" : "Next check"} value={formatDate(nextCheck.date)} note={nextCheck.label} />
       </div>
 
-      <CheckTimeline lockedAt={record.published_at} workAfter={record.work_check_after} outcomeAfter={record.outcome_check_after} />
+      <CheckTimeline
+        lockedAt={record.published_at}
+        lockLabel={record.is_demo ? "Promise locked" : "Reconstructed"}
+        workAfter={record.work_check_after}
+        outcomeAfter={record.outcome_check_after}
+      />
 
       <hr className="mg-waterline" />
 
@@ -216,7 +244,7 @@ export default function RecordPage() {
             <h2>Integrity</h2>
           </div>
           <p className="meta" style={{ marginTop: 0 }}>
-            The record cannot be edited through Mangrove. Any change to it would break this published hash.
+            The record cannot be edited through AIDE-M. Any change to it would break this published hash.
           </p>
           <div className="hash" title={record.content_hash}>
             <span className="mg-mono">{shortHash(record.content_hash)}</span>
@@ -258,6 +286,7 @@ export default function RecordPage() {
             <AnswerBlock key={a.question} a={a} siteId={snap.site_id ?? ""} />
           ))}
         </div>
+        {snap.site_id && <SiteNowPictures siteId={snap.site_id} siteName={snap.site_name} />}
       </section>
 
       <h2 className="section-title">
@@ -276,7 +305,7 @@ export default function RecordPage() {
                 <span className="mg-mono">#{t.seq}</span> · {t.kind.replaceAll("_", " ")} · {formatDate(t.created_at)} ·{" "}
                 <span className="mg-mono">{t.event_hash.slice(0, 12)}…</span>
               </div>
-              {t.evidence && <EvidenceCard e={t.evidence} />}
+              {t.evidence && <EvidenceCard e={t.evidence} siteName={snap.site_name} />}
             </li>
           ))}
         </ol>

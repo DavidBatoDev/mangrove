@@ -6,7 +6,7 @@ doc: design
 owns: routes and URLs · component inventory · visual states · pin colors · accessibility target · pointers to the brand kit for tokens, type and voice
 ---
 
-# Design — Mangrove
+# Design — AIDE-M
 
 > **Purpose:** how each screen in [`prd.md`](prd.md) §5.1 looks and where it lives.
 > Written from [`design-brief.md`](design-brief.md). Why there is a brand at all: ADR-043.
@@ -68,6 +68,7 @@ Sites with no commitment are polygons, not record pins: Tidal 2px outline, Tidal
 | Satellite line before the outcome date | `mg-chip--too-early` + the words "not yet observable". Not red. Not a fail | record |
 | Number with confidence | value rendered per methods §2 + `mg-conf--high / --medium / --low` + `EQ-###` | dossier, record |
 | Evidence item | `mg-evidence` (source · observed date meta, limitation in the body) | dossier, record |
+| Program card (API-026) | `ProgramCard`: "₱1 billion · DENR · Post-Yolanda MBFDP" title, quoted figures as stat tiles (EQ-017 · Low · as published, source link, the exact sentence on hover), need vs targets vs reported as an `mg-table` with bars on one scale, the line "The program verified planting, not outcomes.", and the §11 not-found items. Never red | record page of the real records the program card lists (the MBFDP records, Naungan and Bungtod; not Paraiso, which Japan funded, nor Cancabato Bay; ADR-059), above the promise; a compact `ProgramCallout` on the public map panel linking to them |
 | Waterline | `mg-waterline` once per section | record, dossier |
 | Demo data label | `mg-demo` | everywhere seeded data appears |
 | Record disclaimer | `mg-disclaimer` | record page footer |

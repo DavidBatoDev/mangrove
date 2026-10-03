@@ -1,6 +1,6 @@
 ---
 name: use-our-branding
-description: Apply the Mangrove brand (public map of mangrove restoration promises) to any UI, page, component, copy, deck, chart or image prompt. Use whenever the user says "use our branding", "on brand", "brand it", or builds anything user-facing in this repo.
+description: Apply the AIDE-M brand (public map of mangrove restoration promises) to any UI, page, component, copy, deck, chart or image prompt. Use whenever the user says "use our branding", "on brand", "brand it", or builds anything user-facing in this repo.
 ---
 
 # Use our branding

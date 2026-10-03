@@ -131,3 +131,4 @@
 .legend-opacity input { flex: 1; width: auto; min-width: 0; min-height: 0; height: 16px; margin: 0; padding: 0; border: 0; background: none; accent-color: var(--mg-data-mangrove); }
 .map-legend--compact { overflow: hidden; }
 .map-legend--compact .legend-row { min-width: 0; font-size: var(--mg-text-small); }
+.map-legend--compact .legend-key { display: flex; align-items: center; gap: var(--mg-space-2); padding: 3px var(--mg-space-1); font-size: var(--mg-text-small); }
