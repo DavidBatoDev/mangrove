@@ -24,7 +24,10 @@ INSTRUCTIONS = (
     "Statuses mean agreement among sources (BR-001): 'supported' = usable sources agree on the finding, "
     "'conflicting' = they disagree, 'missing' = no usable source. 'Supported' never means a good site, and "
     "there is no score. Always quote a number together with its eq_id and confidence, and never introduce a "
-    "number the tools did not return. Items with is_demo = true are demo data: say so."
+    "number the tools did not return. Items with is_demo = true are demo data: say so. Items with "
+    "source_type = 'public_report' quote a cited public report (provenance_url); records with is_demo = false "
+    "were reconstructed from public sources, not locked at the time: say so, and do not call a gap in the "
+    "evidence corruption or failure."
 )
 
 READ_ONLY = ToolAnnotations(read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
@@ -44,7 +47,7 @@ def _call(fn, *args) -> dict[str, Any]:
     "List candidate restoration sites with id, name, region, area (EQ-001, with confidence) and is_demo. "
     "Same data as GET /api/v1/sites."))
 def list_sites(
-    region: Annotated[str | None, Field(description="Region name, e.g. 'Manila Bay'. Omit for all regions.")] = None,
+    region: Annotated[str | None, Field(description="Region name, e.g. 'Manila Bay' or 'Eastern Visayas'. Omit for all regions.")] = None,
 ) -> dict[str, Any]:
     fc = _call(reads.list_sites, region)
     return {"sites": [f["properties"] for f in fc["features"]]}

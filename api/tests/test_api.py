@@ -1,11 +1,12 @@
-"""Integration cases on the P0 read path (docs/tests.md §6): TC-001, TC-002 shape, TC-007, TC-008, TC-010 shape."""
+"""Integration cases on the P0 read path (docs/tests.md §6): TC-001, TC-002 shape, TC-007, TC-008, TC-010 shape,
+TC-029, TC-030."""
 
 from __future__ import annotations
 
 import psycopg
 import pytest
 
-from conftest import RECORD_A, SITE
+from conftest import REAL_RECORD, REAL_SITE, RECORD_A, SITE
 
 
 def test_health(client):
@@ -14,12 +15,12 @@ def test_health(client):
 
 
 def test_sites(client):
-    """TC-001: five sites with their fixed ids, area by EQ-001, and is_demo."""
+    """TC-001: five demo sites with their fixed ids, area by EQ-001, and is_demo; the real sites beside them (TC-030)."""
     body = client.get("/api/v1/sites").json()
     assert body["type"] == "FeatureCollection"
     props = [f["properties"] for f in body["features"]]
-    assert {p["id"] for p in props} == set(SITE.values())
-    assert all(p["is_demo"] is True for p in props)
+    assert {p["id"] for p in props if p["is_demo"]} == set(SITE.values())
+    assert {p["id"] for p in props if not p["is_demo"]} == set(REAL_SITE.values())
     assert [p["name"] for p in props] == sorted(p["name"] for p in props)
     assert all(f["geometry"]["type"] == "MultiPolygon" for f in body["features"])
     assert client.get("/api/v1/sites", params={"region": "Nowhere"}).json()["features"] == []
@@ -68,8 +69,9 @@ def test_unknown_ids_use_the_error_envelope(client):
 
 def test_records_and_record(client):
     pins = client.get("/api/v1/records").json()
-    assert [f["properties"]["id"] for f in pins["features"]] == [RECORD_A]
-    p = pins["features"][0]
+    demo = [f for f in pins["features"] if f["properties"]["is_demo"]]
+    assert [f["properties"]["id"] for f in demo] == [RECORD_A]
+    p = demo[0]
     assert p["geometry"]["type"] == "Point" and p["properties"]["pin_state"] == "awaiting"
     assert p["properties"]["is_demo"] is True and p["properties"]["funder"] == "Demo Coastal Fund"
 
@@ -154,3 +156,76 @@ def test_gmw_context(client):
     assert layer["available_years"] == list(range(1985, 2026, 5))
     bad = client.get("/api/v1/layers/gmw-extent", params={"year": 1987})
     assert bad.status_code == 422 and bad.json()["error"]["code"] == "VALIDATION_FAILED"
+
+
+# --- TC-029, TC-030 (ADR-051) ------------------------------------------------------------------------
+
+def _public_report(**over):
+    from datetime import datetime, timezone
+    item = {"site_id": REAL_SITE["F1"], "question": "outcome", "source_type": "public_report",
+            "source_name": "Test report", "observed_from": datetime(2023, 1, 1, tzinfo=timezone.utc),
+            "observed_to": datetime(2023, 1, 1, tzinfo=timezone.utc), "finding": "recovery_seen", "usable": True,
+            "method": "Quoted from a public report (EQ-017).", "limitation": "Test.",
+            "provenance_url": "https://example.org/report", "is_demo": False}
+    return {**item, **over}
+
+
+def test_public_report_needs_its_source(rollback):
+    """TC-029: a cited public report is stored; one without provenance_url is rejected by the CHECK."""
+    from ledger.records import insert_evidence
+
+    row = insert_evidence(rollback, _public_report())
+    stored = rollback.execute("SELECT source_type::text AS t, is_demo FROM evidence_item WHERE id = %s",
+                              (row["id"],)).fetchone()
+    assert stored == {"t": "public_report", "is_demo": False}
+    with pytest.raises(psycopg.errors.CheckViolation, match="ck_evidence_public_report_cited"):
+        insert_evidence(rollback, _public_report(provenance_url=None))
+
+
+@pytest.mark.parametrize("statement", [
+    f"UPDATE evidence_item SET note = 'x' WHERE site_id = '{REAL_SITE['F4']}'",
+    f"DELETE FROM promise_record WHERE id = '{REAL_RECORD['F1']}'",
+])
+def test_real_rows_are_append_only(owner_conn, statement):
+    """TC-029: the trigger blocks changes to the real seeded rows too (BR-002)."""
+    owner_conn.rollback()
+    try:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege, match="RECORD_IMMUTABLE"):
+            owner_conn.execute(statement)
+    finally:
+        owner_conn.rollback()
+
+
+def test_real_records_read_as_the_sources_say(client):
+    """TC-030: real sites in Eastern Visayas, pins as the cited sources say, every report linked, chains intact."""
+    sites = {f["properties"]["id"]: f["properties"] for f in client.get("/api/v1/sites").json()["features"]}
+    assert all(sites[i]["region"] == "Eastern Visayas" and sites[i]["is_demo"] is False for i in REAL_SITE.values())
+    assert {f["properties"]["id"] for f in client.get(
+        "/api/v1/sites", params={"region": "Eastern Visayas"}).json()["features"]} == set(REAL_SITE.values())
+
+    pins = {f["properties"]["id"]: f["properties"] for f in client.get("/api/v1/records").json()["features"]}
+    expected = {"F1": "on_track", "F2": "awaiting", "F3": "awaiting", "F4": "conflict"}
+    for key, state in expected.items():
+        assert pins[REAL_RECORD[key]]["pin_state"] == state, key
+        assert pins[REAL_RECORD[key]]["is_demo"] is False
+
+    for key, rid in REAL_RECORD.items():
+        rec = client.get(f"/api/v1/records/{rid}").json()
+        assert rec["record"]["is_demo"] is False and not rec["record"]["funder"]["is_demo"]
+        assert "Reconstructed on 2026-10-04" in rec["record"]["known_unknowns"]
+        assert rec["record"]["expected_vegetated_ha"] is None
+        assert rec["site_answers"][1]["status"] == "missing"  # no Sentinel-2 adapter yet: honest gap
+        assert rec["disclaimer"].startswith("This record is not a certification")
+        assert any(e["question"] == "history" for e in rec["record"]["snapshot"]["evidence"])  # GMW baseline locked in
+        for entry in rec["timeline"]:
+            e = entry["evidence"]
+            assert e["source_type"] == "public_report" and e["provenance_url"].startswith("https://")
+            assert e["is_demo"] is False and e["usable"] == (e["finding"] is not None)
+            assert all(m["eq_id"] == "EQ-017" and m["confidence"] == "low" for m in e["metrics"])
+        assert client.get(f"/api/v1/records/{rid}/verify").json()["intact"] is True
+
+    f4 = client.get(f"/api/v1/records/{REAL_RECORD['F4']}").json()
+    assert f4["site_answers"][2]["status"] == "conflicting"  # ERDB damage count vs natural recovery
+    f2 = client.get(f"/api/v1/records/{REAL_RECORD['F2']}").json()
+    assert f2["checks"][1]["status"] == "missing"  # only province-wide items, recorded as not usable
+    assert f2["checks"][0]["reported_area"]["value"] == 70.0

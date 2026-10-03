@@ -19,6 +19,7 @@ SITE_QUESTIONS: tuple[tuple[str, str], ...] = (
 CHECK_LABELS = {"work": "Did the work happen?", "outcome": "Did the mangroves come back?"}
 
 SUPPORTED, CONFLICTING, MISSING, TOO_EARLY = "supported", "conflicting", "missing", "too_early"
+REPORT_SOURCES = ("project_report", "public_report")  # a claimed area: DS-005, or quoted from a public report (DS-009)
 
 Item = Mapping[str, Any]
 
@@ -72,13 +73,13 @@ def _newest(items: list[Item]) -> Item | None:
 def work_check(items: Iterable[Item]) -> dict[str, Any]:
     """"Did the work happen?": BR-001 over work findings, plus the EQ-009 area check.
 
-    Reported area: the newest usable project report's `reported_area` metric (DS-005, self-reported, Low).
+    Reported area: the newest usable project or public report's `reported_area` metric (DS-005 or DS-009, Low).
     Measured area: EQ-010 on the newest usable field item that carries a mapped boundary (`mapped_area_ha`).
     """
     usable = _usable(items, "work")
     status, finding = agreement(usable)
 
-    report = _newest([i for i in usable if i["source_type"] == "project_report" and _metric_value(i, "reported_area") is not None])
+    report = _newest([i for i in usable if i["source_type"] in REPORT_SOURCES and _metric_value(i, "reported_area") is not None])
     mapped = _newest([i for i in usable if i["source_type"] == "field" and i.get("mapped_area_ha") is not None])
     reported_ha = _metric_value(report, "reported_area") if report else None
     measured_ha = float(mapped["mapped_area_ha"]) if mapped else None
