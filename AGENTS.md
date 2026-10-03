@@ -46,14 +46,14 @@ Story priority on a product story is Must, Should, or Could. Won't is only for a
 
 Add `docs/adr/ADR-NNN-short-slug.md` when behavior, structure, security, or the plan changed, or when a later reader would ask why. Skip a trivial edit with no lasting why.
 
-The next free number is ADR-047. Never reuse a number. Never edit an Accepted ADR.
+The next free number is ADR-048. Never reuse a number. Never edit an Accepted ADR.
 
 Fill Context, Why now, Options (at least two), Decision, Why this option, Overrides, Consequences. Same change as the code or doc it records. Add a §3 entry to `docs/ledger.md` that cites the ADR in the same commit; the pre-commit hook blocks the commit otherwise.
 
 ## Pivot
 
 1. Write the new ADR. In Overrides, name the old ADR and the doc section it beats.
-2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-017.
+2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-018.
 3. If you can update the owning doc in this change, do that and do not add a §0.5 row. If you cannot, add one §0.5 row: the concern, the owning doc, the `DEC-###`, and the section it overrides.
 4. Leave the old ADR as it was.
 
@@ -71,6 +71,7 @@ before endpoints exist is in [ADR-038](docs/adr/ADR-038-parallel-frontend-backen
 - Stay inside the layer you own this phase: `web/` for the frontend owner; `api/`, `db/`, `data/` for the backend owner. `infra/` is the orchestrator's.
 - A change to `docs/api.md`, `docs/data-model.md` or `docs/methods.md` goes to `master` (through the orchestrator) before code depends on it.
 - After every integration merge, take `master` into your branch before you continue.
+- **Every push to `master` deploys the demo site** ([ADR-047](docs/adr/ADR-047-deploy-on-push-to-master.md)). Do not push to `master` from a person branch, and never force-push it.
 
 ## Messages between builders
 

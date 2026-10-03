@@ -28,6 +28,7 @@ owns: which decision is current · names and immutable IDs · rejected approache
 | `18-140-211-157.sslip.io` | public domain (sslip.io wildcard DNS) | `DOMAIN`, `PUBLIC_BASE_URL`; MCP URL `https://18-140-211-157.sslip.io/mcp` (no trailing slash) | Changing it means re-registering the Quick MCP connector. |
 | `bon-mangrove-evidence-baf5cf` | S3 bucket (private, SSE-S3) | `S3_BUCKET`; photos under `assets/<sha256>` (ADR-037) | Accessed only through instance role `bon-mangrove-ec2-role`. |
 | `bon-mangrove-ec2-role` / `bon-mangrove-ec2-profile` | IAM role / instance profile | EC2 → S3 (Get/Put/List, no Delete) + SSM | — |
+| `bon-mangrove-gha-deploy` | IAM role for GitHub Actions (OIDC) | `.github/workflows/deploy.yml` via repo variable `AWS_DEPLOY_ROLE_ARN` | Trusts only `repo:DavidBatoDev/mangrove:ref:refs/heads/master`; may only `ssm:SendCommand` on the demo instance (ADR-047). |
 | (pending) | Neon project id | `DATABASE_URL`, `DATABASE_URL_DIRECT` (ADR-036) | Add the project id here when it is created. |
 
 ## 2. Decision assumptions & evidence (confidence, not a product spec)
@@ -40,6 +41,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 | GMW v4.1.12 (CC BY 4.0, Zenodo 10.5281/zenodo.21346457) and the Copernicus Statistical API are obtainable on the terms in `docs/methods.md` §4. | Amazon Quick at the venue can reach a public MCP server (needs an Enterprise subscription). | Rubric weights apply as published in the handbook PDF (`context.md` §1, R38); organizers may still change them on site. |
 
 ## 3. Pivots & decisions (newest first, append at top)
+
+### 2026-10-04 — Every push to master redeploys the demo host
+- **ID:** DEC-017
+- **Type:** platform
+- **Change:** the orchestrator deploys by hand over SSH → `.github/workflows/deploy.yml` deploys on every push to `master` through GitHub OIDC and SSM Run Command, running `infra/deploy.sh` with an automatic rollback on a failed health check
+- **Why:** no manual step, no open port, no stored key; a bad build cannot take the demo down.
+- **Invalidated:** ADR-039 integration step 4's manual deploy
+- **Recorded as:** ADR-047
 
 ### 2026-10-04 — Google Maps for display, MapLibre as fallback
 - **ID:** DEC-016

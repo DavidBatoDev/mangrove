@@ -22,7 +22,8 @@ In this repo Claude Code is the integration orchestrator, working in the main ch
 - **Before each phase:** ask the user who owns the frontend and who owns the backend this phase. The split
   can swap between David and Ethan. Do not assume the previous phase's split.
 - **Integrate:** fetch, merge the backend branch then the frontend branch into `master` (`--no-ff`), run
-  the checks listed in ADR-039, push `master` only if they pass, deploy, then merge `master` back into
+  the checks listed in ADR-039, push `master` only if they pass (the push deploys, ADR-047: watch the
+  `Deploy` run with `gh run watch`), then merge `master` back into
   `person/david` and `person/ethan`. State the phase's owner split in the merge commit message.
 - **Deliver notes:** when a builder pushes a `note(...)` commit, cherry-pick it onto the recipient's branch
   and push. Check at each phase end that every `request`/`question` note has an `answer`.

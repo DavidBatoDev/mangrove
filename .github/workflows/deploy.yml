@@ -1,0 +1,80 @@
+# Redeploy the demo host on every push to master (ADR-047).
+# GitHub Actions -> AWS (OIDC, no stored keys) -> SSM Run Command on the EC2 host -> infra/deploy.sh.
+# The IAM role only trusts pushes to master of this repo and may only run commands on the demo instance.
+# Repo variables (not secrets): AWS_DEPLOY_ROLE_ARN, AWS_REGION, EC2_INSTANCE_ID, DEPLOY_DOMAIN.
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# One deploy at a time; a newer push waits for the running deploy instead of cancelling it mid-build.
+concurrency:
+  group: deploy-demo-host
+  cancel-in-progress: false
+
+permissions:
+  id-token: write   # OIDC token for AWS
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    # No `environment:` here on purpose: it would change the OIDC subject the IAM role trusts
+    # (repo:DavidBatoDev/mangrove:ref:refs/heads/master).
+    env:
+      INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
+      DOMAIN: ${{ vars.DEPLOY_DOMAIN }}
+    steps:
+      - name: AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          role-session-name: gha-deploy-${{ github.run_id }}
+
+      - name: Deploy on the host (SSM)
+        run: |
+          set -euo pipefail
+          SCRIPT="sudo -iu ubuntu bash -lc 'set -e; cd /opt/bon/mangrove && git fetch -q origin && git reset -q --hard ${GITHUB_SHA} && bash infra/deploy.sh'"
+          jq -n --arg c "$SCRIPT" '{commands: [$c], executionTimeout: ["1800"]}' > params.json
+          CID=$(aws ssm send-command \
+            --instance-ids "$INSTANCE_ID" \
+            --document-name AWS-RunShellScript \
+            --comment "deploy ${GITHUB_SHA::7} run ${GITHUB_RUN_ID}" \
+            --parameters file://params.json \
+            --query Command.CommandId --output text)
+          echo "SSM command: $CID"
+          STATUS=Pending
+          for _ in $(seq 1 130); do
+            sleep 15
+            STATUS=$(aws ssm get-command-invocation --command-id "$CID" --instance-id "$INSTANCE_ID" \
+              --query Status --output text 2>/dev/null || echo Pending)
+            case "$STATUS" in
+              Pending|InProgress|Delayed) echo "… $STATUS" ;;
+              *) break ;;
+            esac
+          done
+          echo "== host output (tail)"
+          aws ssm get-command-invocation --command-id "$CID" --instance-id "$INSTANCE_ID" \
+            --query StandardOutputContent --output text | tail -n 40 || true
+          echo "== host errors (tail)"
+          aws ssm get-command-invocation --command-id "$CID" --instance-id "$INSTANCE_ID" \
+            --query StandardErrorContent --output text | tail -n 20 || true
+          echo "Final status: $STATUS"
+          [ "$STATUS" = "Success" ]
+
+      - name: Smoke test (public URL)
+        run: |
+          set -euo pipefail
+          curl -fsS -m 20 "https://$DOMAIN/api/v1/health"; echo
+          test "$(curl -s -m 30 -o /dev/null -w '%{http_code}' "https://$DOMAIN/")" = 200
+          curl -fsS -m 20 "https://$DOMAIN/api/v1/sites" | jq -e '.features | length > 0' >/dev/null
+          curl -fsS -m 30 -X POST "https://$DOMAIN/mcp" \
+            -H 'Content-Type: application/json' \
+            -H 'Accept: application/json, text/event-stream' \
+            -H 'MCP-Protocol-Version: 2025-06-18' \
+            -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' | grep -q '"list_sites"'
+          echo "smoke OK: health, web, sites, MCP tools/list"

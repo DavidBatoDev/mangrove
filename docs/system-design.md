@@ -138,6 +138,7 @@ Kiro is the build environment and spec tool (`.kiro/specs/`), not a runtime comp
 
 - One AWS EC2 host (`ap-southeast-1`, t3.medium) running Docker Compose with three services — `web`, `api` (including `/mcp`), `caddy` — from `infra/docker-compose.yml`. The database is Neon (ADR-036) and photos are in S3 through the instance role (ADR-037). Host ids are in [`ledger.md`](ledger.md) §1.
 - Caddy terminates HTTPS with an automatic certificate at `https://18-140-211-157.sslip.io` and routes `/mcp*` and `/api/*` to `api`, everything else to `web`. The MCP endpoint is the public `https://…/mcp` URL Amazon Quick needs [R35].
+- **Deploys are automatic** (ADR-047): every push to `master` runs `.github/workflows/deploy.yml`, which assumes an IAM role through GitHub's OIDC provider and uses SSM Run Command to reset the host checkout to the pushed commit and run `infra/deploy.sh` (build, `up -d`, health check through Caddy, rollback to the previous images on failure), then smoke-tests the public URL. No inbound SSH and no stored AWS keys are involved.
 - One environment for the hackathon (the demo). Local development uses the same Compose file.
 - Secrets (Copernicus client, session signing key, Neon connection strings, demo account passwords) are environment variables on the host, never in the repo ([`security.md` §7](security.md)). No AWS keys: the instance role grants S3 access.
 

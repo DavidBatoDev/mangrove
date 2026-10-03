@@ -57,6 +57,7 @@ forgotten in one handler.
 | `POST /sites` (API-017), `POST /sites/{id}/summary` (API-018) | `funder` / any signed-in | Session cookie | API dependency |
 | `POST /mcp` (API-015) | public — read-only tools returning the public subset only. No contract text. No funder notice | — (Amazon Quick supports unauthenticated MCP servers [R35]) | No write tools are registered; rate limit; response models exclude confidential and internal notice fields |
 | `GET /health` (API-016) | public — returns no data | — | — |
+| Deploy pipeline (`.github/workflows/deploy.yml` → SSM on the host) | GitHub Actions runs on pushes to `master` of this repo only | GitHub OIDC token → IAM role `bon-mangrove-gha-deploy` (trust: `ref:refs/heads/master`) | IAM trust condition + a policy limited to `ssm:SendCommand` on the demo instance (ADR-047) |
 | Any `PUT`/`PATCH`/`DELETE` on evidence, records, timeline | nobody | — | No route (405) **and** database trigger **and** grants (BR-002) |
 
 ## 5. Threat Model (`T-###`)
@@ -79,6 +80,7 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 | T-012 | Tampering (prompt injection) | Evidence notes crafted to steer Amazon Quick or the F-013 summarizer | Misleading narrative | Statuses and numbers come from the engine only (BR-003); tool output marks notes as untrusted quoted data; MCP has no write tools, so injection cannot cause actions | BR-003 |
 | T-013 | Spoofing | Credential stuffing on the login | Account takeover | Login rate limit; strong per-event demo passwords; same error for wrong email or password | — |
 | T-014 | Information disclosure | Contract text or consequence clauses copied into a public GET or an MCP tool | The private agreement becomes public, and Quick can repeat it | No public or MCP schema includes the contract. The flag notice goes to the funder account and carries the flag, not the clauses. TC-024 | — |
+| T-015 | Elevation of privilege | Anyone able to push or force-push `master` (or edit the workflow on `master`) runs commands on the demo host through the deploy pipeline | Arbitrary code on the host; secrets in the host `.env` exposed | The IAM role trusts only pushes to `master` of this repo and may only send commands to the demo instance; no SSH key or AWS key is stored in GitHub; only the orchestrator merges to `master` (ADR-039); **residual:** branch protection on `master` is not yet enabled | — |
 
 ## 6. Abuse & Safety Risks
 

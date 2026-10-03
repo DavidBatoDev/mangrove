@@ -58,3 +58,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-044](ADR-044-partner-proposals-and-milestone-gate.md) | Accepted | A partner proposes the public terms, a funder commits, and the milestone gate flags disagreement. ADR-041's P0 screen list is behind the PRD when they disagree. |
 | [ADR-045](ADR-045-gmw-context-widgets.md) | Accepted | Mangrove context from GMW (site and nearby trend, bay layer, national card); the history answer stays honest. |
 | [ADR-046](ADR-046-google-maps-display-only.md) | Accepted | Google Maps for visualization only (2D + 3D); evidence stays with GMW and Sentinel-2; MapLibre is the fallback. |
+| [ADR-047](ADR-047-deploy-on-push-to-master.md) | Accepted | Every push to `master` redeploys the demo host through GitHub Actions, OIDC and SSM, with rollback on a failed health check. |
