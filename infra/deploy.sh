@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Redeploy the Mangrove stack on the demo host (ADR-047).
+# Redeploy the AIDE-M stack on the demo host (ADR-047).
 # Called by .github/workflows/deploy.yml through AWS SSM, as user `ubuntu`, after /opt/bon/mangrove has been
 # reset to the commit being deployed. Safe to run by hand on the host: bash /opt/bon/mangrove/infra/deploy.sh
 #

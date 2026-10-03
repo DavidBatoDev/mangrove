@@ -6,7 +6,7 @@ doc: tests
 owns: test intent and the traceability sink — which feature is proven by which case · the automation contract (path, command, trigger) · regression and exit criteria
 ---
 
-# Tests — Mangrove
+# Tests — AIDE-M
 
 > **Purpose:** what proves each behaviour, and the trace from feature to case to command.
 > Traces back to: [`prd.md`](prd.md), [`system-design.md`](system-design.md), [`security.md`](security.md),

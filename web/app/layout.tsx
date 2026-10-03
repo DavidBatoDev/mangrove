@@ -10,7 +10,7 @@ import "./pages.css";
 const body = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: "Mangrove",
+  title: "AIDE-M",
   description: "Mangrove restoration promises, made public before the money moves, then checked against evidence.",
   icons: { icon: "/brand/logo/mangrove-mark.svg" },
 };

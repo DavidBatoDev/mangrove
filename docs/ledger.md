@@ -6,7 +6,7 @@ doc: ledger
 owns: which decision is current · names and immutable IDs · rejected approaches · decision assumptions
 ---
 
-# Ledger — Mangrove
+# Ledger — AIDE-M
 
 > **What this is.** Append-only history of pivots, rejected approaches, names, and the assumptions behind
 > decisions. It does not override the PRD, the system design, or the test plan. If it disagrees with one of
@@ -18,7 +18,7 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 | Name / ID | Kind | Where it appears | Rule |
 |-----------|------|------------------|------|
-| Mangrove | public product name | UI, pitch, repo | Use this name wherever a person sees the product. |
+| AIDE-M | public product name (ADR-051) | UI, pitch, docs | Use this name wherever a person sees the product. Its meaning, "Accountability In Delivery & Evidence · Mangrove", goes only in small type under the wordmark and at a document's first mention. The name was "Mangrove" until 2026-10-04; repo, CSS, file and AWS identifiers keep `mangrove`. |
 | `prd.md` | doc filename | `docs/prd.md` | The PRD file is `prd.md`, not `product.md`. Do not rename it. |
 | F-001…F-021, US-001…US-015, BR-001…BR-006, API-001…API-018, EQ-001…EQ-013, DS-001…DS-006, TC-001…TC-020, T-001…T-013, DEC-001… | stable IDs | docs | Never renumber or reuse. Retire and add a new ID. |
 | ADR-001…ADR-030 | prior decision numbers | Google Doc; indexed in `docs/adr/README.md` | Not reused. New ADRs start at ADR-031. |
@@ -49,6 +49,13 @@ owns: which decision is current · names and immutable IDs · rejected approache
 - **Why:** cold renders queued for over 90 s on the 2-CPU host and the map blurred when zoomed in.
 - **Invalidated:** ADR-048's in-memory cache and zoom 4–8 prewarm
 - **Recorded as:** ADR-052
+### 2026-10-04 — The product is named AIDE-M
+- **ID:** DEC-021
+- **Type:** naming
+- **Change:** public product name "Mangrove" → **AIDE-M** (Accountability In Delivery & Evidence · Mangrove); the meaning appears only under the wordmark and at first mention
+- **Why:** "Mangrove" is also the ecosystem the product is about, so the name read as a topic.
+- **Invalidated:** ADR-043's product name only
+- **ADR:** ADR-051
 
 ### 2026-10-04 — Mangrove gain and loss on the map; compact legend filters
 - **ID:** DEC-020

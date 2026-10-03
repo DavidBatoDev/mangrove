@@ -6,9 +6,9 @@ doc: methods
 owns: every computed number and derived finding the product emits — its equation (EQ-###), its input datasets (DS-###), and its computed confidence · the decision thresholds · the glass-box contract
 ---
 
-# Methods — Glass-Box Ledger — Mangrove
+# Methods — Glass-Box Ledger — AIDE-M
 
-> **Purpose:** the one home for every number Mangrove computes and every finding it derives from a number:
+> **Purpose:** the one home for every number AIDE-M computes and every finding it derives from a number:
 > areas, satellite class fractions, discrepancy checks, hashes. Each carries its equation, its inputs, and a
 > computed confidence.
 > Traces back to: [`system-design.md`](system-design.md), [`data-model.md`](data-model.md). Traces forward to:
@@ -16,7 +16,7 @@ owns: every computed number and derived finding the product emits — its equati
 
 ## 1. The Glass-Box Contract
 
-Every number Mangrove shows — on a page, in an API response, or through an MCP tool to Amazon Quick — must
+Every number AIDE-M shows — on a page, in an API response, or through an MCP tool to Amazon Quick — must
 resolve to:
 
 1. an **`EQ-###`** (§3), and
