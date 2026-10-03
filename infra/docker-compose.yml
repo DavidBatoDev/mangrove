@@ -1,0 +1,39 @@
+# Deployment topology. Service Dockerfiles are written during the build window.
+# Run from infra/:  docker compose --env-file ../.env up -d --build
+services:
+  web:
+    build: ../apps/web
+    env_file: ../.env
+    restart: unless-stopped
+    depends_on: [api]
+
+  api:
+    build: ../services/api
+    env_file: ../.env
+    restart: unless-stopped
+
+  mcp:
+    build: ../services/mcp
+    environment:
+      - API_BASE_URL=http://api:8000
+    restart: unless-stopped
+    depends_on: [api]
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+    depends_on: [web, api, mcp]
+
+volumes:
+  caddy_data: {}
+  caddy_config: {}

@@ -2,7 +2,41 @@
 fmd/
 .fmd-work/
 
-# Secrets — names live in .env.example, values never in git
+# --- secrets: never commit ---
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+secrets/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node / Next.js ---
+node_modules/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+
+# --- data: commit snapshots + manifest, not large raw rasters ---
+data/raw/
+*.tif
+*.tiff
+!data/snapshots/**/*.tif
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
