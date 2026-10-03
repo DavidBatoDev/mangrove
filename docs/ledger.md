@@ -1,7 +1,7 @@
 ---
 schema_version: 2.1.0
 status: draft
-last_updated: 2026-10-03
+last_updated: 2026-10-04
 doc: ledger
 owns: which decision is current · names and immutable IDs · rejected approaches · decision assumptions
 ---
@@ -40,6 +40,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 | GMW v4.1.12 (CC BY 4.0, Zenodo 10.5281/zenodo.21346457) and the Copernicus Statistical API are obtainable on the terms in `docs/methods.md` §4. | Amazon Quick at the venue can reach a public MCP server (needs an Enterprise subscription). | Rubric weights apply as published in the handbook PDF (`context.md` §1, R38); organizers may still change them on site. |
 
 ## 3. Pivots & decisions (newest first, append at top)
+
+### 2026-10-04 — Sentinel-2 from Earth Search COGs
+- **ID:** DEC-012
+- **Type:** pivot
+- **Change:** Sentinel-2 L2A via the Copernicus Statistical API → Sentinel-2 L2A Collection 1 COGs found with Element 84 Earth Search, pixel counts computed by the adapter; no account
+- **Why:** the team could not register a Copernicus Data Space account (the registration captcha failed), so no OAuth client exists.
+- **Invalidated:** `docs/methods.md` DS-002 and EQ-005 method text, `docs/system-design.md` §1/§3/§4/§5 Sentinel-2 rows (updated in the same change); ADR-030's Statistical API access path
+- **Recorded as:** ADR-042
 
 ### 2026-10-03 — Three large phases
 - **ID:** DEC-011

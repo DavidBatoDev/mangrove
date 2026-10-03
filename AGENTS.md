@@ -45,14 +45,14 @@ Story priority on a product story is Must, Should, or Could. Won't is only for a
 
 Add `docs/adr/ADR-NNN-short-slug.md` when behavior, structure, security, or the plan changed, or when a later reader would ask why. Skip a trivial edit with no lasting why.
 
-The next free number is ADR-042. Never reuse a number. Never edit an Accepted ADR.
+The next free number is ADR-043. Never reuse a number. Never edit an Accepted ADR.
 
 Fill Context, Why now, Options (at least two), Decision, Why this option, Overrides, Consequences. Same change as the code or doc it records. Add a §3 entry to `docs/ledger.md` that cites the ADR in the same commit; the pre-commit hook blocks the commit otherwise.
 
 ## Pivot
 
 1. Write the new ADR. In Overrides, name the old ADR and the doc section it beats.
-2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-012.
+2. Add a `DEC-###` entry at the top of `docs/ledger.md` §3 that cites the new ADR. Do not renumber old DEC ids. The next free number is DEC-013.
 3. If you can update the owning doc in this change, do that and do not add a §0.5 row. If you cannot, add one §0.5 row: the concern, the owning doc, the `DEC-###`, and the section it overrides.
 4. Leave the old ADR as it was.
 
@@ -106,7 +106,7 @@ Verify a library, API, or version against that version's current docs before cod
 
 Until then, these are the facts already checked against current docs (2026-10-03):
 
-- Copernicus Statistical API: `POST https://sh.dataspace.copernicus.eu/statistics/v1`, OAuth client credentials at `https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token`.
+- Sentinel-2 L2A (ADR-042): Earth Search STAC `https://earth-search.aws.element84.com/v1`, collection `sentinel-2-c1-l2a`, assets `scl` (20 m), `red`, `nir` (10 m) as public COGs; no account (checked 2026-10-04). The Copernicus Statistical API is no longer used.
 - Sentinel-2 scene classes used here are the SCL band: 4 vegetation, 5 bare soil, 6 water.
 - Amazon Quick MCP is remote only, prefers streamable HTTP, accepts an unauthenticated server, and rejects tool schemas that are not JSON Schema draft 7 or later (`required` is an array at the schema root).
 - Areas use PostGIS `ST_Area` on a `geography`, not on a geometry.

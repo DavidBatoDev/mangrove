@@ -16,7 +16,8 @@ API pins (2026-10-04, `api/requirements.txt`): Python 3.12, fastapi 0.142.2, uvi
 
 | Stale or guessed | Current for this project | Why |
 |------------------|--------------------------|-----|
-| Sentinel Hub on `services.sentinel-hub.com` | `https://sh.dataspace.copernicus.eu/statistics/v1` and the CDSE identity token URL | Copernicus Data Space is the account this product uses |
+| Copernicus Statistical API for Sentinel-2 | Earth Search STAC `https://earth-search.aws.element84.com/v1`, `sentinel-2-c1-l2a`, `scl`/`red`/`nir` COGs (ADR-042) | No CDSE account could be registered; COGs need none |
+| Sentinel Hub on `services.sentinel-hub.com` | `https://sh.dataspace.copernicus.eu/statistics/v1` and the CDSE identity token URL (only if ADR-042 is reversed) | Copernicus Data Space is the account this product uses |
 | MCP over stdio, or SSE as the default | Remote streamable HTTP at `/mcp` | Amazon Quick connects to remote servers only and prefers streamable HTTP |
 | `"required": true` inside a property | `"required": ["name"]` at the schema root | Quick rejects JSON Schema draft 3 |
 | `ST_Area(geom)` in degrees | `ST_Area(geom::geography) / 10000` | Geodesic hectares, EQ-001 |
