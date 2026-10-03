@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+from pathlib import Path
 from typing import Any
 
 import anyio
@@ -11,7 +13,7 @@ from fastapi.responses import JSONResponse, Response
 
 from . import gmw_tiles, reads
 from .db import connection
-from .errors import envelope
+from .errors import envelope, not_found
 
 router = APIRouter(prefix="/api/v1")
 
@@ -68,6 +70,11 @@ def country_context(iso3: str) -> dict[str, Any]:
     return reads.country_context(iso3)
 
 
+@router.get("/context/programs/{program_id}", summary="API-026 a public funding program, figures as published")
+def program_context(program_id: str) -> dict[str, Any]:
+    return reads.program_context(program_id)
+
+
 @router.get("/layers/gmw-extent", summary="API-023 Manila Bay mangrove extent for one year")
 def gmw_extent(year: int | None = Query(default=None)) -> dict[str, Any]:
     return reads.gmw_extent_layer(year)
@@ -99,6 +106,20 @@ async def gmw_change_tiles_info() -> JSONResponse:
 async def gmw_change_tile(base: int, year: int, z: int, x: int, y: int, only: str | None = Query(default=None)) -> Response:
     png = await anyio.to_thread.run_sync(gmw_tiles.change_tile_png, base, year, z, x, y, only, limiter=_TILE_THREADS)
     return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800", **_TILE_CORS})
+
+
+# API-014: evidence pictures shipped with the repo (Sentinel-2 chips from data/ingest/s2_ingest.py), by SHA-256.
+_ASSET_DIR = Path(__file__).resolve().parent / "evidence_assets"
+_SHA256 = re.compile(r"[0-9a-f]{64}")
+
+
+@router.get("/assets/{sha256}", summary="API-014 evidence picture by SHA-256")
+def evidence_asset(sha256: str) -> Response:
+    path = _ASSET_DIR / f"{sha256}.png"
+    if not _SHA256.fullmatch(sha256) or not path.is_file():
+        raise not_found()
+    return Response(content=path.read_bytes(), media_type="image/png",
+                    headers={"Cache-Control": "public, max-age=31536000, immutable"})
 
 
 # BR-002: there is no PUT, PATCH or DELETE on evidence, records or timeline entries (docs/api.md §2).

@@ -12,7 +12,7 @@ load_dotenv()  # local dev reads ../.env or ./.env; in compose the variables are
 from fastapi import FastAPI  # noqa: E402
 from starlette.routing import Mount  # noqa: E402
 
-from . import db, errors  # noqa: E402
+from . import db, errors, mcp_usage  # noqa: E402
 from .mcp_server import build_app, mcp  # noqa: E402
 from .routes import router  # noqa: E402
 
@@ -39,5 +39,12 @@ app = FastAPI(
 )
 errors.install(app)
 app.include_router(router)
+
+
+@app.get("/api/v1/mcp/usage", summary="MCP usage trail: tool calls since the last deploy, by tool and client")
+def mcp_usage_trail() -> dict:
+    return mcp_usage.usage()
+
+
 # Last, so every /api/v1 route matches first. Mount("/mcp", …) would 307-redirect /mcp to /mcp/.
-app.router.routes.append(Mount("/", app=mcp_app))
+app.router.routes.append(Mount("/", app=mcp_usage.UsageRecorder(mcp_app)))

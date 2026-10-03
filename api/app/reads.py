@@ -144,6 +144,15 @@ def evidence_dto(row: dict[str, Any]) -> dict[str, Any]:
     }
     if row.get("mapped_area_ha") is not None:
         out["mapped_area"] = E.eq010_mapped_area(row["mapped_area_ha"])
+    # Public keys of `raw`: published photos linked from a public report (url, credit, caption; ADR-059), and the
+    # Sentinel-2 "then" picture beside the current chip (s2_ingest.py). Everything else in `raw` stays internal.
+    photos = (row.get("raw") or {}).get("photos")
+    if photos:
+        out["photos"] = [{k: p.get(k) for k in ("url", "credit", "caption")} for p in photos]
+    then_sha = (row.get("raw") or {}).get("then_asset_sha256")
+    if then_sha:
+        out["asset_then_url"] = f"/api/v1/assets/{then_sha}"
+        out["asset_then_observed"] = (row["raw"].get("then_datetime") or "")[:10] or None
     return out
 
 
@@ -394,6 +403,15 @@ def country_context(iso3: str) -> dict[str, Any]:
     data = _context_file(f"gmw_country_{code}.json") if code.isalpha() and len(code) == 3 else None
     if data is None:
         raise not_found("No statistics for that country")
+    return data
+
+
+def program_context(program_id: str) -> dict[str, Any]:
+    """API-026: a public funding program's facts, each quoted as published (EQ-017, low; DS-009)."""
+    pid = (program_id or "").lower()
+    data = _context_file(f"program_{pid}.json") if pid.isalnum() and len(pid) <= 32 else None
+    if data is None:
+        raise not_found("No program with that id")
     return data
 
 
