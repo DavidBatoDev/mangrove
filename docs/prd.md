@@ -51,7 +51,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 | `F-###` | Feature | Priority | Solves (problem) | Notes / why not |
 |---------|---------|----------|------------------|-----------------|
-| F-001 | Partner-proposed sites the public can open before a commitment. The demo set is 3–5 Manila Bay polygons | Must | No common starting set | Demo sites are labelled demo (BR-006) |
+| F-001 | Partner-proposed sites the public can open before a commitment. The demo set is 3–5 Manila Bay polygons, plus four real, sourced Post-Yolanda sites in Eastern Visayas (ADR-056) | Must | No common starting set | Demo sites are labelled demo; real sites are labelled sourced (BR-006) |
 | F-002 | Evidence dossier with full provenance per item | Must | Scattered evidence | BR-005 |
 | F-003 | Source adapters: GMW history (pre-ingested), Sentinel-2 now (live + snapshot fallback) | Must | Manual reconciliation | Equations in [`methods.md`](methods.md). GMW is history, not a completion check |
 | F-004 | Field evidence submission (photo, GPS, observation, mapped area) | Must | Map-only screening misses fishponds and land conflicts | Early milestones use these inputs only |
@@ -92,6 +92,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 
 - Given 3–5 seeded sites, some with a commitment and some without, when I open the sites screen without signing in, then each site appears as a polygon on the map and as a list row showing its name, its area in hectares (EQ-001), and whether it has a commitment.
 - Given a site is demo data, when it is displayed anywhere, then it carries a visible "Demo data" label (BR-006).
+- Given a real, sourced record (`is_demo = false`, ADR-056), when it is displayed, then it shows no "Demo data" label, it shows a "Real case · sourced" tag, and every evidence item links its source (`provenance_url`).
 
 **US-002 — Inspect a site's evidence dossier** *(F-002, F-003)* — Priority: Must
 > As a **Funder**, I want every piece of evidence about a site in one place with where it came from so
@@ -220,7 +221,7 @@ Features reuse the `F-###` IDs from [`idea.md` §7](../idea.md); none are minted
 | BR-003 | **Deterministic decisions; the model only narrates.** Statuses, findings, pin states and numbers come from source data and the rules in [`methods.md`](methods.md). An LLM (Quick or in-app) may summarize them; it never sets a status or introduces a number. | US-003, US-013, US-015 |
 | BR-004 | **Pin state precedence.** Red (conflict) if any check or site question on the record is conflicting; otherwise "awaiting evidence" if a check is missing or the satellite line is not yet observable; otherwise "on track". A satellite line of "not yet observable" does not by itself turn the pin red. Colours other than red belong to the design doc. Sites with no commitment are polygons, not record pins. | US-001, US-009, US-012 |
 | BR-005 | **Provenance-first evidence.** Every evidence item carries source, source version, observed and retrieved time, geometry or location, question, finding, value and unit where applicable, method (with its `EQ-###` when computed), spatial resolution where applicable, limitation, link or asset, submitter, and a content hash. | US-002, US-005, US-006, US-010 |
-| BR-006 | **Demo data is labelled.** Every seeded site, organization, record and evidence item that is not real is flagged demo and shows a "Demo data" label wherever it appears, including in MCP tool output. Demo organizations use fictional names. | US-001, US-009, US-013 |
+| BR-006 | **Demo data is labelled.** Every seeded site, organization, record and evidence item that is not real is flagged demo and shows a "Demo data" label wherever it appears, including in MCP tool output. Demo organizations use fictional names. Exception (ADR-056): real, sourced records (`is_demo = false`) may name a real organization only as a cited party in a public report, never an individual. | US-001, US-009, US-013 |
 | BR-007 | **Flag and notice, then stop.** A disagreement sets *conflicting* and notifies the funder account on that record. The product does not declare fraud, dispatch an inspector, apply a penalty, or say the project was successful. Consequences stay in the private contract. The page does not certify. | US-011, US-012 |
 
 **Finding vocabularies (fixed lists, per question):**
@@ -333,7 +334,7 @@ See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Wo
 - No penalty in the product (F-023). Consequences stay in the private contract [ADR-024]. The product does not notify regulators. Revisit if a funder asks the product to apply a penalty.
 - No crowdsourced public evidence this cycle (F-024). Revisit after the demo.
 - No marketplace fee for listing a proposal. Brokering stays out of scope in [`idea.md` §10](../idea.md).
-- No regions beyond the Manila Bay demo area are seeded for the hackathon. Revisit after the demo.
+- No regions beyond the Manila Bay demo area are seeded for the hackathon, except the four real, sourced Post-Yolanda records in Eastern Visayas (ADR-056). Revisit after the demo.
 
 ## 7. Dependencies & Open Questions
 

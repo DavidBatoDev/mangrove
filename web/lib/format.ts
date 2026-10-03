@@ -58,7 +58,10 @@ export const ACTION_LABELS: Record<string, string> = {
 
 export function formatMeasure(m: Measure | null | undefined): string {
   if (!m) return "—";
-  const v = typeof m.value === "number" ? (Number.isInteger(m.value) ? String(m.value) : m.value.toFixed(2)) : String(m.value);
+  const v =
+    typeof m.value === "number"
+      ? m.value.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: Number.isInteger(m.value) ? 0 : 2 })
+      : String(m.value);
   return m.unit === "items" ? v : `${v} ${m.unit}`;
 }
 
@@ -82,4 +85,5 @@ export const EQ_LABELS: Record<string, string> = {
   "EQ-008": "Vegetated area",
   "EQ-010": "Mapped area",
   "EQ-013": "Sources",
+  "EQ-017": "Quoted from a public report",
 };

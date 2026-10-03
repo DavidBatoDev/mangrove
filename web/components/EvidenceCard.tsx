@@ -27,6 +27,15 @@ export default function EvidenceCard({ e }: { e: Evidence }) {
         </div>
       </div>
 
+      {e.source_type === "public_report" && e.provenance_url && (
+        <p className="evidence-source">
+          <a href={e.provenance_url} target="_blank" rel="noopener noreferrer">
+            Read the source
+          </a>
+          {e.source_version ? <span className="mg-mono"> · {e.source_version}</span> : null}
+        </p>
+      )}
+
       {e.metrics.length > 0 && (
         <div className="evidence-metrics">
           {e.metrics.map((m, i) => (
@@ -44,7 +53,7 @@ export default function EvidenceCard({ e }: { e: Evidence }) {
           <dt>Source</dt>
           <dd>
             {e.source_type}
-            {e.submitted_by_org ? ` · ${e.submitted_by_org}` : ""}
+            {e.submitted_by_org ? ` · ${e.submitted_by_org.name}` : ""}
           </dd>
           <dt>Version</dt>
           <dd>{e.source_version ?? "—"}</dd>

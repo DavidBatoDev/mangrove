@@ -50,6 +50,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 - **Invalidated:** ADR-050's default and legend controls
 - **Recorded as:** ADR-057
 
+### 2026-10-04 — Real, sourced Post-Yolanda records beside the demo cast
+- **ID:** DEC-026
+- **Type:** scope-add
+- **Change:** fictional Manila Bay records only → plus four real Eastern Visayas MBFDP records (`is_demo = false`), reconstructed from cited public reports (`public_report`, EQ-017, DS-009), naming real organizations only as cited parties
+- **Why:** the team wants the product shown on the real case it was built for, with every claim one click from its source.
+- **Invalidated:** BR-006's fictional-name rule, `docs/security.md` §8's all-fictional gate and PRD §6's Manila-only scope, for these sourced records only
+- **Recorded as:** ADR-056
+
 ### 2026-10-04 — Google map back to per-zoom GMW tile layers
 - **ID:** DEC-025
 - **Type:** pivot

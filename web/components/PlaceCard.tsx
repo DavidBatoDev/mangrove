@@ -7,7 +7,7 @@
 import { ArrowLeft, CalendarClock, Crosshair, Link2, ScrollText } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { DemoLabel, ErrorBox, Loading, PinLabel, StatusBadge } from "@/components/ui";
+import { DemoLabel, ErrorBox, RealCaseLabel, Loading, PinLabel, StatusBadge } from "@/components/ui";
 import { BrandIcon, ICON_PROPS, QuestionIcon, SourceIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
@@ -132,6 +132,7 @@ export default function PlaceCard({
                 <div className="row" style={{ gap: "var(--mg-space-2)" }}>
                   <PinLabel state={pin_state} />
                   <DemoLabel show={record.funder.is_demo} />
+                  <RealCaseLabel show={!record.is_demo} />
                 </div>
               </div>
 

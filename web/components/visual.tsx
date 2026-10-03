@@ -9,6 +9,7 @@ import {
   Camera,
   FileText,
   Layers,
+  Newspaper,
   Satellite,
   Sprout,
   Users,
@@ -35,7 +36,7 @@ export function BrandIcon({ name, size = 24 }: { name: string; size?: number }) 
 
 /** Icon for an evidence source (BRAND.md §9 "Evidence sources"). */
 export function SourceIcon({ type, ...p }: { type: string } & LucideProps) {
-  const I: LucideIcon = type === "sentinel2" ? Satellite : type === "gmw" ? Layers : type === "field" ? Camera : FileText;
+  const I: LucideIcon = type === "sentinel2" ? Satellite : type === "gmw" ? Layers : type === "field" ? Camera : type === "public_report" ? Newspaper : FileText;
   return <I {...ICON_PROPS} {...p} />;
 }
 
@@ -91,21 +92,33 @@ export function StatTile({
  * Lock → work check → outcome check, with today's position. A drawing of dates, not a number:
  * positions are proportional to time so "how far along" reads at a glance.
  */
-export function CheckTimeline({ lockedAt, workAfter, outcomeAfter }: { lockedAt: string; workAfter: string; outcomeAfter: string }) {
+export function CheckTimeline({
+  lockedAt,
+  lockLabel = "Promise locked",
+  workAfter,
+  outcomeAfter,
+}: {
+  lockedAt: string;
+  lockLabel?: string;
+  workAfter: string;
+  outcomeAfter: string;
+}) {
   const t = (s: string) => new Date(s.length === 10 ? `${s}T00:00:00Z` : s).getTime();
-  const start = t(lockedAt);
-  const end = t(outcomeAfter);
+  // A reconstructed record (ADR-056) is published after its check dates, so the rail runs from the earliest
+  // date to the latest rather than from the lock.
+  const start = Math.min(t(lockedAt), t(workAfter));
+  const end = Math.max(t(lockedAt), t(outcomeAfter));
   const span = Math.max(end - start, 1);
   const pos = (ms: number) => Math.min(100, Math.max(0, ((ms - start) / span) * 100));
   // Read the clock once per mount (render must stay pure).
   const [today] = useState(() => Date.now());
   const points = [
-    { key: "lock", label: "Promise locked", date: lockedAt, at: 0, icon: <BrandIcon name="promise" size={18} /> },
+    { key: "lock", label: lockLabel, date: lockedAt, at: pos(t(lockedAt)), icon: <BrandIcon name="promise" size={18} /> },
     { key: "work", label: "Work check", date: workAfter, at: pos(t(workAfter)), icon: <BrandIcon name="follow-through" size={18} /> },
-    { key: "outcome", label: "Outcome check", date: outcomeAfter, at: 100, icon: <Sprout {...ICON_PROPS} size={18} /> },
+    { key: "outcome", label: "Outcome check", date: outcomeAfter, at: pos(t(outcomeAfter)), icon: <Sprout {...ICON_PROPS} size={18} /> },
   ];
   return (
-    <div className="ctl" role="img" aria-label={`Promise locked ${formatDate(lockedAt)}; work check from ${formatDate(workAfter)}; outcome check from ${formatDate(outcomeAfter)}.`}>
+    <div className="ctl" role="img" aria-label={`${lockLabel} ${formatDate(lockedAt)}; work check from ${formatDate(workAfter)}; outcome check from ${formatDate(outcomeAfter)}.`}>
       <div className="ctl-track">
         <div className="ctl-fill" style={{ width: `${pos(today)}%` }} />
         {points.map((p) => (

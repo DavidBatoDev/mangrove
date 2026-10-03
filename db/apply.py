@@ -4,8 +4,8 @@
     py -3.12 db/apply.py --target main            # Neon main branch (DATABASE_URL_DIRECT), the demo
     add --reset to drop and recreate the public schema first. --reset on main also needs --yes-main.
 
-Without --reset, schema files are skipped when the tables already exist, and the seed skips itself
-when the demo sites are already there. Connection strings are never printed.
+Without --reset, schema files are skipped when the tables already exist, except files whose first line
+starts with "-- idempotent" (later additions, safe to re-run). The seed skips what is already there. Connection strings are never printed.
 """
 
 from __future__ import annotations
@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "api"))
 sys.path.insert(0, str(ROOT / "db"))
 load_dotenv(ROOT / ".env")
+IDEMPOTENT = "-- idempotent"  # first line of a db/init file that is safe to re-run on an existing schema
 
 
 def urls(target: str) -> tuple[str, str]:
@@ -80,15 +81,16 @@ def main() -> None:
             print("reset: public schema recreated")
         exists = conn.execute("SELECT to_regclass('public.site') IS NOT NULL").fetchone()[0]
         if exists:
-            print("schema present: skipping db/init (use --reset to rebuild)")
-        else:
-            for f in sorted((ROOT / "db" / "init").glob("*.sql")):
-                text = f.read_text(encoding="utf-8")
-                if "{app_role}" in text:
-                    text = text.replace("{app_role}", sql.Identifier(app_role).as_string(conn))
-                with conn.transaction():
-                    conn.execute(text)
-                print(f"applied {f.name}")
+            print("schema present: skipping db/init except idempotent files (use --reset to rebuild)")
+        for f in sorted((ROOT / "db" / "init").glob("*.sql")):
+            text = f.read_text(encoding="utf-8")
+            if exists and not text.startswith(IDEMPOTENT):
+                continue
+            if "{app_role}" in text:
+                text = text.replace("{app_role}", sql.Identifier(app_role).as_string(conn))
+            with conn.transaction():
+                conn.execute(text)
+            print(f"applied {f.name}")
 
     if not args.no_seed:
         import seed

@@ -63,7 +63,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 
 | F-ID | Feature | Priority | Test case ID(s) | Lowest proving level | Automation | Status |
 |------|---------|----------|-----------------|----------------------|------------|--------|
-| F-001 | Candidate sites | Must | TC-001 | integration | planned | todo |
+| F-001 | Candidate sites | Must | TC-001, TC-029, TC-030 | integration | planned | todo |
 | F-002 | Evidence dossier + provenance | Must | TC-002 | integration | planned | todo |
 | F-003 | GMW + Sentinel-2 adapters | Must | TC-003, TC-005 | integration | planned | todo |
 | F-004 | Field evidence submission | Must | TC-006 | integration | planned | todo |
@@ -94,7 +94,7 @@ Manual only where a human must look: the Amazon Quick conversation (TC-013b) and
 | Test ID | Level/tool | Test path | Command | Trigger | Artifact/evidence |
 |---------|------------|-----------|---------|---------|-------------------|
 | TC-016 | unit / pytest | `api/tests/test_engine.py` | `pytest api/tests/test_engine.py` | local, before demo | pytest output |
-| TC-001–TC-013, TC-017, TC-025 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
+| TC-001–TC-013, TC-017, TC-025, TC-029, TC-030 | integration / pytest | `api/tests/test_api.py` | `pytest api/tests/test_api.py` | local, before demo | pytest output |
 | TC-027 | integration / pytest | `api/tests/test_gmw_tiles.py` | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-029 | integration / pytest | `api/tests/test_gmw_tiles.py` (disk cache, enlargement, prerender) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
 | TC-028 | integration / pytest | `api/tests/test_gmw_tiles.py` (change tests) | `pytest api/tests/test_gmw_tiles.py` | local, before demo | pytest output |
@@ -322,6 +322,24 @@ These paths do not exist yet. Creating them is part of the build, not of this pl
 - **Expected:** Given the layer is installed, when its info is requested, then the years and the URL template are returned. Given a tile over mangrove, when it is requested, then a 256 px RGBA PNG has visible and transparent pixels and a cache header. Given a tile with no mangrove, when it is requested, then it is fully transparent. Given a year or zoom outside the layer, when it is requested, then `422`. Given no layer on the server, when its info is requested, then `503 UPSTREAM_UNAVAILABLE`.
 - **Automation:** `pytest api/tests/test_gmw_tiles.py`
 
+### TC-029 — Public reports must cite their source, and stay append-only
+
+- **Covers:** F-001, F-002 · **Proves:** US-001 (ADR-056)
+- **Level:** integration
+- **Preconditions / controlled data:** test database with `db/init/006`–`007` applied; app-role connection, rolled back
+- **Steps:** insert a `public_report` evidence item with a `provenance_url`; insert one without; try `UPDATE` and `DELETE` on a seeded real `public_report` row
+- **Expected:** Given a cited public report, when it is inserted, then it is stored with `is_demo = false`. Given a public report with no `provenance_url`, when it is inserted, then the `ck_evidence_public_report_cited` CHECK rejects it. Given a real seeded row, when it is updated or deleted, then `RECORD_IMMUTABLE` is raised (BR-002).
+- **Automation:** `pytest api/tests/test_api.py`
+
+### TC-030 — The four real Post-Yolanda records read as the sources say
+
+- **Covers:** F-001, F-008, F-009, F-010 · **Proves:** US-001, US-009 (ADR-056)
+- **Level:** integration
+- **Preconditions / controlled data:** the real sites seeded (`data/sites/real/README.md`) and GMW ingested for them
+- **Steps:** `GET /api/v1/sites`; `GET /api/v1/records`; `GET /api/v1/records/{id}` and `/verify` for each real record
+- **Expected:** Given the seed, when sites are listed, then the four real sites appear with region "Eastern Visayas" and `is_demo = false` beside the five demo sites. Given the pins, when records are listed, then Paraiso is `on_track`, Cancabato Bay and Naungan are `awaiting`, and Bungtod is `conflict`. Given a real record, when it is read, then every `public_report` item has a `provenance_url`, "What's there now?" is `missing`, the disclaimer is present, and verify reports the chain intact.
+- **Automation:** `pytest api/tests/test_api.py`
+
 ## 8. Browser E2E with Playwright
 
 One Playwright spec, Chromium only, for TC-020: signed out, the map can show a site with a commitment and a site without one; sign in as the demo funder; open the comparison; the conflicting site shows the fishpond finding; commit is not clicked in the automated spec (committing is covered by TC-009, and the spec must not publish a new record on every run).
@@ -335,7 +353,7 @@ One Playwright spec, Chromium only, for TC-020: signed out, the map can show a s
 
 | `US-###` | Criteria count | Case(s) | Uncovered criterion |
 |----------|----------------|---------|---------------------|
-| US-001 | 2 | TC-001 | — |
+| US-001 | 3 | TC-001, TC-029, TC-030 | the "Real case · sourced" tag on screen is checked by eye in the demo rehearsal |
 | US-002 | 3 | TC-002, TC-003 | — |
 | US-003 | 3 | TC-004 | — |
 | US-004 | 2 | TC-007 | — |

@@ -67,6 +67,12 @@ and a mapped area (ADR-033, EQ-009, EQ-010). They are not a satellite count of s
 **Compare in the demo:** B, D, E → the ground question reads supported / missing / conflicting. Site E's
 fishpond is unchanged.
 
+## Real, sourced sites (ADR-056)
+
+Four real Post-Yolanda (MBFDP) sites in Eastern Visayas, `is_demo = false`, with fixed ids `…0000000000f1`–`f4`
+and records `…0000000001f1`–`f4`. They are not part of the demo cast and are not demo data. Files, polygon
+basis, ids and their own honesty rules: [`real/README.md`](real/README.md).
+
 ## Honesty rules for this data
 
 - "Was this mangrove before?" and "What's there now?" come only from real Global Mangrove Watch v4.1.12 and

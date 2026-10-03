@@ -2490,7 +2490,8 @@
             "00000000-0000-4000-8000-000000002004"
           ]
         },
-        "content_hash": "9bd70cb7e4ef6b11ac7e02096b16842ee5513e5cf0bc72acd4291ec4cf70069c"
+        "content_hash": "9bd70cb7e4ef6b11ac7e02096b16842ee5513e5cf0bc72acd4291ec4cf70069c",
+        "is_demo": true
       },
       "checks": [
         {
@@ -2655,7 +2656,8 @@
             "00000000-0000-4000-8000-000000002008"
           ]
         },
-        "content_hash": "03d198bcf0cb81b714f5177da6405304b3830a70e08267079704ac0013fa07d2"
+        "content_hash": "03d198bcf0cb81b714f5177da6405304b3830a70e08267079704ac0013fa07d2",
+        "is_demo": true
       },
       "checks": [
         {
@@ -2941,7 +2943,8 @@
             "00000000-0000-4000-8000-00000000200e"
           ]
         },
-        "content_hash": "37b4c317352d46dc982810ddcbfd2d5cd90d405bc541a1020278ba7ad83639fd"
+        "content_hash": "37b4c317352d46dc982810ddcbfd2d5cd90d405bc541a1020278ba7ad83639fd",
+        "is_demo": true
       },
       "checks": [
         {
@@ -3106,7 +3109,8 @@
             "00000000-0000-4000-8000-000000002012"
           ]
         },
-        "content_hash": "a02ec1a35c0a12dc51f7792d519ef9b8b9e20a782b8adbe3663ccbe94523f437"
+        "content_hash": "a02ec1a35c0a12dc51f7792d519ef9b8b9e20a782b8adbe3663ccbe94523f437",
+        "is_demo": true
       },
       "checks": [
         {
@@ -3422,7 +3426,8 @@
             "00000000-0000-4000-8000-000000002019"
           ]
         },
-        "content_hash": "1e2bd17c8f9b1c73131c97a40df54a36ddc459836e9d98acaabb2e6bd318ff16"
+        "content_hash": "1e2bd17c8f9b1c73131c97a40df54a36ddc459836e9d98acaabb2e6bd318ff16",
+        "is_demo": true
       },
       "checks": [
         {
@@ -3738,7 +3743,8 @@
             "00000000-0000-4000-8000-000000002020"
           ]
         },
-        "content_hash": "66821796d8b340f8c71cf24b513c59337876d8e35dbdc90549c4dc875d117d81"
+        "content_hash": "66821796d8b340f8c71cf24b513c59337876d8e35dbdc90549c4dc875d117d81",
+        "is_demo": true
       },
       "checks": [
         {
@@ -4054,7 +4060,8 @@
             "00000000-0000-4000-8000-000000002027"
           ]
         },
-        "content_hash": "6ce948880f1528fae67bb70d7c0277bc4427fbfb5feead60e0f70f5fa7f15af9"
+        "content_hash": "6ce948880f1528fae67bb70d7c0277bc4427fbfb5feead60e0f70f5fa7f15af9",
+        "is_demo": true
       },
       "checks": [
         {
@@ -4340,7 +4347,8 @@
             "00000000-0000-4000-8000-00000000202d"
           ]
         },
-        "content_hash": "de77514d79600bd972a1f0e148cb56c0018cdafe0ff232c7b57d716b22f1fa11"
+        "content_hash": "de77514d79600bd972a1f0e148cb56c0018cdafe0ff232c7b57d716b22f1fa11",
+        "is_demo": true
       },
       "checks": [
         {
@@ -4628,7 +4636,8 @@
             "00000000-0000-4000-8000-000000002033"
           ]
         },
-        "content_hash": "e9e959fff6f2d537a9b93980f964ae1b7bc5817a9684d7b47c02fadda7ac4376"
+        "content_hash": "e9e959fff6f2d537a9b93980f964ae1b7bc5817a9684d7b47c02fadda7ac4376",
+        "is_demo": true
       },
       "checks": [
         {

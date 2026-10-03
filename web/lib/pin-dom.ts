@@ -13,11 +13,11 @@ export function buildPinElement(p: PinProps, onClick: (id: string) => void): HTM
   el.href = `/records/${p.id}`;
   el.className = `map-pin map-pin-${p.pin_state}`;
   el.dataset.recordId = p.id;
-  el.setAttribute("aria-label", `${p.site_name}: ${PIN_WORDS[p.pin_state]}. ${p.is_demo ? "Demo data. " : ""}Open record.`);
+  el.setAttribute("aria-label", `${p.site_name}: ${PIN_WORDS[p.pin_state]}. ${p.is_demo ? "Demo data. " : "Real case, sourced. "}Open record.`);
   el.innerHTML =
     pinSvg(p.pin_state) +
-    (p.is_demo ? '<span class="map-pin-demo">Demo</span>' : "") +
-    `<span class="map-pin-label"><strong>${escapeHtml(p.site_name)}</strong>${PIN_WORDS[p.pin_state]}${p.is_demo ? " · Demo data" : ""}</span>`;
+    (p.is_demo ? '<span class="map-pin-demo">Demo</span>' : '<span class="map-pin-real">Real case</span>') +
+    `<span class="map-pin-label"><strong>${escapeHtml(p.site_name)}</strong>${PIN_WORDS[p.pin_state]}${p.is_demo ? " · Demo data" : " · Real case · sourced"}</span>`;
   el.addEventListener("click", (ev) => {
     ev.preventDefault();
     onClick(p.id);

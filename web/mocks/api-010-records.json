@@ -18,6 +18,78 @@
         "pin_state": "awaiting",
         "is_demo": true
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.01572,
+          11.212
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f1",
+        "site_name": "Paraiso mangrove stand, Tacloban",
+        "funder": "Department of Environment and Natural Resources (DENR)",
+        "published_at": "2026-10-04T00:00:00Z",
+        "pin_state": "on_track",
+        "is_demo": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.01753,
+          11.2019
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f2",
+        "site_name": "Cancabato Bay shore, Tacloban",
+        "funder": "Department of Environment and Natural Resources (DENR)",
+        "published_at": "2026-10-04T00:00:00Z",
+        "pin_state": "awaiting",
+        "is_demo": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.593,
+          11.02136
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f3",
+        "site_name": "Naungan coast, Ormoc",
+        "funder": "Department of Environment and Natural Resources (DENR)",
+        "published_at": "2026-10-04T00:00:00Z",
+        "pin_state": "awaiting",
+        "is_demo": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.75146,
+          11.01786
+        ]
+      },
+      "properties": {
+        "id": "00000000-0000-4000-8000-0000000001f4",
+        "site_name": "Bungtod mangrove, Guiuan",
+        "funder": "Department of Environment and Natural Resources (DENR)",
+        "published_at": "2026-10-04T00:00:00Z",
+        "pin_state": "conflict",
+        "is_demo": false
+      }
     }
   ]
 }

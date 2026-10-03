@@ -92,6 +92,7 @@ STRIDE over the data flow in [`system-design.md` §3](system-design.md).
 | A funder treats "supported" or a GMW layer as certification and greenwashes | The public, other funders, communities expecting restoration | Funder quotes the record in marketing | BR-001 wording ("sources agree", not "good"); BR-007 (no "successful", no certificate); disclaimer on every record; GMW is history, not a completion check; banned overclaiming copy (see [`design-brief.md`](design-brief.md)) |
 | Partners submit flattering evidence to make a project look good | Funders and the public | Incentive to show success | Provenance and submitter on every item; nothing can be deleted; conflicts surface automatically; never reward "successful" observations [ADR-014] |
 | Demo data mistaken for real Philippine projects or organizations | Real NGOs/companies; judges; the public | Screenshots or the live demo | `is_demo` on every entity, a visible "Demo data" label, fictional organization names (BR-006) |
+| A real, sourced record (ADR-056) is read as an accusation against a real organization or person | DENR, the Paraiso barangay, named officials and scientists | The Post-Yolanda records are public and name real parties | Real organizations appear only as cited parties in `is_demo = false` rows, every item links its source, no individual is named in any row, copy says the system could not detect misuse (never "corruption" or "nothing survived"), gaps go in `known_unknowns`; the rows are written by a team seeder account that cannot sign in |
 | Personal data published by mistake cannot be removed | The person in the photo or note | Append-only storage | Pre-publication guard (attestation, EXIF strip). **Residual risk:** after the event, an operator-level redaction procedure would be needed; out of scope for the hackathon and recorded in [`prd.md` §7](prd.md)'s open questions |
 
 ## 7. Secrets, Audit & Compliance
@@ -122,7 +123,7 @@ Milestone: the live demo / submission (Build Over Nights 2026, October 4). A fai
       *Why: the product's whole claim is an uneditable promise. Authority: product judgment (BR-002), the team's core mechanism [ADR-024].*
 - [ ] The MCP server SHALL NEVER expose a write tool: `tools/list` returns only the six read tools in [`api.md`](api.md) API-015. — 2026-10-04
       *Why: the endpoint is unauthenticated. Authority: product judgment, relying on Amazon Quick's documented unauthenticated mode [R35].*
-- [ ] Every demo entity shows "Demo data", and no real organization is named as a funder or partner in demo content. — 2026-10-04
+- [ ] Every demo entity shows "Demo data", and no real organization is named as a funder or partner in demo content. Real organizations appear only in `is_demo = false` sourced records, as cited parties, with no individual named (ADR-056). — 2026-10-04
       *Why: misattributing promises to real organizations harms them and misleads judges. Authority: product judgment (BR-006).*
 - [ ] Every `T-###` mitigation is implemented, not planned (T-003's residual risk stated in the copy). — 2026-10-04
       *Why: a planned mitigation stops nothing. Authority: §5 of this doc.*

@@ -402,7 +402,7 @@ def layer_years() -> list[int]:
 
 
 def gmw_extent_layer(year: int | None) -> dict[str, Any]:
-    """API-023: GMW extent polygons for the Manila Bay demo area, one year."""
+    """API-023: GMW extent polygons for the Manila Bay demo area, one year (a context layer; sites elsewhere have none)."""
     years = layer_years()
     if not years:
         raise not_found("No extent layer shipped")

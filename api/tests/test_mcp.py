@@ -69,7 +69,7 @@ def test_record_tools(client):
     v = _structured(rpc(client, "tools/call", {"name": "verify_record", "arguments": {"record_id": RECORD_A}}))
     assert v["intact"] is True
     pins = _structured(rpc(client, "tools/call", {"name": "list_records", "arguments": {}}))
-    assert [p["id"] for p in pins["records"]] == [RECORD_A]
+    assert [p["id"] for p in pins["records"] if p["is_demo"]] == [RECORD_A]
 
 
 def test_public_host_is_allowed_and_unknown_host_is_not(client, monkeypatch):

@@ -1,0 +1,300 @@
+{
+  "site": {
+    "id": "00000000-0000-4000-8000-0000000000f4",
+    "name": "Bungtod mangrove, Guiuan",
+    "region": "Eastern Visayas",
+    "is_demo": false,
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [
+              125.759364,
+              11.023983
+            ],
+            [
+              125.760172,
+              11.023713
+            ],
+            [
+              125.760172,
+              11.022905
+            ],
+            [
+              125.760711,
+              11.023444
+            ],
+            [
+              125.76152,
+              11.021019
+            ],
+            [
+              125.757747,
+              11.016168
+            ],
+            [
+              125.755591,
+              11.016168
+            ],
+            [
+              125.753705,
+              11.01536
+            ],
+            [
+              125.753705,
+              11.014551
+            ],
+            [
+              125.755591,
+              11.01509
+            ],
+            [
+              125.75613,
+              11.014282
+            ],
+            [
+              125.755861,
+              11.012665
+            ],
+            [
+              125.755053,
+              11.012396
+            ],
+            [
+              125.755322,
+              11.011048
+            ],
+            [
+              125.752088,
+              11.011318
+            ],
+            [
+              125.752897,
+              11.011587
+            ],
+            [
+              125.752627,
+              11.012396
+            ],
+            [
+              125.750472,
+              11.014551
+            ],
+            [
+              125.752088,
+              11.014551
+            ],
+            [
+              125.752358,
+              11.015899
+            ],
+            [
+              125.751549,
+              11.01509
+            ],
+            [
+              125.750472,
+              11.015899
+            ],
+            [
+              125.748855,
+              11.015629
+            ],
+            [
+              125.748046,
+              11.017246
+            ],
+            [
+              125.746968,
+              11.016707
+            ],
+            [
+              125.746699,
+              11.017515
+            ],
+            [
+              125.745082,
+              11.016438
+            ],
+            [
+              125.743735,
+              11.017785
+            ],
+            [
+              125.744543,
+              11.019941
+            ],
+            [
+              125.743465,
+              11.02048
+            ],
+            [
+              125.741849,
+              11.018593
+            ],
+            [
+              125.740771,
+              11.018863
+            ],
+            [
+              125.74104,
+              11.02021
+            ],
+            [
+              125.742657,
+              11.021827
+            ],
+            [
+              125.742926,
+              11.021288
+            ],
+            [
+              125.747238,
+              11.021288
+            ],
+            [
+              125.749124,
+              11.02021
+            ],
+            [
+              125.749933,
+              11.02021
+            ],
+            [
+              125.750202,
+              11.021288
+            ],
+            [
+              125.751011,
+              11.02048
+            ],
+            [
+              125.752088,
+              11.021019
+            ],
+            [
+              125.75613,
+              11.019941
+            ],
+            [
+              125.757478,
+              11.021827
+            ],
+            [
+              125.759364,
+              11.022905
+            ],
+            [
+              125.759364,
+              11.023983
+            ]
+          ]
+        ]
+      ]
+    },
+    "area": {
+      "value": 120.74,
+      "unit": "ha",
+      "eq_id": "EQ-001",
+      "confidence": "high"
+    },
+    "proposal_summary": "Eastern Samar: about 2,553 ha planted by local people's organization members [22]; in Bungtod, 104.39 ha were recovering as of 2020 [32]. This patch stands in for the province-level program; it is not a published site boundary. Outline: Outline of the largest Global Mangrove Watch v4.1.12 2010 (pre-Yolanda) mangrove patch south of the Bungtod barangay hall, simplified to 0.0004 degrees. No OpenStreetMap mangrove feature exists there. Sketched, not field-verified."
+  },
+  "answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "missing",
+      "finding": null,
+      "source_count": {
+        "value": 0,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "current",
+      "label": "What's there now?",
+      "status": "missing",
+      "finding": null,
+      "source_count": {
+        "value": 0,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "ground",
+      "label": "What do people on the ground say?",
+      "status": "conflicting",
+      "finding": null,
+      "source_count": {
+        "value": 2,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-0000000ef401",
+        "00000000-0000-4000-8000-0000000ef402"
+      ],
+      "disagreeing_evidence_ids": [
+        "00000000-0000-4000-8000-0000000ef401",
+        "00000000-0000-4000-8000-0000000ef402"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "00000000-0000-4000-8000-0000000ef401",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "Inquirer, 2 Jun 2014",
+      "source_version": "Case study source 10",
+      "observed_from": "2014-06-02T00:00:00Z",
+      "observed_to": "2014-06-02T00:00:00Z",
+      "retrieved_at": "2026-10-04T00:00:00Z",
+      "finding": "open_for_restoration",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report (case study source 10). Not measured by Mangrove.",
+      "spatial_resolution_m": null,
+      "limitation": "ERDB counted 1,696 ha damaged in Eastern Samar. Province-level.",
+      "provenance_url": "https://newsinfo.inquirer.net/?p=607594",
+      "asset_url": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "content_hash": "e039d92cf12f74e81cb78a3f1c9c602e095363a4e812a387b374f07fce47b310"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ef402",
+      "question": "ground",
+      "source_type": "public_report",
+      "source_name": "Primavera et al., Marine Pollution Bulletin 109, 2016",
+      "source_version": "Case study source 25",
+      "observed_from": "2016-01-01T00:00:00Z",
+      "observed_to": "2016-01-01T00:00:00Z",
+      "retrieved_at": "2026-10-04T00:00:00Z",
+      "finding": "existing_mangrove",
+      "usable": true,
+      "unusable_reason": null,
+      "metrics": [],
+      "method": "Quoted from a public report (case study source 25). Not measured by Mangrove.",
+      "spatial_resolution_m": null,
+      "limitation": "Natural stands in Eastern Samar recovered within 18 months. Province-level.",
+      "provenance_url": "https://restoration.elti.yale.edu/node/86314",
+      "asset_url": null,
+      "submitted_by_org": null,
+      "is_demo": false,
+      "content_hash": "8897c338d4ed967c1f66343c66e3cbddbac360d33d18e581c1a47747652975fd"
+    }
+  ]
+}
