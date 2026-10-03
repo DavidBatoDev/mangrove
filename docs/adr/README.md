@@ -63,3 +63,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-049](ADR-049-mangrove-layer-cyan-and-open-tiles.md) | Accepted | The mangrove layer uses a dedicated GMW-style cyan token; API-024 tiles allow any origin so fixtures mode shows real tiles. |
 | [ADR-050](ADR-050-mangrove-change-layer-and-legend-filters.md) | Accepted | GMW mangrove gain/loss as map tiles (API-025), loss in red as a named map-data exception; compact legend toggles and filters layers; tiles to zoom 22 with a fade. |
 | [ADR-051](ADR-051-product-name-aide-m.md) | Accepted | The product is named AIDE-M (Accountability In Delivery & Evidence · Mangrove); the meaning shows only under the wordmark and at first mention. |
+| [ADR-052](ADR-052-gmw-tiles-cached-on-disk.md) | Accepted | GMW tiles render once into a disk cache, prerendered for the default view after deploy; above zoom 12 they are enlarged from the parent. |

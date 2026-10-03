@@ -6,11 +6,14 @@ Context only: a tile is a picture of GMW's classification. It sets no status and
 
 Color: GMW-style cyan, brand token `--mg-data-mangrove` (#1FCFCF, ADR-049), near-opaque like GMW's own viewer.
 Zoomed out (z <= DILATE_MAX_ZOOM) every mangrove pixel is grown by one screen pixel so thin coastal fringes read.
+Tiles up to NATIVE_ZOOM are rendered once and kept on disk (GMW_TILE_CACHE), so restarts and deploys keep them; above it a
+tile is cut from its NATIVE_ZOOM parent and enlarged, since GMW's 30 m pixels hold no more detail (ADR-052).
 Responses carry `Access-Control-Allow-Origin: *` (public data) so a local or fixtures-mode web app can use them.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import os
@@ -18,6 +21,7 @@ import warnings
 import threading
 from functools import lru_cache
 from pathlib import Path
+from typing import Callable
 
 import numpy as np
 import rasterio
@@ -41,6 +45,7 @@ DATA_LOSS = (0xE4, 0x47, 0x3A)  # brand --mg-data-loss: GMW-style red for loss, 
 DILATE_MAX_ZOOM = 10
 # The demo host has 2 CPUs: more parallel GDAL renders only thrash it and starve every other request.
 _RENDER_SLOTS = threading.BoundedSemaphore(2)
+NATIVE_ZOOM = 12  # rendered from the GeoTIFFs at or below this zoom; enlarged from the parent above it (ADR-052)
 STYLE = "cyan-2"  # bump when the look changes; clients put it in the tile URL to bust browser caches
 
 
@@ -146,13 +151,65 @@ def _render(root: str, year: int, z: int, x: int, y: int, built_at: str) -> byte
     return _png(rgba)
 
 
+def cache_dir() -> Path | None:
+    """Disk cache for rendered tiles (writable; survives restarts). None = memory only (tests, local dev)."""
+    d = os.environ.get("GMW_TILE_CACHE")
+    return Path(d) if d else None
+
+
+def _stamp(entries: list[dict]) -> str:
+    """Cache key part: changes when the layer's files or the look change, so a rebuilt layer is never served stale."""
+    return hashlib.sha1((json.dumps(entries, sort_keys=True) + STYLE).encode()).hexdigest()[:12]
+
+
+def _decode(png: bytes) -> np.ndarray:
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", NotGeoreferencedWarning)
+        with MemoryFile(png) as mem, mem.open() as src:
+            return src.read()
+
+
+@lru_cache(maxsize=2048)
+def _enlarge(parent: bytes, d: int, sx: int, sy: int) -> bytes:
+    """The (sx, sy) child d zooms below a parent tile, by nearest-neighbour enlargement."""
+    rows = (sy * TILE + np.arange(TILE)) >> d
+    cols = (sx * TILE + np.arange(TILE)) >> d
+    return _png(np.ascontiguousarray(_decode(parent)[:, rows][:, :, cols]))
+
+
+def _serve(key: str, z: int, x: int, y: int, render: Callable[[int, int, int], bytes]) -> bytes:
+    if z > NATIVE_ZOOM:
+        d = z - NATIVE_ZOOM
+        parent = _serve(key, NATIVE_ZOOM, x >> d, y >> d, render)
+        return EMPTY_PNG if parent == EMPTY_PNG else _enlarge(parent, d, x & ((1 << d) - 1), y & ((1 << d) - 1))
+    root = cache_dir()
+    path = root / key / str(z) / str(x) / f"{y}.png" if root else None
+    if path is not None:
+        try:
+            return path.read_bytes()
+        except OSError:
+            pass
+    png = render(z, x, y)
+    if path is not None:
+        try:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            tmp = path.with_suffix(f".{os.getpid()}.{threading.get_ident()}.tmp")
+            tmp.write_bytes(png)
+            os.replace(tmp, path)
+        except OSError:
+            pass  # a read-only or full disk only costs speed
+    return png
+
+
 def tile_png(year: int, z: int, x: int, y: int) -> bytes:
     ix = index()
     if year not in ix["years"]:
         raise ApiError(422, "VALIDATION_FAILED", f"year must be one of {ix['years']}")
     if not (0 <= z <= MAX_ZOOM and 0 <= x < (1 << z) and 0 <= y < (1 << z)):
         raise ApiError(422, "VALIDATION_FAILED", f"tile {z}/{x}/{y} is outside zoom 0-{MAX_ZOOM}")
-    return _render(str(tile_dir()), year, z, x, y, ix.get("built_at", "") + STYLE)
+    root, built = str(tile_dir()), ix.get("built_at", "") + STYLE
+    key = f"extent/{year}-{_stamp(ix['tiles'].get(str(year), []))}"
+    return _serve(key, z, x, y, lambda z, x, y: _render(root, year, z, x, y, built))
 
 
 # --- API-025: change (gain / loss) against a GMW baseline year (ADR-050) ----------------------------------------
@@ -215,4 +272,6 @@ def change_tile_png(base: int, year: int, z: int, x: int, y: int, only: str | No
         raise ApiError(422, "VALIDATION_FAILED", "only must be gain or loss")
     if not (0 <= z <= MAX_ZOOM and 0 <= x < (1 << z) and 0 <= y < (1 << z)):
         raise ApiError(422, "VALIDATION_FAILED", f"tile {z}/{x}/{y} is outside zoom 0-{MAX_ZOOM}")
-    return _render_change(str(tile_dir()), base, year, z, x, y, only, cx.get("built_at", "") + STYLE)
+    root, built = str(tile_dir()), cx.get("built_at", "") + STYLE
+    key = f"change/{base}-{year}-{only or 'all'}-{_stamp(years[str(year)])}"
+    return _serve(key, z, x, y, lambda z, x, y: _render_change(root, base, year, z, x, y, only, built))

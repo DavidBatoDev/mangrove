@@ -454,6 +454,7 @@ Same caching, CORS and cache-busting `?s=` as API-024.
 
 - **Errors:** `422` `VALIDATION_FAILED` (unknown `base`, `year` not after it, `only` not `gain`/`loss`, tile outside zoom 0–22) · `503` `UPSTREAM_UNAVAILABLE` (layer not installed).
 - **Notes:** rendered from GeoTIFFs built by `data/ingest/gmw_change_tiles.py` (DS-008); context only, no number, no status.
+- **Caching (API-024 and API-025, ADR-052):** tiles at zoom ≤ 12 are rendered once and kept on disk; above zoom 12 a tile is its zoom-12 parent enlarged.
 
 ## 4. Error Codes
 

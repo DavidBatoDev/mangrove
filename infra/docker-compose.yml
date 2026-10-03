@@ -20,9 +20,12 @@ services:
     env_file: ../.env
     environment:
       - GMW_TILE_DIR=/data/gmw-tiles
+      - GMW_TILE_CACHE=/data/gmw-cache
     volumes:
       # Philippines GMW extent layer built by data/ingest/gmw_tiles.py (ADR-048); read-only.
       - ${GMW_TILE_DIR_HOST:-/opt/bon/gmw-tiles}:/data/gmw-tiles:ro
+      # Rendered tiles kept across restarts (ADR-052); owned by the API user (uid 999). infra/deploy.sh creates it.
+      - ${GMW_TILE_CACHE_HOST:-/opt/bon/gmw-tile-cache}:/data/gmw-cache
     restart: unless-stopped
 
   caddy:
