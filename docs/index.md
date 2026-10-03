@@ -1,4 +1,4 @@
-# Documentation Index — Mangrove
+# Documentation Index — AIDE-M
 
 **Maintained by:** the team
 **Last updated:** 2026-10-04

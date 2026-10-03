@@ -31,6 +31,24 @@ data/ingest/.venv/Scripts/python data/ingest/gmw_ingest.py --target main --sites
 Whatever GMW shows is what the product shows: for the demo polygons that is no mangrove inside since 1985
 (ADR-045). Do not move a polygon or change a threshold to change that.
 
+## Sentinel-2 "What's there now?" with pictures (DS-002; EQ-005, EQ-006, EQ-007)
+
+`s2_ingest.py` needs no download and no account: it searches Earth Search STAC (`sentinel-2-c1-l2a`) and reads
+small windows of the public COGs over HTTP. Per site it scores every scene in `[t - S2_WINDOW_DAYS, t]` on SCL
+(EQ-005), keeps the best, and appends ONE `current` evidence item (EQ-006 finding, EQ-007 NDVI as context),
+skipping a site that already has an item for that scene id. It also writes two true-colour PNG chips per site to
+`api/app/evidence_assets/<sha256>.png` (commit them): the chosen scene, and the earliest clear 2016-2017 scene of
+the same window (`sentinel-2-l2a`, since Collection 1 has nothing that early here). API-014 serves them.
+
+```sh
+api/.venv/bin/python -m pip install -r data/ingest/requirements.txt
+api/.venv/bin/python data/ingest/s2_ingest.py --target test --dry-run   # compute and render, write nothing
+api/.venv/bin/python data/ingest/s2_ingest.py --target test             # then --target main
+```
+
+Whatever the scene shows is what the product shows. Do not move a polygon or change a threshold to change it.
+`--as-of YYYY-MM-DD` fixes `t`; by default it is now. On Windows use `data/ingest/.venv/Scripts/python`.
+
 ## Philippines extent layer for the map (ADR-048)
 
 `gmw_change_tiles.py` builds the gain/loss GeoTIFFs that API-025 serves (ADR-050): for baselines 1985, 1990, 2000 and 2010,

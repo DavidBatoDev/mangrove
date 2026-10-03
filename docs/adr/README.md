@@ -1,4 +1,4 @@
-# ADR index — Mangrove
+# ADR index — AIDE-M
 
 `docs/adr/` is the only why. The ledger cites an ADR; it does not restate it.
 
@@ -62,3 +62,13 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-048](ADR-048-ph-mangrove-extent-tiles.md) | Accepted | Mangrove extent for the whole Philippines, served by the API as brand-Tidal map tiles on Google and MapLibre; context only. |
 | [ADR-049](ADR-049-mangrove-layer-cyan-and-open-tiles.md) | Accepted | The mangrove layer uses a dedicated GMW-style cyan token; API-024 tiles allow any origin so fixtures mode shows real tiles. |
 | [ADR-050](ADR-050-mangrove-change-layer-and-legend-filters.md) | Accepted | GMW mangrove gain/loss as map tiles (API-025), loss in red as a named map-data exception; compact legend toggles and filters layers; tiles to zoom 22 with a fade. |
+| [ADR-051](ADR-051-product-name-aide-m.md) | Accepted | The product is named AIDE-M (Accountability In Delivery & Evidence · Mangrove); the meaning shows only under the wordmark and at first mention. |
+| [ADR-052](ADR-052-gmw-tiles-cached-on-disk.md) | Accepted | GMW tiles render once into a disk cache, prerendered for the default view after deploy; above zoom 12 they are enlarged from the parent. |
+| [ADR-053](ADR-053-gmw-static-tile-tree.md) | Accepted | GMW tiles are a static tile tree at /tiles/gmw/… served by Caddy; the API only renders missing tiles. |
+| [ADR-054](ADR-054-gmw-one-fixed-tile-level.md) | Accepted | The map draws GMW layers from one fixed zoom-10 tile set, scaled with the map, never reloaded per zoom. |
+| [ADR-055](ADR-055-google-gmw-overlay-back-to-tile-layers.md) | Accepted | Google map back to per-zoom GMW tile layers on the static tiles; ADR-054's fixed overlay felt laggy. |
+| [ADR-056](ADR-056-real-sourced-case-records.md) | Accepted | Four real, sourced Post-Yolanda records (`is_demo = false`) beside the demo cast; `public_report` evidence always links its source; real organizations only as cited parties, no individuals; reconstructed, not locked at the time. |
+| [ADR-057](ADR-057-gain-loss-off-by-default-panel-switch.md) | Accepted | Gain and loss are off by default; one switch on the side-panel national card turns them on (since 1985). |
+| [ADR-059](ADR-059-real-records-corrected-and-reseeded.md) | Accepted | Real records corrected by resetting and reseeding the main database: Paraiso funded by Japan (not MBFDP), Naungan and Bungtod on track, Cancabato Bay awaiting. |
+| [ADR-060](ADR-060-sentinel2-pictures-served-from-repo.md) | Accepted | Sentinel-2 then/now chips are committed and served by API-014 from the repo; ADR-037's S3 store still holds partner photos. |
+| [ADR-062](ADR-062-in-app-assistant-over-mcp-tools.md) | Accepted | In-app assistant: an OpenAI agent (API-027) over the same six read-only MCP tools, opened from the app bar. |

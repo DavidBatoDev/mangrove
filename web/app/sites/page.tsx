@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { CountryCard } from "@/components/GmwContext";
 import MapShell from "@/components/MapShell";
-import { DemoLabel, Empty, ErrorBox, Loading, MeasureText } from "@/components/ui";
+import { DemoLabel, Empty, RealCaseLabel, ErrorBox, Loading, MeasureText } from "@/components/ui";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
 import { siteLetter } from "@/lib/ids";
@@ -29,8 +29,10 @@ export default function SitesPage() {
       onSiteClick={(id) => router.push(`/sites/${id}`)}
       layers={{ sites: true }}
     >
-      <h1>Candidate sites — Manila Bay</h1>
-      <p className="lede">Sketched for the demo from public map data; not field-verified.</p>
+      {country.data && <CountryCard c={country.data} />}
+
+      <h1>Candidate sites</h1>
+      <p className="lede">Outlines sketched from public map data; not field-verified.</p>
 
       <div className="panel-card row" style={{ justifyContent: "space-between", flexWrap: "nowrap" }}>
         <span className="meta" style={{ color: "var(--mg-text)" }}>
@@ -74,6 +76,7 @@ export default function SitesPage() {
                       </strong>
                     </Link>{" "}
                     <DemoLabel show={p.is_demo} />
+                    <RealCaseLabel show={!p.is_demo} />
                     <div className="meta">
                       {p.region} · <MeasureText m={p.area} />
                     </div>
@@ -85,7 +88,6 @@ export default function SitesPage() {
         </ul>
       )}
       {country.error && <p className="mg-alert">Global Mangrove Watch statistics did not load. Try again later.</p>}
-      {country.data && <CountryCard c={country.data} />}
     </MapShell>
   );
 }

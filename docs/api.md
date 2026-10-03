@@ -6,7 +6,7 @@ doc: api
 owns: the operation contracts (API-###) the web app, Amazon Quick and other clients depend on — request and response shapes, per-operation auth requirement, error codes, rate limits, versioning
 ---
 
-# API — Mangrove
+# API — AIDE-M
 
 > **Purpose:** what a caller must send, what it can rely on receiving, and what it must present. Two
 > surfaces: the REST API used by the web app, and the read-only MCP server used by Amazon Quick.
@@ -15,7 +15,7 @@ owns: the operation contracts (API-###) the web app, Amazon Quick and other clie
 
 ## 1. Overview & Machine-Readable Spec
 
-- **What this API serves:** the Mangrove web app (same origin, via the Next.js `/api/*` proxy) and Amazon Quick (MCP).
+- **What this API serves:** the AIDE-M web app (same origin, via the Next.js `/api/*` proxy) and Amazon Quick (MCP).
 - **Base URL / namespace:** REST at `/api/v1`; MCP at `/mcp`.
 - **Protocol style:** REST + JSON (multipart for uploads); MCP over streamable HTTP.
 - **Machine-readable spec:** `none` yet. Once the API is scaffolded, FastAPI's generated `/api/v1/openapi.json` becomes the source of truth for field shapes, and §3 below shrinks to semantics.
@@ -48,12 +48,14 @@ carries `is_demo`. Errors use `{"error": {"code": "<CODE>", "message": "<human t
 | API-014 | `GET /api/v1/assets/{sha256}` | F-004 | **none — published evidence photos; metadata stripped** | stable |
 | API-015 | `POST /mcp` (MCP tools, §3) | F-011 | **none — read-only tools over public data; rate-limited** | stable |
 | API-016 | `GET /api/v1/health` | — | **none — returns no data** | stable |
+| API-027 | `POST /api/v1/assistant/chat` | F-026 | **none — read-only tools over public data; 20 questions / 10 min per IP** | beta |
 | API-017 | `POST /api/v1/sites` | F-014 | session, role `funder` | beta |
 | API-018 | `POST /api/v1/sites/{site_id}/summary` | F-013 | session (any role) — protects LLM cost | beta |
 | API-021 | `GET /api/v1/sites/{site_id}/gmw-timeline` | F-025 | **none — public data** | stable |
 | API-022 | `GET /api/v1/context/countries/{iso3}` | F-025 | **none — public data** | stable |
 | API-023 | `GET /api/v1/layers/gmw-extent` | F-025 | **none — public data** | stable |
 | API-024 | `GET /api/v1/layers/gmw-extent/tiles` and `…/tiles/{year}/{z}/{x}/{y}.png` | F-025 | **none — public data** | stable |
+| API-026 | `GET /api/v1/context/programs/{program_id}` | F-001, F-002 | **none — public data** | stable |
 
 There is deliberately **no** `PUT`, `PATCH` or `DELETE` on sites' evidence, records or timeline entries. A
 request using those methods gets `405` (BR-002).
@@ -92,7 +94,7 @@ request using those methods gets `405` (BR-002).
 
 | Parameter | In | Type | Required | Notes |
 |-----------|----|------|----------|-------|
-| `region` | query | string | no | e.g. `Manila Bay`; omitted = all |
+| `region` | query | string | no | e.g. `Manila Bay` (demo) or `Eastern Visayas` (real, sourced; ADR-056); omitted = all |
 | `commitment` | query | `with` \| `without` \| `all` | no | Default `all`. `with` = a funder has committed. `without` = a public site with no commitment |
 
 **Response — `200`** — a GeoJSON `FeatureCollection`:
@@ -166,7 +168,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND`.
-- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW). `mapped_area` is present only on an item with a mapped boundary. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
+- **Notes:** `answers` always has exactly three entries in the order history, current, ground. `status` ∈ `supported | conflicting | missing`; `finding` is `null` when `missing`. `evidence` is newest-first and includes unusable items (flagged). `submitted_by_org` is `null` for items no organisation submitted (satellite, GMW, public reports). `source_type` ∈ `gmw | sentinel2 | field | project_report | proposal | public_report`; a `public_report` item always has a `provenance_url` and its metrics cite EQ-017 (ADR-056). `mapped_area` is present only on an item with a mapped boundary. A Sentinel-2 `current` item has `asset_url` (its true-colour picture, API-014) and, when the ingest found a cloud-free 2016–2017 scene, `asset_then_url` and `asset_then_observed` (`YYYY-MM-DD`) for the "then" picture of the same window; both keys are absent otherwise. `proposal` is null when nobody has proposed. `benefit_text` is the partner's words. The response has no computed environmental benefit and no contract text. GMW evidence in `evidence` is history (EQ-002, EQ-003), not a completion result.
 
 ### API-006 — `GET /api/v1/compare` — side-by-side comparison
 
@@ -201,7 +203,7 @@ request using those methods gets `405` (BR-002).
 |-------|------|----------|-------|
 | `site_id` | uuid | yes unless `record_id` | |
 | `record_id` | uuid | no | When set, the item is also appended to that record's timeline; `site_id` is taken from the record |
-| `source_type` | `field` \| `project_report` | yes | `field` requires role `partner`; `project_report` requires role `funder` |
+| `source_type` | `field` \| `project_report` | yes | `field` requires role `partner`; `project_report` requires role `funder`. `public_report` is seed-only, never accepted here |
 | `question` | `history` \| `current` \| `ground` \| `work` \| `outcome` | yes | `current` is rejected for human sources (satellite only) |
 | `finding` | string | yes | Must be in the question's vocabulary ([`prd.md` §4.1](prd.md)) |
 | `observed_at` | date | yes | Not in the future |
@@ -310,7 +312,8 @@ request using those methods gets `405` (BR-002).
 
 ### API-014 — `GET /api/v1/assets/{sha256}` — evidence photo
 
-- **Serves:** F-004 · **Auth:** none. **Response — `200`** image bytes with the stored `Content-Type`; `404` if unknown. The hash in the URL is the file's SHA-256, so the bytes are self-verifying.
+- **Serves:** F-004 · **Auth:** none. **Response — `200`** image bytes with the stored `Content-Type`; `404` `NOT_FOUND` (standard envelope) if the path is not 64 lowercase hex or the file is unknown. The hash in the URL is the file's SHA-256, so the bytes are self-verifying; `Cache-Control: public, max-age=31536000, immutable`.
+- **Notes:** today it serves the Sentinel-2 pictures committed at `api/app/evidence_assets/<sha256>.png` by `data/ingest/s2_ingest.py` (`image/png`). Field photos in S3 (ADR-037) are not wired to it yet.
 
 ### API-015 — `POST /mcp` — MCP server for Amazon Quick
 
@@ -409,7 +412,7 @@ request using those methods gets `405` (BR-002).
 ```
 
 - **Errors:** `404` `NOT_FOUND` (no statistics shipped for that country; the demo ships `PHL`).
-- **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by Mangrove.
+- **Notes:** `gain`, `loss` and `net` are `null` for the first year (1985). Values are GMW's published statistics, not computed by AIDE-M.
 
 ### API-023 — `GET /api/v1/layers/gmw-extent` — Manila Bay mangrove extent for one year
 
@@ -430,7 +433,7 @@ request using those methods gets `405` (BR-002).
 - **Serves:** F-025 · **Implements:** US-017 · **Auth:** none · **Idempotent:** yes
 
 `GET /api/v1/layers/gmw-extent/tiles` → **`200`**
-`{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 16, "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
+`{ "years": [1985, 1990, …, 2025], "version": "v4.1.12", "bbox": [116, 4, 127, 22], "max_zoom": 22, "coverage": [{ "z": 7, "tiles": [[x, y], …] }, { "z": 10, "tiles": […] }], "tiles": "/api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", "source": { "name": "Global Mangrove Watch", "version": "v4.1.12", "provenance_url": "…" } }`
 
 `GET /api/v1/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png` → **`200`** `image/png`, 256 × 256 Web Mercator
 (XYZ, Google/OSM tiling; zoom 0–22, ADR-050). Mangrove pixels are data cyan (`--mg-data-mangrove`, ADR-049), near-opaque, grown by one pixel at
@@ -440,6 +443,14 @@ Clients add `?s=<style>` from the info response to bust caches when the look cha
 
 - **Errors:** `422` `VALIDATION_FAILED` (year not in `years`, or `z` outside 0–22, or `x`/`y` outside the zoom) · `503` `UPSTREAM_UNAVAILABLE` (the layer is not installed on this server).
 - **Notes:** rendered from the per-year GeoTIFFs built by `data/ingest/gmw_tiles.py` (DS-001, ADR-048); context only, it carries no number and sets no status.
+
+### API-027 — `POST /api/v1/assistant/chat` — in-app assistant
+
+- **Serves:** F-026 · **Implements:** US-018 · **Auth:** none — public, rate-limited 20 requests per 10 minutes per client IP (ADR-062).
+- **Request:** `{ "messages": [ { "role": "user" | "assistant", "content": "<text, 1–4000 chars>" } ] }` — 1 to 20 messages, the whole conversation; the server keeps no state.
+- **Response — `200`** `{ "reply": "<markdown>", "tool_calls": [ { "name": "<MCP tool>", "arguments": { … } } ], "generated_by": "AI", "model": "<id>" }`.
+- **Errors:** `422` (bad body) · `429` `RATE_LIMITED` · `503` `UPSTREAM_UNAVAILABLE` (no key, model error, or more than 6 tool rounds).
+- **Notes:** the agent's tools are exactly the API-015 MCP tools, called in-process; no write tool exists. Numbers in the reply come from tool output (BR-003); the reply is labelled AI-generated in the UI.
 
 ### API-025 — `GET /api/v1/layers/gmw-change/tiles…` — Philippines mangrove gain and loss as map tiles
 
@@ -454,6 +465,36 @@ Same caching, CORS and cache-busting `?s=` as API-024.
 
 - **Errors:** `422` `VALIDATION_FAILED` (unknown `base`, `year` not after it, `only` not `gain`/`loss`, tile outside zoom 0–22) · `503` `UPSTREAM_UNAVAILABLE` (layer not installed).
 - **Notes:** rendered from GeoTIFFs built by `data/ingest/gmw_change_tiles.py` (DS-008); context only, no number, no status.
+- **Caching (API-024 and API-025, ADR-052):** tiles at zoom ≤ 12 are rendered once and kept on disk; above zoom 12 a tile is its zoom-12 parent enlarged. Browsers load tiles as static files from `/tiles/gmw/<style>/extent/<year>/<z>/<x>/<y>.png` and `/tiles/gmw/<style>/change/<base>/<year>/<gain|loss>/<z>/<x>/<y>.png`, which Caddy serves from disk and passes to these routes only when missing (ADR-053).
+
+### API-026 — `GET /api/v1/context/programs/{program_id}` — a public funding program, figures as published
+
+- **Serves:** F-001, F-002 · **Implements:** US-001 (ADR-056) · **Auth:** none · **Idempotent:** yes
+
+| Parameter | In | Type | Required | Notes |
+|-----------|----|------|----------|-------|
+| `program_id` | path | string | yes | `mbfdp` (the ₱1 billion Post-Yolanda Mangrove and Beach Forest Development Project) is the only program shipped |
+
+**Response — `200`**
+
+```json
+{ "program_id": "mbfdp", "name": "Post-Yolanda Mangrove and Beach Forest Development Project", "short_name": "Post-Yolanda MBFDP",
+  "funder": "Department of Environment and Natural Resources (DENR)", "is_demo": false,
+  "record_ids": ["00000000-0000-4000-8000-0000000001f3", "…f4"],
+  "facts": [ { "id": "planted", "label": "Reported planted, 43 provinces", "value": 50417, "unit": "ha",
+               "eq_id": "EQ-017", "confidence": "low", "as_of": "2016-01-30",
+               "quote": "It reported 50,417 hectares planted across 43 provinces in \"a little over a year\" [1].",
+               "source": { "publisher": "Philippine Star", "title": "…", "date": "2016-01-30", "url": "https://…",
+                           "case_study_ref": "case-study-yolanda.md §1 [1]" } } ],
+  "target_history": [ "… same shape: 27,400 → 41,694 → 50,000 ha …" ],
+  "framing": { "line": "The program verified planting, not outcomes.", "quote": "The system verified planting, not outcomes.",
+               "case_study_ref": "case-study-yolanda.md §9", "proof": [ { "as_of": null, "quote": "…", "source": { "…": "…" } } ] },
+  "not_found": [ "How the remaining ₱600 million was released and spent", "…" ], "not_found_ref": "case-study-yolanda.md §11",
+  "limitation": "…" }
+```
+
+- **Errors:** `404` `NOT_FOUND` (no program with that id).
+- **Notes:** served from committed JSON (`api/app/context_data/program_<id>.json`), like API-022. Every figure is EQ-017, confidence `low` (DS-009): its `value` and `unit` are copied from [`case-study-yolanda.md`](case-study-yolanda.md), `quote` is the sentence it came from, verbatim; an optional `upper` gives a range's top ("100–200 hectares"), and `see_also` lists a second source for the same figure. Context only: no status, finding or pin is derived from it (BR-001). No MCP tool yet: the MCP server is held at exactly six tools (API-015).
 
 ## 4. Error Codes
 

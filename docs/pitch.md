@@ -6,7 +6,7 @@ doc: pitch
 owns: the spoken pitch — narrative, canvas, timed script, question ownership, interview probes
 ---
 
-# Pitch — Mangrove
+# Pitch — AIDE-M
 
 > **What this is.** The pitch for Build Over Nights 2026. The rubric names and the timing live in
 > [`context.md`](../context.md) §1 (semifinal and finals weights from the handbook PDF, R38); this file does not restate them.

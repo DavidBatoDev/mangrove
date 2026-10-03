@@ -1,4 +1,6 @@
-# Mangrove Restoration Evidence Platform (working title)
+# AIDE-M
+
+Accountability In Delivery & Evidence · Mangrove
 
 Build Over Nights 2026 (Kiro x Amazon Quick), Climate Change track.
 
@@ -9,7 +11,7 @@ Build Over Nights 2026 (Kiro x Amazon Quick), Climate Change track.
 
 A public map of mangrove funding promises in the Philippines (`idea.md`). For funders, it puts Global Mangrove Watch history, current Sentinel-2 condition and field-partner evidence side by side
 for a few candidate Manila Bay sites, answering three questions, each marked supported, conflicting or missing,
-by deterministic rules and with no score. When a funder picks a site, Mangrove publishes a locked, hash-chained
+by deterministic rules and with no score. When a funder picks a site, AIDE-M publishes a locked, hash-chained
 promise as a pin on a public map. Later evidence lands on the same record and answers two separate checks:
 did the work happen, and did the mangroves come back. When sources disagree, the pin turns red.
 

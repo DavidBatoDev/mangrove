@@ -6,7 +6,7 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import { LngLatBounds, Map as MlMap, Marker, setWorkerUrl, type ExpressionSpecification } from "maplibre-gl";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gmwChangeTileTemplate, gmwTileTemplate } from "@/lib/api";
 import { basemapById, DEFAULT_BASEMAP, LABEL_FONT_BOLD, type BasemapId } from "@/lib/basemaps";
 import type { MapHandle } from "@/lib/map-handle";
@@ -79,7 +79,7 @@ function applyMangrove(map: MlMap, m: MangroveLayers | null | undefined): void {
   const before = map.getLayer("sites-fill") ? "sites-fill" : undefined;
   for (const [id, url] of tiles) {
     if (!url) continue;
-    map.addSource(id, { type: "raster", tiles: [url], tileSize: 256, maxzoom: 18, attribution: GMW_ATTRIBUTION });
+    map.addSource(id, { type: "raster", tiles: [url], tileSize: 256, maxzoom: 10, attribution: GMW_ATTRIBUTION });
     map.addLayer({ id, type: "raster", source: id, paint: { "raster-opacity": opacityByZoom(m.opacity) } }, before);
   }
 }
@@ -95,6 +95,15 @@ function boundsOf(fc: GeoJSON.FeatureCollection): LngLatBounds | null {
   };
   fc.features.forEach((f) => f.geometry && "coordinates" in f.geometry && visit(f.geometry.coordinates));
   return any ? b : null;
+}
+
+/** MapLibre needs WebGL2; without it the constructor throws and would take the whole page down. */
+function hasWebGL2(): boolean {
+  try {
+    return !!document.createElement("canvas").getContext("webgl2");
+  } catch {
+    return false;
+  }
 }
 
 export default function MapView({
@@ -114,6 +123,7 @@ export default function MapView({
   className,
 }: MapViewProps) {
   const container = useRef<HTMLDivElement>(null);
+  const [supported] = useState(() => typeof window === "undefined" || hasWebGL2());
   const mapRef = useRef<MlMap | null>(null);
   const markers = useRef<Marker[]>([]);
   const loaded = useRef(false);
@@ -134,17 +144,24 @@ export default function MapView({
 
   // Create the map once. Overlays are (re)added on every style load, so basemap switches keep them.
   useEffect(() => {
-    if (!container.current) return;
+    if (!supported || !container.current) return;
     const initial = basemapById(latest.current.basemap);
-    const map = new MlMap({
-      container: container.current,
-      style: initial.style,
-      bounds: PHILIPPINES,
-      maxBounds: MAX_BOUNDS,
-      renderWorldCopies: false,
-      fitBoundsOptions: { padding: latest.current.fitPadding },
-      attributionControl: { compact: true },
-    });
+    let map: MlMap;
+    try {
+      map = new MlMap({
+        container: container.current,
+        style: initial.style,
+        bounds: PHILIPPINES,
+        maxBounds: MAX_BOUNDS,
+        renderWorldCopies: false,
+        fitBoundsOptions: { padding: latest.current.fitPadding },
+        attributionControl: { compact: true },
+      });
+    } catch (err) {
+      // Leave the rest of the page working; the map area stays empty.
+      console.warn("Map unavailable:", err);
+      return;
+    }
 
     const applyHighlight = () => {
       const { sites: s, highlightSiteIds: h } = latest.current;
@@ -234,7 +251,7 @@ export default function MapView({
       loaded.current = false;
       pending.current = []; // callbacks queued for this map instance must not run on the next one
     };
-  }, []);
+  }, [supported]);
 
   // Basemap switch. Overlays come back in the style.load handler.
   const firstBasemap = useRef(true);
@@ -330,5 +347,11 @@ export default function MapView({
     markers.current.forEach((m) => (m.getElement().style.display = showPins ? "" : "none"));
   }, [showPins, pins]);
 
+  if (!supported)
+    return (
+      <div className={`${className ?? "map"} map-unavailable`} role="note">
+        <p>This browser cannot draw the map (it needs WebGL2). Everything else on this page still works.</p>
+      </div>
+    );
   return <div ref={container} className={className ?? "map"} />;
 }

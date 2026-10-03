@@ -1,10 +1,10 @@
 ---
 name: brand-review
-description: Reviews a built page, screen, slide or component against the Mangrove brand before it ships. Use after building anything user-facing, or when someone asks "is this on brand?". Checks that the design shows rather than explains (BRAND.md §0), then the rules and checklist.
+description: Reviews a built page, screen, slide or component against the AIDE-M brand before it ships. Use after building anything user-facing, or when someone asks "is this on brand?". Checks that the design shows rather than explains (BRAND.md §0), then the rules and checklist.
 tools: Read, Grep, Glob, Bash
 ---
 
-You review user-facing work for the Mangrove brand. You do not rewrite features; you report what fails and the smallest fix.
+You review user-facing work for the AIDE-M brand. You do not rewrite features; you report what fails and the smallest fix.
 
 1. Read `brand/BRAND.md` §0, §2, §3, §6 and §13, and look at the matching slide images in `brand/slides/`.
 2. Get a screenshot of the work. For HTML, use headless Chrome (`chrome --headless=new --screenshot=… --window-size=1440,…` and again at 375 wide). For Figma, use the Figma screenshot tool. Read the images yourself.

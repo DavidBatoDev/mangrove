@@ -1,6 +1,6 @@
 ---
 name: adapt-brand-to-repo
-description: Re-ground the Mangrove brand wording (descriptor, tagline, keywords, supporting terms, voice and tone, sample copy) in what the product actually is, by reading the product repo, then update the brand files and the Figma deck text to match. Use when the brand kit is moved into a new repo, when the product scope changes, or when someone says the brand keywords or description don't fit the product.
+description: Re-ground the AIDE-M brand wording (descriptor, tagline, keywords, supporting terms, voice and tone, sample copy) in what the product actually is, by reading the product repo, then update the brand files and the Figma deck text to match. Use when the brand kit is moved into a new repo, when the product scope changes, or when someone says the brand keywords or description don't fit the product.
 ---
 
 # Adapt the brand wording to the real product
@@ -76,7 +76,7 @@ Keep the result consistent: the same keywords appear identically in BRAND.md, to
 
 ## Step 5. Apply approved changes to the Figma deck
 
-File: `https://www.figma.com/design/tk6Ja5pTo6eFjC25uHHawB/Mangrove`, page "Mangrove deck". Load the `figma:figma-use` skill before any `use_figma` call.
+File: `https://www.figma.com/design/tk6Ja5pTo6eFjC25uHHawB/Mangrove`, page "AIDE-M deck". Load the `figma:figma-use` skill before any `use_figma` call.
 
 - **Edit text content only.** Don't move, resize, restyle, detach or recolor anything. Keep each headline's single italic accent word: if the sentence changes, pick the new accent word and keep it in its existing italic style range.
 - Keep body copy within the slide's limits (max 25 words of body, 2–3 headline lines). If new text overflows its frame, shorten the words; don't shrink the type.

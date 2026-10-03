@@ -5,4 +5,4 @@ const off = (): never => {
 };
 export const login = off, logout = off, me = off, listSites = off, getSite = off, compare = off,
   listRecords = off, getRecord = off, verifyRecord = off, lockRecord = off, submitEvidence = off, demoBoundary = off,
-  gmwTimeline = off, countryContext = off, gmwExtent = off;
+  gmwTimeline = off, countryContext = off, gmwExtent = off, programContext = off;

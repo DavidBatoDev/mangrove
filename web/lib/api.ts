@@ -15,6 +15,7 @@ import type {
   LockBody,
   LockResponse,
   PinsFC,
+  ProgramContext,
   RecordDetail,
   SitesFC,
   User,
@@ -113,6 +114,10 @@ export const gmwTimeline = (siteId: string): Promise<GmwTimeline> =>
 export const countryContext = (iso3: string): Promise<CountryContext> =>
   USE_MOCKS ? mock().then((m) => m.countryContext(iso3)) : http(`/context/countries/${encodeURIComponent(iso3)}`);
 
+// API-026: a public funding program (the real Post-Yolanda case), figures quoted as published.
+export const programContext = (programId: string): Promise<ProgramContext> =>
+  USE_MOCKS ? mock().then((m) => m.programContext(programId)) : http(`/context/programs/${encodeURIComponent(programId)}`);
+
 // API-023
 export const gmwExtent = (year?: number): Promise<GmwExtentLayer> =>
   USE_MOCKS ? mock().then((m) => m.gmwExtent(year)) : http(`/layers/gmw-extent${year ? `?year=${year}` : ""}`);
@@ -132,7 +137,8 @@ async function tileInfo<T>(path: string): Promise<T> {
   return res.json();
 }
 
-const tileBase = () => `${TILE_ORIGIN || (typeof window !== "undefined" ? window.location.origin : "")}/api/v1/layers`;
+// Tiles are static files (ADR-053): Caddy serves stored ones straight from disk, like GMW's own tile host.
+const tileBase = () => `${TILE_ORIGIN || (typeof window !== "undefined" ? window.location.origin : "")}/tiles/gmw/${TILE_STYLE}`;
 
 export const gmwExtentTiles = (): Promise<GmwExtentTiles> => tileInfo("/layers/gmw-extent/tiles");
 
@@ -140,11 +146,11 @@ export const gmwExtentTiles = (): Promise<GmwExtentTiles> => tileInfo("/layers/g
 export const gmwChangeTiles = (): Promise<GmwChangeTiles> => tileInfo("/layers/gmw-change/tiles");
 
 /** Absolute XYZ template for one year (map engines fetch tiles outside fetch(), so the origin is spelled out). */
-export const gmwTileTemplate = (year: number): string => `${tileBase()}/gmw-extent/tiles/${year}/{z}/{x}/{y}.png?s=${TILE_STYLE}`;
+export const gmwTileTemplate = (year: number): string => `${tileBase()}/extent/${year}/{z}/{x}/{y}.png`;
 
 /** Absolute XYZ template for gain or loss against a baseline year. */
 export const gmwChangeTileTemplate = (base: number, year: number, only: "gain" | "loss"): string =>
-  `${tileBase()}/gmw-change/tiles/${base}/${year}/{z}/{x}/{y}.png?only=${only}&s=${TILE_STYLE}`;
+  `${tileBase()}/change/${base}/${year}/${only}/{z}/{x}/{y}.png`;
 
 /** Layer opacity at a zoom: full until z13, fading to 30% by z16 so the imagery shows through when zoomed in. */
 export function mangroveOpacityAt(zoom: number, opacity: number): number {
@@ -154,3 +160,10 @@ export function mangroveOpacityAt(zoom: number, opacity: number): number {
 
 /** Demo boundary for site B; fixtures mode only. */
 export const demoBoundary = (): Promise<unknown> => mock().then((m) => m.demoBoundary());
+
+// API-027: in-app assistant over the read-only MCP tools (ADR-062). Always the live API, also in fixtures mode:
+// the agent reads the database through its own tools, so there is nothing to fake.
+export type AssistantMessage = { role: "user" | "assistant"; content: string };
+export type AssistantReply = { reply: string; tool_calls: { name: string; arguments: Record<string, unknown> }[]; generated_by: "AI"; model: string };
+export const assistantChat = (messages: AssistantMessage[]): Promise<AssistantReply> =>
+  http("/assistant/chat", json("POST", { messages }));

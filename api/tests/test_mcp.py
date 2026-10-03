@@ -69,7 +69,7 @@ def test_record_tools(client):
     v = _structured(rpc(client, "tools/call", {"name": "verify_record", "arguments": {"record_id": RECORD_A}}))
     assert v["intact"] is True
     pins = _structured(rpc(client, "tools/call", {"name": "list_records", "arguments": {}}))
-    assert [p["id"] for p in pins["records"]] == [RECORD_A]
+    assert [p["id"] for p in pins["records"] if p["is_demo"]] == [RECORD_A]
 
 
 def test_public_host_is_allowed_and_unknown_host_is_not(client, monkeypatch):
@@ -77,3 +77,15 @@ def test_public_host_is_allowed_and_unknown_host_is_not(client, monkeypatch):
     r = client.post("/mcp", headers={**HEADERS, "Host": "evil.example"},
                     json={"jsonrpc": "2.0", "id": 1, "method": "tools/list"})
     assert r.status_code == 421
+
+
+def test_tool_calls_leave_a_usage_trail(client):
+    """MCP usage trail: a tools/call by a Quick-like client is counted by tool and client, without arguments."""
+    before = client.get("/api/v1/mcp/usage").json()["by_tool"].get("list_sites", 0)
+    r = client.post("/mcp", headers={**HEADERS, "User-Agent": "Amazon-Quick-MCP-Client/1.0"},
+                    json={"jsonrpc": "2.0", "id": 9, "method": "tools/call", "params": {"name": "list_sites", "arguments": {}}})
+    assert r.status_code == 200
+    trail = client.get("/api/v1/mcp/usage").json()
+    assert trail["by_tool"]["list_sites"] == before + 1
+    assert trail["recent"][0]["tool"] == "list_sites" and trail["recent"][0]["client"] == "Amazon Quick"
+    assert "arguments" not in trail["recent"][0]
