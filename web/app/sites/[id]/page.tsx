@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import AnswerBlock from "@/components/AnswerBlock";
 import EvidenceCard from "@/components/EvidenceCard";
 import Map from "@/components/Map";
+import Site3DView, { toneFromAnswers } from "@/components/Site3DView";
 import { useSession } from "@/components/session";
 import { DemoLabel, ErrorBox, Loading } from "@/components/ui";
 import { BrandIcon, EmptyArt, ICON_PROPS, QuestionIcon, StatTile } from "@/components/visual";
@@ -85,7 +86,14 @@ export default function SiteDossierPage() {
             </div>
           </section>
         </div>
-        <Map sites={fc} fitToSites basemap="light" className="map dossier-map" />
+        <Site3DView
+          className="dossier-map"
+          geometry={site.geometry}
+          tone={toneFromAnswers(answers.map((a) => a.status))}
+          motion="flyin"
+          label={`3D view of ${site.name}`}
+          fallback={<Map sites={fc} fitToSites basemap="light" className="map dossier-map" />}
+        />
       </div>
 
       <h2 className="section-title">

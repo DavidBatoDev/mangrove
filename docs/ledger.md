@@ -41,6 +41,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Google Maps for display, MapLibre as fallback (proposed)
+- **ID:** DEC-013
+- **Type:** zoom-in
+- **Change:** MapLibre + EOxCloudless only → Google Maps JavaScript API (2D satellite, 3D site fly-in and record orbit) when a key is configured; MapLibre + EOxCloudless as the fallback
+- **Why:** current imagery and one 3D moment for the demo, without the demo depending on Google.
+- **Invalidated:** `docs/prd.md` §7 basemap line becomes the fallback (pending acceptance)
+- **Recorded as:** ADR-043
+
 ### 2026-10-04 — The brand kit is the design system
 - **ID:** DEC-012
 - **Type:** zoom-in

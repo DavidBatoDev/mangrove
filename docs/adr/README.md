@@ -54,3 +54,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-040](ADR-040-notes-with-every-message.md) | Accepted | Every message between David and Ethan comes with a note in `notes/`, delivered to the recipient's branch. |
 | [ADR-041](ADR-041-three-large-phases.md) | Accepted | Three large phases (P0 story end to end, P1 make it real, P2 demo-ready) replace ADR-039's six. |
 | [ADR-042](ADR-042-adopt-brand-kit.md) | Accepted | The Mangrove brand kit (`brand/`) is the design system; its wording follows the PRD; red is for conflict only. |
+| [ADR-043](ADR-043-google-maps-display-only.md) | Proposed | Google Maps for visualization only (2D + 3D); evidence stays with GMW and Sentinel-2; MapLibre is the fallback. |

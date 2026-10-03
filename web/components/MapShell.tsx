@@ -4,11 +4,13 @@
 // dialog and a legend card. The basemap choice is a per-viewer preference kept in localStorage.
 
 import "./map-shell.css";
-import { Check, ChevronDown, Layers, Link2, Maximize2, Minus, Plus, X } from "lucide-react";
-import type { Map as MlMap } from "maplibre-gl";
+import { Box, Check, ChevronDown, Compass, Layers, Link2, Maximize2, Minus, Plus, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Map from "@/components/Map";
+import Globe3D from "@/components/Globe3D";
+import Map, { type MapEngine } from "@/components/Map";
+import { GOOGLE_IMAGERY_NOTE } from "@/lib/google";
 import type { MapViewProps } from "@/components/MapView";
+import type { MapHandle } from "@/lib/map-handle";
 import { BASEMAPS, DEFAULT_BASEMAP, type BasemapId } from "@/lib/basemaps";
 import { PIN_WORDS } from "@/lib/format";
 import { pinSvg, siteAreaSvg } from "@/lib/pin-icons";
@@ -63,7 +65,13 @@ export interface MapShellProps extends Omit<MapViewProps, "basemap" | "showSites
 
 export default function MapShell({ children, layers, focus, ...mapProps }: MapShellProps) {
   const shellRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<MlMap | null>(null);
+  const [map, setMap] = useState<MapHandle | null>(null);
+  const [engine, setEngine] = useState<MapEngine>("maplibre");
+  const [is3d, setIs3d] = useState(false);
+  // Google: the 3D button opens the 3D globe at this view (its 2D map only tilts at street zoom).
+  const [globeView, setGlobeView] = useState<{ center: [number, number]; zoom: number } | null>(null);
+  const [globeFailed, setGlobeFailed] = useState(false);
+  const useGlobe = engine === "google" && !globeFailed;
   const [prefs, setPrefs] = useState<Prefs>({ basemap: DEFAULT_BASEMAP, showSites: true, showPins: true });
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(true);
@@ -93,12 +101,14 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
 
   useEffect(() => {
     if (!map || !focus) return;
-    map.flyTo({
-      center: focus.center,
-      zoom: Math.max(map.getZoom(), focus.zoom ?? 12),
-      padding: wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20,
-      duration: 900,
-    });
+    if (useGlobe) {
+      // Google: fly into the site in 3D, close and tilted, like the preview in the side panel.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setGlobeView({ center: focus.center, zoom: 15 });
+      setIs3d(true);
+      return;
+    }
+    map.flyTo(focus.center, focus.zoom ?? 12, wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20);
     // Only when the target (or a recenter request) changes, not on every render or panel toggle.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, focus?.key]);
@@ -139,8 +149,23 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
         showSites={prefs.showSites}
         showPins={prefs.showPins}
         onMapReady={setMap}
+        onEngine={setEngine}
         fitPadding={wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20}
       />
+
+      {globeView && (
+        <Globe3D
+          view={globeView}
+          pins={mapProps.pins}
+          sites={mapProps.sites}
+          onPinClick={mapProps.onPinClick}
+          onFail={() => {
+            setGlobeFailed(true);
+            setGlobeView(null);
+            setIs3d(false);
+          }}
+        />
+      )}
 
       <aside className={`map-panel${panelOpen ? "" : " is-collapsed"}`} aria-label="Map panel">
         <button
@@ -172,6 +197,34 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
           aria-haspopup="dialog"
         >
           {Icon.layers}
+        </button>
+        <button
+          type="button"
+          className={`map-btn${is3d ? " is-on" : ""}`}
+          onClick={() => {
+            const on = !is3d;
+            if (useGlobe) setGlobeView(on && map ? map.getView() : null);
+            else map?.set3d(on);
+            setIs3d(on);
+          }}
+          title={is3d ? "Flat view" : "3D view"}
+          aria-label={is3d ? "Switch to flat view" : "Switch to 3D view"}
+          aria-pressed={is3d}
+        >
+          <Box size={22} strokeWidth={1.75} aria-hidden />
+        </button>
+        <button
+          type="button"
+          className="map-btn"
+          onClick={() => {
+            map?.resetView();
+            setGlobeView(null);
+            setIs3d(false);
+          }}
+          title="Reset view (north up, flat)"
+          aria-label="Reset view to north up and flat"
+        >
+          <Compass size={22} strokeWidth={1.75} aria-hidden />
         </button>
         <div className="map-zoom">
           <button type="button" className="map-btn" onClick={() => map?.zoomIn()} title="Zoom in" aria-label="Zoom in">
@@ -253,7 +306,9 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
               })}
             </div>
             <p className="settings-note">
-              Satellite: EOxCloudless 2016 (Sentinel-2). Light and Dark: OpenFreeMap, © OpenStreetMap contributors.
+              {engine === "google"
+                ? `Google Maps (Satellite = Google hybrid imagery). ${GOOGLE_IMAGERY_NOTE}`
+                : "Satellite: EOxCloudless 2016 (Sentinel-2). Light and Dark: OpenFreeMap, © OpenStreetMap contributors."}
             </p>
 
             {layers.sites && (

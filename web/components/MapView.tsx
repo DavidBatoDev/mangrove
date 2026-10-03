@@ -8,8 +8,8 @@ import { LngLatBounds, Map as MlMap, Marker, setWorkerUrl } from "maplibre-gl";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { basemapById, DEFAULT_BASEMAP, LABEL_FONT_BOLD, type BasemapId } from "@/lib/basemaps";
-import { PIN_WORDS } from "@/lib/format";
-import { pinSvg } from "@/lib/pin-icons";
+import type { MapHandle } from "@/lib/map-handle";
+import { buildPinElement } from "@/lib/pin-dom";
 import type { PinsFC, SitesFC } from "@/lib/types";
 
 // Served from public/ (scripts/copy-maplibre-worker.mjs); the bundler does not emit the worker file.
@@ -42,7 +42,7 @@ export interface MapViewProps {
   showSites?: boolean;
   showPins?: boolean;
   /** Receives the map once created (and null on unmount), for custom controls. */
-  onMapReady?: (map: MlMap | null) => void;
+  onMapReady?: (map: MapHandle | null) => void;
   /** Leave room for floating panels when fitting. */
   fitPadding?: { top: number; bottom: number; left: number; right: number } | number;
   className?: string;
@@ -52,9 +52,6 @@ export interface MapViewProps {
 function token(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || "gray";
 }
-
-const escapeHtml = (s: string) =>
-  s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 function boundsOf(fc: GeoJSON.FeatureCollection): LngLatBounds | null {
   const b = new LngLatBounds();
@@ -187,7 +184,14 @@ export default function MapView({
     map.on("mouseleave", "sites-fill", () => (map.getCanvas().style.cursor = ""));
 
     mapRef.current = map;
-    onMapReadyRef.current?.(map);
+    onMapReadyRef.current?.({
+      zoomIn: () => map.zoomIn(),
+      zoomOut: () => map.zoomOut(),
+      flyTo: (center, minZoom, padding) => map.flyTo({ center, zoom: Math.max(map.getZoom(), minZoom), padding, duration: 900 }),
+      set3d: (on) => map.easeTo({ pitch: on ? 60 : 0, bearing: on ? -20 : 0, duration: 800 }),
+      resetView: () => map.easeTo({ pitch: 0, bearing: 0, duration: 800 }),
+      getView: () => ({ center: map.getCenter().toArray() as [number, number], zoom: map.getZoom() }),
+    });
     return () => {
       onMapReadyRef.current?.(null);
       markers.current.forEach((m) => m.remove());
@@ -256,21 +260,7 @@ export default function MapView({
     markers.current.forEach((m) => m.remove());
     markers.current = (pins?.features ?? []).map((f) => {
       const p = f.properties;
-      const el = document.createElement("a");
-      el.href = `/records/${p.id}`;
-      el.className = `map-pin map-pin-${p.pin_state}`;
-      el.setAttribute("aria-label", `${p.site_name}: ${PIN_WORDS[p.pin_state]}. ${p.is_demo ? "Demo data. " : ""}Open record.`);
-      // Compact marker; the full label opens on hover/focus. The DEMO tag stays visible (BR-006).
-      el.innerHTML =
-        pinSvg(p.pin_state) +
-        (p.is_demo ? '<span class="map-pin-demo">Demo</span>' : "") +
-        `<span class="map-pin-label"><strong>${escapeHtml(p.site_name)}</strong>${PIN_WORDS[p.pin_state]}${p.is_demo ? " · Demo data" : ""}</span>`;
-      el.dataset.recordId = p.id;
-      el.addEventListener("click", (ev) => {
-        ev.preventDefault();
-        if (latest.current.onPinClick) latest.current.onPinClick(p.id);
-        else router.push(`/records/${p.id}`);
-      });
+      const el = buildPinElement(p, (id) => (latest.current.onPinClick ? latest.current.onPinClick(id) : router.push(`/records/${id}`)));
       return new Marker({ element: el, anchor: "bottom" }).setLngLat(f.geometry.coordinates as [number, number]).addTo(map);
     });
   }, [pins, router]);

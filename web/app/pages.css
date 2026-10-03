@@ -230,3 +230,12 @@ form.form--wide { max-width: 760px; }
 .place-questions li > svg, .place-questions li > .mg-icon { color: var(--mg-tidal-ink); }
 .place-questions li .mg-chip { padding: 4px 8px; font-size: var(--mg-text-label); }
 .place-questions li.is-conflict { padding: var(--mg-space-2); border-left: 3px solid var(--mg-conflict); background: var(--mg-surface-sunk); border-radius: 0 var(--app-radius-sm) var(--app-radius-sm) 0; }
+
+/* ---------- 3D site views (components/Site3DView.tsx), display only ---------- */
+.site3d { position: relative; overflow: hidden; background: var(--mg-night); border-radius: var(--app-radius); }
+.site3d-host { position: absolute; inset: 0; }
+.site3d .gmap-note { left: auto; right: var(--mg-space-3); top: auto; bottom: var(--mg-space-3); transform: none; }
+.site-hero { height: clamp(260px, 38vh, 420px); margin: 0 0 var(--mg-space-6); border-radius: var(--app-radius); overflow: hidden; }
+.site-hero--empty { background: var(--mg-surface-sunk); }
+.site-hero--2d.maplibregl-map, .site-hero--2d.gmap { height: clamp(260px, 38vh, 420px); }
+.place-3d { height: 200px; border-radius: 0; }

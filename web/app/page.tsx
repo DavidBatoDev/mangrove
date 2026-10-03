@@ -9,6 +9,7 @@ import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
 import { formatDate } from "@/lib/format";
 import { pinSvg } from "@/lib/pin-icons";
+import type { SitesFC } from "@/lib/types";
 
 // Public map (US-009): one pin per published record, colored by BR-004 pin state.
 // Clicking a pin (or a list row) opens a place card in the panel; the record is one click further.
@@ -29,6 +30,16 @@ function PublicMap() {
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
 
+  // The selected record's site boundary, drawn on the map (and in the 3D fly-in).
+  const selectedSite = useApi(async (): Promise<SitesFC | null> => {
+    if (!selectedId) return null;
+    const rec = await api.getRecord(selectedId);
+    const siteId = (rec.record.snapshot as { site_id?: string }).site_id;
+    if (!siteId) return null;
+    const { site } = await api.getSite(siteId);
+    return { type: "FeatureCollection", features: [{ type: "Feature", geometry: site.geometry, properties: { id: site.id, name: site.name, region: site.region, is_demo: site.is_demo, area: site.area } }] };
+  }, [selectedId]);
+
   const selected = pins.data?.features.find((f) => f.properties.id === selectedId) ?? null;
   const lonLat = selected ? (selected.geometry.coordinates as [number, number]) : null;
   // A new object on each recenter request so the map flies again even to the same pin.
@@ -37,6 +48,7 @@ function PublicMap() {
   return (
     <MapShell
       pins={pins.data}
+      sites={selectedSite.data}
       layers={{ pins: true }}
       onPinClick={(id) => select(id)}
       selectedPinId={selectedId}
