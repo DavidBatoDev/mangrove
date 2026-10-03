@@ -28,12 +28,16 @@ def test_sites(client):
 def test_dossier_provenance(client):
     body = client.get(f"/api/v1/sites/{SITE['E']}").json()
     assert body["site"]["is_demo"] is True
-    assert [a["status"] for a in body["answers"]] == ["missing", "missing", "conflicting"]
-    assert len(body["evidence"]) == 2
+    # History comes from the real GMW ingest (ADR-044): no mangrove inside E since 1985.
+    assert [a["status"] for a in body["answers"]] == ["supported", "missing", "conflicting"]
+    assert body["answers"][0]["finding"] == "no_mangrove_recorded"
+    assert sorted(e["source_type"] for e in body["evidence"]) == ["field", "gmw", "proposal"]
     for e in body["evidence"]:
         for key in ("source_name", "observed_from", "retrieved_at", "method", "limitation", "content_hash"):
             assert e[key]
-        assert e["is_demo"] is True and len(e["content_hash"]) == 64
+        assert len(e["content_hash"]) == 64
+        # Demo ground items are labelled demo; the GMW item is real data (BR-006).
+        assert e["is_demo"] is (e["source_type"] != "gmw")
         assert "raw" not in e and "submitted_by_user_id" not in e  # internal fields stay internal
 
 
@@ -119,3 +123,34 @@ def test_trigger_blocks_even_the_owner(owner_conn, statement):
             owner_conn.execute(statement)
     finally:
         owner_conn.rollback()
+
+
+# --- TC-021 ------------------------------------------------------------------------------------------
+
+def test_gmw_context(client):
+    """TC-021: per-site GMW series, the Philippines card, and the bay extent layer (F-022, ADR-044)."""
+    t = client.get(f"/api/v1/sites/{SITE['B']}/gmw-timeline").json()
+    assert [y["year"] for y in t["years"]] == list(range(1985, 2026))
+    assert all(y["inside"]["eq_id"] == "EQ-002" and y["nearby"]["eq_id"] == "EQ-014" for y in t["years"])
+    assert all(y["inside"]["confidence"] == "medium" for y in t["years"])
+    assert t["years"][-1]["inside"]["value"] == pytest.approx(1.04, abs=0.05)  # the ~1 ha inside B in 2025
+    assert t["nearby_buffer"]["value"] == 1000 and "1985" in t["limitation"]
+    assert t["source"]["version"] == "v4.1.12" and t["is_demo"] is True
+    assert client.get("/api/v1/sites/00000000-0000-4000-8000-000000000999/gmw-timeline").status_code == 404
+
+    c = client.get("/api/v1/context/countries/PHL").json()
+    assert c["name"] == "Philippines" and len(c["years"]) == 41
+    first = c["years"][0]
+    assert first["year"] == 1985 and first["gain"] is None and first["loss"] is None
+    for y in c["years"]:
+        ext = y["extent"]
+        assert ext["eq_id"] == "EQ-015" and ext["lower"] <= ext["value"] <= ext["upper"]
+    assert c["years"][1]["net"]["eq_id"] == "EQ-016"
+    assert c["years"][1]["net"]["value"] == pytest.approx(c["years"][1]["gain"]["value"] - c["years"][1]["loss"]["value"], abs=0.02)
+    assert client.get("/api/v1/context/countries/XYZ").status_code == 404
+
+    layer = client.get("/api/v1/layers/gmw-extent", params={"year": 2025}).json()
+    assert layer["type"] == "FeatureCollection" and layer["year"] == 2025 and len(layer["features"]) > 0
+    assert layer["available_years"] == list(range(1985, 2026, 5))
+    bad = client.get("/api/v1/layers/gmw-extent", params={"year": 1987})
+    assert bad.status_code == 422 and bad.json()["error"]["code"] == "VALIDATION_FAILED"

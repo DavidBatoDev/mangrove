@@ -1,0 +1,8 @@
+# Offline GMW ingest (data/ingest/gmw_ingest.py). Not part of the API image. Pinned 2026-10-04.
+rasterio==1.5.2
+numpy==2.5.3
+openpyxl==3.1.5
+pyarrow==25.0.1
+psycopg[binary]==3.3.6
+python-dotenv==1.2.4
+rfc8785==0.1.4

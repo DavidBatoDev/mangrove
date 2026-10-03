@@ -1,6 +1,7 @@
 """Tests run against the Neon *test* branch only (docs/tests.md §4), never the demo branch.
 
 Seed it first:  py -3.12 db/apply.py --target test --reset
+then ingest GMW: data/ingest/.venv/Scripts/python data/ingest/gmw_ingest.py --target test --sites-only --stack-dir <dir>
 """
 
 from __future__ import annotations
