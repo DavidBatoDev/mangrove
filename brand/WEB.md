@@ -16,6 +16,10 @@ React or Tailwind? Import `brand/mangrove.css` once at the root and use the same
 
 ---
 
+## 1b. Show, don't explain
+
+Read `BRAND.md` §0 first. Every section is one visual device (drench, band stack, specimen, table, root profile, rail, contact sheet, motif wall, type field, duel, surface), chosen **before** the copy. Comparisons are always a table (`mg-table`) or the root profile, never prose. Headline ≤ 8 words, any other block ≤ 20. If a section needs a paragraph to be understood, change the device, not the paragraph.
+
 ## 2. Map page sections to slides
 
 | Page section | Slide to match | Ground | Classes |
@@ -78,6 +82,7 @@ React or Tailwind? Import `brand/mangrove.css` once at the root and use the same
 
 ## 5. Done means
 
+- [ ] Glance test (`BRAND.md` §0): blur the screenshot; it still says what matters, what agrees and what conflicts. Count the words.
 - [ ] Put a screenshot of your page next to the matching `brand/slides/T0x.png`. Same ground, same headline scale, same margins, same waterline, same footer.
 - [ ] No raw hex, no new fonts, no inline restyling of `mg-*` classes.
 - [ ] BRAND.md §13 checklist passes.

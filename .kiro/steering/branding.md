@@ -7,6 +7,7 @@ inclusion: always
 For any UI, copy, chart, deck or image work, follow #[[file:brand/BRAND.md]] and use only the tokens in #[[file:brand/tokens.css]]. Image prompts: #[[file:brand/IMAGERY.md]]. Pages and UI: #[[file:brand/WEB.md]]; look at `brand/slides/*.png` first and start from `brand/starter.html` + `brand/mangrove.css`.
 
 Non-negotiables:
+- **Show, don't explain** (BRAND.md §0). Color, shape, texture, icons and marks carry the brand, not sentences about it. Pick a visual device first (drench, band stack, specimen, table, root profile, rail, contact sheet, motif wall, type field, duel, surface). Comparisons are tables or the root profile. Headline ≤ 8 words, blocks ≤ 20. Must pass the glance test: blurred, it still reads.
 - Fonts: Newsreader (display), Schibsted Grotesk (body/UI), IBM Plex Mono (data, citations, labels). Nothing else.
 - Keywords: Restoration, Evidence, Traceable, Baseline, Promise, Confidence, Follow-through. Status words: supported, conflicting, missing, too early to tell. No banned words (BRAND.md §2: certified, approved, investment-ready, any score, tamper-proof, "the satellite shows N ha", good/bad site, guarantee, offset…).
 - Voice: a field ecologist reading the public record aloud, to a funding committee and to the town hall. Every claim has a date and a source; every number its `EQ-###` and confidence. The funder decides; Mangrove never approves.

@@ -140,6 +140,18 @@
 .mg-progress__fill::after { content: ""; position: absolute; right: -18px; top: 50%; width: 36px; height: 36px; transform: translateY(-50%); border-radius: 50%; background: var(--mg-surface); border: 2px solid var(--mg-canopy); }
 .mg-progress__labels { display: flex; justify-content: space-between; margin-top: var(--mg-space-4); font: 400 var(--mg-text-small)/1.4 var(--mg-font-mono); color: var(--mg-text); }
 
+/* ---------- Compare table (BRAND.md §0): sites as columns, questions as rows, a mark in every cell ---------- */
+.mg-table { width: 100%; border-collapse: collapse; font-size: var(--mg-text-small); }
+.mg-table th { font: 500 var(--mg-text-label)/1.3 var(--mg-font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mg-text-muted); text-align: left; padding: var(--mg-space-3) var(--mg-space-4) var(--mg-space-3) 0; border-bottom: 2px solid var(--mg-waterline, var(--mg-tidal)); vertical-align: bottom; }
+.mg-table thead th { font: 500 var(--mg-text-h4)/1.2 var(--mg-font-display); letter-spacing: 0; text-transform: none; color: var(--mg-heading); }
+.mg-table thead th small { display: block; font: 500 var(--mg-text-label)/1.3 var(--mg-font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mg-text-muted); margin-bottom: 4px; }
+.mg-table td { padding: var(--mg-space-4) var(--mg-space-4) var(--mg-space-4) 0; border-bottom: 1px solid var(--mg-border); vertical-align: top; }
+.mg-table td .mg-chip { margin-bottom: 6px; }
+.mg-table td > span:not(.mg-chip) { display: block; color: var(--mg-text); }
+.mg-table td > .mg-chip { display: inline-flex; }
+.mg-table td small { display: block; font: 400 var(--mg-text-label)/1.4 var(--mg-font-mono); color: var(--mg-root); }
+.mg-table tbody th { font: 500 var(--mg-text-small)/1.35 var(--mg-font-body); letter-spacing: 0; text-transform: none; color: var(--mg-heading); border-bottom: 1px solid var(--mg-border); vertical-align: top; padding-top: var(--mg-space-4); }
+
 /* ---------- Root profile frame (T05). Draw the roots as inline SVG; see starter.html. ---------- */
 .mg-root-profile { width: 100%; min-width: 880px; height: auto; display: block; }
 .mg-scroll-x { overflow-x: auto; margin-inline: calc(-1 * var(--mg-page-x)); padding-inline: var(--mg-page-x); } /* wide diagrams scroll inside, the page never does */

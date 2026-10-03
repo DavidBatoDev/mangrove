@@ -42,6 +42,7 @@ Auth per route follows [`security.md`](security.md) §4; this table states the e
 
 ## 3. Principles (from the brief, kept)
 
+- **Show, don't explain.** Each screen is built on one visual device from `brand/BRAND.md` §0 and passes the glance test. Compare is a table (`mg-table`) plus the root profile; the dossier is three rows of question · mark · finding · sources; the record is the Waterline split with the two checks as chips. Words are labels; the funder's rationale, limitations, the disclaimer and errors are the only prose.
 - **The status is the interface.** Finding, status word and source count are visible without opening a detail view (`mg-chip--*` + text). Color is never the only carrier.
 - **A conflict is the loudest thing on the page.** `--mg-conflict` is used only for `pin_state = conflict` and a conflicting status (BR-004).
 - **Demo data cannot be mistaken for a real project.** `mg-demo` on every seeded site, record, organization and pin tooltip (BR-006).
@@ -61,6 +62,7 @@ Candidate-site polygons: Tidal 2px outline, Tidal 12% fill; selected: Canopy 3px
 
 | Pattern | Class / element | Used on |
 |---------|-----------------|---------|
+| Comparison (sites × questions) | `mg-table` with a `mg-chip--*` in every cell, words only in headers | compare |
 | Question or check status | `mg-chip--supported / --conflicting / --missing / --too-early` + finding + source count | dossier, compare, record |
 | Number with confidence | value rendered per methods §2 + `mg-conf--high / --medium / --low` + `EQ-###` | dossier, record |
 | Evidence item | `mg-evidence` (source · observed date meta, limitation in the body) | dossier, record |

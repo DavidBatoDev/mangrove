@@ -103,7 +103,7 @@ Co-authored-by: Kiro <noreply@kiro.dev>
 
 ## Look and copy
 
-Anything a person sees (screens, copy, charts, decks, images) uses the brand kit in `brand/`. Read `brand/BRAND.md`, look at `brand/slides/*.png`, then build from `brand/WEB.md`, `brand/starter.html` and `brand/mangrove.css`. Red is only for a conflict, every seeded item shows "Demo data", and every record page shows the disclaimer. Kiro loads this through `.kiro/steering/branding.md`.
+Anything a person sees (screens, copy, charts, decks, images) uses the brand kit in `brand/`. Read `brand/BRAND.md`, look at `brand/slides/*.png`, then build from `brand/WEB.md`, `brand/starter.html` and `brand/mangrove.css`. Show, don't explain: each section is one visual device (`brand/BRAND.md` §0), comparisons are tables, and it must read at a glance. Red is only for a conflict, every seeded item shows "Demo data", and every record page shows the disclaimer. Kiro loads this through `.kiro/steering/branding.md`.
 
 ## Stack currency
 

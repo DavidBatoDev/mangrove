@@ -6,6 +6,55 @@
 
 ---
 
+## 0. Show, don't explain (the rule above the others)
+
+**The brand speaks through color, shape, texture, icons, marks and layout, not through sentences about the brand.** A screen, slide or section must make sense in one glance. If it needs a paragraph to be understood, redesign it.
+
+**The glance test** (run it on everything before you ship):
+
+1. Blur the screenshot (or squint). Can you still tell what it is about, what matters most, and what is in conflict? If not, the visuals aren't doing the work.
+2. Count the words. Headline ≤ 8. Any other block ≤ 20. A slide ≤ 25 words of body. Product screens use labels, not paragraphs.
+3. Cover the text. The colors, marks and layout alone should still say "agree / disagree / missing", "promise above, evidence below", "this one is different".
+
+**Pick the visual device first, write the words last.** Every section, slide and screen is built on one of these devices. Name it before you design (the Figma frame names already do: `G04 · Color · Band stack`).
+
+| Device | What it is | Use it for |
+|---|---|---|
+| **Drench** | One full ground (texture or brand color), one big line | Covers, section openers, closing, CTA |
+| **Band stack** | Stacked full-width color bands with tiny mono labels | Palettes, ranges, the waterline split, timelines by period |
+| **Specimen** | One thing, big, with 2–3 tiny labels | The mark, a typeface, one status, one number |
+| **Table / matrix** | Rows × columns, a mark in every cell, words only in headers | **Any comparison**: sites, questions, sources, options |
+| **Root profile** | Our signature compare: one trunk per site, one root per question | Comparing candidate sites (§6) |
+| **Rail** | Numbered dots on one line, a word under each | Steps, lifecycles, the keywords (G06) |
+| **Contact sheet** | Even grid of images or icons, no captions | Icons, photos, field evidence |
+| **Motif wall** | The texture or pattern repeated, almost no words | Moods, dividers, "this is the brand" moments |
+| **Type field** | The words *are* the visual: 2–3 huge words, one accent | Voice, a claim, a big number |
+| **Duel** | Two things side by side, same scale | Reported vs mapped, before vs after, do vs don't |
+| **Surface** | The real UI in use | "How it works", product slides |
+
+**Don't explain → show:**
+
+| Instead of writing… | Show… |
+|---|---|
+| "Site E's sources disagree about whether it is open for restoration." | A compare table: Site E's ground cell has a red ◆ and "Active fishpond". |
+| "Supported means the sources agree." | A ● Canopy chip with "2 sources" beside it. |
+| "The report claims 8 ha but only 5 ha were mapped." | A duel: **8** vs **5**, a red mark, two mono source labels. |
+| "Our palette is inspired by the coast…" | A band stack of the colors with their names. |
+| "First you compare, then lock, then check." | A rail: three numbered dots, one word each, the brand icons. |
+| "This evidence item is from Sentinel-2, observed 28 Sep 2026, 10 m resolution." | A mono meta line: `Sentinel-2 · 28 Sep 2026 · 10 m`. |
+| A paragraph about what the brand means | A motif wall or a drench. Nothing else. |
+
+**What stays as words:** the funder's own rationale and known unknowns (that is user content), limitations, the record disclaimer, and errors. Sources and dates never disappear; they become small mono labels instead of sentences.
+
+**In the product:**
+
+- **Compare** = root profile + a table (sites as columns, the three questions as rows, a status chip in each cell). Never paragraphs per site.
+- **Site dossier** = three rows: question · mark · finding · source count. Evidence items as a list of mono meta lines.
+- **Record** = the Waterline split: the promise above, the two checks below as chips, the timeline as a rail.
+- **Map** = pins carry the state; the legend is three marks with one word each.
+
+---
+
 ## 1. The idea in one line
 
 **Above the waterline is the promise. Below it is the evidence.**
@@ -319,16 +368,16 @@ Full generation prompts and rules: **`brand/IMAGERY.md`**. Summary:
 
 16:9, 1920×1080. Eight templates, all built on the Waterline. PNG exports live in `brand/slides/` so agents without Figma access can see them; re-export when Figma changes.
 
-| # | Template | Ground | Layout |
-|---|---|---|---|
-| T01 | Title | Night Roots | Mark + wordmark top left, two-line title above the waterline with one Propagule italic word, mono presenter · team · date just below it. |
-| T02 | Section | Canopy Contours | Mono eyebrow, section title in Mist Newsreader with one Propagule italic word, faint ghost mark right. No "01 / 02" numerals. |
-| T03 | Statement | Survey Tide | Eyebrow, one-sentence statement with one Tidal italic word, boxed `[R##]` + source line below the tide waterline. |
-| T04 | Claim and evidence | Mist | Claim in Newsreader, Waterline, 2–4 evidence columns (Root rule, mono `[R##] · type · year`, one sentence). |
-| T05 | Compare · Root profile | Mist | See §6 Root profile. |
-| T06 | Big number | Night Roots | Eyebrow, Newsreader number, one-line descriptor right, mono citation line below the waterline. |
-| T07 | Follow-through | Mist | Promise (Tidal label) above the Waterline, the work check below (Root label) with its status chip, and a reported vs mapped area bar. |
-| T08 | Closing | Canopy Contours | Mark, tagline with Propagule italic word, mono contact line. |
+| # | Template | Ground | Device (§0) | Layout |
+|---|---|---|---|---|
+| T01 | Title | Night Roots | Drench | Mark + wordmark top left, two-line title above the waterline with one Propagule italic word, mono presenter · team · date just below it. |
+| T02 | Section | Canopy Contours | Drench | Mono eyebrow, section title in Mist Newsreader with one Propagule italic word, faint ghost mark right. No "01 / 02" numerals. |
+| T03 | Statement | Survey Tide | Type field | Eyebrow, one-sentence statement with one Tidal italic word, boxed `[R##]` + source line below the tide waterline. |
+| T04 | Claim and evidence | Mist | Type field + columns | Claim in Newsreader, Waterline, 2–4 evidence columns (Root rule, mono `[R##] · type · year`, one sentence). |
+| T05 | Compare · Root profile | Mist | Root profile | See §6 Root profile. |
+| T06 | Big number | Night Roots | Duel | Eyebrow, Newsreader number, one-line descriptor right, mono citation line below the waterline. |
+| T07 | Follow-through | Mist | Duel | Promise (Tidal label) above the Waterline, the work check below (Root label) with its status chip, and a reported vs mapped area bar. |
+| T08 | Closing | Canopy Contours | Drench | Mark, tagline with Propagule italic word, mono contact line. |
 
 Footer on every slide: logo mark left, source citations right in Plex Mono Brackish. Max 25 words of body per slide. Margins 120px. On the web these become page sections: see `brand/WEB.md`.
 
@@ -347,6 +396,8 @@ Footer on every slide: logo mark left, source citations right in Plex Mono Brack
 
 ## 13. Quick checklist before you ship a screen
 
+- [ ] Passes the glance test (§0): blurred, it still reads; headline ≤ 8 words, blocks ≤ 20; comparisons are tables or the root profile, not paragraphs.
+- [ ] Built on one named device from §0.
 - [ ] Only tokens from `tokens.css`; no raw hex.
 - [ ] Three fonts max, roles respected.
 - [ ] Uses the seven keywords and the status words, no banned words.
