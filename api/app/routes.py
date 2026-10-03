@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
+import anyio
+
 from fastapi import APIRouter, Query
 from fastapi.responses import JSONResponse, Response
 
@@ -73,6 +75,8 @@ def gmw_extent(year: int | None = Query(default=None)) -> dict[str, Any]:
 
 # API-024 responses are public map data; any origin may read them (ADR-049), e.g. a local fixtures-mode web app.
 _TILE_CORS = {"Access-Control-Allow-Origin": "*"}
+# Tile work gets its own few threads, so queued tiles never take the threads every other route needs (ADR-052).
+_TILE_THREADS = anyio.CapacityLimiter(4)
 
 
 @router.get("/layers/gmw-extent/tiles", summary="API-024 Philippines mangrove extent tiles: years and URL template")
@@ -81,8 +85,8 @@ async def gmw_extent_tiles_info() -> JSONResponse:
 
 
 @router.get("/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", summary="API-024 one 256 px mangrove extent tile")
-def gmw_extent_tile(year: int, z: int, x: int, y: int) -> Response:
-    png = gmw_tiles.tile_png(year, z, x, y)
+async def gmw_extent_tile(year: int, z: int, x: int, y: int) -> Response:
+    png = await anyio.to_thread.run_sync(gmw_tiles.tile_png, year, z, x, y, limiter=_TILE_THREADS)
     return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800", **_TILE_CORS})
 
 
@@ -92,8 +96,8 @@ async def gmw_change_tiles_info() -> JSONResponse:
 
 
 @router.get("/layers/gmw-change/tiles/{base}/{year}/{z}/{x}/{y}.png", summary="API-025 one 256 px mangrove gain/loss tile")
-def gmw_change_tile(base: int, year: int, z: int, x: int, y: int, only: str | None = Query(default=None)) -> Response:
-    png = gmw_tiles.change_tile_png(base, year, z, x, y, only)
+async def gmw_change_tile(base: int, year: int, z: int, x: int, y: int, only: str | None = Query(default=None)) -> Response:
+    png = await anyio.to_thread.run_sync(gmw_tiles.change_tile_png, base, year, z, x, y, only, limiter=_TILE_THREADS)
     return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800", **_TILE_CORS})
 
 
