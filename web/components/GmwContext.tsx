@@ -33,9 +33,12 @@ function num(v: number, digits: number): string {
   return v.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
+/** Units spelled out for readers: "ha" → "hectares". */
+const unitWord = (u: string) => (u === "ha" ? "hectares" : u);
+
 function fmt(m: Measure | null | undefined, digits = 1, approx = true): string {
   if (!m) return "—";
-  return `${approx && m.confidence === "medium" ? "approx. " : ""}${num(Number(m.value), digits)} ${m.unit}`;
+  return `${approx && m.confidence === "medium" ? "approx. " : ""}${num(Number(m.value), digits)} ${unitWord(m.unit)}`;
 }
 
 /** Plain value for table cells; the column header carries the EQ id and confidence. */
@@ -167,7 +170,7 @@ function SiteTrend({
           <path className="gmw-line gmw-line--inside" d={path("inside")} />
           <line className="gmw-waterline" x1={PAD.l} x2={W - PAD.r} y1={y(0)} y2={y(0)} />
           <text className="gmw-axis" x={PAD.l - 6} y={y(0) + 4} textAnchor="end">
-            0 ha
+            0 hectares
           </text>
           {ticks.map((v) => (
             <text key={v} className="gmw-axis" x={x(v)} y={H - 6} textAnchor={v === last.year ? "end" : v === first.year ? "start" : "middle"}>
@@ -257,7 +260,7 @@ export function CountryCard({ c }: { c: CountryContext }) {
   const net = bars.map((r, i) => `${i ? "L" : "M"}${(bx(i) + bw / 2).toFixed(1)},${(mid - by(r.net!.value)).toFixed(1)}`).join("");
   const summary =
     `${c.name}: ${fmt(row.extent, 0)} of mangrove in ${row.year} (95% range ${row.extent.lower.toLocaleString("en-US", { maximumFractionDigits: 0 })}–` +
-    `${row.extent.upper.toLocaleString("en-US", { maximumFractionDigits: 0 })} ha); yearly gains and losses since ${bars[0]?.year}.`;
+    `${row.extent.upper.toLocaleString("en-US", { maximumFractionDigits: 0 })} hectares); yearly gains and losses since ${bars[0]?.year}.`;
 
   return (
     <section className="mg-card gmw-card">
@@ -268,7 +271,7 @@ export function CountryCard({ c }: { c: CountryContext }) {
       <div className="gmw-specimen">
         <strong>{fmt(row.extent, 0)}</strong>
         <span className="mg-mono">
-          {row.extent.lower.toLocaleString("en-US", { maximumFractionDigits: 0 })}–{row.extent.upper.toLocaleString("en-US", { maximumFractionDigits: 0 })} ha · 95%
+          {row.extent.lower.toLocaleString("en-US", { maximumFractionDigits: 0 })}–{row.extent.upper.toLocaleString("en-US", { maximumFractionDigits: 0 })} hectares · 95%
         </span>
         <Cite m={row.extent} />
       </div>
@@ -276,7 +279,7 @@ export function CountryCard({ c }: { c: CountryContext }) {
         <span className="stat-label">Since {base.year}</span> <strong>
           {since.confidence === "medium" ? "approx. " : ""}
           {since.value >= 0 ? "+" : "−"}
-          {num(Math.abs(since.value), 0)} {since.unit}
+          {num(Math.abs(since.value), 0)} {unitWord(since.unit)}
         </strong>{" "}
         <Cite m={since} />
       </p>
@@ -339,7 +342,7 @@ export function CountryCard({ c }: { c: CountryContext }) {
           <span>
             <i className="gmw-key gmw-key--net" /> Net
           </span>
-          <span className="mg-mono">ha / year · EQ-016</span>
+          <span className="mg-mono">hectares per year · EQ-016</span>
         </figcaption>
       </figure>
 
