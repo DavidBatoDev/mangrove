@@ -19,16 +19,7 @@ NEGATIVE: no gradients, no shading, no 3D, no photorealism, no thin technical li
 
 ## 2. Marker illustrations (no mascot)
 
-We don't use a mascot. Spot illustrations are **hand-drawn marker drawings** of the coast: a bold confident outline, a pale fill, one or two quick white highlight streaks, and a single chartreuse pop. Source files: `brand/illustration/marker-*.svg` (regenerate with `node brand/scripts/marker.js`); Figma components in "Illustration · marker set".
-
-| Drawing | From | Use |
-|---|---|---|
-| `marker-sprig` | the chartreuse leaves on stems | empty states, "add evidence" |
-| `marker-sapling` | the young tree on stilt roots in water | success, onboarding, deck covers |
-| `marker-tangle` | the root tangle by the channel | "evidence" sections, loading |
-| `marker-propagule` | the hanging seed pod | 404, "start here", new candidate site |
-| `marker-channel` | the turquoise water between roots | hydrology, maps, section dividers |
-| `marker-shoreline` | hills, tide lines, saplings | about, closing slides, social |
+We don't use a mascot. Spot illustrations are **hand-drawn marker drawings** of the coast: a bold confident outline, a pale fill, one or two quick white highlight streaks, and a single chartreuse pop. No illustration files ship in the repo; when a screen needs one, generate it from the Style Block above.
 
 Rules:
 - Ink: leaf green `#2F6B3A` for plants, Prop Root `#7A4E33` for roots and trunks, Tidal `#2B8C86` for water, Haze `#9DA6C6` for hills. Stroke about 7-9% of the subject size, round caps, slightly uneven.

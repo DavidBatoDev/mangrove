@@ -358,7 +358,7 @@ Style: **24px grid, 1.75px stroke, round caps and joins, no fills** (except conf
 Full generation prompts and rules: **`brand/IMAGERY.md`**. Summary:
 
 - **Photography:** real mangroves, eye-level at the waterline, roots visible. Soft morning or hazy light. Never stock-photo hands-holding-seedling, never drone shots without the roots.
-- **Illustration: hand-drawn marker, no mascot.** Bold marker outlines, pale fills, white highlight streaks and one chartreuse pop, drawn from the coast: leaf sprigs, saplings, roots, channels, propagules (`brand/illustration/marker-*.svg`). For empty states, onboarding, 404s, decks and social; never on a record, dossier or comparison.
+- **Illustration: hand-drawn marker, no mascot.** Bold marker outlines, pale fills, white highlight streaks and one chartreuse pop, drawn from the coast: leaf sprigs, saplings, roots, channels, propagules. For empty states, onboarding, 404s, decks and social; never on a record, dossier or comparison.
 
 ---
 

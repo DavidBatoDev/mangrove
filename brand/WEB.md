@@ -7,7 +7,7 @@
 
 ## 1. Start here (in this order)
 
-1. **Look at the target.** `brand/slides/T01–T08` are the deck templates (1920×1080 exports from Figma). `G01–G12` are the brand guideline slides. G09 (icons) and G11 (illustration) are left out on purpose while those are still changing; use `brand/icons/` and `brand/illustration/` directly. If a slide ever disagrees with `BRAND.md`, `BRAND.md` wins.
+1. **Look at the target.** `brand/slides/T01–T08` are the deck templates (1920×1080 exports from Figma). `G01–G12` are the brand guideline slides. G09 (icons) and G11 (illustration) are left out on purpose while those are still changing; use `brand/icons/` directly, and generate illustrations from `brand/IMAGERY.md`. If a slide ever disagrees with `BRAND.md`, `BRAND.md` wins.
 2. **Copy the starter.** `brand/starter.html` is a full page built only from `mangrove.css`, one section per deck template. Copy its sections; replace the copy; don't restyle.
 3. **Use the component classes.** `brand/mangrove.css` imports `tokens.css`. If you need something it lacks, add it to `mangrove.css` (so all four features get it), never as one-off styles in your feature.
 4. **Ship the assets with the page.** Copy the whole `brand/` folder into your static directory (`public/brand/` in Next.js or Vite). `mangrove.css` uses relative URLs for textures, so they resolve wherever the folder lives. Don't copy single files out of it.
