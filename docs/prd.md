@@ -333,7 +333,8 @@ See [`idea.md` §10](../idea.md) for scope exclusions. Rejected features are `Wo
 - Global Mangrove Watch v4.1.12 extent stack, downloaded before ingest [R31].
 - Amazon Quick access with MCP integration enabled (requires an Enterprise subscription per AWS docs) [R35].
 - A public HTTPS URL for the MCP endpoint (Quick connects to remote servers only) [R35].
-- Basemap tiles for MapLibre: EOxCloudless 2016 (`https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/{z}/{y}/{x}.jpg`, CC BY 4.0; attribution "EOxCloudless https://cloudless.eox.at by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016)"). Later vintages are CC BY-NC-SA and are not used.
+- Display map: Google Maps JavaScript API (2D satellite; 3D site and record views) when a browser key is configured, for display only; no evidence, measurement or status comes from Google imagery (ADR-046). Without a key, the fallback below.
+- Basemap tiles for MapLibre (the fallback): EOxCloudless 2016 (`https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/{z}/{y}/{x}.jpg`, CC BY 4.0; attribution "EOxCloudless https://cloudless.eox.at by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016)"). Later vintages are CC BY-NC-SA and are not used.
 - 3–5 demo site polygons and their demo field evidence, authored by the team.
 
 **Open questions**

@@ -85,3 +85,16 @@
   .map-legend { position: static; width: auto; margin: var(--mg-space-3); box-shadow: none; }
   .settings { position: fixed; top: calc(var(--header-h) + 8px); left: 8px; width: calc(100vw - 16px); padding: var(--mg-space-5); }
 }
+
+/* Google 2D view (components/GoogleMapView.tsx) */
+.map-shell .map-shell-map.gmap { position: absolute; inset: 0; }
+.gmap { position: relative; overflow: hidden; }
+.gmap-canvas { position: absolute; inset: 0; }
+.gmap-note { position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); z-index: 1; pointer-events: none;
+  font: 600 11px/1.3 var(--mg-font-body); color: var(--mg-mist); background: color-mix(in srgb, var(--mg-night) 70%, transparent);
+  padding: 3px 8px; border-radius: var(--mg-radius-sm); white-space: nowrap; }
+.map-shell .gmap-note { left: auto; right: 92px; bottom: auto; top: 12px; transform: none; }
+@media (max-width: 800px) { .map-shell .map-shell-map.gmap { position: relative; inset: auto; height: 60vh; } }
+.map-btn.is-on { background: var(--mg-tidal); color: var(--mg-mist); border-color: var(--mg-tidal); }
+.globe3d { position: absolute; inset: 0; z-index: 1; background: var(--mg-night); }
+.globe3d .gmap-note { left: auto; right: 92px; top: 12px; transform: none; bottom: auto; }

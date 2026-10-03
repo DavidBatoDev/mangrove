@@ -12,7 +12,8 @@ import { BrandIcon, ICON_PROPS, QuestionIcon, SourceIcon, StatTile } from "@/com
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
 import { ACTION_LABELS, findingLabel, formatDate, formatMeasure } from "@/lib/format";
-import type { Measure } from "@/lib/types";
+import type { Measure, PinState } from "@/lib/types";
+import Site3DView, { toneFromPin } from "@/components/Site3DView";
 
 const EOX_URL =
   process.env.NEXT_PUBLIC_BASEMAP_URL || "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/{z}/{y}/{x}.jpg";
@@ -52,6 +53,23 @@ function SiteImagery({ lon, lat }: { lon: number; lat: number }) {
   );
 }
 
+/** 3D fly-in to the selected site when Google is available; the EOx satellite crop otherwise. */
+function PlaceHero3D({ siteId, pin, lonLat }: { siteId?: string; pin: PinState; lonLat: [number, number] }) {
+  const site = useApi(() => (siteId ? api.getSite(siteId) : Promise.resolve(null)), [siteId]);
+  const fallback = <SiteImagery lon={lonLat[0]} lat={lonLat[1]} />;
+  if (!site.data) return fallback;
+  return (
+    <Site3DView
+      className="place-imagery place-3d"
+      geometry={site.data.site.geometry}
+      tone={toneFromPin(pin)}
+      motion="flyin"
+      label={`3D view of ${site.data.site.name}`}
+      fallback={fallback}
+    />
+  );
+}
+
 export default function PlaceCard({
   recordId,
   lonLat,
@@ -82,7 +100,11 @@ export default function PlaceCard({
         <button type="button" className="place-back" onClick={onBack} aria-label="Back to all records">
           <ArrowLeft {...ICON_PROPS} size={20} />
         </button>
-        <SiteImagery lon={lonLat[0]} lat={lonLat[1]} />
+        {r.data ? (
+          <PlaceHero3D siteId={(r.data.record.snapshot as { site_id?: string }).site_id} pin={r.data.pin_state} lonLat={lonLat} />
+        ) : (
+          <SiteImagery lon={lonLat[0]} lat={lonLat[1]} />
+        )}
       </div>
 
       {r.loading && <Loading what="Loading record" />}

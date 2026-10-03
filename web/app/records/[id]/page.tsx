@@ -9,6 +9,8 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import AnswerBlock from "@/components/AnswerBlock";
 import EvidenceCard from "@/components/EvidenceCard";
+import SiteHero3D from "@/components/SiteHero3D";
+import { toneFromPin } from "@/components/Site3DView";
 import { useSession } from "@/components/session";
 import { DemoLabel, Disclaimer, ErrorBox, Loading, PinLabel, StatusBadge } from "@/components/ui";
 import { AreaBar, BrandIcon, CheckTimeline, EmptyArt, ICON_PROPS, IconBadge, QuestionIcon, SourceIcon, StatTile } from "@/components/visual";
@@ -139,6 +141,8 @@ export default function RecordPage() {
       <p className="meta">
         <Link href="/">← Public map</Link>
       </p>
+
+      {snap.site_id && <SiteHero3D siteId={snap.site_id} tone={toneFromPin(pin_state)} motion="orbit" />}
 
       {/* Above the waterline: the promise */}
       <span className="mg-eyebrow">
