@@ -1,0 +1,151 @@
+/* Mangrove design tokens. Import once at the app root.
+   Spec: brand/BRAND.md. Never use raw hex in components; use these. */
+
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=Schibsted+Grotesk:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  /* Primary */
+  --mg-canopy: #173A2E;
+  --mg-tidal: #2B8C86;
+  --mg-tidal-ink: #1F6E69;      /* Tidal for small text on light */
+
+  /* Secondary */
+  --mg-propagule: #C8D545;
+  --mg-root: #7A4E33;
+  --mg-haze: #B7BFD9;
+
+  /* Neutrals (brackish) */
+  --mg-ink: #0E1A17;
+  --mg-mudflat: #34413D;
+  --mg-brackish: #6B7974;
+  --mg-saltmarsh: #C5CEC9;
+  --mg-tideline: #E4EAE6;
+  --mg-mist: #F4F7F5;
+  --mg-night: #0B1714;
+
+  /* Semantic */
+  --mg-conflict: #B4462F;       /* ONLY for a conflict (pin_state = conflict, conflicting status). Nothing else is red. */
+  --mg-caution: #C99A2E;
+  --mg-ok: #2E7D4F;
+  --mg-caution-ink: #7C5E17;    /* Caution for text on light (form errors, failed live source) */
+
+  /* Fixed-dark grounds (Night Roots / Canopy Contours bands stay dark in both themes) */
+  --mg-on-dark-text: #E4EAE6;
+  --mg-on-dark-heading: #F4F7F5;
+  --mg-on-dark-muted: #93A29C;
+  --mg-tidal-lift: #4DB3AB;
+  --mg-root-lift: #B07F5E;
+  --mg-night-grid: #1A2E29;
+  --mg-mud: #D9CFC3;            /* bottom of the root-profile ground gradient (BRAND.md §6) */
+
+  /* Roles (components use these) */
+  --mg-bg: var(--mg-mist);
+  --mg-surface: #FFFFFF;
+  --mg-surface-sunk: var(--mg-tideline);
+  --mg-text: var(--mg-ink);
+  --mg-text-muted: var(--mg-brackish);
+  --mg-heading: var(--mg-canopy);
+  --mg-border: var(--mg-saltmarsh);
+  --mg-link: var(--mg-tidal-ink);
+  --mg-focus: var(--mg-tidal);
+  --mg-waterline: var(--mg-tidal);
+  --mg-btn-primary-bg: var(--mg-canopy);
+  --mg-btn-primary-fg: var(--mg-mist);
+  --mg-highlight: var(--mg-propagule);
+  --mg-highlight-fg: var(--mg-canopy);
+
+  /* Status (BR-001): what the evidence says together */
+  --mg-status-supported: var(--mg-canopy);
+  --mg-status-conflicting: var(--mg-conflict);
+  --mg-status-missing: var(--mg-brackish);
+  --mg-status-too-early: var(--mg-mudflat);
+
+  /* Confidence (docs/methods.md §2): how exact a number is */
+  --mg-conf-high: var(--mg-canopy);
+  --mg-conf-medium: var(--mg-tidal);
+  --mg-conf-low: var(--mg-root);
+
+  /* Pin states (BR-004) */
+  --mg-pin-conflict: var(--mg-conflict);
+  --mg-pin-awaiting: var(--mg-brackish);
+  --mg-pin-on-track: var(--mg-tidal);
+
+  /* Type */
+  --mg-font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --mg-font-body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mg-font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --mg-text-display: 4rem;   /* 64 */
+  --mg-text-h1: 3rem;        /* 48 */
+  --mg-text-h2: 2.25rem;     /* 36 */
+  --mg-text-h3: 1.5rem;      /* 24 */
+  --mg-text-h4: 1.125rem;    /* 18 */
+  --mg-text-body: 1rem;      /* 16 */
+  --mg-text-small: 0.875rem; /* 14 */
+  --mg-text-label: 0.75rem;  /* 12 */
+
+  /* Space, shape, motion */
+  --mg-space-1: 4px;  --mg-space-2: 8px;  --mg-space-3: 12px; --mg-space-4: 16px;
+  --mg-space-5: 24px; --mg-space-6: 32px; --mg-space-7: 48px; --mg-space-8: 64px; --mg-space-9: 96px;
+  --mg-radius-sm: 4px;
+  --mg-radius-md: 8px;
+  --mg-shadow: 0 1px 2px rgba(14, 26, 23, .06), 0 8px 24px rgba(14, 26, 23, .10);
+  --mg-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --mg-dur-ui: 240ms;
+  --mg-dur-reveal: 720ms;
+  --mg-grid-size: 32px; /* survey grid texture */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --mg-tidal: #4DB3AB;
+    --mg-tidal-ink: #6CC4BC;
+    --mg-root: #B07F5E;
+    --mg-haze: #3A4260;
+    --mg-bg: var(--mg-night);
+    --mg-surface: #13231F;
+    --mg-surface-sunk: #1A2E29;
+    --mg-text: #E4EAE6;
+    --mg-text-muted: #93A29C;
+    --mg-heading: #F4F7F5;
+    --mg-border: #2A3D37;
+    --mg-btn-primary-bg: var(--mg-propagule);
+    --mg-btn-primary-fg: var(--mg-night);
+    --mg-status-supported: #E4EAE6;
+    --mg-status-missing: #93A29C;
+    --mg-status-too-early: #93A29C;
+    --mg-conf-high: #E4EAE6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --mg-tidal: #4DB3AB;
+  --mg-tidal-ink: #6CC4BC;
+  --mg-root: #B07F5E;
+  --mg-haze: #3A4260;
+  --mg-bg: var(--mg-night);
+  --mg-surface: #13231F;
+  --mg-surface-sunk: #1A2E29;
+  --mg-text: #E4EAE6;
+  --mg-text-muted: #93A29C;
+  --mg-heading: #F4F7F5;
+  --mg-border: #2A3D37;
+  --mg-btn-primary-bg: var(--mg-propagule);
+  --mg-btn-primary-fg: var(--mg-night);
+  --mg-status-supported: #E4EAE6;
+  --mg-status-missing: #93A29C;
+  --mg-status-too-early: #93A29C;
+  --mg-conf-high: #E4EAE6;
+  color-scheme: dark;
+}
+
+/* Tailwind v4: map tokens into the theme
+@theme inline {
+  --color-canopy: var(--mg-canopy);   --color-tidal: var(--mg-tidal);
+  --color-propagule: var(--mg-propagule); --color-root: var(--mg-root); --color-haze: var(--mg-haze);
+  --color-ink: var(--mg-ink); --color-mudflat: var(--mg-mudflat); --color-brackish: var(--mg-brackish);
+  --color-saltmarsh: var(--mg-saltmarsh); --color-tideline: var(--mg-tideline); --color-mist: var(--mg-mist);
+  --color-conflict: var(--mg-conflict); --color-caution: var(--mg-caution); --color-ok: var(--mg-ok);
+  --font-display: var(--mg-font-display); --font-sans: var(--mg-font-body); --font-mono: var(--mg-font-mono);
+}
+*/

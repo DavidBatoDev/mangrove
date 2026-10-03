@@ -1,0 +1,165 @@
+{
+  "record": {
+    "id": "00000000-0000-4000-8000-0000000001a0",
+    "funder": {
+      "name": "Demo Coastal Fund",
+      "is_demo": true
+    },
+    "published_at": "2026-10-01T09:00:00Z",
+    "rationale": "Dike-enclosed ponds next to a large mapped mangrove stand; tidal exchange looks restorable. (Demo text.)",
+    "planned_action": "natural_regeneration",
+    "planned_action_detail": "Open pond dikes at two points to restore tidal flow and let propagules arrive from the adjacent stand. (Demo text.)",
+    "planned_area_ha": {
+      "value": 10.0,
+      "unit": "ha",
+      "eq_id": null,
+      "confidence": "high"
+    },
+    "expected_outcome": "Natural mangrove recruitment across the opened ponds. (Demo text.)",
+    "expected_vegetated_ha": {
+      "value": 7.0,
+      "unit": "ha",
+      "eq_id": null,
+      "confidence": "high"
+    },
+    "work_check_after": "2027-04-01",
+    "outcome_check_after": "2029-10-01",
+    "known_unknowns": "Current pond lease status; sediment level inside the ponds. (Demo text.)",
+    "snapshot": {
+      "site_id": "00000000-0000-4000-8000-0000000000a0",
+      "site_name": "Macabebe bayfront ponds east of Bangkung Malapad",
+      "site_answers": [
+        {
+          "question": "history",
+          "label": "Was this mangrove before?",
+          "status": "supported",
+          "finding": "mangrove_recorded",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000103"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "current",
+          "label": "What's there now?",
+          "status": "supported",
+          "finding": "mostly_water",
+          "source_count": {
+            "value": 1,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "disagreeing_evidence_ids": []
+        },
+        {
+          "question": "ground",
+          "label": "What do people on the ground say?",
+          "status": "supported",
+          "finding": "open_for_restoration",
+          "source_count": {
+            "value": 2,
+            "unit": "items",
+            "eq_id": "EQ-013",
+            "confidence": "high"
+          },
+          "evidence_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000100"
+          ],
+          "disagreeing_evidence_ids": []
+        }
+      ],
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000102",
+        "00000000-0000-4000-8000-000000000101",
+        "00000000-0000-4000-8000-000000000100",
+        "00000000-0000-4000-8000-000000000103"
+      ]
+    },
+    "content_hash": "a47bcd735b5d4183d4f11d31e953f0b40b15534de5173fcdd54d59ecbe56954f"
+  },
+  "checks": [
+    {
+      "check": "work",
+      "label": "Did the work happen?",
+      "status": "missing",
+      "finding": null,
+      "reported_area": null,
+      "measured_area": null,
+      "area_conflict": null,
+      "evidence_ids": []
+    },
+    {
+      "check": "outcome",
+      "label": "Did the mangroves come back?",
+      "status": "too_early",
+      "checkable_from": "2029-10-01",
+      "finding": null,
+      "evidence_ids": []
+    }
+  ],
+  "site_answers": [
+    {
+      "question": "history",
+      "label": "Was this mangrove before?",
+      "status": "supported",
+      "finding": "mangrove_recorded",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000103"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "current",
+      "label": "What's there now?",
+      "status": "supported",
+      "finding": "mostly_water",
+      "source_count": {
+        "value": 1,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000102"
+      ],
+      "disagreeing_evidence_ids": []
+    },
+    {
+      "question": "ground",
+      "label": "What do people on the ground say?",
+      "status": "supported",
+      "finding": "open_for_restoration",
+      "source_count": {
+        "value": 2,
+        "unit": "items",
+        "eq_id": "EQ-013",
+        "confidence": "high"
+      },
+      "evidence_ids": [
+        "00000000-0000-4000-8000-000000000101",
+        "00000000-0000-4000-8000-000000000100"
+      ],
+      "disagreeing_evidence_ids": []
+    }
+  ],
+  "timeline": [],
+  "pin_state": "awaiting",
+  "disclaimer": "This record is not a certification of restoration success or approval of funding."
+}
