@@ -263,7 +263,7 @@ export function CountryCard({ c }: { c: CountryContext }) {
     `${row.extent.upper.toLocaleString("en-US", { maximumFractionDigits: 0 })} hectares); yearly gains and losses since ${bars[0]?.year}.`;
 
   return (
-    <section className="mg-card gmw-card">
+    <section className="mg-card gmw-card" data-tour="mangrove">
       <div className="card-head">
         <BrandIcon name="baseline" /> <h2>{c.name} mangrove extent</h2>
       </div>
@@ -285,7 +285,7 @@ export function CountryCard({ c }: { c: CountryContext }) {
       </p>
 
       {change && (
-        <label className="gmw-switch">
+        <label className="gmw-switch" data-tour="gainloss">
           <input type="checkbox" role="switch" checked={change.on} onChange={(e) => change.set(e.target.checked)} />
           <span>Show gain and loss since {change.base} on the map</span>
         </label>

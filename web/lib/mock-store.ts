@@ -34,7 +34,6 @@ import type {
   PinsFC,
   RecordDetail,
   SitesFC,
-  User,
   VerifyResponse,
   CountryContext,
   GmwExtentLayer,
@@ -48,23 +47,8 @@ const STORE_KEY = "mangrove-mock-v4"; // bumped when the seeded fixtures change
 
 const PREVIEW = uiPreview as unknown as { dossiers: Dossier[]; records: RecordDetail[]; pins: PinsFC["features"] };
 const DOSSIERS: Dossier[] = [...([siteA, siteB, siteC, siteD, siteE, siteF1, siteF2, siteF3, siteF4] as unknown as Dossier[]), ...PREVIEW.dossiers];
-const USERS: Record<string, User> = {
-  "funder@demo.mangrove.test": {
-    id: "00000000-0000-4000-8000-000000000f01",
-    display_name: "Demo funder",
-    role: "funder",
-    org: { id: "00000000-0000-4000-8000-000000000f10", name: "Demo Coastal Fund", is_demo: true },
-  },
-  "partner@demo.mangrove.test": {
-    id: "00000000-0000-4000-8000-000000000f02",
-    display_name: "Demo partner",
-    role: "partner",
-    org: { id: "00000000-0000-4000-8000-000000000f20", name: "Demo Bayside Partners", is_demo: true },
-  },
-};
 
 interface MockState {
-  user: User | null;
   records: Record<string, RecordDetail>;
   pins: PinsFC["features"];
   addedEvidence: Record<string, Evidence[]>; // by site id
@@ -81,7 +65,6 @@ function initialState(): MockState {
   const pins = [...structuredClone((recordsFixture as unknown as PinsFC).features), ...structuredClone(PREVIEW.pins)];
   pins.sort((a, b) => b.properties.published_at.localeCompare(a.properties.published_at)); // newest first (API-010)
   return {
-    user: null,
     records: Object.fromEntries(seeded.map((r) => [r.record.id, r])),
     pins,
     addedEvidence: {},
@@ -197,31 +180,10 @@ function pinStateFor(detail: RecordDetail): PinState {
   return "on_track";
 }
 
-function requireUser(): User {
-  const u = load().user;
-  if (!u) throw new ApiError(401, "UNAUTHENTICATED", "Sign in first.");
-  return u;
-}
 
 // --- operations -----------------------------------------------------------
 
-export async function login(email: string, password: string): Promise<{ user: User }> {
-  await delay();
-  const user = USERS[email.trim().toLowerCase()];
-  if (!user || !password) throw new ApiError(401, "UNAUTHENTICATED", "Email or password is wrong.");
-  load().user = user;
-  save();
-  return { user };
-}
-
-export async function logout(): Promise<void> {
-  load().user = null;
-  save();
-}
-
-export async function me(): Promise<{ user: User }> {
-  return { user: requireUser() };
-}
+// No accounts in the public product (ADR-061): submitters type who they are.
 
 export async function listSites(): Promise<SitesFC> {
   await delay();
@@ -261,8 +223,8 @@ export async function verifyRecord(recordId: string): Promise<VerifyResponse> {
 
 export async function lockRecord(body: LockBody, idempotencyKey: string): Promise<LockResponse> {
   await delay(500);
-  const user = requireUser();
-  if (user.role !== "funder") throw new ApiError(403, "FORBIDDEN_ROLE", "Only a funder can lock a promise.");
+  const who = body.submitter;
+  if (!who?.name?.trim()) throw new ApiError(422, "VALIDATION_FAILED", "Your name is required.");
   const s = load();
   if (s.idempotency[idempotencyKey]) return s.idempotency[idempotencyKey];
   if (body.outcome_check_after <= body.work_check_after)
@@ -280,7 +242,8 @@ export async function lockRecord(body: LockBody, idempotencyKey: string): Promis
   const detail: RecordDetail = {
     record: {
       id,
-      funder: { name: user.org.name, is_demo: true },
+      funder: { name: who.organisation || who.name, is_demo: true },
+      locked_by: { name: who.name, organisation: who.organisation || null, role: who.role },
       published_at,
       rationale: body.rationale,
       planned_action: body.planned_action,
@@ -312,7 +275,7 @@ export async function lockRecord(body: LockBody, idempotencyKey: string): Promis
   s.pins.unshift({
     type: "Feature",
     geometry: { type: "Point", coordinates: coords },
-    properties: { id, site_name: dossier.site.name, funder: user.org.name, published_at, pin_state: detail.pin_state, is_demo: true },
+    properties: { id, site_name: dossier.site.name, funder: who.organisation || who.name, published_at, pin_state: detail.pin_state, is_demo: true },
   });
   const res: LockResponse = { id, url: `/records/${id}`, published_at, content_hash, is_demo: true };
   s.idempotency[idempotencyKey] = res;
@@ -322,16 +285,16 @@ export async function lockRecord(body: LockBody, idempotencyKey: string): Promis
 
 export async function submitEvidence(input: EvidenceInput): Promise<EvidenceResponse> {
   await delay(500);
-  const user = requireUser();
-  if (input.source_type === "field" && user.role !== "partner")
-    throw new ApiError(403, "FORBIDDEN_ROLE", "Field evidence is submitted by a partner.");
-  if (input.source_type === "project_report" && user.role !== "funder")
-    throw new ApiError(403, "FORBIDDEN_ROLE", "Project reports are submitted by a funder.");
-  if (input.question === "current") throw new ApiError(422, "VALIDATION_FAILED", "What's there now comes from satellite only.");
-  if (input.source_type === "field" && !input.point) throw new ApiError(422, "VALIDATION_FAILED", "Field evidence needs a GPS point.");
-  if (input.source_type === "project_report" && input.question === "work" && !(input.reported_area_ha && input.reported_area_ha > 0))
+  const who = input.submitter;
+  if (!who?.name?.trim()) throw new ApiError(422, "VALIDATION_FAILED", "Your name is required.");
+  // Same rule as the API (ADR-061): a funder's work report is a project report; everything else is a field observation.
+  const sourceType = who.role === "funder" && input.question === "work" ? "project_report" : "field";
+  if ((input.question as string) === "current") throw new ApiError(422, "VALIDATION_FAILED", "What's there now comes from satellite only.");
+  if (sourceType === "field" && !input.point) throw new ApiError(422, "VALIDATION_FAILED", "Field evidence needs a GPS point.");
+  if (sourceType === "project_report" && !(input.reported_area_ha && input.reported_area_ha > 0))
     throw new ApiError(422, "VALIDATION_FAILED", "A work report needs the reported area in ha.");
-  if (input.observed_at > new Date().toISOString().slice(0, 10))
+  // "Today" anywhere on Earth (UTC+14), as the API checks: a Manila morning is still yesterday in UTC.
+  if (input.observed_at > new Date(Date.now() + 14 * 3600_000).toISOString().slice(0, 10))
     throw new ApiError(422, "VALIDATION_FAILED", "The observation date cannot be in the future.");
 
   const s = load();
@@ -341,12 +304,12 @@ export async function submitEvidence(input: EvidenceInput): Promise<EvidenceResp
 
   const now = new Date().toISOString();
   const observed = `${input.observed_at}T00:00:00Z`;
-  const isField = input.source_type === "field";
+  const isField = sourceType === "field";
   const base = {
     id: crypto.randomUUID(),
     question: input.question,
-    source_type: input.source_type,
-    source_name: isField ? `Partner field visit (${user.org.name})` : `Project report (${user.org.name})`,
+    source_type: sourceType,
+    source_name: isField ? "Field observation" : "Project report",
     source_version: null,
     observed_from: observed,
     observed_to: observed,
@@ -364,7 +327,8 @@ export async function submitEvidence(input: EvidenceInput): Promise<EvidenceResp
     limitation: isField ? "One visit; device GPS accuracy unknown." : "Self-reported by the funder; not independently checked.",
     provenance_url: null,
     asset_url: null,
-    submitted_by_org: { name: user.org.name, is_demo: user.org.is_demo },
+    submitted_by_org: null,
+    submitted_by: { name: who.name, organisation: who.organisation || null, role: who.role },
     is_demo: true,
     reported_area_ha: input.reported_area_ha ?? null,
     boundary: input.boundary ?? null,

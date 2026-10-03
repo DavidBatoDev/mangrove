@@ -29,28 +29,25 @@ Security concerns that are still guesses go in [`prd.md` §7](prd.md).
 | public | Sites, evidence items, the public projection of a record (benefit text, timeline, milestones, photos with metadata stripped, checks, flag), organization names, hashes | Neon PostgreSQL; private S3 bucket (photos, ADR-037); API responses; MCP tool output | Kept indefinitely; append-only by design (BR-002). Never deleted through the product |
 | confidential | The funder-partner contract: agreement or MOA text, and consequence clauses. Not the public benefit sentence | Stored apart from the public projection ([`data-model.md`](data-model.md)). Not in public API responses. Not in MCP tool output | Kept with the record. Readable by the funder account and the partner account on that record. Never returned to the public or to Amazon Quick |
 | internal | User ids, roles, raw source responses (`evidence_item.raw`), idempotency keys, server logs, and the flag notice (recipient is the funder account; the notice body is the flag, not the contract) | PostgreSQL; host logs | Database: for the life of the demo deployment. Logs: deleted with the demo host `[assumption]` |
-| PII | Demo users' email and display name; any personal data that slips into a photo or note | `app_user`; potentially evidence photos/notes | Demo accounts only, deleted with the deployment. Personal data found in published evidence cannot be deleted through the product (§6 explains the guard and the residual risk) |
+| PII | A public submitter's **contact email** (ADR-061: stored for follow-up only; never returned by the API or MCP, never hashed, never displayed); any personal data that slips into a note. Submitter name, organisation and role are shown publicly by the submitter's choice | `app_user`; potentially evidence photos/notes | Demo accounts only, deleted with the deployment. Personal data found in published evidence cannot be deleted through the product (§6 explains the guard and the residual risk) |
 | secret | Copernicus OAuth client secret, session signing key, demo account passwords, database password | Host environment variables; password hashes in `app_user` | Never in the repo, docs, logs or client bundle; rotate after the event |
 
 [`data-model.md`](data-model.md) tags each field against these categories.
 
 ## 4. Authn / Authz Model
 
-**How identity is proven:** seeded accounts only (no sign-up). `API-001` verifies the password against an
-Argon2id hash `[assumption: library chosen at scaffold]` and sets a signed, `HttpOnly; Secure; SameSite=Lax`
-session cookie (the browser reaches the API on the same origin through the Next.js proxy). Every
-write handler checks session, then role, then ownership — in FastAPI dependencies, so the check cannot be
-forgotten in one handler.
+**How identity is proven:** it is not. The product has no accounts (ADR-061). Whoever adds evidence or locks a
+promise types a name, organisation and role, shown as self-declared; nothing is verified. Writes are protected by
+per-IP rate limits, a 32 KB body limit, one promise per site, an `Idempotency-Key` on locks, strict validation, and
+the append-only ledger (BR-002): a public write can add, never change or remove.
 
 | Surface | Who may call it | How identity is proven | Enforced where |
 |---------|-----------------|------------------------|----------------|
-| Web pages (`/`, site pages, record pages) | public for reads | — | — (read-only). Propose and commit stay signed-in |
+| Web pages (all) | public | — | No sign-in page; add evidence and lock a promise are open (ADR-061) |
 | `GET` sites, compare, records, verify, assets (API-004/005/006/010/011/013/014) | public. Every field on the unauthenticated response is classified public (§3). The confidential contract is omitted. The funder notice is omitted | — | Response models expose only public fields |
-| `POST /api/v1/auth/login` (API-001) | public | Email + password → session | API handler; rate limit |
-| `POST /auth/logout`, `GET /auth/me` (API-002/003) | signed in | Session cookie | API dependency |
 | `POST /sites/{id}/sentinel-refresh` (API-007) | role `funder` | Session cookie | API dependency (session + role) |
-| `POST /evidence` (API-008) | `partner` for `field`; `funder` for `project_report` | Session cookie | API dependency (session + role-by-source-type) |
-| `POST /records` (API-009) | role `funder` | Session cookie | API dependency; database stores `created_by_user_id`. Copies the partner proposal; does not accept a funder-written benefit |
+| `POST /evidence` (API-008) | public (ADR-061) | — (submitter self-declared) | Validation (vocabulary, dates, GeoJSON, lengths); 10 / hour per IP; 32 KB; INSERT-only through the ledger; email never read back |
+| `POST /records` (API-009) | public (ADR-061) | — (submitter self-declared) | Validation; 3 / hour per IP; one promise per site (advisory lock); `Idempotency-Key`; snapshot computed server-side; INSERT-only |
 | `POST /sites/{id}/proposal` (API-019) | role `partner` | Session cookie | API dependency (session + role) |
 | `GET /records/{id}/notice` (API-020) | role `funder` of the record's org | Session cookie | API dependency (session + role + org match). Body is the flag, not the contract |
 | `POST /records/{id}/corrections` (API-012) | role `funder` of the record's org | Session cookie | API dependency (session + role + org match) |
@@ -116,8 +113,8 @@ tokens, full request bodies of uploads.
 
 Milestone: the live demo / submission (Build Over Nights 2026, October 4). A failed line blocks it.
 
-- [ ] Every network-exposed surface declares auth/authz in §4 — no open write paths. — 2026-10-04
-      *Why: an unauthenticated write could publish a permanent false promise. Authority: FMD `ORCHESTRATOR.md` definition of done.*
+- [ ] Every network-exposed surface declares auth/authz in §4. The open write paths (API-008, API-009) are the ADR-061 exceptions, each rate-limited, validated and INSERT-only, and no read path returns the contact email. — 2026-10-04
+      *Why: an unauthenticated write can publish a permanent false claim; the limits bound it and the self-declared submitter is shown as such. Authority: FMD `ORCHESTRATOR.md` definition of done; ADR-061.*
 - [ ] No secret is committed; `.env` is git-ignored and only `.env.example` (names, no values) is in the repo. — 2026-10-04
       *Why: git history is permanent and public repos are scraped continuously. Authority: universal engineering practice.*
 - [ ] The system SHALL NEVER update or delete a row in `evidence_item`, `promise_record` or `record_event`: an `UPDATE` and a `DELETE` attempted as the app role both fail (TC-008). — 2026-10-04

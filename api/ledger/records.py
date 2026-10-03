@@ -31,7 +31,8 @@ def insert_evidence(conn: Connection, item: Mapping[str, Any]) -> dict[str, Any]
         "source_version": None, "location": None, "finding": None, "metrics": [],
         "spatial_resolution_m": None, "provenance_url": None, "asset_sha256": None, "asset_mime": None,
         "raw": None, "unusable_reason": None, "note": None, "submitted_by_user_id": None,
-        "submitted_by_org_id": None, "is_demo": True, "retrieved_at": ts, "created_at": ts,
+        "submitted_by_org_id": None, "submitter_name": None, "submitter_org": None, "submitter_role": None,
+        "contact_email": None, "is_demo": True, "retrieved_at": ts, "created_at": ts,
         **item,
     }
     row["id"] = row.get("id") or uuid4()
@@ -45,7 +46,8 @@ def insert_evidence(conn: Connection, item: Mapping[str, Any]) -> dict[str, Any]
           id, site_id, question, source_type, source_name, source_version, observed_from, observed_to,
           retrieved_at, location, finding, metrics, method, spatial_resolution_m, limitation,
           provenance_url, asset_sha256, asset_mime, raw, usable, unusable_reason, note,
-          submitted_by_user_id, submitted_by_org_id, is_demo, created_at, content_hash)
+          submitted_by_user_id, submitted_by_org_id, submitter_name, submitter_org, submitter_role, contact_email,
+          is_demo, created_at, content_hash)
         VALUES (
           %(id)s, %(site_id)s, %(question)s, %(source_type)s, %(source_name)s, %(source_version)s,
           %(observed_from)s, %(observed_to)s, %(retrieved_at)s,
@@ -54,6 +56,7 @@ def insert_evidence(conn: Connection, item: Mapping[str, Any]) -> dict[str, Any]
           %(finding)s, %(metrics)s, %(method)s, %(spatial_resolution_m)s, %(limitation)s,
           %(provenance_url)s, %(asset_sha256)s, %(asset_mime)s, %(raw)s, %(usable)s,
           %(unusable_reason)s, %(note)s, %(submitted_by_user_id)s, %(submitted_by_org_id)s,
+          %(submitter_name)s, %(submitter_org)s, %(submitter_role)s, %(contact_email)s,
           %(is_demo)s, %(created_at)s, %(content_hash)s)
         """,
         {**row, "location": _json(row["location"]), "metrics": Jsonb(row["metrics"]), "raw": _json(row["raw"])},
@@ -82,7 +85,8 @@ def build_snapshot(site: Mapping[str, Any], evidence: list[Mapping[str, Any]], a
 def create_record(conn: Connection, fields: Mapping[str, Any], snapshot: Mapping[str, Any],
                   idempotency_key: str, record_id: UUID | None = None) -> dict[str, Any]:
     """Publish a promise record with its EQ-011 content hash."""
-    row = {"is_demo": True, "expected_vegetated_ha": None, **fields,
+    row = {"is_demo": True, "expected_vegetated_ha": None, "funder_org_id": None, "created_by_user_id": None,
+           "funder_name": None, "funder_org": None, "funder_role": None, "contact_email": None, **fields,
            "snapshot": snapshot, "published_at": now_utc(), "id": record_id or uuid4()}
     row["content_hash"] = record_hash(row)
     conn.execute(
@@ -90,19 +94,21 @@ def create_record(conn: Connection, fields: Mapping[str, Any], snapshot: Mapping
         INSERT INTO promise_record (
           id, site_id, funder_org_id, created_by_user_id, rationale, planned_action, planned_action_detail,
           planned_area_ha, expected_outcome, expected_vegetated_ha, work_check_after, outcome_check_after,
-          known_unknowns, snapshot, idempotency_key, is_demo, published_at, content_hash)
+          known_unknowns, snapshot, idempotency_key, is_demo, published_at, content_hash,
+          funder_name, funder_org, funder_role, contact_email)
         VALUES (
           %(id)s, %(site_id)s, %(funder_org_id)s, %(created_by_user_id)s, %(rationale)s, %(planned_action)s,
           %(planned_action_detail)s, %(planned_area_ha)s, %(expected_outcome)s, %(expected_vegetated_ha)s,
           %(work_check_after)s, %(outcome_check_after)s, %(known_unknowns)s, %(snapshot)s,
-          %(idempotency_key)s, %(is_demo)s, %(published_at)s, %(content_hash)s)
+          %(idempotency_key)s, %(is_demo)s, %(published_at)s, %(content_hash)s,
+          %(funder_name)s, %(funder_org)s, %(funder_role)s, %(contact_email)s)
         """,
         {**row, "snapshot": Jsonb(row["snapshot"]), "idempotency_key": idempotency_key},
     )
     return row
 
 
-def append_event(conn: Connection, record_id: UUID | str, kind: str, created_by_user_id: UUID | str,
+def append_event(conn: Connection, record_id: UUID | str, kind: str, created_by_user_id: UUID | str | None,
                  evidence_item_id: UUID | str | None = None, body: Any = None) -> dict[str, Any]:
     """Extend a record's timeline: next gap-free seq, chained to the previous hash (EQ-011)."""
     # Serialize appends per record without needing UPDATE privilege (SELECT … FOR UPDATE would).
@@ -126,7 +132,8 @@ def append_event(conn: Connection, record_id: UUID | str, kind: str, created_by_
         "id": uuid4(), "record_id": UUID(str(record_id)), "seq": seq, "kind": kind,
         "evidence_item_id": UUID(str(evidence_item_id)) if evidence_item_id else None,
         "evidence_content_hash": evidence_content_hash, "body": body,
-        "created_by_user_id": UUID(str(created_by_user_id)), "created_at": now_utc(), "prev_hash": prev,
+        "created_by_user_id": UUID(str(created_by_user_id)) if created_by_user_id else None,  # None: public (ADR-061)
+        "created_at": now_utc(), "prev_hash": prev,
     }
     row["event_hash"] = event_hash(prev, row)
     conn.execute(

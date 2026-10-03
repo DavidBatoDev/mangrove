@@ -13,7 +13,6 @@ import ProgramCard from "@/components/ProgramCard";
 import { SiteNowPictures } from "@/components/SatellitePictures";
 import SiteHero3D from "@/components/SiteHero3D";
 import { toneFromPin } from "@/components/Site3DView";
-import { useSession } from "@/components/session";
 import { DemoLabel, Disclaimer, RealCaseLabel, ErrorBox, Loading, PinLabel, StatusBadge } from "@/components/ui";
 import { AreaBar, BrandIcon, CheckTimeline, EmptyArt, ICON_PROPS, IconBadge, QuestionIcon, SourceIcon, StatTile } from "@/components/visual";
 import { useApi } from "@/hooks/useApi";
@@ -101,7 +100,6 @@ function OutcomeCheck({ c }: { c: Check }) {
 
 export default function RecordPage() {
   const { id } = useParams<{ id: string }>();
-  const { user } = useSession();
   const r = useApi(() => api.getRecord(id), [id]);
   // The real Post-Yolanda records belong to a public program (API-026); its card sits above the promise.
   const program = useApi(() => api.programContext("mbfdp"), []);
@@ -166,9 +164,10 @@ export default function RecordPage() {
       <div className="record-hero">
         <div>
           <span className="mg-eyebrow mg-label--promise">
-            {record.is_demo ? (
+            {record.is_demo || record.locked_by ? (
               <>
                 <Lock {...ICON_PROPS} size={14} /> Promise · locked {formatDate(record.published_at)} by {record.funder.name}
+                {record.locked_by && record.locked_by.name !== record.funder.name ? ` (${record.locked_by.name})` : ""}
               </>
             ) : (
               <>
@@ -210,13 +209,11 @@ export default function RecordPage() {
         )}
         {outcome && <OutcomeCheck c={outcome} />}
       </div>
-      {user && (
-        <p style={{ marginTop: "var(--mg-space-5)" }}>
-          <Link className="mg-btn mg-btn--secondary" href={`/evidence/new?record=${record.id}`}>
-            <Plus {...ICON_PROPS} size={18} /> Add evidence to this record
-          </Link>
-        </p>
-      )}
+      <p style={{ marginTop: "var(--mg-space-5)" }}>
+        <Link className="mg-btn mg-btn--secondary" href={`/evidence/new?record=${record.id}`}>
+          <Plus {...ICON_PROPS} size={18} /> Add evidence to this record
+        </Link>
+      </p>
 
       <div className="record-grid">
         <section className="mg-card">

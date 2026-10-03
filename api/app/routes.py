@@ -1,4 +1,4 @@
-"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-025, 027, plus the BR-002 405s."""
+"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 007, 008, 009, 010, 011, 013, 016, 021-025, 027, plus the BR-002 405s."""
 
 from __future__ import annotations
 
@@ -8,10 +8,10 @@ from typing import Any
 
 import anyio
 
-from fastapi import APIRouter, Query, Request
+from fastapi import APIRouter, Header, Query, Request
 from fastapi.responses import JSONResponse, Response
 
-from . import assistant, gmw_tiles, reads
+from . import assistant, gmw_tiles, reads, sentinel, writes
 from .db import connection
 from .errors import envelope, not_found
 
@@ -39,6 +39,13 @@ def list_sites(region: str | None = Query(default=None)) -> dict[str, Any]:
 def site_dossier(site_id: str) -> dict[str, Any]:
     with connection() as conn:
         return reads.site_dossier(conn, site_id)
+
+
+@router.post("/sites/{site_id}/sentinel-refresh", status_code=201, summary="API-007 pull current condition from Sentinel-2")
+def sentinel_refresh(site_id: str) -> dict[str, Any]:
+    # AWS Open Data via Earth Search (ADR-042). Open like every write in the public product (ADR-061),
+    # protected by the per-site rate limit (docs/api.md §5).
+    return sentinel.refresh_site(site_id)
 
 
 @router.get("/compare", summary="API-006 side-by-side comparison")
@@ -126,6 +133,29 @@ def evidence_asset(sha256: str) -> Response:
         raise not_found()
     return Response(content=path.read_bytes(), media_type="image/png",
                     headers={"Cache-Control": "public, max-age=31536000, immutable"})
+
+
+# --- public writes, no accounts (ADR-061) ----------------------------------------------------------------
+MAX_BODY = 32 * 1024
+
+
+def _guard(request: Request, kind: str) -> None:
+    if int(request.headers.get("content-length") or 0) > MAX_BODY:
+        raise writes.ApiError(413, "PAYLOAD_TOO_LARGE", "The submission is too large")
+    writes.rate_limit(kind, writes.client_ip(request))
+
+
+@router.post("/evidence", status_code=201, summary="API-008 add evidence to a site or record (public)")
+def add_evidence(body: writes.EvidenceIn, request: Request) -> dict[str, Any]:
+    _guard(request, "evidence")
+    return writes.add_evidence(body)
+
+
+@router.post("/records", status_code=201, summary="API-009 lock a promise (public)")
+def lock_promise(body: writes.LockIn, request: Request,
+                 idempotency_key: str = Header(default="", alias="Idempotency-Key")) -> dict[str, Any]:
+    _guard(request, "lock")
+    return writes.lock_promise(body, idempotency_key)
 
 
 # BR-002: there is no PUT, PATCH or DELETE on evidence, records or timeline entries (docs/api.md §2).

@@ -1,6 +1,6 @@
 // Plain-language labels. Copy rules: docs/design-brief.md §4.
 
-import type { CheckStatus, Measure, PinState } from "@/lib/types";
+import type { CheckStatus, Measure, PinState, SubmitterRole } from "@/lib/types";
 
 const FINDINGS: Record<string, string> = {
   mangrove_recorded: "Mangrove recorded here before",
@@ -56,13 +56,16 @@ export const ACTION_LABELS: Record<string, string> = {
   other: "Other",
 };
 
+/** Units spelled out for readers: "ha" → "hectares". */
+export const unitWord = (u: string) => (u === "ha" ? "hectares" : u);
+
 export function formatMeasure(m: Measure | null | undefined): string {
   if (!m) return "—";
   const v =
     typeof m.value === "number"
       ? m.value.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: Number.isInteger(m.value) ? 0 : 2 })
       : String(m.value);
-  return m.unit === "items" ? v : `${v} ${m.unit}`;
+  return m.unit === "items" ? v : `${v} ${unitWord(m.unit)}`;
 }
 
 export function formatDate(ts: string | null | undefined): string {
@@ -96,3 +99,10 @@ export function snapshotSite(record: { site_id?: string; snapshot: Record<string
   const snap = record.snapshot as { site?: { id?: string; name?: string }; site_id?: string; site_name?: string };
   return { id: snap.site?.id ?? snap.site_id ?? record.site_id, name: snap.site?.name ?? snap.site_name };
 }
+
+/** Public submitter roles (ADR-061), as shown on screen. */
+export const ROLE_LABELS: Record<SubmitterRole, string> = {
+  field_partner: "Field partner",
+  funder: "Funder",
+  resident: "Resident",
+};

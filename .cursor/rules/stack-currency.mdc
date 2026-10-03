@@ -28,3 +28,5 @@ API pins (2026-10-04, `api/requirements.txt`): Python 3.12, fastapi 0.142.2, uvi
 | `export const runtime = 'edge'` | Node.js runtime | Edge runtime is deprecated on Vercel; this project is not on the edge |
 
 When a computed number is involved, cite its `EQ-###` from `docs/methods.md` and carry a confidence. Do not invent a bare number.
+
+`react-joyride` is pinned at 3.2.0 (React 16.8 – 19). Its v3 API differs from v2: `import { Joyride } from "react-joyride"`, events through `onEvent(data, controls)`, step/global settings under `options` (e.g. `skipBeacon`, `skipScroll`, `before`), not v2's `callback` / `disableBeacon`. Check `node_modules/react-joyride/dist/index.d.mts` before changing the tour.
