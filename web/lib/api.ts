@@ -3,6 +3,8 @@
 
 import { ApiError } from "@/lib/api-error";
 import type {
+  Answer,
+  Evidence,
   CompareResponse,
   CountryContext,
   Dossier,
@@ -55,6 +57,13 @@ const json = (method: string, data: unknown, headers: Record<string, string> = {
   headers: { "Content-Type": "application/json", ...headers },
   body: JSON.stringify(data),
 });
+
+// API-007: pull the site's current condition from Sentinel-2 (AWS Open Data, ADR-061). Live data only:
+// fixtures mode has no satellite archive behind it.
+export const sentinelRefresh = (siteId: string): Promise<{ evidence: Evidence; answers: Answer[] }> =>
+  USE_MOCKS
+    ? Promise.reject(new ApiError(503, "UPSTREAM_UNAVAILABLE", "Satellite refresh needs the live API, not demo fixtures."))
+    : http(`/sites/${siteId}/sentinel-refresh`, { method: "POST" });
 
 // API-001
 export const login = (email: string, password: string): Promise<{ user: User }> =>

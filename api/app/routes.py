@@ -1,4 +1,4 @@
-"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-025, plus the BR-002 405s."""
+"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 007, 010, 011, 013, 016, 021-025, plus the BR-002 405s."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import anyio
 from fastapi import APIRouter, Query
 from fastapi.responses import JSONResponse, Response
 
-from . import gmw_tiles, reads
+from . import gmw_tiles, reads, sentinel
 from .db import connection
 from .errors import envelope
 
@@ -31,6 +31,13 @@ def list_sites(region: str | None = Query(default=None)) -> dict[str, Any]:
 def site_dossier(site_id: str) -> dict[str, Any]:
     with connection() as conn:
         return reads.site_dossier(conn, site_id)
+
+
+@router.post("/sites/{site_id}/sentinel-refresh", status_code=201, summary="API-007 pull current condition from Sentinel-2")
+def sentinel_refresh(site_id: str) -> dict[str, Any]:
+    # AWS Open Data via Earth Search (ADR-042). Sign-in (API-001..003) is not built yet, so this is open and
+    # protected only by the per-site rate limit; see ADR-061.
+    return sentinel.refresh_site(site_id)
 
 
 @router.get("/compare", summary="API-006 side-by-side comparison")
