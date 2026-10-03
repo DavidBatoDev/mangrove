@@ -5,7 +5,7 @@
 
 import "./map-shell.css";
 import { Box, Check, ChevronDown, Compass, Eye, EyeOff, Layers, Link2, Maximize2, Minus, Plus, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import Globe3D from "@/components/Globe3D";
 import Map, { type MapEngine } from "@/components/Map";
 import { useGmwLayers } from "@/hooks/useGmwLayers";
@@ -36,11 +36,8 @@ interface Prefs {
   showMangroves: boolean;
   /** null = the latest year the layer has. */
   mangroveYear: number | null;
-  /** GMW mangrove change (API-025, ADR-050). */
-  showGain: boolean;
-  showLoss: boolean;
-  /** null = the layer's default baseline (1985). */
-  changeBase: number | null;
+  /** GMW mangrove gain and loss since the default baseline (API-025); off by default, switched from the side panel. */
+  showChange: boolean;
   /** 0.1-1 for the mangrove layers; they fade further when zoomed far in. */
   mangroveOpacity: number;
 }
@@ -52,11 +49,13 @@ const DEFAULT_PREFS: Prefs = {
   hiddenPins: [],
   showMangroves: true,
   mangroveYear: null,
-  showGain: true,
-  showLoss: true,
-  changeBase: null,
+  showChange: false,
   mangroveOpacity: 1,
 };
+
+/** The side panel's switch for the gain/loss map layers (ADR-057); null outside a MapShell or without the layer. */
+const MangroveChangeContext = createContext<{ on: boolean; base: number; set: (on: boolean) => void } | null>(null);
+export const useMangroveChange = () => useContext(MangroveChangeContext);
 
 /** Eye icon for a legend row: open = shown on the map. */
 function Eyes({ on }: { on: boolean }) {
@@ -109,11 +108,10 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
   // GMW layers: their legend rows hide when a layer is not installed on the server.
   const gmw = useGmwLayers();
   const mangroveYears = gmw.years;
-  const mangroveYear =
-    prefs.mangroveYear !== null && mangroveYears.includes(prefs.mangroveYear) ? prefs.mangroveYear : (mangroveYears.at(-1) ?? null);
+  // Always the latest GMW year (2025); no year picker (ADR-057).
+  const mangroveYear = mangroveYears.at(-1) ?? null;
   const bases = Object.keys(gmw.changeBases).map(Number).sort((a, b) => a - b);
-  const changeBase =
-    prefs.changeBase !== null && bases.includes(prefs.changeBase) ? prefs.changeBase : (gmw.defaultBase ?? bases[0] ?? null);
+  const changeBase = gmw.defaultBase ?? bases[0] ?? null;
   // Change exists only for map years after the baseline.
   const changeOk =
     changeBase !== null && mangroveYear !== null && (gmw.changeBases[String(changeBase)] ?? []).includes(mangroveYear);
@@ -123,8 +121,8 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
       : {
           extentYear: prefs.showMangroves ? mangroveYear : null,
           change:
-            changeOk && changeBase !== null && (prefs.showGain || prefs.showLoss)
-              ? { base: changeBase, year: mangroveYear, gain: prefs.showGain, loss: prefs.showLoss }
+            changeOk && changeBase !== null && prefs.showChange
+              ? { base: changeBase, year: mangroveYear, gain: true, loss: true }
               : null,
           opacity: prefs.mangroveOpacity,
         };
@@ -238,7 +236,15 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
           {Icon.chevron}
           <span className="sr-only">{panelOpen ? "Hide panel" : "Show panel"}</span>
         </button>
-        {panelOpen && <div className="map-panel-body">{children}</div>}
+        {panelOpen && (
+          <div className="map-panel-body">
+            <MangroveChangeContext.Provider
+              value={changeOk && changeBase !== null ? { on: prefs.showChange, base: changeBase, set: (on) => update({ showChange: on }) } : null}
+            >
+              {children}
+            </MangroveChangeContext.Provider>
+          </div>
+        )}
       </aside>
 
       <div className="map-controls" role="toolbar" aria-label="Map controls">
@@ -342,14 +348,7 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
             {mangroveYear !== null && (
               <>
                 <li className="legend-group">
-                  <span>Mangroves</span>
-                  <select aria-label="Mangrove year" value={mangroveYear} onChange={(e) => update({ mangroveYear: Number(e.target.value) })}>
-                    {mangroveYears.map((y) => (
-                      <option key={y} value={y}>
-                        {y}
-                      </option>
-                    ))}
-                  </select>
+                  <span>Mangroves · {mangroveYear}</span>
                 </li>
                 <li>
                   <button
@@ -362,46 +361,23 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
                     <span className="legend-art">
                       <span className="legend-swatch legend-swatch--mangrove" />
                     </span>
-                    <span className="legend-label">Extent</span>
+                    <span className="legend-label">Coastline coverage</span>
                     <Eyes on={prefs.showMangroves} />
                   </button>
                 </li>
-                {bases.length > 0 && (
+                {mangrove?.change && (
                   <>
                     <li className="legend-group legend-group--sub">
-                      <span>Change since</span>
-                      <select aria-label="Change since" value={changeBase ?? ""} onChange={(e) => update({ changeBase: Number(e.target.value) })}>
-                        {bases.map((y) => (
-                          <option key={y} value={y}>
-                            {y}
-                          </option>
-                        ))}
-                      </select>
+                      <span>Change since {mangrove.change.base}</span>
                     </li>
-                    {(["gain", "loss"] as const).map((k) => {
-                      const on = k === "gain" ? prefs.showGain : prefs.showLoss;
-                      return (
-                        <li key={k}>
-                          <button
-                            type="button"
-                            className={`legend-row${changeOk ? "" : " is-unavailable"}`}
-                            aria-pressed={on}
-                            title={
-                              changeOk
-                                ? `Global Mangrove Watch v4.1.12 mangrove ${k}, ${changeBase} to ${mangroveYear}. Context only, not a status.`
-                                : `Pick a year after ${changeBase} to see change.`
-                            }
-                            onClick={() => update(k === "gain" ? { showGain: !on } : { showLoss: !on })}
-                          >
-                            <span className="legend-art">
-                              <span className={`legend-swatch legend-swatch--${k}`} />
-                            </span>
-                            <span className="legend-label">{k === "gain" ? "Gain" : "Loss"}</span>
-                            <Eyes on={on} />
-                          </button>
-                        </li>
-                      );
-                    })}
+                    {(["gain", "loss"] as const).map((k) => (
+                      <li key={k} className="legend-key" title={`Global Mangrove Watch v4.1.12 mangrove ${k}. Context only, not a status.`}>
+                        <span className="legend-art">
+                          <span className={`legend-swatch legend-swatch--${k}`} />
+                        </span>
+                        <span className="legend-label">{k === "gain" ? "Gain" : "Loss"}</span>
+                      </li>
+                    ))}
                   </>
                 )}
                 <li className="legend-opacity">

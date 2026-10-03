@@ -29,6 +29,8 @@ export default function SitesPage() {
       onSiteClick={(id) => router.push(`/sites/${id}`)}
       layers={{ sites: true }}
     >
+      {country.data && <CountryCard c={country.data} />}
+
       <h1>Candidate sites</h1>
       <p className="lede">Outlines sketched from public map data; not field-verified.</p>
 
@@ -86,7 +88,6 @@ export default function SitesPage() {
         </ul>
       )}
       {country.error && <p className="mg-alert">Global Mangrove Watch statistics did not load. Try again later.</p>}
-      {country.data && <CountryCard c={country.data} />}
     </MapShell>
   );
 }

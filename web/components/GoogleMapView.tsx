@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import type { MapViewProps } from "@/components/MapView";
 import { gmwChangeTileTemplate, gmwTileTemplate, mangroveOpacityAt } from "@/lib/api";
 import { DEFAULT_BASEMAP, type BasemapId } from "@/lib/basemaps";
+import { flyGoogle } from "@/lib/google-fly";
 import { GOOGLE_IMAGERY_NOTE, GOOGLE_MAP_ID, loadMaps, loadMarker, onGoogleAuthFailure, outerRings } from "@/lib/google";
 import type { Padding } from "@/lib/map-handle";
 import { buildPinElement } from "@/lib/pin-dom";
@@ -96,13 +97,8 @@ export default function GoogleMapView({
           },
           zoomIn: () => map.setZoom((map.getZoom() ?? 6) + 1),
           zoomOut: () => map.setZoom((map.getZoom() ?? 6) - 1),
-          flyTo: (center, minZoom, padding) => {
-            const p = typeof padding === "number" ? { top: padding, bottom: padding, left: padding, right: padding } : padding;
-            map.setZoom(Math.max(map.getZoom() ?? 6, minZoom));
-            map.panTo({ lat: center[1], lng: center[0] });
-            // Keep the point in the middle of the area the side panel leaves visible.
-            map.panBy(-(p.left - p.right) / 2, -(p.top - p.bottom) / 2);
-          },
+          // Smooth, MapLibre-style flight (lib/google-fly.ts) instead of a jump.
+          flyTo: (center, minZoom, padding) => flyGoogle(map, center, minZoom, padding),
         });
         // Let the data effects run now that the map exists.
         window.dispatchEvent(new Event("mangrove:gmap-ready"));
