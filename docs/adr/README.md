@@ -73,3 +73,4 @@ New decisions start at ADR-031. Never reuse a number.
 | [ADR-060](ADR-060-sentinel2-pictures-served-from-repo.md) | Accepted | Sentinel-2 then/now chips are committed and served by API-014 from the repo; ADR-037's S3 store still holds partner photos. |
 | [ADR-061](ADR-061-public-only-no-sign-in.md) | Accepted | No accounts: anyone adds evidence or locks a promise, typing name, organisation and role; contact email private; per-IP limits; append-only. |
 | [ADR-062](ADR-062-in-app-assistant-over-mcp-tools.md) | Accepted | In-app assistant: an OpenAI agent (API-027) over the same six read-only MCP tools, opened from the app bar. |
+| [ADR-063](ADR-063-satellite-default-basemap.md) | Accepted | Satellite is the default basemap; saved map settings move to a v2 key so returning visitors get it too. |

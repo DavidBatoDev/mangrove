@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Satellite is the default basemap
+- **ID:** DEC-033
+- **Type:** zoom-in
+- **Change:** muted light basemap by default → satellite by default; light and dark stay in the settings
+- **Why:** the team wants readers to see the coast itself first.
+- **Invalidated:** docs/design.md "Basemap muted" (updated)
+- **Recorded as:** ADR-063
+
 ### 2026-10-04 — Public-only: no sign-in; open evidence and locking
 - **ID:** DEC-032
 - **Type:** pivot

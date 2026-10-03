@@ -69,6 +69,6 @@ export const BASEMAPS: Basemap[] = [
   },
 ];
 
-// Muted light basemap by default so the pins carry the color (docs/design.md §4).
-export const DEFAULT_BASEMAP: BasemapId = "light";
+// Satellite by default so readers see the coast itself (ADR-063); light and dark stay in the map settings.
+export const DEFAULT_BASEMAP: BasemapId = "satellite";
 export const basemapById = (id: BasemapId) => BASEMAPS.find((b) => b.id === id) ?? BASEMAPS[2];

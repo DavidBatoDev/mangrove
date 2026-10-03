@@ -57,7 +57,7 @@ Auth per route follows [`security.md`](security.md) §4; this table states the e
 | `awaiting` | Mist | `--mg-pin-awaiting`, 2px dashed | "Awaiting evidence" |
 | `on_track` | `--mg-pin-on-track` | Mist, 2px | "On track" |
 
-Sites with no commitment are polygons, not record pins: Tidal 2px outline, Tidal 12% fill; selected: Canopy 3px. A pin exists only for a commitment, and it opens the record. Basemap muted (light, low saturation) so pins carry the color. Zoom runs from the Philippines to a site without a mode switch. A pin and a polygon are keyboard-focusable; Enter opens the record or the site. The toggle does not use red.
+Sites with no commitment are polygons, not record pins: Tidal 2px outline, Tidal 12% fill; selected: Canopy 3px. A pin exists only for a commitment, and it opens the record. Basemap is satellite by default (ADR-063); light and dark stay in the map settings. Pins and polygons keep their colors on it. Zoom runs from the Philippines to a site without a mode switch. A pin and a polygon are keyboard-focusable; Enter opens the record or the site. The toggle does not use red.
 
 ## 5. Components per screen
 
