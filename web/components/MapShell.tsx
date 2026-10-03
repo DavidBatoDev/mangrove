@@ -8,6 +8,7 @@ import { Box, Check, ChevronDown, Compass, Layers, Link2, Maximize2, Minus, Plus
 import { useCallback, useEffect, useRef, useState } from "react";
 import Globe3D from "@/components/Globe3D";
 import Map, { type MapEngine } from "@/components/Map";
+import { useGmwTileYears } from "@/hooks/useGmwTileYears";
 import { GOOGLE_IMAGERY_NOTE } from "@/lib/google";
 import type { MapViewProps } from "@/components/MapView";
 import type { MapHandle } from "@/lib/map-handle";
@@ -29,10 +30,14 @@ interface Prefs {
   basemap: BasemapId;
   showSites: boolean;
   showPins: boolean;
+  /** GMW mangrove extent layer (API-024, ADR-048). */
+  showMangroves: boolean;
+  /** null = the latest year the layer has. */
+  mangroveYear: number | null;
 }
 
 function readPrefs(): Prefs {
-  const fallback: Prefs = { basemap: DEFAULT_BASEMAP, showSites: true, showPins: true };
+  const fallback: Prefs = { basemap: DEFAULT_BASEMAP, showSites: true, showPins: true, showMangroves: true, mangroveYear: null };
   try {
     const raw = window.localStorage.getItem(PREF_KEY);
     return raw ? { ...fallback, ...(JSON.parse(raw) as Partial<Prefs>) } : fallback;
@@ -72,7 +77,12 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
   const [globeView, setGlobeView] = useState<{ center: [number, number]; zoom: number } | null>(null);
   const [globeFailed, setGlobeFailed] = useState(false);
   const useGlobe = engine === "google" && !globeFailed;
-  const [prefs, setPrefs] = useState<Prefs>({ basemap: DEFAULT_BASEMAP, showSites: true, showPins: true });
+  const [prefs, setPrefs] = useState<Prefs>({ basemap: DEFAULT_BASEMAP, showSites: true, showPins: true, showMangroves: true, mangroveYear: null });
+  // Mangrove extent: hidden entirely when the layer is not installed (fixtures mode, local dev without the data).
+  const mangroveYears = useGmwTileYears();
+  const mangroveYear =
+    prefs.mangroveYear !== null && mangroveYears.includes(prefs.mangroveYear) ? prefs.mangroveYear : (mangroveYears.at(-1) ?? null);
+  const extentYear = prefs.showMangroves && mangroveYear !== null ? mangroveYear : null;
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(true);
   const [panelOpen, setPanelOpen] = useState(true);
@@ -147,6 +157,7 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
         basemap={prefs.basemap}
         showSites={prefs.showSites}
         showPins={prefs.showPins}
+        extentYear={extentYear}
         onMapReady={setMap}
         onEngine={setEngine}
         fitPadding={wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20}
@@ -252,6 +263,17 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
                   </span>
                 </li>
               ))}
+            {mangroveYear !== null && (
+              <li className={extentYear !== null ? "" : "is-off"}>
+                <span className="legend-art">
+                  <span className="legend-swatch-mangrove" />
+                </span>
+                <span>
+                  <strong>Mangroves · {mangroveYear}</strong>
+                  <span className="legend-hint">Global Mangrove Watch v4.1.12, 30 m. Context only, not a status</span>
+                </span>
+              </li>
+            )}
             {layers.sites && (
               <li className={prefs.showSites ? "" : "is-off"}>
                 <span className="legend-art" dangerouslySetInnerHTML={{ __html: siteAreaSvg(28) }} />
@@ -318,6 +340,34 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
                 </label>
                 <label className="radio">
                   <input type="radio" name="sites" checked={prefs.showSites} onChange={() => update({ showSites: true })} /> Site outlines
+                </label>
+              </fieldset>
+            )}
+
+            {mangroveYears.length > 0 && (
+              <fieldset className="settings-group">
+                <legend className="settings-label">Mangrove extent (Global Mangrove Watch)</legend>
+                <label className="radio">
+                  <input type="radio" name="mangroves" checked={!prefs.showMangroves} onChange={() => update({ showMangroves: false })} /> No
+                  layer
+                </label>
+                <label className="radio">
+                  <input type="radio" name="mangroves" checked={prefs.showMangroves} onChange={() => update({ showMangroves: true })} />{" "}
+                  Mangrove areas
+                </label>
+                <label className="settings-select">
+                  Year{" "}
+                  <select
+                    value={mangroveYear ?? ""}
+                    disabled={!prefs.showMangroves}
+                    onChange={(e) => update({ mangroveYear: Number(e.target.value) })}
+                  >
+                    {mangroveYears.map((y) => (
+                      <option key={y} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
                 </label>
               </fieldset>
             )}

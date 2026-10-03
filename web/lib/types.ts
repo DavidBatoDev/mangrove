@@ -230,6 +230,17 @@ export interface CountryContext {
 }
 
 /** API-023: GMW extent polygons for the Manila Bay demo area, one year. */
+/** API-024: the Philippines mangrove extent layer as map tiles (ADR-048). */
+export interface GmwExtentTiles {
+  years: number[];
+  version: string;
+  bbox: [number, number, number, number];
+  max_zoom: number;
+  /** Relative URL template with {year}, {z}, {x}, {y}. */
+  tiles: string;
+  source: GmwSource;
+}
+
 export interface GmwExtentLayer extends GeoJSON.FeatureCollection {
   year: number;
   available_years: number[];

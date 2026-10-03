@@ -43,6 +43,12 @@
 .map-legend li.is-off { opacity: 0.4; }
 .legend-art { flex: none; width: 32px; display: grid; place-items: center; }
 .legend-art svg { display: block; }
+/* GMW mangrove extent (ADR-048): the same brand Tidal lift the API bakes into its map tiles. */
+.legend-swatch-mangrove { display: block; width: 24px; height: 16px; border-radius: var(--mg-radius-sm);
+  background: color-mix(in srgb, var(--mg-tidal-lift) 85%, transparent); }
+.settings-select { display: flex; align-items: center; gap: var(--mg-space-2); margin-top: var(--mg-space-2); font-size: var(--mg-text-small); }
+.settings-select select { font: inherit; padding: 4px 8px; border: 1px solid var(--mg-border); border-radius: var(--mg-radius-sm);
+  background: var(--mg-surface); color: var(--mg-text); }
 .legend-hint { display: block; color: var(--mg-text-muted); font-size: var(--mg-text-label); line-height: 1.35; }
 
 .map-toast { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); background: var(--mg-canopy); color: var(--mg-mist);

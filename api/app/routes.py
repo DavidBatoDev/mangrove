@@ -1,13 +1,13 @@
-"""P0 REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, plus the BR-002 405s."""
+"""REST routes under /api/v1 (docs/api.md): API-004, 005, 006, 010, 011, 013, 016, 021-024, plus the BR-002 405s."""
 
 from __future__ import annotations
 
 from typing import Any
 
 from fastapi import APIRouter, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
-from . import reads
+from . import gmw_tiles, reads
 from .db import connection
 from .errors import envelope
 
@@ -69,6 +69,17 @@ def country_context(iso3: str) -> dict[str, Any]:
 @router.get("/layers/gmw-extent", summary="API-023 Manila Bay mangrove extent for one year")
 def gmw_extent(year: int | None = Query(default=None)) -> dict[str, Any]:
     return reads.gmw_extent_layer(year)
+
+
+@router.get("/layers/gmw-extent/tiles", summary="API-024 Philippines mangrove extent tiles: years and URL template")
+def gmw_extent_tiles_info() -> dict[str, Any]:
+    return gmw_tiles.layer_info()
+
+
+@router.get("/layers/gmw-extent/tiles/{year}/{z}/{x}/{y}.png", summary="API-024 one 256 px mangrove extent tile")
+def gmw_extent_tile(year: int, z: int, x: int, y: int) -> Response:
+    png = gmw_tiles.tile_png(year, z, x, y)
+    return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=604800"})
 
 
 # BR-002: there is no PUT, PATCH or DELETE on evidence, records or timeline entries (docs/api.md §2).

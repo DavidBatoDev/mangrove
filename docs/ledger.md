@@ -42,6 +42,14 @@ owns: which decision is current · names and immutable IDs · rejected approache
 
 ## 3. Pivots & decisions (newest first, append at top)
 
+### 2026-10-04 — Mangrove extent for the whole Philippines, as map tiles
+- **ID:** DEC-018
+- **Type:** scope-add
+- **Change:** a Manila Bay GeoJSON extent layer (API-023), Root brown, MapLibre only → Philippines-wide GMW extent served as map tiles (API-024) in brand Tidal, on by default on every map, on Google and MapLibre
+- **Why:** the team uses Google Maps now and asked for mangrove areas to be visible everywhere, like GMW's viewer.
+- **Invalidated:** ADR-045's map-layer scope and color (the rest of ADR-045 stands)
+- **Recorded as:** ADR-048
+
 ### 2026-10-04 — Every push to master redeploys the demo host
 - **ID:** DEC-017
 - **Type:** platform
