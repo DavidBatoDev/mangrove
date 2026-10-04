@@ -238,6 +238,7 @@ export default function MapView({
       zoomIn: () => map.zoomIn(),
       zoomOut: () => map.zoomOut(),
       flyTo: (center, minZoom, padding) => map.flyTo({ center, zoom: Math.max(map.getZoom(), minZoom), padding, duration: 900 }),
+      fitBounds: ([w, s, e, n], padding) => map.fitBounds([[w, s], [e, n]], { padding, maxZoom: 15, duration: 900 }),
       set3d: (on) => map.easeTo({ pitch: on ? 60 : 0, bearing: on ? -20 : 0, duration: 800 }),
       resetView: () => map.easeTo({ pitch: 0, bearing: 0, duration: 800 }),
       getView: () => ({ center: map.getCenter().toArray() as [number, number], zoom: map.getZoom() }),

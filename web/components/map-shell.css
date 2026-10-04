@@ -99,7 +99,15 @@
   font: 600 11px/1.3 var(--mg-font-body); color: var(--mg-mist); background: color-mix(in srgb, var(--mg-night) 70%, transparent);
   padding: 3px 8px; border-radius: var(--mg-radius-sm); white-space: nowrap; }
 .map-shell .gmap-note { left: auto; right: 92px; bottom: auto; top: 12px; transform: none; }
-@media (max-width: 800px) { .map-shell .map-shell-map.gmap { position: relative; inset: auto; height: 60vh; } }
+/* The place card's small 3D view sits beside the map, which already carries this note. */
+.place-imagery .gmap-note { display: none; }
+@media (max-width: 800px) {
+  .map-shell .map-shell-map.gmap { position: relative; inset: auto; height: 60vh; }
+  /* Narrow screens: the note sits bottom-left above Google's own line, clear of the controls, and may wrap. */
+  .map-shell .gmap-note { left: 8px; right: 64px; top: auto; bottom: 26px; white-space: normal; width: fit-content; }
+  /* Hold the map's height while it loads, so the floating controls never sit over the panel. */
+  .map-shell > .state-loading:first-child { min-height: 60vh; margin: 0; }
+}
 .map-btn.is-on { background: var(--mg-tidal); color: var(--mg-mist); border-color: var(--mg-tidal); }
 .globe3d { position: absolute; inset: 0; z-index: 1; background: var(--mg-night); }
 .globe3d .gmap-note { left: auto; right: 92px; top: 12px; transform: none; bottom: auto; }

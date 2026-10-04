@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarClock, Lock } from "lucide-react";
+import { CalendarClock, Check, Lock } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -113,6 +113,7 @@ export default function LockPage() {
       <p className="lede">What you plan, what you expect, and when it can be checked. Today&apos;s evidence on this site is frozen with it as the baseline.</p>
 
       {phase === "editing" ? (
+        <div className="ev-layout">
         <form className="form form--wide" onSubmit={review} noValidate>
           {error && <p className="mg-alert" role="alert">{error}</p>}
           <SubmitterFields value={who} onChange={setWho} />
@@ -125,7 +126,7 @@ export default function LockPage() {
               <span>Why and what</span>
             </legend>
             <div className="field">
-              <label htmlFor="rationale">Why this site (required)</label>
+              <label htmlFor="rationale">Why this site <abbr title="required">*</abbr></label>
               <textarea id="rationale" value={form.rationale} onChange={set("rationale")} />
             </div>
             <div className="field">
@@ -139,7 +140,7 @@ export default function LockPage() {
               </select>
             </div>
             <div className="field">
-              <label htmlFor="planned_action_detail">What will be done (required)</label>
+              <label htmlFor="planned_action_detail">What will be done <abbr title="required">*</abbr></label>
               <textarea id="planned_action_detail" value={form.planned_action_detail} onChange={set("planned_action_detail")} />
             </div>
           </fieldset>
@@ -153,16 +154,16 @@ export default function LockPage() {
             </legend>
             <div className="field-row">
               <div className="field">
-                <label htmlFor="planned_area_ha">Planned area, hectares (required)</label>
+                <label htmlFor="planned_area_ha">Planned area, hectares <abbr title="required">*</abbr></label>
                 <input id="planned_area_ha" type="number" min="0" step="0.1" value={form.planned_area_ha} onChange={set("planned_area_ha")} />
               </div>
               <div className="field">
-                <label htmlFor="expected_vegetated_ha">Expected vegetated, hectares</label>
+                <label htmlFor="expected_vegetated_ha">Expected vegetated, hectares (optional)</label>
                 <input id="expected_vegetated_ha" type="number" min="0" step="0.1" value={form.expected_vegetated_ha} onChange={set("expected_vegetated_ha")} />
               </div>
             </div>
             <div className="field">
-              <label htmlFor="expected_outcome">What should happen (required)</label>
+              <label htmlFor="expected_outcome">What should happen <abbr title="required">*</abbr></label>
               <textarea id="expected_outcome" value={form.expected_outcome} onChange={set("expected_outcome")} />
             </div>
           </fieldset>
@@ -176,16 +177,16 @@ export default function LockPage() {
             </legend>
             <div className="field-row">
               <div className="field">
-                <label htmlFor="work_check_after">Work check after (required)</label>
+                <label htmlFor="work_check_after">Work check after <abbr title="required">*</abbr></label>
                 <input id="work_check_after" type="date" value={form.work_check_after} onChange={set("work_check_after")} />
               </div>
               <div className="field">
-                <label htmlFor="outcome_check_after">Outcome check after (required)</label>
+                <label htmlFor="outcome_check_after">Outcome check after <abbr title="required">*</abbr></label>
                 <input id="outcome_check_after" type="date" value={form.outcome_check_after} onChange={set("outcome_check_after")} />
               </div>
             </div>
             <div className="field">
-              <label htmlFor="known_unknowns">What we do not know yet (required)</label>
+              <label htmlFor="known_unknowns">What we do not know yet <abbr title="required">*</abbr></label>
               <textarea id="known_unknowns" value={form.known_unknowns} onChange={set("known_unknowns")} />
             </div>
           </fieldset>
@@ -196,6 +197,52 @@ export default function LockPage() {
             </button>
           </div>
         </form>
+        {/* What the public record will say, filled in as the form is (same device as Add evidence). */}
+        <aside className="mg-card ev-summary" aria-label="What will be published">
+          <span className="mg-eyebrow" style={{ margin: 0 }}>
+            What will be published
+          </span>
+          <div className="ev-summary-head">
+            <IconBadge tone="root">
+              <BrandIcon name="promise" />
+            </IconBadge>
+            <div>
+              <small>Promise</small>
+              <strong>
+                {form.planned_area_ha ? `${form.planned_area_ha} hectares` : "Area not set"} · {actionLabel}
+              </strong>
+            </div>
+          </div>
+          <dl className="ev-summary-dl">
+            <dt>Site</dt>
+            <dd>{s.name}</dd>
+            <dt>Funder</dt>
+            <dd>{who.organisation?.trim() || who.name.trim() || "Not given yet"}</dd>
+            <dt>Work check</dt>
+            <dd className="mg-mono">{formatDate(form.work_check_after)}</dd>
+            <dt>Outcome check</dt>
+            <dd className="mg-mono">{formatDate(form.outcome_check_after)}</dd>
+          </dl>
+          <ul className="ev-checks">
+            {[
+              { label: "Your name", ok: !!who.name.trim() },
+              { label: "Why and what", ok: !!form.rationale.trim() && !!form.planned_action_detail.trim() },
+              { label: "How much", ok: !!form.planned_area_ha.trim() && !!form.expected_outcome.trim() },
+              { label: "When to check", ok: !!form.work_check_after && !!form.outcome_check_after },
+              { label: "What we do not know yet", ok: !!form.known_unknowns.trim() },
+            ].map((c) => (
+              <li key={c.label} className={c.ok ? "is-ok" : undefined}>
+                <span className="ev-check-dot">{c.ok && <Check {...ICON_PROPS} size={12} />}</span>
+                {c.label}
+              </li>
+            ))}
+          </ul>
+          <p className="ev-lock">
+            <Lock {...ICON_PROPS} size={14} /> Locked for good: once published it cannot be edited or deleted.
+          </p>
+          <DemoLabel show={s.is_demo} />
+        </aside>
+        </div>
       ) : (
         <div className="confirm" role="alertdialog" aria-labelledby="confirm-title">
           <span className="mg-eyebrow mg-label--promise">

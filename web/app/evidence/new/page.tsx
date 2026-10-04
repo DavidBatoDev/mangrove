@@ -19,8 +19,10 @@ import type { ApiError } from "@/lib/api-error";
 import {
   FINDINGS_BY_QUESTION,
   findingLabel,
+  formatDate,
   QUESTION_LABELS,
   ROLE_LABELS,
+  snapshotSite,
 } from "@/lib/format";
 import type { EvidenceInput, EvidenceQuestion } from "@/lib/types";
 
@@ -109,7 +111,7 @@ function EvidenceForm() {
       let siteId = target.startsWith("site:") ? target.slice(5) : null;
       if (!siteId && target.startsWith("record:")) {
         const rec = await api.getRecord(target.slice(7));
-        siteId = (rec.record.snapshot as { site_id?: string }).site_id ?? null;
+        siteId = snapshotSite(rec.record).id ?? null;
       }
       if (!siteId) return setError("Pick a site or record first.");
       const c = centroidOf((await api.getSite(siteId)).site.geometry);
@@ -523,7 +525,7 @@ function EvidenceSummary({
         <dt>About</dt>
         <dd>{target ?? "Not chosen yet"}</dd>
         <dt>Observed</dt>
-        <dd className="mg-mono">{observedAt}</dd>
+        <dd className="mg-mono">{formatDate(observedAt)}</dd>
       </dl>
       <ul className="ev-checks">
         {checks.map((c) => (

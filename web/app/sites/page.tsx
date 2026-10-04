@@ -27,23 +27,31 @@ export default function SitesPage() {
   const [focus, setFocus] = useState<{
     center: [number, number];
     zoom: number;
+    bounds?: [number, number, number, number];
     key: string;
   } | null>(null);
 
   const flights = useRef(0);
-  // Ticking a site also flies the map to it (centre of its bounding box).
+  // Ticking one site flies the map to it; with two or more ticked, the map frames all of them.
   const toggle = (id: string) => {
     const adding = !picked.includes(id);
-    setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
-    const f = adding
-      ? sites.data?.features.find((x) => x.properties.id === id)
-      : undefined;
-    if (f)
-      setFocus({
-        center: bboxCenter(f.geometry),
-        zoom: 15,
-        key: `${id}-${++flights.current}`,
-      });
+    const next = adding ? [...picked, id] : picked.filter((x) => x !== id);
+    setPicked(next);
+    const feats = (sites.data?.features ?? []).filter((x) => next.includes(x.properties.id));
+    const key = `${id}-${++flights.current}`;
+    if (feats.length >= 2) {
+      const boxes = feats.map((x) => bbox(x.geometry));
+      const b: [number, number, number, number] = [
+        Math.min(...boxes.map((x) => x[0])),
+        Math.min(...boxes.map((x) => x[1])),
+        Math.max(...boxes.map((x) => x[2])),
+        Math.max(...boxes.map((x) => x[3])),
+      ];
+      setFocus({ center: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2], zoom: 15, bounds: b, key });
+    } else if (adding && feats.length === 1) {
+      const b = bbox(feats[0].geometry);
+      setFocus({ center: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2], zoom: 15, key });
+    }
   };
   const compareHref = `/compare?sites=${picked.map((id) => siteLetter(id) ?? id).join(",")}`;
   const canCompare = picked.length >= 2 && picked.length <= 5;
@@ -170,7 +178,8 @@ export default function SitesPage() {
   );
 }
 
-function bboxCenter(geometry: unknown): [number, number] {
+/** [west, south, east, north] of a geometry. */
+function bbox(geometry: unknown): [number, number, number, number] {
   let [w, so, e, n] = [Infinity, Infinity, -Infinity, -Infinity];
   const walk = (c: unknown): void => {
     if (Array.isArray(c) && typeof c[0] === "number") {
@@ -182,5 +191,5 @@ function bboxCenter(geometry: unknown): [number, number] {
     } else if (Array.isArray(c)) c.forEach(walk);
   };
   walk((geometry as { coordinates?: unknown }).coordinates);
-  return [(w + e) / 2, (so + n) / 2];
+  return [w, so, e, n];
 }

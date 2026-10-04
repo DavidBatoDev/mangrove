@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import AnswerBlock from "@/components/AnswerBlock";
 import EvidenceCard from "@/components/EvidenceCard";
-import ProgramCard from "@/components/ProgramCard";
+import ProgramCard, { ProgramStrip } from "@/components/ProgramCard";
 import { SiteNowPictures } from "@/components/SatellitePictures";
 import SiteHero3D from "@/components/SiteHero3D";
 import { toneFromPin } from "@/components/Site3DView";
@@ -150,7 +150,8 @@ export default function RecordPage() {
 
       {snap.site_id && <SiteHero3D siteId={snap.site_id} tone={toneFromPin(pin_state)} motion="orbit" />}
 
-      {program.data?.record_ids.includes(record.id) && <ProgramCard p={program.data} />}
+      {/* The promise leads the page; the program it belongs to is one line here and the full card below the checks. */}
+      {program.data?.record_ids.includes(record.id) && <ProgramStrip p={program.data} />}
 
       {/* Above the waterline: the promise */}
       <span className="mg-eyebrow">
@@ -214,6 +215,8 @@ export default function RecordPage() {
           <Plus {...ICON_PROPS} size={18} /> Add evidence to this record
         </Link>
       </p>
+
+      {program.data?.record_ids.includes(record.id) && <ProgramCard p={program.data} />}
 
       <div className="record-grid">
         <section className="mg-card">
