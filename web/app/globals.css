@@ -92,6 +92,10 @@ code, .mono { font-family: var(--mg-font-mono); font-size: 0.85em; word-break: b
 .measure-meta { display: inline-flex; align-items: center; gap: var(--mg-space-2); margin-left: var(--mg-space-2); color: var(--mg-text-muted); font-size: var(--mg-text-label); }
 .measure-meta .mg-conf { font-size: 10px; }
 .real-case { display: inline-block; padding: 3px 8px; border: 1px solid var(--mg-brackish); border-radius: var(--mg-radius-sm); font: 500 var(--mg-text-label)/1.2 var(--mg-font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mg-text-muted); white-space: nowrap; }
+/* The real-case badge shows on hover or keyboard focus only: side by side at country zoom the badges overlapped.
+   The dashed Demo data badge stays on always (BR-006). */
+.map-pin-real { display: none; }
+.map-pin:hover .map-pin-real, .map-pin:focus-visible .map-pin-real { display: block; }
 .map-pin-real { position: absolute; left: 50%; top: -11px; transform: translateX(-50%); font: 500 9px/13px var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-mudflat); background: var(--mg-mist); border: 1px solid var(--mg-brackish); border-radius: var(--mg-radius-sm); padding: 0 3px; white-space: nowrap; pointer-events: none; }
 .evidence-source { margin: var(--mg-space-2) 0 0; font-size: var(--mg-text-small); }
 .evidence-source a { font-weight: 600; }

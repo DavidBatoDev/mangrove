@@ -12,7 +12,7 @@ type Turn = AssistantMessage & { tools?: string[] };
 const SUGGESTIONS = [
   { icon: MapIcon, text: "Which candidate sites are there, and how big are they?" },
   { icon: GitCompareArrows, text: "Why do Pamarawan and Orani differ?" },
-  { icon: ScrollText, text: "Which funding promises have a conflict?" },
+  { icon: ScrollText, text: "Which funding promises are still awaiting evidence?" },
   { icon: ShieldCheck, text: "Is every published record still intact?" },
 ];
 
