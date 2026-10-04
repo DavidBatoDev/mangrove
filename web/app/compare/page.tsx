@@ -187,7 +187,8 @@ function SiteStat({
   s: CompareResponse["sites"][number];
   t: GmwTimeline | null | undefined;
 }) {
-  const { site, answers } = s;
+  // The three questions live in the table below; the card carries only the mangrove trend.
+  const { site } = s;
   const ys = t?.source ? t.years : [];
   const first = ys[0];
   const last = ys[ys.length - 1];
@@ -255,17 +256,6 @@ function SiteStat({
           Global Mangrove Watch is not ingested for this site yet.
         </p>
       )}
-      <ul className="compare-stat-answers">
-        {QUESTIONS.map(({ q, label }) => {
-          const a = answers.find((x) => x.question === q);
-          return (
-            <li key={q}>
-              <QuestionIcon q={q} size={16} /> <span>{label}</span>{" "}
-              {a ? <StatusBadge status={a.status} /> : "—"}
-            </li>
-          );
-        })}
-      </ul>
     </section>
   );
 }

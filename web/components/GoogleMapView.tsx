@@ -99,6 +99,7 @@ export default function GoogleMapView({
           zoomOut: () => map.setZoom((map.getZoom() ?? 6) - 1),
           // Smooth, MapLibre-style flight (lib/google-fly.ts) instead of a jump.
           flyTo: (center, minZoom, padding) => flyGoogle(map, center, minZoom, padding),
+          fitBounds: ([west, south, east, north], padding) => map.fitBounds({ west, south, east, north }, pad(padding)),
         });
         // Let the data effects run now that the map exists.
         window.dispatchEvent(new Event("mangrove:gmap-ready"));

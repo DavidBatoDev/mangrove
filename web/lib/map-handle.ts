@@ -7,6 +7,8 @@ export interface MapHandle {
   zoomOut(): void;
   /** Fly to a point, never zooming out from where the viewer already is. */
   flyTo(center: [number, number], minZoom: number, padding: Padding): void;
+  /** Frame a box [west, south, east, north], zooming out when it needs to. */
+  fitBounds(bounds: [number, number, number, number], padding: Padding): void;
   /** Tilt the camera for a 3D look (on) or back to flat. */
   set3d(on: boolean): void;
   /** North up, no tilt. */

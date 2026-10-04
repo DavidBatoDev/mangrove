@@ -92,7 +92,7 @@ export interface MapShellProps extends Omit<MapViewProps, "basemap" | "showSites
   /** Which overlay toggles and legend rows apply on this page. */
   layers: { sites?: boolean; pins?: boolean };
   /** Fly the map here (e.g. to a selected pin), keeping it clear of the side panel. */
-  focus?: { center: [number, number]; zoom?: number; key: string } | null;
+  focus?: { center: [number, number]; zoom?: number; bounds?: [number, number, number, number]; key: string } | null;
 }
 
 export default function MapShell({ children, layers, focus, ...mapProps }: MapShellProps) {
@@ -164,7 +164,10 @@ export default function MapShell({ children, layers, focus, ...mapProps }: MapSh
       setGlobeView({ center: focus.center, zoom: 15 });
       return;
     }
-    map.flyTo(focus.center, focus.zoom ?? 12, wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20);
+    const padding = wide ? { top: 40, bottom: 40, left: panelOpen ? 450 : 40, right: 100 } : 20;
+    // A box (several sites) is framed whole; a point is flown to.
+    if (focus.bounds) map.fitBounds(focus.bounds, padding);
+    else map.flyTo(focus.center, focus.zoom ?? 12, padding);
     // Only when the target (or a recenter request) changes, not on every render or panel toggle.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, focus?.key]);

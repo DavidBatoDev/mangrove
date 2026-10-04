@@ -139,7 +139,7 @@ export default function ProgramCard({ p }: { p: ProgramContext }) {
   const scale = [need, ...p.target_history, planted].filter((f): f is QuotedFigure => !!f);
 
   return (
-    <section className="mg-card program-card" aria-label={p.name}>
+    <section className="mg-card program-card" id="program" aria-label={p.name}>
       <div className="program-head">
         <span className="mg-eyebrow">
           Program <RealCaseLabel />
@@ -192,6 +192,18 @@ export default function ProgramCard({ p }: { p: ProgramContext }) {
 }
 
 /** Compact callout for the public map panel: the program, one figure, the framing line, the four real records. */
+/** One line above a record's promise that names the program and jumps to the full card further down the page. */
+export function ProgramStrip({ p }: { p: ProgramContext }) {
+  return (
+    <a className="program-strip" href="#program">
+      <span className="mg-eyebrow">Program</span>
+      <strong>{programTitle(p)}</strong>
+      <span className="program-strip-line">{p.framing.line}</span>
+      <span aria-hidden>↓</span>
+    </a>
+  );
+}
+
 export function ProgramCallout({ p, pins }: { p: ProgramContext; pins: PinsFC | null }) {
   const planted = p.facts.find((f) => f.id === "planted");
   const names = new Map(pins?.features.map((f) => [f.properties.id, f.properties.site_name]) ?? []);
