@@ -273,6 +273,9 @@ function SiteStat({
 export default function ComparePage() {
   return (
     <>
+      <p className="meta">
+        <Link href="/sites">← Candidate sites</Link>
+      </p>
       <span className="mg-eyebrow">
         <ArrowLeftRight {...ICON_PROPS} size={14} /> Compare
       </span>

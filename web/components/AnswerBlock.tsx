@@ -31,10 +31,10 @@ export default function AnswerBlock({ a, evidence, siteId }: { a: Answer; eviden
           <ol className="answer-cites" aria-label="Sources">
             {cited.map((e, i) => (
               <li key={e.id}>
-                <a href={`/sites/${siteId}#ev-${e.id}`}>
+                <a href={`/sites/${siteId}#ev-${e.id}`} title={e.source_name}>
                   <span className="answer-cite-n">{i + 1}</span>
                   <SourceIcon type={e.source_type} size={14} />
-                  <span>
+                  <span className="answer-cite-text">
                     {e.source_name}
                     {e.source_version ? ` ${e.source_version}` : ""}
                     {e.submitted_by_org?.name ? ` · ${e.submitted_by_org.name}` : ""}

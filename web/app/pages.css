@@ -31,7 +31,7 @@
 .stats--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
 .stats--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 600px) { .stats--3 { grid-template-columns: 1fr; } }
-.stat { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "icon label" "value value" "meta meta"; align-items: center; gap: var(--mg-space-1) var(--mg-space-2);
+.stat { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "icon label" "value value" "meta meta"; align-items: center; gap: var(--mg-space-1) var(--mg-space-2);
   background: var(--mg-surface); border: 1px solid var(--mg-border); padding: var(--mg-space-4); }
 .stat-icon { grid-area: icon; display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: color-mix(in srgb, var(--mg-tidal) 14%, transparent); color: var(--mg-tidal-ink); }
 .stat-icon svg { width: 18px; height: 18px; }
@@ -78,6 +78,8 @@
 .ctl-node .mg-icon { background: currentColor; }
 .ctl-today { position: absolute; top: -26px; bottom: -8px; width: 0; border-left: 2px dashed var(--mg-root); }
 .ctl-today span { position: absolute; top: -4px; left: 6px; font: 500 var(--mg-text-label)/1 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-root); white-space: nowrap; }
+/* Near the rail's right end the label sits left of the line, so it never runs past the page edge. */
+.ctl-today--end span { left: auto; right: 6px; }
 .ctl-labels { position: relative; height: 56px; margin-top: var(--mg-space-5); }
 .ctl-label { position: absolute; transform: translateX(-50%); display: grid; gap: 2px; text-align: center; font-size: var(--mg-text-small); white-space: nowrap; }
 /* Align by position, not by which check: a reconstructed record (ADR-056) puts its lock date last. */
@@ -85,11 +87,16 @@
 .ctl-label--end { transform: translateX(-100%); text-align: right; }
 .ctl-label strong { font-weight: 600; color: var(--mg-text); }
 .ctl-label .mg-mono { color: var(--mg-text-muted); font-size: var(--mg-text-label); }
+/* Phones: the labels are too wide to sit under their dots, so they line up in date order instead. */
+@media (max-width: 640px) {
+  .ctl-labels { display: flex; justify-content: space-between; gap: var(--mg-space-3); height: auto; }
+  .ctl-label, .ctl-label--start, .ctl-label--end { position: static; transform: none; white-space: normal; text-align: left; }
+}
 
 /* ---------- Answers (three questions) ---------- */
 .answer { display: flex; gap: var(--mg-space-3); align-items: flex-start; border-top: 1px solid var(--mg-border); padding-top: var(--mg-space-4); margin-top: var(--mg-space-4); }
 .answers-list .answer:first-child, .answers-grid .answer { border-top: 0; margin-top: 0; padding-top: 0; }
-.answer-body { display: grid; gap: var(--mg-space-2); min-width: 0; }
+.answer-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mg-space-2); min-width: 0; }
 .answer h3 { font: 700 var(--mg-text-h4)/1.25 var(--mg-font-display); color: var(--mg-heading); letter-spacing: 0; text-transform: none; margin: 0; }
 .answers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--mg-space-5); }
 .disagree { list-style: none; margin: 0; padding: var(--mg-space-3); display: grid; gap: var(--mg-space-1); font-size: var(--mg-text-small);
@@ -98,7 +105,7 @@
 .disagree strong { color: var(--mg-text); }
 
 /* ---------- Evidence ---------- */
-.evidence { border-top: 3px solid var(--mg-root); display: grid; gap: var(--mg-space-3); }
+.evidence { border-top: 3px solid var(--mg-root); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mg-space-3); }
 .evidence-head { display: grid; grid-template-columns: auto 1fr; gap: var(--mg-space-3); align-items: start; }
 .evidence-title { min-width: 0; }
 .evidence-title .mg-evidence__meta { margin: 0; }
@@ -110,7 +117,7 @@
 .provenance summary { cursor: pointer; font: 500 var(--mg-text-label)/1.3 var(--mg-font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--mg-text-muted); margin-bottom: var(--mg-space-2); }
 .evidence-limit { margin: 0; font-size: var(--mg-text-small); color: var(--mg-text-muted); }
 .evidence-limit .mg-eyebrow { display: inline; margin: 0 var(--mg-space-2) 0 0; }
-.evidence-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--mg-space-4); }
+.evidence-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: var(--mg-space-4); }
 .evidence-group { margin-top: var(--mg-space-5); }
 .group-title { display: flex; align-items: center; gap: var(--mg-space-2); font: 700 var(--mg-text-h4)/1.3 var(--mg-font-display); color: var(--mg-heading); margin: 0 0 var(--mg-space-3); }
 .group-title .mg-icon { background: currentColor; }
@@ -136,7 +143,9 @@
 @media (max-width: 900px) { .dossier-top { grid-template-columns: 1fr; } }
 .dossier-map { height: 100%; min-height: 420px; border-radius: var(--app-radius); }
 /* Map / 3D switch over the site map (ADR-048: the 2D map carries the GMW mangrove extent; 3D does not). */
-.dossier-mapbox { position: relative; height: 100%; min-height: 420px; }
+/* Sticky beside the questions on wide screens, so it stays in view without stretching to the column's height. */
+.dossier-mapbox { position: sticky; top: 72px; height: clamp(420px, calc(100vh - 96px), 640px); }
+@media (max-width: 900px) { .dossier-mapbox { position: relative; top: auto; height: 420px; } }
 .dossier-mapbox > .dossier-map, .dossier-mapbox > .map { height: 100%; }
 .dossier-map-toggle { position: absolute; top: var(--mg-space-3); left: var(--mg-space-3); z-index: 2; display: flex; gap: var(--mg-space-1);
   padding: var(--mg-space-1); border-radius: var(--mg-radius-sm); background: color-mix(in srgb, var(--mg-surface) 92%, transparent); box-shadow: var(--mg-shadow); }
@@ -376,10 +385,10 @@ html.mg-fonts .field label.ev-qcard, html.mg-fonts .field label.ev-chip, html.mg
 .ev-gps button { white-space: nowrap; }
 .ev-gps input { min-width: 0; width: 100%; }
 /* Site answers: the sources each answer rests on */
-.answer-cites { list-style: none; margin: var(--mg-space-2) 0 0; padding: 0; display: grid; gap: 4px; }
+.answer-cites { list-style: none; margin: var(--mg-space-2) 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
 .answer-cites a { display: flex; align-items: center; gap: var(--mg-space-2); padding: 4px 8px; border-radius: var(--mg-radius-sm, 6px); background: var(--mg-surface-sunk); color: var(--mg-text); text-decoration: none; font-size: var(--mg-text-small); }
 .answer-cites a:hover { color: var(--mg-heading); box-shadow: inset 0 0 0 1px var(--mg-tidal); }
-.answer-cites a > span:nth-of-type(2) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.answer-cite-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .answer-cite-n { flex: none; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--mg-tidal); color: #fff; font-size: 11px; font-weight: 700; }
 .answer-cite-date { flex: none; color: var(--mg-text-muted); font-size: 12px; }
 
@@ -402,13 +411,18 @@ html.mg-fonts .field label.ev-qcard, html.mg-fonts .field label.ev-chip, html.mg
 .panel-tabs button:focus-visible { outline: 2px solid var(--mg-tidal); outline-offset: 2px; }
 
 /* ---------- Program card (API-026): a public program's figures, quoted as published (EQ-017) ---------- */
-.program-card { display: grid; gap: var(--mg-space-4); margin: var(--mg-space-5) 0; }
+.program-card { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mg-space-4); margin: var(--mg-space-5) 0; }
+/* Phones: the need/target table scrolls inside the card instead of widening the page. */
+@media (max-width: 640px) { .program-table { display: block; overflow-x: auto; } }
 .program-head { display: grid; gap: var(--mg-space-2); }
 .program-head .mg-eyebrow { margin: 0; }
 .program-title { font: 700 clamp(1.75rem, 3.6vw, 2.75rem)/1.1 var(--mg-font-display); letter-spacing: -0.02em; color: var(--mg-heading); margin: 0; }
 .program-stats { margin: 0; }
 .program-stat { grid-template-areas: "icon label" "value value" "meta meta" "src src" "note note"; }
 .program-stat .program-stat-src { grid-area: src; }
+/* Five tiles in a row: quoted figures like "₱16,500/ha" must fit their tile. */
+.program-stat .stat-value { font-size: clamp(1.4rem, 2.1vw, 1.9rem); overflow-wrap: break-word; }
+.program-stat .program-stat-src .mg-cite { white-space: normal; line-height: 1.35; overflow-wrap: anywhere; max-width: 100%; }
 .program-stat-note { grid-area: note; font-size: var(--mg-text-label); color: var(--mg-text-muted); }
 .program-source { display: inline-flex; align-items: center; gap: 4px; white-space: normal; }
 .program-source:hover { text-decoration: underline; }

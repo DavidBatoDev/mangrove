@@ -126,7 +126,7 @@ export function CheckTimeline({
             {p.icon}
           </span>
         ))}
-        <span className="ctl-today" style={{ left: `${pos(today)}%` }}>
+        <span className={`ctl-today${pos(today) > 80 ? " ctl-today--end" : ""}`} style={{ left: `${pos(today)}%` }}>
           <span>Today</span>
         </span>
       </div>
@@ -134,7 +134,7 @@ export function CheckTimeline({
         {points.map((p) => (
           <span
             key={p.key}
-            style={{ left: `${p.at}%` }}
+            style={{ left: `${p.at}%`, order: Math.round(p.at) }}
             className={`ctl-label ctl-label--${p.key} ctl-label--${p.at <= 0 ? "start" : p.at >= 100 ? "end" : "mid"}`}
           >
             <strong>{p.label}</strong>
