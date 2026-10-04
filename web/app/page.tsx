@@ -10,7 +10,7 @@ import { ProgramCallout } from "@/components/ProgramCard";
 import { DemoLabel, Empty, ErrorBox, Loading, PinLabel } from "@/components/ui";
 import { useApi } from "@/hooks/useApi";
 import * as api from "@/lib/api";
-import { formatDate } from "@/lib/format";
+import { formatDate, snapshotSite } from "@/lib/format";
 import { pinSvg } from "@/lib/pin-icons";
 import type { SitesFC } from "@/lib/types";
 
@@ -47,7 +47,7 @@ function PublicMap() {
   const selectedSite = useApi(async (): Promise<SitesFC | null> => {
     if (!selectedId) return null;
     const rec = await api.getRecord(selectedId);
-    const siteId = (rec.record.snapshot as { site_id?: string }).site_id;
+    const siteId = snapshotSite(rec.record).id;
     if (!siteId) return null;
     const { site } = await api.getSite(siteId);
     return { type: "FeatureCollection", features: [{ type: "Feature", geometry: site.geometry, properties: { id: site.id, name: site.name, region: site.region, is_demo: site.is_demo, area: site.area } }] };
@@ -55,8 +55,9 @@ function PublicMap() {
 
   const selected = pins.data?.features.find((f) => f.properties.id === selectedId) ?? null;
   const lonLat = selected ? (selected.geometry.coordinates as [number, number]) : null;
-  // Zoom all the way in to the site (17 = closest zoom of the EOx imagery; Google goes further but 17 frames a site).
-  const focus = lonLat ? { center: lonLat, zoom: 17, key: selectedId ?? "" } : null;
+  // Zoom in to the site with its surroundings: at 15 the outline, the shore and the nearest town are all in view
+  // (17 put the camera inside a town's shop labels and cut the site outline off).
+  const focus = lonLat ? { center: lonLat, zoom: 15, key: selectedId ?? "" } : null;
 
   return (
     <>
@@ -64,6 +65,7 @@ function PublicMap() {
     <MapShell
       pins={pins.data}
       sites={selectedSite.data}
+      highlightSiteIds={selectedSite.data?.features.map((f) => f.properties.id)}
       layers={{ pins: true }}
       onPinClick={(id) => select(id)}
       selectedPinId={selectedId}
@@ -78,8 +80,6 @@ function PublicMap() {
         />
       ) : (
         <>
-          {country.data && <CountryCard c={country.data} />}
-
           <h1>Mangrove funding promises</h1>
           <p className="lede">Each pin is a promise made public before the money moved. Pick one to see whether the evidence agrees.</p>
 
@@ -111,6 +111,8 @@ function PublicMap() {
             </ul>
           )}
 
+          {/* National context after the promises: the panel opens on what the page is for. */}
+          {country.data && <CountryCard c={country.data} />}
         </>
       )}
     </MapShell>

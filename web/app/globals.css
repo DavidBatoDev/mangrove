@@ -39,6 +39,15 @@ code, .mono { font-family: var(--mg-font-mono); font-size: 0.85em; word-break: b
 .session .mg-btn--secondary { color: var(--mg-on-dark-text); }
 .mock-flag { font: 500 var(--mg-text-label)/1 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-on-dark-muted);
   border: 1px dashed var(--mg-on-dark-muted); border-radius: var(--mg-radius-sm); padding: 4px 6px; }
+/* Phones: brand and the two buttons share the first row, the nav takes the second. */
+@media (max-width: 640px) {
+  .header { gap: var(--mg-space-2) var(--mg-space-3); padding: var(--mg-space-2) var(--mg-space-4); }
+  .brand-meaning { display: none; }
+  .session { margin-left: auto; gap: var(--mg-space-2); }
+  .session .mg-btn { padding: 6px 10px; }
+  .help-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .nav { order: 3; flex: 1 0 100%; gap: var(--mg-space-4); padding-bottom: var(--mg-space-1); }
+}
 
 .main { max-width: 1200px; margin: 0 auto; padding: var(--mg-space-5) var(--mg-page-x, 16px) var(--mg-space-8); }
 .lede { color: var(--mg-text-muted); margin: 0 0 var(--mg-space-4); max-width: 60ch; }
@@ -65,14 +74,14 @@ code, .mono { font-family: var(--mg-font-mono); font-size: 0.85em; word-break: b
 .map-pin:hover, .map-pin:focus-visible { z-index: 3; }
 
 /* Lists and key/value */
-.stack { display: grid; gap: var(--mg-space-4); }
+.stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mg-space-4); }
 .list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--mg-space-2); }
 .list li { background: var(--mg-surface); border: 1px solid var(--mg-border); border-radius: var(--mg-radius-md); padding: var(--mg-space-3) var(--mg-space-4); display: grid; gap: var(--mg-space-1); justify-items: start; }
 .list li.selected { border-color: var(--mg-canopy); box-shadow: inset 0 0 0 2px var(--mg-canopy); }
 .list li a strong { font: 700 var(--mg-text-h4)/1.25 var(--mg-font-display); }
-.kv { display: grid; grid-template-columns: max-content 1fr; gap: var(--mg-space-2) var(--mg-space-5); margin: 0; font-size: var(--mg-text-small); }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--mg-space-2) var(--mg-space-5); margin: 0; font-size: var(--mg-text-small); }
 .kv dt { font: 500 var(--mg-text-label)/1.6 var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-text-muted); }
-.kv dd { margin: 0; }
+.kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .meta { color: var(--mg-text-muted); font-size: var(--mg-text-small); }
 
 /* Status line: chip (mark + word) + finding + source count (BRAND.md §6) */
@@ -83,6 +92,10 @@ code, .mono { font-family: var(--mg-font-mono); font-size: 0.85em; word-break: b
 .measure-meta { display: inline-flex; align-items: center; gap: var(--mg-space-2); margin-left: var(--mg-space-2); color: var(--mg-text-muted); font-size: var(--mg-text-label); }
 .measure-meta .mg-conf { font-size: 10px; }
 .real-case { display: inline-block; padding: 3px 8px; border: 1px solid var(--mg-brackish); border-radius: var(--mg-radius-sm); font: 500 var(--mg-text-label)/1.2 var(--mg-font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mg-text-muted); white-space: nowrap; }
+/* The real-case badge shows on hover or keyboard focus only: side by side at country zoom the badges overlapped.
+   The dashed Demo data badge stays on always (BR-006). */
+.map-pin-real { display: none; }
+.map-pin:hover .map-pin-real, .map-pin:focus-visible .map-pin-real { display: block; }
 .map-pin-real { position: absolute; left: 50%; top: -11px; transform: translateX(-50%); font: 500 9px/13px var(--mg-font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mg-mudflat); background: var(--mg-mist); border: 1px solid var(--mg-brackish); border-radius: var(--mg-radius-sm); padding: 0 3px; white-space: nowrap; pointer-events: none; }
 .evidence-source { margin: var(--mg-space-2) 0 0; font-size: var(--mg-text-small); }
 .evidence-source a { font-weight: 600; }

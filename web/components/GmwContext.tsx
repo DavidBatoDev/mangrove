@@ -170,7 +170,7 @@ function SiteTrend({
           <path className="gmw-line gmw-line--inside" d={path("inside")} />
           <line className="gmw-waterline" x1={PAD.l} x2={W - PAD.r} y1={y(0)} y2={y(0)} />
           <text className="gmw-axis" x={PAD.l - 6} y={y(0) + 4} textAnchor="end">
-            0 hectares
+            0
           </text>
           {ticks.map((v) => (
             <text key={v} className="gmw-axis" x={x(v)} y={H - 6} textAnchor={v === last.year ? "end" : v === first.year ? "start" : "middle"}>
@@ -185,6 +185,7 @@ function SiteTrend({
           <span>
             <i className="gmw-key gmw-key--inside" /> Inside the site <span className="mg-mono">EQ-002</span>
           </span>
+          <span className="mg-mono">hectares</span>
         </figcaption>
       </figure>
 

@@ -43,7 +43,7 @@ export default function Header() {
         </button>
         {onHome && (
           <button type="button" className="mg-btn mg-btn--secondary ask-btn" onClick={requestTour} title="Show the guided tour">
-            <CircleHelp size={16} strokeWidth={1.75} aria-hidden /> Help
+            <CircleHelp size={16} strokeWidth={1.75} aria-hidden /> <span className="help-label">Help</span>
           </button>
         )}
         {USE_MOCKS && <span className="mock-flag" title="Reading fixtures, not the API (P0)">Fixtures</span>}
